@@ -1,0 +1,18 @@
+[package]
+name = "dev_qunix_theme"
+description = "theme for Calagopus Panel."
+authors = ["Mrbeenopro"]
+version = "1.0.0"
+edition = { workspace = true }
+
+[dependencies]
+shared = { workspace = true }
+async-trait = { workspace = true }
+tracing = { workspace = true }
+serde = { workspace = true }
+anyhow = { workspace = true }
+compact_str = { workspace = true }
+utoipa = { workspace = true }
+utoipa-axum = { workspace = true }
+axum = { workspace = true }
+garde = { workspace = true }

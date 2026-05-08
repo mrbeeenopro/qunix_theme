@@ -1,0 +1,419 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+
+:root {
+  --ds-font-family: "JetBrains Mono", monospace;
+  --ds-background: #000000;
+  --ds-sidebar-bg: #050505;
+  --ds-navbar-bg: #111111;
+  --ds-card-bg: #0a0a0abd;
+  --ds-terminal-bg: #000000;
+  --ds-terminal-text: #ffffff;
+  --ds-editor-bg: #000000;
+  --ds-editor-text: #ffffff;
+  --ds-input-bg: #111111;
+  --ds-primary-color: #0a72ef;
+  --mantine-color-blue-filled: var(--ds-primary-color) !important;
+  --mantine-color-blue-filled-hover: color-mix(in srgb, var(--ds-primary-color) 85%, black) !important;
+  --mantine-primary-color-filled: var(--ds-primary-color) !important;
+  --mantine-primary-color-filled-hover: color-mix(in srgb, var(--ds-primary-color) 85%, black) !important;
+  --ds-border-color: rgba(255, 255, 255, 0.1);
+  --ds-border-radius: 8px;
+  --ds-button-radius: 8px;
+  --ds-input-radius: 8px;
+  --ds-card-radius: 8px;
+  --ds-navbar-height: 64px;
+  --ds-gray-100: #111111;
+  --ds-gray-800: #888888;
+  --ds-gray-900: #ffffff;
+  --ds-focus-color: hsla(212, 100%, 48%, 1);
+  --ds-shadow-border: 0px 0px 0px 1px var(--ds-border-color);
+
+  /* New Customization Variables */
+  --ds-sidebar-item-gap: 4px;
+  --ds-sidebar-animation: 1;
+  /* 1 for true, 0 for false */
+  --ds-background-image: none;
+  --ds-sidebar-blur: 0px;
+  --ds-sidebar-blur-active: none;
+  --ds-wallpaper-blur: 0px;
+  --ds-wallpaper-brightness: 1;
+  --ds-listing-bg: #0a0a0a;
+  --ds-glass-transparency: 20%;
+  --mantine-color-dark-6: var(--ds-navbar-bg);
+}
+
+/* 1. Global Reset & Body */
+html,
+body,
+#root,
+#app,
+.mantine-AppShell-root,
+.mantine-AppShell-main,
+main,
+section {
+  background-color: var(--ds-background) !important;
+  color: var(--ds-gray-900) !important;
+  font-family: var(--ds-font-family), "JetBrains Mono", monospace !important;
+}
+
+html.has-bg-image,
+body.has-bg-image,
+.has-bg-image #root,
+.has-bg-image #app,
+.has-bg-image .mantine-AppShell-root,
+.has-bg-image .mantine-AppShell-main,
+.has-bg-image main,
+.has-bg-image section {
+  background-color: transparent !important;
+}
+
+html.has-bg-image::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--ds-background);
+  z-index: -3;
+}
+
+html.has-bg-image::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: var(--ds-background-image);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  filter: blur(var(--ds-wallpaper-blur));
+  opacity: var(--ds-wallpaper-brightness);
+  z-index: -2;
+  pointer-events: none;
+}
+
+* {
+  font-family: "JetBrains Mono", monospace !important;
+}
+
+/* 2. General Surfaces (Paper, Card) */
+.mantine-Card-root,
+.mantine-Paper-root,
+.card,
+.container-card {
+  border: 1px solid var(--ds-border-color) !important;
+  background-color: var(--ds-card-bg) !important;
+  backdrop-filter: var(--ds-sidebar-blur-active) !important;
+  -webkit-backdrop-filter: var(--ds-sidebar-blur-active) !important;
+  color: var(--ds-gray-900) !important;
+  border-radius: var(--ds-card-radius) !important;
+}
+
+.mantine-Modal-content,
+.mantine-Menu-dropdown {
+  border: 1px solid var(--ds-border-color) !important;
+  background-color: var(--ds-card-bg) !important;
+  background-image: none !important;
+  backdrop-filter: var(--ds-sidebar-blur-active) !important;
+  -webkit-backdrop-filter: var(--ds-sidebar-blur-active) !important;
+  color: var(--ds-gray-900) !important;
+  border-radius: var(--ds-card-radius) !important;
+  box-shadow:
+    var(--ds-shadow-border),
+    0 20px 25px -5px rgba(0, 0, 0, 0.3) !important;
+}
+
+.mantine-Menu-dropdown {
+  background-color: var(--ds-navbar-bg) !important;
+}
+
+body.has-bg-image .mantine-Card-root,
+body.has-bg-image .mantine-Paper-root,
+body.has-bg-image .card,
+body.has-bg-image .container-card {
+  background-color: color-mix(in srgb, var(--ds-card-bg), transparent var(--ds-glass-transparency)) !important;
+}
+
+body.has-bg-image .mantine-Modal-content,
+body.has-bg-image .mantine-Menu-dropdown {
+  background-color: color-mix(in srgb, var(--ds-card-bg), transparent var(--ds-glass-transparency)) !important;
+}
+
+/* 3. General Elements (Buttons, Inputs) */
+.mantine-Button-root {
+  border: 1px solid var(--ds-border-color) !important;
+  border-radius: var(--ds-button-radius) !important;
+  transition: transform 0.1s ease;
+}
+
+.mantine-Button-root:active {
+  transform: scale(0.98);
+}
+
+.mantine-Button-filled.mantine-Button-dark {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: none !important;
+}
+
+.mantine-TextInput-input,
+.mantine-PasswordInput-input,
+.mantine-Select-input,
+.mantine-Textarea-input {
+  border: 1px solid var(--ds-border-color) !important;
+  background-color: var(--ds-input-bg) !important;
+  color: var(--ds-gray-900) !important;
+  border-radius: var(--ds-input-radius) !important;
+}
+
+.mantine-TextInput-input:focus,
+.mantine-PasswordInput-input:focus,
+.mantine-Select-input:focus,
+.mantine-Textarea-input:focus {
+  box-shadow: 0px 0px 0px 2px var(--ds-focus-color) !important;
+}
+
+.mantine-AppShell-header {
+  background-color: var(--ds-navbar-bg) !important;
+  background-image: none !important;
+  backdrop-filter: var(--ds-sidebar-blur-active) !important;
+  -webkit-backdrop-filter: var(--ds-sidebar-blur-active) !important;
+  height: var(--ds-navbar-height) !important;
+  border-bottom: 1px solid var(--ds-border-color) !important;
+  z-index: 100;
+}
+
+.mantine-AppShell-navbar,
+.sidebar,
+.mantine-Drawer-content,
+.mantine-Drawer-inner .mantine-Paper-root {
+  background-color: var(--ds-sidebar-bg) !important;
+  background-image: none !important;
+  backdrop-filter: var(--ds-sidebar-blur-active) !important;
+  -webkit-backdrop-filter: var(--ds-sidebar-blur-active) !important;
+  border-right: 1px solid var(--ds-border-color) !important;
+  padding-top: var(--ds-sidebar-item-gap) !important;
+}
+
+body.has-bg-image .mantine-AppShell-navbar,
+body.has-bg-image .sidebar,
+body.has-bg-image .mantine-Drawer-content,
+body.has-bg-image .mantine-Drawer-inner .mantine-Paper-root {
+  background-color: color-mix(in srgb, var(--ds-sidebar-bg), transparent var(--ds-glass-transparency)) !important;
+}
+
+[id="title-card-header"] {
+  background-color: var(--ds-navbar-bg) !important;
+}
+
+body.has-bg-image [id="title-card-header"],
+body.has-bg-image .mantine-AppShell-header {
+  background-color: color-mix(in srgb, var(--ds-navbar-bg), transparent var(--ds-glass-transparency)) !important;
+}
+
+/* 4. Tables & Lists - Fix for Files, Users, Eggs, Nodes */
+.mantine-Table-root,
+.mantine-Table-thead,
+.mantine-Table-tbody,
+.mantine-Table-tr,
+.mantine-Table-td,
+.mantine-Table-th,
+.mantine-Table-ScrollContainer {
+  background-color: var(--ds-listing-bg) !important;
+  backdrop-filter: var(--ds-sidebar-blur-active) !important;
+  -webkit-backdrop-filter: var(--ds-sidebar-blur-active) !important;
+}
+
+body.has-bg-image .mantine-Table-root,
+body.has-bg-image .mantine-Table-thead,
+body.has-bg-image .mantine-Table-tbody,
+body.has-bg-image .mantine-Table-tr,
+body.has-bg-image .mantine-Table-td,
+body.has-bg-image .mantine-Table-th,
+body.has-bg-image .mantine-Table-ScrollContainer {
+  background-color: color-mix(in srgb, var(--ds-listing-bg), transparent var(--ds-glass-transparency)) !important;
+}
+
+.mantine-Table-tr:hover {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+/* Sidebar NavLinks & Spacing */
+.sidebar > *,
+.mantine-AppShell-navbar > *,
+.mantine-AppShell-navbar > div > * {
+  gap: var(--ds-sidebar-item-gap) !important;
+}
+
+.mantine-NavLink-root {
+  display: block !important;
+  margin-bottom: var(--ds-sidebar-item-gap) !important;
+  margin-left: 8px !important;
+  margin-right: 8px !important;
+  border-radius: 6px !important;
+  transition: all 0.2s ease !important;
+}
+
+.mantine-NavLink-root[data-active] {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.mantine-NavLink-root:hover {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+/* Click Animation Logic & Glow */
+.mantine-NavLink-root::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    300px circle at var(--mouse-x, -100%) var(--mouse-y, -100%),
+    rgba(255, 255, 255, 0.05),
+    transparent 60%
+  );
+  opacity: calc(var(--ds-sidebar-animation) * 1);
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.mantine-NavLink-root > * {
+  position: relative;
+  z-index: 1;
+}
+
+.mantine-NavLink-root:active {
+  transform: scale(calc(1 - (0.04 * var(--ds-sidebar-animation)))) !important;
+}
+
+/* Sidebar Icon Fix - ensure no background boxes */
+.mantine-NavLink-icon,
+.mantine-NavLink-icon * {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* 5. Terminal & Code Editor - Reordered to win over Paper/Card */
+.xterm-viewport,
+.xterm-screen,
+.xterm-rows,
+.xterm-container,
+.terminal-container,
+.terminal,
+.terminal-window {
+  background-color: var(--ds-terminal-bg) !important;
+  color: var(--ds-terminal-text) !important;
+  font-family: "JetBrains Mono", monospace !important;
+}
+
+.xterm-rows,
+.xterm-rows * {
+  font-family: "JetBrains Mono", monospace !important;
+}
+
+.cm-editor,
+.cm-scroller,
+[class*="monaco-editor"] {
+  background-color: var(--ds-editor-bg) !important;
+  color: var(--ds-editor-text) !important;
+  font-family: "JetBrains Mono", monospace !important;
+}
+
+.xterm-rows {
+  color: var(--ds-terminal-text) !important;
+}
+
+code,
+pre,
+.xterm,
+.xterm *,
+[class*="monaco"],
+.cm-editor,
+.cm-editor * {
+  font-family: "JetBrains Mono", monospace !important;
+}
+
+/* 6. Typography & Small Fixes */
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3 {
+  letter-spacing: normal !important;
+  line-height: 1.2 !important;
+  color: var(--ds-gray-900) !important;
+}
+
+.workflow-develop {
+  color: #0a72ef !important;
+}
+
+.workflow-preview {
+  color: #de1d8d !important;
+}
+
+.workflow-ship {
+  color: #ff5b4f !important;
+}
+
+*:not(
+    code,
+    pre,
+    .xterm,
+    .xterm *,
+    [class*="monaco"],
+    .cm-editor,
+    .cm-editor *,
+    .fa,
+    .fas,
+    .far,
+    .fab,
+    .fal,
+    .fad,
+    .fat,
+    svg,
+    i
+  ) {
+  font-variant-ligatures: common-ligatures;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+i,
+svg,
+img,
+.fa,
+.fas,
+.far,
+.fab,
+[class*="icon"] {
+  vertical-align: middle !important;
+  background-color: transparent !important;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ds-gray-100);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #cccccc;
+}
