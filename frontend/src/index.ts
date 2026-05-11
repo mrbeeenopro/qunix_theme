@@ -15,11 +15,10 @@ public initialize(ctx: ExtensionContext): void {
     console.log(
         '%c Qunix Theme - © 2026 Mrbeenopro (mrbeenopro.com)\n' +
         '%c get this theme at https://github.com/mrbeeenopro/qunix_theme\n' +
-        "any questions or issues? Join the discussion at https://github.com/mrbeeenopro/qunix_theme/discussions"
+        "any questions or issues? Join the discussion at https://github.com/mrbeeenopro/qunix_theme/discussions",
         titleStyle, 
         textStyle   
     );
-}
 
     axiosInstance
       .get('/api/dev.qunix.theme/settings')

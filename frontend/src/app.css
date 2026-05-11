@@ -243,9 +243,9 @@ body.has-bg-image .mantine-Table-ScrollContainer {
 }
 
 /* Sidebar NavLinks & Spacing */
-.sidebar > *,
-.mantine-AppShell-navbar > *,
-.mantine-AppShell-navbar > div > * {
+.sidebar>*,
+.mantine-AppShell-navbar>*,
+.mantine-AppShell-navbar>div>* {
   gap: var(--ds-sidebar-item-gap) !important;
 }
 
@@ -274,18 +274,16 @@ body.has-bg-image .mantine-Table-ScrollContainer {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(
-    300px circle at var(--mouse-x, -100%) var(--mouse-y, -100%),
-    rgba(255, 255, 255, 0.05),
-    transparent 60%
-  );
+  background: radial-gradient(300px circle at var(--mouse-x, -100%) var(--mouse-y, -100%),
+      rgba(255, 255, 255, 0.05),
+      transparent 60%);
   opacity: calc(var(--ds-sidebar-animation) * 1);
   transition: opacity 0.3s;
   pointer-events: none;
   z-index: 0;
 }
 
-.mantine-NavLink-root > * {
+.mantine-NavLink-root>* {
   position: relative;
   z-index: 1;
 }
@@ -365,24 +363,22 @@ h3,
   color: #ff5b4f !important;
 }
 
-*:not(
-    code,
-    pre,
-    .xterm,
-    .xterm *,
-    [class*="monaco"],
-    .cm-editor,
-    .cm-editor *,
-    .fa,
-    .fas,
-    .far,
-    .fab,
-    .fal,
-    .fad,
-    .fat,
-    svg,
-    i
-  ) {
+*:not(code,
+  pre,
+  .xterm,
+  .xterm *,
+  [class*="monaco"],
+  .cm-editor,
+  .cm-editor *,
+  .fa,
+  .fas,
+  .far,
+  .fab,
+  .fal,
+  .fad,
+  .fat,
+  svg,
+  i) {
   font-variant-ligatures: common-ligatures;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
