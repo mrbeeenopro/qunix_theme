@@ -8,17 +8,25 @@ class QunixThemeExtension extends Extension {
   public cardConfigurationPage = ConfigurationPage;
   public cardComponent = null;
 
-  public initialize(ctx: ExtensionContext): void {
-    console.log('Qunix Theme Extension initialized!');
+public initialize(ctx: ExtensionContext): void {
+    const titleStyle = 'color: #6200ffec; font-weight: bold; font-size: 14px; font-family: monospace;';
+    const textStyle = 'color: #a7a7a7; font-size: 12px; font-family: monospace;';
 
-    // Fetch settings from the public endpoint and apply them
+    console.log(
+        '%c Qunix Theme - © 2026 Mrbeenopro (mrbeenopro.com)\n' +
+        '%c get this theme at https://github.com/mrbeeenopro/qunix_theme\n' +
+        "any questions or issues? Join the discussion at https://github.com/mrbeeenopro/qunix_theme/discussions"
+        titleStyle, 
+        textStyle   
+    );
+}
+
     axiosInstance
       .get('/api/dev.qunix.theme/settings')
       .then((res) => {
         const s = res.data.settings;
         const root = document.documentElement;
 
-        // Handle both snake_case and camelCase (axios transformation)
         const backgroundColor = s.background_color || s.backgroundColor;
         const textColor = s.text_color || s.textColor;
         const focusColor = s.focus_color || s.focusColor;
@@ -116,7 +124,6 @@ class QunixThemeExtension extends Extension {
       })
       .catch((err) => console.error('Failed to load theme settings:', err));
 
-    // Global mousemove listener for sidebar glow animation
     if (typeof window !== 'undefined') {
       window.addEventListener('mousemove', (e) => {
         if (document.documentElement.style.getPropertyValue('--ds-sidebar-animation') !== '1') return;

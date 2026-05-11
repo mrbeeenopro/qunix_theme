@@ -2,34 +2,34 @@
 
 :root {
   --ds-font-family: "JetBrains Mono", monospace;
-  --ds-background: #000000;
-  --ds-sidebar-bg: #050505;
-  --ds-navbar-bg: #111111;
-  --ds-card-bg: #0a0a0abd;
-  --ds-terminal-bg: #000000;
-  --ds-terminal-text: #ffffff;
-  --ds-editor-bg: #000000;
-  --ds-editor-text: #ffffff;
-  --ds-input-bg: #111111;
-  --ds-primary-color: #0a72ef;
+  --ds-background: #1a1b26;
+  --ds-sidebar-bg: #16161e;
+  --ds-navbar-bg: #1f2335;
+  --ds-card-bg: rgba(36, 40, 59, 0.74);
+  --ds-terminal-bg: #1a1b26;
+  --ds-terminal-text: #a9b1d6;
+  --ds-editor-bg: #1a1b26;
+  --ds-editor-text: #c0caf5;
+  --ds-input-bg: #24283b;
+  --ds-primary-color: #7aa2f7;
   --mantine-color-blue-filled: var(--ds-primary-color) !important;
   --mantine-color-blue-filled-hover: color-mix(in srgb, var(--ds-primary-color) 85%, black) !important;
   --mantine-primary-color-filled: var(--ds-primary-color) !important;
   --mantine-primary-color-filled-hover: color-mix(in srgb, var(--ds-primary-color) 85%, black) !important;
-  --ds-border-color: rgba(255, 255, 255, 0.1);
+  --ds-border-color: rgba(154, 165, 233, 0.15);
   --ds-border-radius: 8px;
   --ds-button-radius: 8px;
   --ds-input-radius: 8px;
   --ds-card-radius: 8px;
   --ds-navbar-height: 64px;
-  --ds-gray-100: #111111;
-  --ds-gray-800: #888888;
-  --ds-gray-900: #ffffff;
-  --ds-focus-color: hsla(212, 100%, 48%, 1);
+  --ds-gray-100: #24283b;
+  --ds-gray-800: #565f89;
+  --ds-gray-900: #c0caf5;
+  --ds-focus-color: #bb9af7;
   --ds-shadow-border: 0px 0px 0px 1px var(--ds-border-color);
 
   /* New Customization Variables */
-  --ds-sidebar-item-gap: 4px;
+  --ds-sidebar-item-gap: 10px;
   --ds-sidebar-animation: 1;
   /* 1 for true, 0 for false */
   --ds-background-image: none;
@@ -42,7 +42,7 @@
   --mantine-color-dark-6: var(--ds-navbar-bg);
 }
 
-/* 1. Global Reset & Body */
+/* 1. Global*/
 html,
 body,
 #root,
@@ -100,7 +100,7 @@ html.has-bg-image::after {
   font-family: "JetBrains Mono", monospace !important;
 }
 
-/* 2. General Surfaces (Paper, Card) */
+/* 2. General Surfaces */
 .mantine-Card-root,
 .mantine-Paper-root,
 .card,
@@ -143,7 +143,7 @@ body.has-bg-image .mantine-Menu-dropdown {
   background-color: color-mix(in srgb, var(--ds-card-bg), transparent var(--ds-glass-transparency)) !important;
 }
 
-/* 3. General Elements (Buttons, Inputs) */
+/* 3. General Elements */
 .mantine-Button-root {
   border: 1px solid var(--ds-border-color) !important;
   border-radius: var(--ds-button-radius) !important;
@@ -215,7 +215,7 @@ body.has-bg-image .mantine-AppShell-header {
   background-color: color-mix(in srgb, var(--ds-navbar-bg), transparent var(--ds-glass-transparency)) !important;
 }
 
-/* 4. Tables & Lists - Fix for Files, Users, Eggs, Nodes */
+/* 4. Tables & Lists  */
 .mantine-Table-root,
 .mantine-Table-thead,
 .mantine-Table-tbody,
@@ -266,7 +266,7 @@ body.has-bg-image .mantine-Table-ScrollContainer {
   background-color: rgba(255, 255, 255, 0.03) !important;
 }
 
-/* Click Animation Logic & Glow */
+/* Click Animation */
 .mantine-NavLink-root::before {
   content: "";
   position: absolute;
@@ -294,14 +294,14 @@ body.has-bg-image .mantine-Table-ScrollContainer {
   transform: scale(calc(1 - (0.04 * var(--ds-sidebar-animation)))) !important;
 }
 
-/* Sidebar Icon Fix - ensure no background boxes */
+/* Sidebar */
 .mantine-NavLink-icon,
 .mantine-NavLink-icon * {
   background-color: transparent !important;
   background-image: none !important;
 }
 
-/* 5. Terminal & Code Editor - Reordered to win over Paper/Card */
+/* xterm */
 .xterm-viewport,
 .xterm-screen,
 .xterm-rows,
@@ -341,7 +341,7 @@ pre,
   font-family: "JetBrains Mono", monospace !important;
 }
 
-/* 6. Typography & Small Fixes */
+/* Fix some stuff */
 h1,
 .h1,
 h2,

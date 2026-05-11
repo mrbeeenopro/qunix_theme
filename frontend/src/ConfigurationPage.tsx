@@ -15,21 +15,21 @@ export default function ConfigurationPage() {
   const { addToast } = useToast();
   const [loading, setLoading] = useState(false);
 
-  const form = useForm<z.infer<typeof qunixThemeSettingsSchema>>({
+const form = useForm<z.infer<typeof qunixThemeSettingsSchema>>({
     initialValues: {
-      background_color: '#000000',
-      text_color: '#ffffff',
-      focus_color: 'hsla(212, 100%, 48%, 1)',
-      shadow_opacity: 0.145,
+      background_color: '#1a1b26',
+      text_color: '#c0caf5',
+      focus_color: 'hsla(261, 84%, 79%, 1)',
+      shadow_opacity: 0.25,
       font_family: 'JetBrains Mono',
-      sidebar_color: '#050505',
-      card_color: '#0a0a0abd',
-      border_color: 'rgba(255, 255, 255, 0.1)',
+      sidebar_color: '#16161e',
+      card_color: 'rgba(36, 40, 59, 0.74)',
+      border_color: 'rgba(154, 165, 233, 0.15)',
       border_radius: 8,
-      navbar_color: '#111111',
-      terminal_color: '#000000',
-      terminal_text_color: '#ffffff',
-      input_color: '#111111',
+      navbar_color: '#1f2335',
+      terminal_color: '#1a1b26',
+      terminal_text_color: '#a9b1d6',
+      input_color: '#24283b',
       button_radius: 8,
       input_radius: 8,
       card_radius: 8,
@@ -41,11 +41,11 @@ export default function ConfigurationPage() {
       wallpaper_blur: 0,
       wallpaper_brightness: 1.0,
       glass_transparency: 20,
-      editor_color: '#000000',
-      editor_text_color: '#ffffff',
-      listing_color: '#0a0a0a',
-      button_color: '#0a72ef',
-      graph_color: '#0e7490',
+      editor_color: '#1a1b26',
+      editor_text_color: '#c0caf5',
+      listing_color: '#24283b',
+      button_color: '#7aa2f7',
+      graph_color: '#7dcfff',
     },
     validate: zodResolver(qunixThemeSettingsSchema),
   });
@@ -56,21 +56,21 @@ export default function ConfigurationPage() {
       .then((res) => {
         const s = res.data.settings;
         form.setValues({
-          background_color: s.background_color || s.backgroundColor || '#000000',
-          text_color: s.text_color || s.textColor || '#ffffff',
-          focus_color: s.focus_color || s.focusColor || 'hsla(212, 100%, 48%, 1)',
+          background_color: s.background_color || s.backgroundColor || '#1a1b26',
+          text_color: s.text_color || s.textColor || '#c0caf5',
+          focus_color: s.focus_color || s.focusColor || 'hsla(261, 84%, 79%, 1)',
           shadow_opacity:
-            s.shadow_opacity !== undefined ? s.shadow_opacity : s.shadowOpacity !== undefined ? s.shadowOpacity : 0.145,
+            s.shadow_opacity !== undefined ? s.shadow_opacity : s.shadowOpacity !== undefined ? s.shadowOpacity : 0.25,
           font_family: s.font_family || s.fontFamily || 'JetBrains Mono',
-          sidebar_color: s.sidebar_color || s.sidebarColor || '#050505',
-          card_color: s.card_color || s.cardColor || '#0a0a0a',
-          border_color: s.border_color || s.borderColor || 'rgba(255, 255, 255, 0.1)',
+          sidebar_color: s.sidebar_color || s.sidebarColor || '#16161e',
+          card_color: s.card_color || s.cardColor || 'rgba(36, 40, 59, 0.74)',
+          border_color: s.border_color || s.borderColor || 'rgba(154, 165, 233, 0.15)',
           border_radius:
             s.border_radius !== undefined ? s.border_radius : s.borderRadius !== undefined ? s.borderRadius : 8,
-          navbar_color: s.navbar_color || s.navbarColor || '#111111',
-          terminal_color: s.terminal_color || s.terminalColor || '#000000',
-          terminal_text_color: s.terminal_text_color || s.terminalTextColor || '#ffffff',
-          input_color: s.input_color || s.inputColor || '#111111',
+          navbar_color: s.navbar_color || s.navbarColor || '#1f2335',
+          terminal_color: s.terminal_color || s.terminalColor || '#1a1b26',
+          terminal_text_color: s.terminal_text_color || s.terminalTextColor || '#a9b1d6',
+          input_color: s.input_color || s.inputColor || '#24283b',
           button_radius:
             s.button_radius !== undefined ? s.button_radius : s.buttonRadius !== undefined ? s.buttonRadius : 8,
           input_radius: s.input_radius !== undefined ? s.input_radius : s.inputRadius !== undefined ? s.inputRadius : 8,
@@ -114,7 +114,6 @@ export default function ConfigurationPage() {
       .catch((err) => addToast(httpErrorToHuman(err), 'error'));
   }, []);
 
-  // Instant Preview Logic
   useEffect(() => {
     const root = document.documentElement;
     const s = form.values;
@@ -186,7 +185,6 @@ export default function ConfigurationPage() {
   ]);
 
   const doSave = () => {
-    // Sanitize payload to ensure only expected fields are sent
     const payload = {
       background_color: form.values.background_color,
       text_color: form.values.text_color,
@@ -347,11 +345,6 @@ export default function ConfigurationPage() {
                 />
               </Group>
               <Group grow>
-                <Switch
-                  label='Sidebar Animation'
-                  description='Enable animations when clicking sidebar elements.'
-                  {...form.getInputProps('sidebar_animation', { type: 'checkbox' })}
-                />
                 <NumberInput
                   label='Sidebar / Menu Blur'
                   description='Glassmorphism blur intensity (0-50px).'

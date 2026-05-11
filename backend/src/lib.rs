@@ -13,9 +13,7 @@ pub struct ExtensionStruct;
 #[async_trait::async_trait]
 impl Extension for ExtensionStruct {
     async fn initialize(&mut self, _state: State) {
-        tracing::info!("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        tracing::info!("QUNIX_THEME EXTENSION INITIALIZED SUCCESSFULLY");
-        tracing::info!("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        tracing::info!("QUNIX_THEME Loaded");
     }
 
     async fn settings_deserializer(
