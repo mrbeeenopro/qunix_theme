@@ -55,13 +55,13 @@ mod put {
     #[derive(ToSchema, Validate, Deserialize)]
     pub struct Payload {
         #[serde(alias = "backgroundColor")]
-        #[garde(length(chars, min = 4, max = 30))]
+        #[garde(length(chars, min = 4, max = 100))]
         pub background_color: Option<compact_str::CompactString>,
         #[serde(alias = "textColor")]
-        #[garde(length(chars, min = 4, max = 30))]
+        #[garde(length(chars, min = 4, max = 100))]
         pub text_color: Option<compact_str::CompactString>,
         #[serde(alias = "focusColor")]
-        #[garde(length(chars, min = 4, max = 50))]
+        #[garde(length(chars, min = 4, max = 100))]
         pub focus_color: Option<compact_str::CompactString>,
         #[serde(alias = "shadowOpacity")]
         #[garde(range(min = 0.0, max = 1.0))]
@@ -70,28 +70,28 @@ mod put {
         #[garde(length(chars, min = 1, max = 100))]
         pub font_family: Option<compact_str::CompactString>,
         #[serde(alias = "sidebarColor")]
-        #[garde(length(chars, min = 4, max = 30))]
+        #[garde(length(chars, min = 4, max = 100))]
         pub sidebar_color: Option<compact_str::CompactString>,
         #[serde(alias = "cardColor")]
-        #[garde(length(chars, min = 4, max = 30))]
+        #[garde(length(chars, min = 4, max = 100))]
         pub card_color: Option<compact_str::CompactString>,
         #[serde(alias = "borderColor")]
-        #[garde(length(chars, min = 4, max = 50))]
+        #[garde(length(chars, min = 4, max = 100))]
         pub border_color: Option<compact_str::CompactString>,
         #[serde(alias = "borderRadius")]
         #[garde(range(min = 0, max = 100))]
         pub border_radius: Option<i32>,
         #[serde(alias = "navbarColor")]
-        #[garde(length(chars, min = 4, max = 30))]
+        #[garde(length(chars, min = 4, max = 100))]
         pub navbar_color: Option<compact_str::CompactString>,
         #[serde(alias = "terminalColor")]
-        #[garde(length(chars, min = 4, max = 30))]
+        #[garde(length(chars, min = 4, max = 100))]
         pub terminal_color: Option<compact_str::CompactString>,
         #[serde(alias = "terminalTextColor")]
-        #[garde(length(chars, min = 4, max = 30))]
+        #[garde(length(chars, min = 4, max = 100))]
         pub terminal_text_color: Option<compact_str::CompactString>,
         #[serde(alias = "inputColor")]
-        #[garde(length(chars, min = 4, max = 30))]
+        #[garde(length(chars, min = 4, max = 100))]
         pub input_color: Option<compact_str::CompactString>,
         #[serde(alias = "buttonRadius")]
         #[garde(range(min = 0, max = 100))]
@@ -127,17 +127,109 @@ mod put {
         #[garde(range(min = 0, max = 100))]
         pub glass_transparency: Option<i32>,
         #[serde(alias = "editorColor")]
-        #[garde(length(chars, min = 4, max = 30))]
+        #[garde(length(chars, min = 4, max = 100))]
         pub editor_color: Option<compact_str::CompactString>,
         #[serde(alias = "editorTextColor")]
-        #[garde(length(chars, min = 4, max = 30))]
+        #[garde(length(chars, min = 4, max = 100))]
         pub editor_text_color: Option<compact_str::CompactString>,
         #[serde(alias = "listingColor")]
-        #[garde(length(chars, min = 4, max = 30))]
+        #[garde(length(chars, min = 4, max = 100))]
         pub listing_color: Option<compact_str::CompactString>,
         #[serde(alias = "buttonColor")]
-        #[garde(length(chars, min = 4, max = 30))]
+        #[garde(length(chars, min = 4, max = 100))]
         pub button_color: Option<compact_str::CompactString>,
+        #[serde(alias = "serverActionBg", alias = "serverActionColor", alias = "server_action_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub server_action_bg: Option<compact_str::CompactString>,
+        #[serde(alias = "powerStartBg", alias = "power_start_bg")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub power_start_bg: Option<compact_str::CompactString>,
+        #[serde(alias = "powerRestartBg", alias = "power_restart_bg")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub power_restart_bg: Option<compact_str::CompactString>,
+        #[serde(alias = "powerStopBg", alias = "power_stop_bg")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub power_stop_bg: Option<compact_str::CompactString>,
+        #[serde(alias = "sidebarActiveColor", alias = "sidebar_active_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub sidebar_active_color: Option<compact_str::CompactString>,
+        #[serde(alias = "sidebarActiveBg", alias = "sidebar_active_bg")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub sidebar_active_bg: Option<compact_str::CompactString>,
+        #[serde(alias = "sidebarItemHeight", alias = "sidebar_active_height")]
+        #[garde(range(min = 20, max = 100))]
+        pub sidebar_item_height: Option<i32>,
+        #[serde(alias = "eggBanners")]
+        #[garde(skip)]
+        pub egg_banners: Option<std::collections::HashMap<compact_str::CompactString, compact_str::CompactString>>,
+
+        // Light Mode Payload Fields
+        #[serde(alias = "lightBackgroundColor", alias = "light_background_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_background_color: Option<compact_str::CompactString>,
+        #[serde(alias = "lightTextColor", alias = "light_text_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_text_color: Option<compact_str::CompactString>,
+        #[serde(alias = "lightFocusColor", alias = "light_focus_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_focus_color: Option<compact_str::CompactString>,
+        #[serde(alias = "lightShadowOpacity", alias = "light_shadow_opacity")]
+        #[garde(range(min = 0.0, max = 1.0))]
+        pub light_shadow_opacity: Option<f32>,
+        #[serde(alias = "lightSidebarColor", alias = "light_sidebar_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_sidebar_color: Option<compact_str::CompactString>,
+        #[serde(alias = "lightCardColor", alias = "light_card_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_card_color: Option<compact_str::CompactString>,
+        #[serde(alias = "lightBorderColor", alias = "light_border_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_border_color: Option<compact_str::CompactString>,
+        #[serde(alias = "lightNavbarColor", alias = "light_navbar_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_navbar_color: Option<compact_str::CompactString>,
+        #[serde(alias = "lightTerminalColor", alias = "light_terminal_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_terminal_color: Option<compact_str::CompactString>,
+        #[serde(alias = "lightTerminalTextColor", alias = "light_terminal_text_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_terminal_text_color: Option<compact_str::CompactString>,
+        #[serde(alias = "lightInputColor", alias = "light_input_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_input_color: Option<compact_str::CompactString>,
+        #[serde(alias = "lightBackgroundImage", alias = "light_background_image")]
+        #[garde(skip)]
+        pub light_background_image: Option<compact_str::CompactString>,
+        #[serde(alias = "lightEditorColor", alias = "light_editor_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_editor_color: Option<compact_str::CompactString>,
+        #[serde(alias = "lightEditorTextColor", alias = "light_editor_text_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_editor_text_color: Option<compact_str::CompactString>,
+        #[serde(alias = "lightListingColor", alias = "light_listing_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_listing_color: Option<compact_str::CompactString>,
+        #[serde(alias = "lightButtonColor", alias = "light_button_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_button_color: Option<compact_str::CompactString>,
+        #[serde(alias = "lightServerActionBg", alias = "light_server_action_bg")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_server_action_bg: Option<compact_str::CompactString>,
+        #[serde(alias = "lightPowerStartBg", alias = "light_power_start_bg")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_power_start_bg: Option<compact_str::CompactString>,
+        #[serde(alias = "lightPowerRestartBg", alias = "light_power_restart_bg")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_power_restart_bg: Option<compact_str::CompactString>,
+        #[serde(alias = "lightPowerStopBg", alias = "light_power_stop_bg")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_power_stop_bg: Option<compact_str::CompactString>,
+        #[serde(alias = "lightSidebarActiveColor", alias = "light_sidebar_active_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_sidebar_active_color: Option<compact_str::CompactString>,
+        #[serde(alias = "lightSidebarActiveBg", alias = "light_sidebar_active_bg")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_sidebar_active_bg: Option<compact_str::CompactString>,
     }
 
     #[utoipa::path(
@@ -247,6 +339,98 @@ mod put {
         }
         if let Some(b_color) = data.button_color {
             ext_settings.button_color = b_color;
+        }
+        if let Some(sa_bg) = data.server_action_bg {
+            ext_settings.server_action_bg = sa_bg;
+        }
+        if let Some(start_bg) = data.power_start_bg {
+            ext_settings.power_start_bg = start_bg;
+        }
+        if let Some(restart_bg) = data.power_restart_bg {
+            ext_settings.power_restart_bg = restart_bg;
+        }
+        if let Some(stop_bg) = data.power_stop_bg {
+            ext_settings.power_stop_bg = stop_bg;
+        }
+        if let Some(sac) = data.sidebar_active_color {
+            ext_settings.sidebar_active_color = sac;
+        }
+        if let Some(sab) = data.sidebar_active_bg {
+            ext_settings.sidebar_active_bg = sab;
+        }
+        if let Some(height) = data.sidebar_item_height {
+            ext_settings.sidebar_item_height = height;
+        }
+        if let Some(egg_banners) = data.egg_banners {
+            ext_settings.egg_banners = egg_banners;
+        }
+
+        // Light Mode Assignments
+        if let Some(light_bg) = data.light_background_color {
+            ext_settings.light_background_color = light_bg;
+        }
+        if let Some(light_text) = data.light_text_color {
+            ext_settings.light_text_color = light_text;
+        }
+        if let Some(light_focus) = data.light_focus_color {
+            ext_settings.light_focus_color = light_focus;
+        }
+        if let Some(light_shadow) = data.light_shadow_opacity {
+            ext_settings.light_shadow_opacity = light_shadow;
+        }
+        if let Some(light_sidebar) = data.light_sidebar_color {
+            ext_settings.light_sidebar_color = light_sidebar;
+        }
+        if let Some(light_card) = data.light_card_color {
+            ext_settings.light_card_color = light_card;
+        }
+        if let Some(light_border) = data.light_border_color {
+            ext_settings.light_border_color = light_border;
+        }
+        if let Some(light_navbar) = data.light_navbar_color {
+            ext_settings.light_navbar_color = light_navbar;
+        }
+        if let Some(light_terminal) = data.light_terminal_color {
+            ext_settings.light_terminal_color = light_terminal;
+        }
+        if let Some(light_terminal_text) = data.light_terminal_text_color {
+            ext_settings.light_terminal_text_color = light_terminal_text;
+        }
+        if let Some(light_input) = data.light_input_color {
+            ext_settings.light_input_color = light_input;
+        }
+        if let Some(light_image) = data.light_background_image {
+            ext_settings.light_background_image = Some(light_image);
+        }
+        if let Some(light_editor) = data.light_editor_color {
+            ext_settings.light_editor_color = light_editor;
+        }
+        if let Some(light_e_text) = data.light_editor_text_color {
+            ext_settings.light_editor_text_color = light_e_text;
+        }
+        if let Some(light_l_color) = data.light_listing_color {
+            ext_settings.light_listing_color = light_l_color;
+        }
+        if let Some(light_b_color) = data.light_button_color {
+            ext_settings.light_button_color = light_b_color;
+        }
+        if let Some(light_sa_bg) = data.light_server_action_bg {
+            ext_settings.light_server_action_bg = light_sa_bg;
+        }
+        if let Some(light_start_bg) = data.light_power_start_bg {
+            ext_settings.light_power_start_bg = light_start_bg;
+        }
+        if let Some(light_restart_bg) = data.light_power_restart_bg {
+            ext_settings.light_power_restart_bg = light_restart_bg;
+        }
+        if let Some(light_stop_bg) = data.light_power_stop_bg {
+            ext_settings.light_power_stop_bg = light_stop_bg;
+        }
+        if let Some(light_sac) = data.light_sidebar_active_color {
+            ext_settings.light_sidebar_active_color = light_sac;
+        }
+        if let Some(light_sab) = data.light_sidebar_active_bg {
+            ext_settings.light_sidebar_active_bg = light_sab;
         }
 
         settings.save().await?;

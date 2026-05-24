@@ -6,7 +6,7 @@
   --ds-sidebar-bg: #16161e;
   --ds-navbar-bg: #1f2335;
   --ds-card-bg: rgba(36, 40, 59, 0.74);
-  --ds-terminal-bg: #1a1b26;
+  --ds-terminal-bg: var(--ds-sidebar-bg);
   --ds-terminal-text: #a9b1d6;
   --ds-editor-bg: #1a1b26;
   --ds-editor-text: #c0caf5;
@@ -30,6 +30,7 @@
 
   /* New Customization Variables */
   --ds-sidebar-item-gap: 10px;
+  --ds-sidebar-item-height: 36px;
   --ds-sidebar-animation: 1;
   /* 1 for true, 0 for false */
   --ds-background-image: none;
@@ -40,6 +41,25 @@
   --ds-listing-bg: #0a0a0a;
   --ds-glass-transparency: 20%;
   --mantine-color-dark-6: var(--ds-navbar-bg);
+  --ds-server-action-bg: #0a0a0a;
+  --ds-power-start-bg: #40c057;
+  --ds-power-restart-bg: #868e96;
+  --ds-power-stop-bg: #fa5252;
+  --mantine-color-text: var(--ds-gray-900) !important;
+  --ds-sidebar-active-color: var(--ds-primary-color);
+  --ds-sidebar-active-bg: rgba(255, 255, 255, 0.05);
+
+  /* Terminal Colors */
+  --ds-terminal-cursor: #7aa2f7;
+  --ds-terminal-selection: rgba(255, 255, 255, 0.15);
+  --ds-terminal-ansi-black: #15161e;
+  --ds-terminal-ansi-red: #f7768e;
+  --ds-terminal-ansi-green: #9ece6a;
+  --ds-terminal-ansi-yellow: #e0af68;
+  --ds-terminal-ansi-blue: #7aa2f7;
+  --ds-terminal-ansi-magenta: #bb9af7;
+  --ds-terminal-ansi-cyan: #7dcfff;
+  --ds-terminal-ansi-white: #a9b1d6;
 }
 
 /* 1. Global*/
@@ -97,7 +117,7 @@ html.has-bg-image::after {
 }
 
 * {
-  font-family: "JetBrains Mono", monospace !important;
+  font-family: var(--ds-font-family), "JetBrains Mono", monospace !important;
 }
 
 /* 2. General Surfaces */
@@ -206,6 +226,21 @@ body.has-bg-image .mantine-Drawer-inner .mantine-Paper-root {
   background-color: color-mix(in srgb, var(--ds-sidebar-bg), transparent var(--ds-glass-transparency)) !important;
 }
 
+/* Sidebar Power Buttons Sync */
+.sidebar,
+.mantine-AppShell-navbar,
+.mantine-Drawer-content,
+#sidebar-content {
+  --mantine-color-green-filled: var(--ds-power-start-bg, #40c057) !important;
+  --mantine-color-green-filled-hover: color-mix(in srgb, var(--ds-power-start-bg, #40c057) 85%, white) !important;
+
+  --mantine-color-gray-filled: var(--ds-power-restart-bg, #868e96) !important;
+  --mantine-color-gray-filled-hover: color-mix(in srgb, var(--ds-power-restart-bg, #868e96) 85%, white) !important;
+
+  --mantine-color-red-filled: var(--ds-power-stop-bg, #fa5252) !important;
+  --mantine-color-red-filled-hover: color-mix(in srgb, var(--ds-power-stop-bg, #fa5252) 85%, white) !important;
+}
+
 [id="title-card-header"] {
   background-color: var(--ds-navbar-bg) !important;
 }
@@ -242,10 +277,13 @@ body.has-bg-image .mantine-Table-ScrollContainer {
   background-color: rgba(255, 255, 255, 0.03) !important;
 }
 
-/* Sidebar NavLinks & Spacing */
-.sidebar>*,
-.mantine-AppShell-navbar>*,
-.mantine-AppShell-navbar>div>* {
+/* Sidebar Spacing */
+#sidebar-content div.overflow-y-auto,
+.sidebar,
+.mantine-AppShell-navbar,
+.mantine-AppShell-navbar>div {
+  display: flex !important;
+  flex-direction: column !important;
   gap: var(--ds-sidebar-item-gap) !important;
 }
 
@@ -258,8 +296,25 @@ body.has-bg-image .mantine-Table-ScrollContainer {
   transition: all 0.2s ease !important;
 }
 
-.mantine-NavLink-root[data-active] {
-  background-color: rgba(255, 255, 255, 0.05) !important;
+.mantine-NavLink-root[data-active],
+.sidebar button.active,
+#sidebar-content button.active,
+.mantine-Button-root.active {
+  background-color: var(--ds-sidebar-active-bg) !important;
+  color: var(--ds-sidebar-active-color) !important;
+  border-color: var(--ds-sidebar-active-color) !important;
+}
+
+.sidebar button.active *,
+#sidebar-content button.active * {
+  color: var(--ds-sidebar-active-color) !important;
+}
+
+/* Sidebar Item Height override */
+.sidebar a .mantine-Button-root,
+#sidebar-content a .mantine-Button-root,
+.mantine-AppShell-navbar a .mantine-Button-root {
+  height: var(--ds-sidebar-item-height) !important;
 }
 
 .mantine-NavLink-root:hover {
@@ -300,6 +355,11 @@ body.has-bg-image .mantine-Table-ScrollContainer {
 }
 
 /* xterm */
+.mantine-Card-root .xterm,
+.mantine-Card-root .xterm .xterm-viewport,
+.mantine-Card-root .xterm .xterm-screen,
+.mantine-Card-root .xterm .xterm-text-layer,
+.mantine-Card-root .xterm .xterm-rows,
 .xterm-viewport,
 .xterm-screen,
 .xterm-rows,
@@ -316,6 +376,30 @@ body.has-bg-image .mantine-Table-ScrollContainer {
 .xterm-rows * {
   font-family: "JetBrains Mono", monospace !important;
 }
+
+.xterm .xterm-selection div {
+  background-color: var(--ds-terminal-selection) !important;
+}
+.xterm .xterm-cursor {
+  background-color: var(--ds-terminal-cursor) !important;
+}
+
+.xterm .xterm-color-0 { color: var(--ds-terminal-ansi-black) !important; }
+.xterm .xterm-bg-color-0 { background-color: var(--ds-terminal-ansi-black) !important; }
+.xterm .xterm-color-1 { color: var(--ds-terminal-ansi-red) !important; }
+.xterm .xterm-bg-color-1 { background-color: var(--ds-terminal-ansi-red) !important; }
+.xterm .xterm-color-2 { color: var(--ds-terminal-ansi-green) !important; }
+.xterm .xterm-bg-color-2 { background-color: var(--ds-terminal-ansi-green) !important; }
+.xterm .xterm-color-3 { color: var(--ds-terminal-ansi-yellow) !important; }
+.xterm .xterm-bg-color-3 { background-color: var(--ds-terminal-ansi-yellow) !important; }
+.xterm .xterm-color-4 { color: var(--ds-terminal-ansi-blue) !important; }
+.xterm .xterm-bg-color-4 { background-color: var(--ds-terminal-ansi-blue) !important; }
+.xterm .xterm-color-5 { color: var(--ds-terminal-ansi-magenta) !important; }
+.xterm .xterm-bg-color-5 { background-color: var(--ds-terminal-ansi-magenta) !important; }
+.xterm .xterm-color-6 { color: var(--ds-terminal-ansi-cyan) !important; }
+.xterm .xterm-bg-color-6 { background-color: var(--ds-terminal-ansi-cyan) !important; }
+.xterm .xterm-color-7 { color: var(--ds-terminal-ansi-white) !important; }
+.xterm .xterm-bg-color-7 { background-color: var(--ds-terminal-ansi-white) !important; }
 
 .cm-editor,
 .cm-scroller,
@@ -410,6 +494,235 @@ img,
   border-radius: 10px;
 }
 
-::-webkit-scrollbar-thumb:hover {
+::webkit-scrollbar-thumb:hover {
   background: #cccccc;
+}
+
+/* Server action container & buttons styling */
+#console-infobar {
+  background-color: var(--ds-server-action-bg, #0a0a0a) !important;
+  border: 1px solid var(--ds-border-color) !important;
+  border-radius: var(--ds-card-radius) !important;
+  padding: 16px !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: all 0.3s ease !important;
+
+  /* Redefine Mantine color variables for children buttons */
+  --mantine-color-green-filled: var(--ds-power-start-bg, #40c057) !important;
+  --mantine-color-green-filled-hover: color-mix(in srgb, var(--ds-power-start-bg, #40c057) 85%, white) !important;
+
+  --mantine-color-gray-filled: var(--ds-power-restart-bg, #868e96) !important;
+  --mantine-color-gray-filled-hover: color-mix(in srgb, var(--ds-power-restart-bg, #868e96) 85%, white) !important;
+
+  --mantine-color-red-filled: var(--ds-power-stop-bg, #fa5252) !important;
+  --mantine-color-red-filled-hover: color-mix(in srgb, var(--ds-power-stop-bg, #fa5252) 85%, white) !important;
+}
+
+/* Banner-active state */
+html.has-server-banner #console-infobar {
+  min-height: 180px !important;
+  background-image: var(--ds-server-banner-image) !important;
+  background-size: cover !important;
+  background-position: center !important;
+  border-radius: var(--ds-card-radius) !important;
+  border: 1px solid var(--ds-border-color) !important;
+  box-shadow: var(--ds-shadow-border), 0 10px 15px -3px rgba(0, 0, 0, 0.3) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+  padding: 0 !important;
+
+  /* Transparent colors for glassmorphic power buttons */
+  --mantine-color-green-filled: color-mix(in srgb, var(--ds-power-start-bg, #40c057) 85%, transparent) !important;
+  --mantine-color-green-filled-hover: var(--ds-power-start-bg, #40c057) !important;
+
+  --mantine-color-gray-filled: color-mix(in srgb, var(--ds-power-restart-bg, #868e96) 85%, transparent) !important;
+  --mantine-color-gray-filled-hover: var(--ds-power-restart-bg, #868e96) !important;
+
+  --mantine-color-red-filled: color-mix(in srgb, var(--ds-power-stop-bg, #fa5252) 85%, transparent) !important;
+  --mantine-color-red-filled-hover: var(--ds-power-stop-bg, #fa5252) !important;
+}
+
+html.has-server-banner #console-infobar button {
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+html.has-server-banner #console-infobar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.8) 100%) !important;
+  z-index: 1;
+  pointer-events: none;
+}
+
+html.has-server-banner #console-infobar > * {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+html.has-server-banner #console-infobar > div {
+  width: 100% !important;
+  min-height: 180px !important;
+  padding: 24px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: flex-end !important;
+}
+
+html.has-server-banner #console-infobar h1,
+html.has-server-banner #console-infobar .mantine-Title-root {
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+}
+
+html.has-server-banner #console-infobar p,
+html.has-server-banner #console-infobar text {
+  color: rgba(255, 255, 255, 0.75) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Stats overlay inside banner styling */
+.qunix-banner-stats {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  gap: 16px !important;
+  margin-top: 12px !important;
+  background-color: rgba(0, 0, 0, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  padding: 6px 12px !important;
+  border-radius: var(--ds-border-radius, 8px) !important;
+  font-size: 11px !important;
+  font-family: var(--ds-font-family), "JetBrains Mono", monospace !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  width: fit-content !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+.qunix-banner-stat-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.qunix-banner-stat-item svg {
+  color: rgba(255, 255, 255, 0.7) !important;
+  width: 12px !important;
+  height: 12px !important;
+}
+
+/* Hide default vertical stats cards and expand terminal console */
+.qunix-stretched-console-grid > div:nth-child(2) {
+  display: none !important;
+}
+
+.qunix-stretched-console-grid > div:first-child {
+  grid-column: span 4 / span 4 !important;
+  height: 60vh !important;
+}
+
+/* Allocation pill inside banner styling */
+.qunix-banner-allocation-pill {
+  position: absolute !important;
+  top: 24px !important;
+  right: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background-color: rgba(0, 0, 0, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  padding: 6px 12px !important;
+  border-radius: var(--ds-border-radius, 8px) !important;
+  font-size: 12px !important;
+  font-family: var(--ds-font-family), "JetBrains Mono", monospace !important;
+  color: #ffffff !important;
+  cursor: pointer !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+  z-index: 10 !important;
+  transition: all 0.2s ease !important;
+}
+
+.qunix-banner-allocation-pill:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  transform: translateY(-1px) !important;
+}
+
+.qunix-banner-allocation-pill:active {
+  transform: translateY(0) !important;
+}
+
+.qunix-banner-allocation-pill .copied-text {
+  font-size: 11px !important;
+  color: var(--ds-power-start-bg, #40c057) !important;
+  font-weight: bold !important;
+}
+
+.qunix-banner-allocation-pill svg {
+  color: rgba(255, 255, 255, 0.7) !important;
+  width: 12px !important;
+  height: 12px !important;
+}
+
+/* Dashboard Server Card Banner styling */
+.qunix-server-card.has-banner {
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.8) 100%), var(--ds-egg-banner-image) !important;
+  background-size: cover !important;
+  background-position: center !important;
+  color: #ffffff !important;
+  position: relative !important;
+}
+
+.qunix-server-card.has-banner * {
+  color: #ffffff !important;
+}
+
+/* Dimmed / description labels inside card */
+.qunix-server-card.has-banner p[class*="dimmed"],
+.qunix-server-card.has-banner span[class*="dimmed"],
+.qunix-server-card.has-banner p[class*="text-"],
+.qunix-server-card.has-banner span[class*="text-"] {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Dividers inside cards */
+.qunix-server-card.has-banner .mantine-Divider-root {
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Nested elements like allocation sub-cards */
+.qunix-server-card.has-banner .mantine-Card-root {
+  background-color: rgba(0, 0, 0, 0.35) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+}
+
+.qunix-server-card.has-banner .mantine-Card-root p,
+.qunix-server-card.has-banner .mantine-Card-root span {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Hover effects */
+.qunix-server-card.has-banner:hover {
+  filter: brightness(1.1) !important;
 }

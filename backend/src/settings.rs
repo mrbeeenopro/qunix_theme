@@ -35,6 +35,59 @@ pub struct QunixThemeSettingsData {
     pub editor_text_color: compact_str::CompactString,
     pub listing_color: compact_str::CompactString,
     pub button_color: compact_str::CompactString,
+    pub server_action_bg: compact_str::CompactString,
+    pub power_start_bg: compact_str::CompactString,
+    pub power_restart_bg: compact_str::CompactString,
+    pub power_stop_bg: compact_str::CompactString,
+    pub sidebar_active_color: compact_str::CompactString,
+    pub sidebar_active_bg: compact_str::CompactString,
+    pub sidebar_item_height: i32,
+    pub terminal_cursor_color: compact_str::CompactString,
+    pub terminal_selection_color: compact_str::CompactString,
+    pub terminal_ansi_black: compact_str::CompactString,
+    pub terminal_ansi_red: compact_str::CompactString,
+    pub terminal_ansi_green: compact_str::CompactString,
+    pub terminal_ansi_yellow: compact_str::CompactString,
+    pub terminal_ansi_blue: compact_str::CompactString,
+    pub terminal_ansi_magenta: compact_str::CompactString,
+    pub terminal_ansi_cyan: compact_str::CompactString,
+    pub terminal_ansi_white: compact_str::CompactString,
+    #[serde(default)]
+    pub egg_banners: std::collections::HashMap<compact_str::CompactString, compact_str::CompactString>,
+
+    // Light Theme Settings
+    pub light_background_color: compact_str::CompactString,
+    pub light_text_color: compact_str::CompactString,
+    pub light_focus_color: compact_str::CompactString,
+    pub light_shadow_opacity: f32,
+    pub light_sidebar_color: compact_str::CompactString,
+    pub light_card_color: compact_str::CompactString,
+    pub light_border_color: compact_str::CompactString,
+    pub light_navbar_color: compact_str::CompactString,
+    pub light_terminal_color: compact_str::CompactString,
+    pub light_terminal_text_color: compact_str::CompactString,
+    pub light_input_color: compact_str::CompactString,
+    pub light_background_image: Option<compact_str::CompactString>,
+    pub light_editor_color: compact_str::CompactString,
+    pub light_editor_text_color: compact_str::CompactString,
+    pub light_listing_color: compact_str::CompactString,
+    pub light_button_color: compact_str::CompactString,
+    pub light_server_action_bg: compact_str::CompactString,
+    pub light_power_start_bg: compact_str::CompactString,
+    pub light_power_restart_bg: compact_str::CompactString,
+    pub light_power_stop_bg: compact_str::CompactString,
+    pub light_sidebar_active_color: compact_str::CompactString,
+    pub light_sidebar_active_bg: compact_str::CompactString,
+    pub light_terminal_cursor_color: compact_str::CompactString,
+    pub light_terminal_selection_color: compact_str::CompactString,
+    pub light_terminal_ansi_black: compact_str::CompactString,
+    pub light_terminal_ansi_red: compact_str::CompactString,
+    pub light_terminal_ansi_green: compact_str::CompactString,
+    pub light_terminal_ansi_yellow: compact_str::CompactString,
+    pub light_terminal_ansi_blue: compact_str::CompactString,
+    pub light_terminal_ansi_magenta: compact_str::CompactString,
+    pub light_terminal_ansi_cyan: compact_str::CompactString,
+    pub light_terminal_ansi_white: compact_str::CompactString,
 }
 
 impl Default for QunixThemeSettingsData {
@@ -68,6 +121,58 @@ impl Default for QunixThemeSettingsData {
             editor_text_color: "#e2e8f0ff".into(),
             listing_color: "#1e1631ff".into(),
             button_color: "#6c5ce7ff".into(), 
+            server_action_bg: "#0a0a0a".into(),
+            power_start_bg: "#40c057".into(),
+            power_restart_bg: "#868e96".into(),
+            power_stop_bg: "#fa5252".into(),
+            sidebar_active_color: "#6c5ce7ff".into(),
+            sidebar_active_bg: "rgba(255, 255, 255, 0.05)".into(),
+            sidebar_item_height: 36,
+            terminal_cursor_color: "#7aa2f7".into(),
+            terminal_selection_color: "rgba(255, 255, 255, 0.15)".into(),
+            terminal_ansi_black: "#15161e".into(),
+            terminal_ansi_red: "#f7768e".into(),
+            terminal_ansi_green: "#9ece6a".into(),
+            terminal_ansi_yellow: "#e0af68".into(),
+            terminal_ansi_blue: "#7aa2f7".into(),
+            terminal_ansi_magenta: "#bb9af7".into(),
+            terminal_ansi_cyan: "#7dcfff".into(),
+            terminal_ansi_white: "#a9b1d6".into(),
+            egg_banners: std::collections::HashMap::new(),
+
+            // Light Mode Defaults
+            light_background_color: "#f3effaff".into(), 
+            light_text_color: "#1e1631ff".into(), 
+            light_focus_color: "hsla(263, 85%, 60%, 1.00)".into(), 
+            light_shadow_opacity: 0.08,
+            light_sidebar_color: "#ffffffff".into(), 
+            light_card_color: "#ffffffff".into(), 
+            light_border_color: "rgba(108, 92, 231, 0.15)".into(), 
+            light_navbar_color: "#ffffffff".into(),
+            light_terminal_color: "#f1f2f6ff".into(),
+            light_terminal_text_color: "#2f3542ff".into(),   
+            light_input_color: "#f1f2f6ff".into(),
+            light_background_image: None,
+            light_editor_color: "#ffffffff".into(),
+            light_editor_text_color: "#2f3542ff".into(),
+            light_listing_color: "#ffffffff".into(),
+            light_button_color: "#6c5ce7ff".into(), 
+            light_server_action_bg: "#f1f2f6ff".into(),
+            light_power_start_bg: "#2ed573ff".into(),
+            light_power_restart_bg: "#747d8cff".into(),
+            light_power_stop_bg: "#ff4757ff".into(),
+            light_sidebar_active_color: "#6c5ce7ff".into(),
+            light_sidebar_active_bg: "rgba(108, 92, 231, 0.1)".into(),
+            light_terminal_cursor_color: "#6c5ce7ff".into(),
+            light_terminal_selection_color: "rgba(108, 92, 231, 0.3)".into(),
+            light_terminal_ansi_black: "#d5d6db".into(),
+            light_terminal_ansi_red: "#f7768e".into(),
+            light_terminal_ansi_green: "#485e30".into(),
+            light_terminal_ansi_yellow: "#8f5e15".into(),
+            light_terminal_ansi_blue: "#34548a".into(),
+            light_terminal_ansi_magenta: "#5a4a78".into(),
+            light_terminal_ansi_cyan: "#0f4b6e".into(),
+            light_terminal_ansi_white: "#343b58".into(),
         }
     }
 }
@@ -78,7 +183,7 @@ impl SettingsSerializeExt for QunixThemeSettingsData {
         &self,
         serializer: SettingsSerializer,
     ) -> Result<SettingsSerializer, anyhow::Error> {
-        Ok(serializer
+        let serializer = serializer
             .write_raw_setting("background_color", self.background_color.clone())
             .write_raw_setting("text_color", self.text_color.clone())
             .write_raw_setting("focus_color", self.focus_color.clone())
@@ -112,7 +217,70 @@ impl SettingsSerializeExt for QunixThemeSettingsData {
             .write_raw_setting("editor_color", self.editor_color.clone())
             .write_raw_setting("editor_text_color", self.editor_text_color.clone())
             .write_raw_setting("listing_color", self.listing_color.clone())
-            .write_raw_setting("button_color", self.button_color.clone()))
+            .write_raw_setting("button_color", self.button_color.clone())
+            .write_raw_setting("server_action_bg", self.server_action_bg.clone())
+            .write_raw_setting("power_start_bg", self.power_start_bg.clone())
+            .write_raw_setting("power_restart_bg", self.power_restart_bg.clone())
+            .write_raw_setting("power_stop_bg", self.power_stop_bg.clone())
+            .write_raw_setting("sidebar_active_color", self.sidebar_active_color.clone())
+            .write_raw_setting("sidebar_active_bg", self.sidebar_active_bg.clone())
+            .write_raw_setting("sidebar_item_height", self.sidebar_item_height.to_string())
+            .write_raw_setting("terminal_cursor_color", self.terminal_cursor_color.clone())
+            .write_raw_setting("terminal_selection_color", self.terminal_selection_color.clone())
+            .write_raw_setting("terminal_ansi_black", self.terminal_ansi_black.clone())
+            .write_raw_setting("terminal_ansi_red", self.terminal_ansi_red.clone())
+            .write_raw_setting("terminal_ansi_green", self.terminal_ansi_green.clone())
+            .write_raw_setting("terminal_ansi_yellow", self.terminal_ansi_yellow.clone())
+            .write_raw_setting("terminal_ansi_blue", self.terminal_ansi_blue.clone())
+            .write_raw_setting("terminal_ansi_magenta", self.terminal_ansi_magenta.clone())
+            .write_raw_setting("terminal_ansi_cyan", self.terminal_ansi_cyan.clone())
+            .write_raw_setting("terminal_ansi_white", self.terminal_ansi_white.clone())
+            
+            // Light Mode Serialization
+            .write_raw_setting("light_background_color", self.light_background_color.clone())
+            .write_raw_setting("light_text_color", self.light_text_color.clone())
+            .write_raw_setting("light_focus_color", self.light_focus_color.clone())
+            .write_raw_setting("light_shadow_opacity", self.light_shadow_opacity.to_string())
+            .write_raw_setting("light_sidebar_color", self.light_sidebar_color.clone())
+            .write_raw_setting("light_card_color", self.light_card_color.clone())
+            .write_raw_setting("light_border_color", self.light_border_color.clone())
+            .write_raw_setting("light_navbar_color", self.light_navbar_color.clone())
+            .write_raw_setting("light_terminal_color", self.light_terminal_color.clone())
+            .write_raw_setting("light_terminal_text_color", self.light_terminal_text_color.clone())
+            .write_raw_setting("light_input_color", self.light_input_color.clone())
+            .write_raw_setting(
+                "light_background_image",
+                self.light_background_image
+                    .clone()
+                    .unwrap_or_default()
+                    .to_string(),
+            )
+            .write_raw_setting("light_editor_color", self.light_editor_color.clone())
+            .write_raw_setting("light_editor_text_color", self.light_editor_text_color.clone())
+            .write_raw_setting("light_listing_color", self.light_listing_color.clone())
+            .write_raw_setting("light_button_color", self.light_button_color.clone())
+            .write_raw_setting("light_server_action_bg", self.light_server_action_bg.clone())
+            .write_raw_setting("light_power_start_bg", self.light_power_start_bg.clone())
+            .write_raw_setting("light_power_restart_bg", self.light_power_restart_bg.clone())
+            .write_raw_setting("light_power_stop_bg", self.light_power_stop_bg.clone())
+            .write_raw_setting("light_sidebar_active_color", self.light_sidebar_active_color.clone())
+            .write_raw_setting("light_sidebar_active_bg", self.light_sidebar_active_bg.clone())
+            .write_raw_setting("light_terminal_cursor_color", self.light_terminal_cursor_color.clone())
+            .write_raw_setting("light_terminal_selection_color", self.light_terminal_selection_color.clone())
+            .write_raw_setting("light_terminal_ansi_black", self.light_terminal_ansi_black.clone())
+            .write_raw_setting("light_terminal_ansi_red", self.light_terminal_ansi_red.clone())
+            .write_raw_setting("light_terminal_ansi_green", self.light_terminal_ansi_green.clone())
+            .write_raw_setting("light_terminal_ansi_yellow", self.light_terminal_ansi_yellow.clone())
+            .write_raw_setting("light_terminal_ansi_blue", self.light_terminal_ansi_blue.clone())
+            .write_raw_setting("light_terminal_ansi_magenta", self.light_terminal_ansi_magenta.clone())
+            .write_raw_setting("light_terminal_ansi_cyan", self.light_terminal_ansi_cyan.clone())
+            .write_raw_setting("light_terminal_ansi_white", self.light_terminal_ansi_white.clone());
+
+        let serializer = serializer
+            .write_serde_setting("egg_banners", &self.egg_banners)
+            .map_err(|e| anyhow::anyhow!("Failed to serialize egg_banners: {}", e))?;
+
+        Ok(serializer)
     }
 }
 
@@ -228,6 +396,159 @@ impl SettingsDeserializeExt for QunixThemeSettingsDataDeserializer {
             button_color: deserializer
                 .take_raw_setting("button_color")
                 .unwrap_or(default.button_color),
+            server_action_bg: deserializer
+                .take_raw_setting("server_action_bg")
+                .unwrap_or(default.server_action_bg),
+            power_start_bg: deserializer
+                .take_raw_setting("power_start_bg")
+                .unwrap_or(default.power_start_bg),
+            power_restart_bg: deserializer
+                .take_raw_setting("power_restart_bg")
+                .unwrap_or(default.power_restart_bg),
+            power_stop_bg: deserializer
+                .take_raw_setting("power_stop_bg")
+                .unwrap_or(default.power_stop_bg),
+            sidebar_active_color: deserializer
+                .take_raw_setting("sidebar_active_color")
+                .unwrap_or(default.sidebar_active_color),
+            sidebar_active_bg: deserializer
+                .take_raw_setting("sidebar_active_bg")
+                .unwrap_or(default.sidebar_active_bg),
+            sidebar_item_height: deserializer
+                .take_raw_setting("sidebar_item_height")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.sidebar_item_height),
+            terminal_cursor_color: deserializer
+                .take_raw_setting("terminal_cursor_color")
+                .unwrap_or(default.terminal_cursor_color),
+            terminal_selection_color: deserializer
+                .take_raw_setting("terminal_selection_color")
+                .unwrap_or(default.terminal_selection_color),
+            terminal_ansi_black: deserializer
+                .take_raw_setting("terminal_ansi_black")
+                .unwrap_or(default.terminal_ansi_black),
+            terminal_ansi_red: deserializer
+                .take_raw_setting("terminal_ansi_red")
+                .unwrap_or(default.terminal_ansi_red),
+            terminal_ansi_green: deserializer
+                .take_raw_setting("terminal_ansi_green")
+                .unwrap_or(default.terminal_ansi_green),
+            terminal_ansi_yellow: deserializer
+                .take_raw_setting("terminal_ansi_yellow")
+                .unwrap_or(default.terminal_ansi_yellow),
+            terminal_ansi_blue: deserializer
+                .take_raw_setting("terminal_ansi_blue")
+                .unwrap_or(default.terminal_ansi_blue),
+            terminal_ansi_magenta: deserializer
+                .take_raw_setting("terminal_ansi_magenta")
+                .unwrap_or(default.terminal_ansi_magenta),
+            terminal_ansi_cyan: deserializer
+                .take_raw_setting("terminal_ansi_cyan")
+                .unwrap_or(default.terminal_ansi_cyan),
+            terminal_ansi_white: deserializer
+                .take_raw_setting("terminal_ansi_white")
+                .unwrap_or(default.terminal_ansi_white),
+            egg_banners: deserializer
+                .read_serde_setting("egg_banners")
+                .unwrap_or_else(|_| default.egg_banners),
+
+            // Light Mode Deserialization
+            light_background_color: deserializer
+                .take_raw_setting("light_background_color")
+                .unwrap_or(default.light_background_color),
+            light_text_color: deserializer
+                .take_raw_setting("light_text_color")
+                .unwrap_or(default.light_text_color),
+            light_focus_color: deserializer
+                .take_raw_setting("light_focus_color")
+                .unwrap_or(default.light_focus_color),
+            light_shadow_opacity: deserializer
+                .take_raw_setting("light_shadow_opacity")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.light_shadow_opacity),
+            light_sidebar_color: deserializer
+                .take_raw_setting("light_sidebar_color")
+                .unwrap_or(default.light_sidebar_color),
+            light_card_color: deserializer
+                .take_raw_setting("light_card_color")
+                .unwrap_or(default.light_card_color),
+            light_border_color: deserializer
+                .take_raw_setting("light_border_color")
+                .unwrap_or(default.light_border_color),
+            light_navbar_color: deserializer
+                .take_raw_setting("light_navbar_color")
+                .unwrap_or(default.light_navbar_color),
+            light_terminal_color: deserializer
+                .take_raw_setting("light_terminal_color")
+                .unwrap_or(default.light_terminal_color),
+            light_terminal_text_color: deserializer
+                .take_raw_setting("light_terminal_text_color")
+                .unwrap_or(default.light_terminal_text_color),
+            light_input_color: deserializer
+                .take_raw_setting("light_input_color")
+                .unwrap_or(default.light_input_color),
+            light_background_image: deserializer
+                .take_raw_setting("light_background_image"),
+            light_editor_color: deserializer
+                .take_raw_setting("light_editor_color")
+                .unwrap_or(default.light_editor_color),
+            light_editor_text_color: deserializer
+                .take_raw_setting("light_editor_text_color")
+                .unwrap_or(default.light_editor_text_color),
+            light_listing_color: deserializer
+                .take_raw_setting("light_listing_color")
+                .unwrap_or(default.light_listing_color),
+            light_button_color: deserializer
+                .take_raw_setting("light_button_color")
+                .unwrap_or(default.light_button_color),
+            light_server_action_bg: deserializer
+                .take_raw_setting("light_server_action_bg")
+                .unwrap_or(default.light_server_action_bg),
+            light_power_start_bg: deserializer
+                .take_raw_setting("light_power_start_bg")
+                .unwrap_or(default.light_power_start_bg),
+            light_power_restart_bg: deserializer
+                .take_raw_setting("light_power_restart_bg")
+                .unwrap_or(default.light_power_restart_bg),
+            light_power_stop_bg: deserializer
+                .take_raw_setting("light_power_stop_bg")
+                .unwrap_or(default.light_power_stop_bg),
+            light_sidebar_active_color: deserializer
+                .take_raw_setting("light_sidebar_active_color")
+                .unwrap_or(default.light_sidebar_active_color),
+            light_sidebar_active_bg: deserializer
+                .take_raw_setting("light_sidebar_active_bg")
+                .unwrap_or(default.light_sidebar_active_bg),
+            light_terminal_cursor_color: deserializer
+                .take_raw_setting("light_terminal_cursor_color")
+                .unwrap_or(default.light_terminal_cursor_color),
+            light_terminal_selection_color: deserializer
+                .take_raw_setting("light_terminal_selection_color")
+                .unwrap_or(default.light_terminal_selection_color),
+            light_terminal_ansi_black: deserializer
+                .take_raw_setting("light_terminal_ansi_black")
+                .unwrap_or(default.light_terminal_ansi_black),
+            light_terminal_ansi_red: deserializer
+                .take_raw_setting("light_terminal_ansi_red")
+                .unwrap_or(default.light_terminal_ansi_red),
+            light_terminal_ansi_green: deserializer
+                .take_raw_setting("light_terminal_ansi_green")
+                .unwrap_or(default.light_terminal_ansi_green),
+            light_terminal_ansi_yellow: deserializer
+                .take_raw_setting("light_terminal_ansi_yellow")
+                .unwrap_or(default.light_terminal_ansi_yellow),
+            light_terminal_ansi_blue: deserializer
+                .take_raw_setting("light_terminal_ansi_blue")
+                .unwrap_or(default.light_terminal_ansi_blue),
+            light_terminal_ansi_magenta: deserializer
+                .take_raw_setting("light_terminal_ansi_magenta")
+                .unwrap_or(default.light_terminal_ansi_magenta),
+            light_terminal_ansi_cyan: deserializer
+                .take_raw_setting("light_terminal_ansi_cyan")
+                .unwrap_or(default.light_terminal_ansi_cyan),
+            light_terminal_ansi_white: deserializer
+                .take_raw_setting("light_terminal_ansi_white")
+                .unwrap_or(default.light_terminal_ansi_white),
         }))
     }
 }
