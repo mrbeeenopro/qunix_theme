@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useParams, useLocation } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faClock, faMicrochip, faMemory, faHardDrive, faCopy, faCloudDownload, faCloudUpload } from '@fortawesome/free-solid-svg-icons';
+import { faClock, faMicrochip, faMemory, faHardDrive, faCopy, faCloudDownload, faCloudUpload, faPalette } from '@fortawesome/free-solid-svg-icons';
 import { Extension, ExtensionContext } from 'shared';
 import { useComputedColorScheme, type MantineThemeOverride } from '@mantine/core';
 import { axiosInstance } from '@/api/axios.ts';
 import { useServerStore } from '@/stores/server.ts';
+import { useUserStore } from '@/stores/user.ts';
 import { bytesToString, mbToBytes } from '@/lib/size.ts';
 import { formatMilliseconds } from '@/lib/time.ts';
 import { formatAllocation } from '@/lib/server.ts';
 import ConfigurationPage from './ConfigurationPage.tsx';
+import AdminSettingsPage from './AdminSettingsPage.tsx';
 import './app.css';
+
 
 const StatsOverlay: React.FC = () => {
   const { server, stats, state } = useServerStore();
@@ -226,9 +229,59 @@ const ServerBannerComponent: React.FC = () => {
   return null;
 };
 
+async function loadFontCSPFriendly(fontName: string) {
+  try {
+    const formattedFont = fontName
+      .split(/[\s-]+/)
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+      .join(' ');
+
+    const styleId = `qunix-csp-font-${formattedFont.replace(/\s+/g, '-')}`;
+    if (document.getElementById(styleId)) return;
+
+    // Create placeholder style to avoid multiple simultaneous requests
+    const placeholder = document.createElement('style');
+    placeholder.id = styleId;
+    document.head.appendChild(placeholder);
+
+    console.log(`QUNIX_THEME: Loading CSP-friendly Google Font: ${formattedFont}`);
+
+    const cssUrl = `https://fonts.googleapis.com/css2?family=${formattedFont.replace(/\s+/g, '+')}:wght@400;500;600;700&display=swap`;
+    const res = await fetch(cssUrl);
+    if (!res.ok) {
+      placeholder.remove();
+      throw new Error(`Failed to fetch font CSS: ${res.status}`);
+    }
+    let cssText = await res.text();
+
+    const urlRegex = /url\((https:\/\/fonts\.gstatic\.com\/[^)]+)\)/g;
+    const matches = [...cssText.matchAll(urlRegex)];
+
+    for (const match of matches) {
+      const originalUrl = match[1];
+      try {
+        const fontRes = await fetch(originalUrl);
+        if (!fontRes.ok) continue;
+        const fontBlob = await fontRes.blob();
+        const blobUrl = URL.createObjectURL(fontBlob);
+        cssText = cssText.replaceAll(originalUrl, blobUrl);
+      } catch (err) {
+        console.error(`Failed to load font file ${originalUrl}:`, err);
+      }
+    }
+
+    placeholder.innerHTML = cssText;
+    console.log(`QUNIX_THEME: Successfully loaded CSP-friendly font: ${formattedFont}`);
+  } catch (err) {
+    console.error('QUNIX_THEME: CSP Font loader failed:', err);
+  }
+}
+
 const QunixThemeLoader: React.FC = () => {
   const computedColorScheme = useComputedColorScheme('dark');
   const [settings, setSettings] = useState<any>(() => (window as any).qunixThemeSettings);
+  const servers = useUserStore((state) => state.servers);
+  const location = useLocation();
 
   useEffect(() => {
     const handleLoaded = (e: Event) => {
@@ -238,6 +291,7 @@ const QunixThemeLoader: React.FC = () => {
     return () => window.removeEventListener('qunix-settings-loaded', handleLoaded);
   }, []);
 
+  // Update root element custom properties
   useEffect(() => {
     if (!settings) return;
 
@@ -368,21 +422,60 @@ const QunixThemeLoader: React.FC = () => {
         .map((w: string) => w.charAt(0).toUpperCase() + w.slice(1))
         .join(' ');
 
-      const fontId = `gfont-${formattedFont.replace(/\s+/g, '-')}`;
-      if (!document.getElementById(fontId)) {
-        console.log(`QUNIX_THEME: Loading Google Font: ${formattedFont}`);
-        const link = document.createElement('link');
-        link.id = fontId;
-        link.href = `https://fonts.googleapis.com/css2?family=${formattedFont.replace(/\s+/g, '+')}:wght@400;500;600;700&display=swap`;
-        link.rel = 'stylesheet';
-        document.head.appendChild(link);
-      }
-
+      loadFontCSPFriendly(formattedFont);
       root.style.setProperty('--ds-font-family', `"${formattedFont}", 'JetBrains Mono', monospace`);
     } else {
       root.style.setProperty('--ds-font-family', "'JetBrains Mono', monospace");
     }
   }, [computedColorScheme, settings]);
+
+  // Apply egg banners to server listing dashboard cards dynamically
+  useEffect(() => {
+    if (!settings) return;
+
+    const applyBanners = () => {
+      const serverLinks = document.querySelectorAll('a[href^="/server/"]');
+      const eggBanners = settings.egg_banners || settings.eggBanners || {};
+
+      serverLinks.forEach((aEl) => {
+        const href = aEl.getAttribute('href') || '';
+        const parts = href.split('/');
+        const uuidShort = parts[parts.length - 1];
+        if (!uuidShort) return;
+
+        const server = servers.data?.find(
+          (s: any) => s.uuidShort === uuidShort || s.uuid === uuidShort
+        );
+        if (server && server.egg) {
+          const bannerUrl = eggBanners[server.egg.uuid];
+          const cardEl = aEl.querySelector('.mantine-Card-root');
+          if (cardEl) {
+            if (bannerUrl) {
+              cardEl.classList.add('qunix-server-card', 'has-banner');
+              (cardEl as HTMLElement).style.setProperty('--ds-egg-banner-image', `url(${bannerUrl})`);
+            } else {
+              cardEl.classList.remove('qunix-server-card', 'has-banner');
+              (cardEl as HTMLElement).style.removeProperty('--ds-egg-banner-image');
+            }
+          }
+        }
+      });
+    };
+
+    applyBanners();
+
+    // Observe body changes for search / pagination re-renders
+    const observer = new MutationObserver(applyBanners);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    // Periodic safety sync
+    const interval = setInterval(applyBanners, 500);
+
+    return () => {
+      observer.disconnect();
+      clearInterval(interval);
+    };
+  }, [servers, location.pathname, location.search, settings]);
 
   return null;
 };
@@ -392,6 +485,14 @@ class QunixThemeExtension extends Extension {
   public cardComponent = null;
 
   public initialize(ctx: ExtensionContext): void {
+    ctx.extensionRegistry.routes.addAdminRoute({
+      name: 'Qunix Settings',
+      icon: faPalette,
+      path: '/qunix-settings',
+      element: AdminSettingsPage,
+      permission: ['extensions.qunix.theme.read'],
+    });
+
     ctx.extensionRegistry.pages.server.prependComponent(ServerBannerComponent);
     ctx.extensionRegistry.pages.global.prependComponent(QunixThemeLoader);
 

@@ -2,7 +2,7 @@
 name = "dev_qunix_theme"
 description = "theme for Calagopus Panel."
 authors = ["Mrbeenopro"]
-version = "1.3.6"
+version = "1.3.7"
 edition = { workspace = true }
 
 [dependencies]

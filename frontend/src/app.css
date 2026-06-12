@@ -494,7 +494,7 @@ img,
   border-radius: 10px;
 }
 
-::webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover {
   background: #cccccc;
 }
 

@@ -115,11 +115,36 @@ export default function ConfigurationPage() {
   }, []);
 
   useEffect(() => {
+    const styleId = 'qunix-config-page-style-override';
+    let styleEl = document.getElementById(styleId);
+    if (!styleEl) {
+      styleEl = document.createElement('style');
+      styleEl.id = styleId;
+      styleEl.innerHTML = `
+        @keyframes qunix-slide-up {
+          from {
+            transform: translate(-50%, 100px);
+            opacity: 0;
+          }
+          to {
+            transform: translate(-50%, 0);
+            opacity: 1;
+          }
+        }
+      `;
+      document.head.appendChild(styleEl);
+    }
+    return () => {
+      styleEl?.remove();
+    };
+  }, []);
+
+  useEffect(() => {
     axiosInstance
       .get('/api/admin/extensions/dev.qunix.theme/settings')
       .then((res) => {
         const s = res.data.settings;
-        form.setValues({
+        form.initialize({
           background_color: s.background_color || s.backgroundColor || '#1a1b26',
           text_color: s.text_color || s.textColor || '#c0caf5',
           focus_color: s.focus_color || s.focusColor || 'hsla(261, 84%, 79%, 1)',
@@ -541,6 +566,7 @@ export default function ConfigurationPage() {
       .then((res) => {
         console.log('QUNIX_THEME: Save successful:', res.data);
         addToast('Theme settings saved. Refresh the page to apply.', 'success');
+        form.initialize(payload);
       })
       .catch((err) => {
         console.error('QUNIX_THEME: Save failed:', err);
@@ -1369,6 +1395,76 @@ export default function ConfigurationPage() {
           </Group>
         </Group>
       </form>
+      {/* Floating Unsaved Changes Warning Banner */}
+      {form.isDirty() && (
+        <div style={{
+          position: 'fixed',
+          bottom: '24px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: '#111214',
+          border: '1px solid #1e1f22',
+          borderRadius: '12px',
+          padding: '12px 20px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '32px',
+          boxShadow: '0 8px 30px rgba(0,0,0,0.6)',
+          zIndex: 10000,
+          minWidth: '400px',
+          maxWidth: '90%',
+          color: '#e2e8f0',
+          animation: 'qunix-slide-up 0.2s ease-out',
+          boxSizing: 'border-box'
+        }}>
+          <span style={{ fontSize: '13px', fontWeight: 500, fontFamily: 'system-ui, sans-serif' }}>
+            {navigator.language.startsWith('vi') ? 'Hãy cẩn thận – bạn chưa lưu các thay đổi!' : 'Careful — you have unsaved changes!'}
+          </span>
+          <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+            <button
+              type="button"
+              onClick={() => form.reset()}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: '#e2e8f0',
+                fontSize: '12px',
+                fontWeight: 600,
+                cursor: 'pointer',
+                padding: '6px 12px',
+                borderRadius: '6px',
+                transition: 'all 0.2s',
+                fontFamily: 'system-ui, sans-serif'
+              }}
+              onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+              onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
+            >
+              {navigator.language.startsWith('vi') ? 'Đặt lại' : 'Reset'}
+            </button>
+            <Button
+              onClick={doSave}
+              loading={loading}
+              color="green"
+              size="xs"
+              styles={{
+                root: {
+                  fontSize: '12px',
+                  height: '32px',
+                  borderRadius: '6px',
+                  backgroundColor: '#23a55a',
+                  fontFamily: 'system-ui, sans-serif',
+                  '&:hover': {
+                    backgroundColor: '#1a7f43'
+                  }
+                }
+              }}
+            >
+              {navigator.language.startsWith('vi') ? 'Lưu Thay Đổi' : 'Save Changes'}
+            </Button>
+          </div>
+        </div>
+      )}
     </TitleCard>
   );
 }
