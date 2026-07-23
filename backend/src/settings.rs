@@ -52,8 +52,41 @@ pub struct QunixThemeSettingsData {
     pub terminal_ansi_magenta: compact_str::CompactString,
     pub terminal_ansi_cyan: compact_str::CompactString,
     pub terminal_ansi_white: compact_str::CompactString,
+    pub chart_series_1_border: compact_str::CompactString,
+    pub chart_series_1_fill: compact_str::CompactString,
+    pub chart_series_2_border: compact_str::CompactString,
+    pub chart_series_2_fill: compact_str::CompactString,
     #[serde(default)]
     pub egg_banners: std::collections::HashMap<compact_str::CompactString, compact_str::CompactString>,
+
+    pub announcement_bg: compact_str::CompactString,
+    pub light_announcement_bg: compact_str::CompactString,
+    pub announcement_blur: i32,
+    pub announcement_border_color: compact_str::CompactString,
+    pub light_announcement_border_color: compact_str::CompactString,
+    pub announcement_radius: i32,
+    pub announcement_cta: bool,
+    pub announcement_cta_bg: compact_str::CompactString,
+    pub light_announcement_cta_bg: compact_str::CompactString,
+    pub announcement_cta_color: compact_str::CompactString,
+    pub light_announcement_cta_color: compact_str::CompactString,
+    pub announcement_cta_radius: i32,
+    pub announcement_cta_link: compact_str::CompactString,
+    pub announcement_cta_text: compact_str::CompactString,
+    pub toast_style: compact_str::CompactString,
+    pub toast_timer: bool,
+    pub toast_radius: i32,
+    pub toast_colored_border: bool,
+    pub toast_background_tint: bool,
+    pub dark_7_color: compact_str::CompactString,
+    pub dark_6_color: compact_str::CompactString,
+    pub listing_radius: i32,
+    pub checkbox_radius: i32,
+    pub sidebar_hover_style: compact_str::CompactString,
+    pub sidebar_width: i32,
+    pub sidebar_radius: i32,
+    pub sidebar_active_radius: i32,
+    pub page_title_icon: bool,
 
     // Light Theme Settings
     pub light_background_color: compact_str::CompactString,
@@ -88,24 +121,30 @@ pub struct QunixThemeSettingsData {
     pub light_terminal_ansi_magenta: compact_str::CompactString,
     pub light_terminal_ansi_cyan: compact_str::CompactString,
     pub light_terminal_ansi_white: compact_str::CompactString,
+    pub light_chart_series_1_border: compact_str::CompactString,
+    pub light_chart_series_1_fill: compact_str::CompactString,
+    pub light_chart_series_2_border: compact_str::CompactString,
+    pub light_chart_series_2_fill: compact_str::CompactString,
+    pub light_dark_7_color: compact_str::CompactString,
+    pub light_dark_6_color: compact_str::CompactString,
 }
 
 impl Default for QunixThemeSettingsData {
     fn default() -> Self {
         Self {
-            background_color: "#120b1fff".into(), 
+            background_color: "#120b1f".into(), 
             text_color: "#e2e8f0".into(), 
-            focus_color: "hsla(263, 85%, 60%, 1.00)".into(), 
+            focus_color: "#8542f0".into(), 
             shadow_opacity: 0.25,
             font_family: "JetBrains Mono".into(),
-            sidebar_color: "#1a1329ff".into(), 
-            card_color: "#1e1631ff".into(), 
+            sidebar_color: "#1a1329".into(), 
+            card_color: "#1e1631".into(), 
             border_color: "rgba(156, 136, 255, 0.15)".into(), 
             border_radius: 20, 
-            navbar_color: "#161025ff".into(),
-            terminal_color: "#1a1b26ff".into(),
-            terminal_text_color: "#a9b1d6ff".into(),   
-            input_color: "#251b3aff".into(),
+            navbar_color: "#161025".into(),
+            terminal_color: "#1a1b26".into(),
+            terminal_text_color: "#a9b1d6".into(),   
+            input_color: "#251b3a".into(),
             button_radius: 20,
             input_radius: 8,
             card_radius: 12,
@@ -117,15 +156,15 @@ impl Default for QunixThemeSettingsData {
             wallpaper_blur: 0,
             wallpaper_brightness: 1.0,
             glass_transparency: 20,
-            editor_color: "#0f081aff".into(),
-            editor_text_color: "#e2e8f0ff".into(),
-            listing_color: "#1e1631ff".into(),
-            button_color: "#6c5ce7ff".into(), 
+            editor_color: "#0f081a".into(),
+            editor_text_color: "#e2e8f0".into(),
+            listing_color: "#1e1631".into(),
+            button_color: "#6c5ce7".into(), 
             server_action_bg: "#0a0a0a".into(),
             power_start_bg: "#40c057".into(),
             power_restart_bg: "#868e96".into(),
             power_stop_bg: "#fa5252".into(),
-            sidebar_active_color: "#6c5ce7ff".into(),
+            sidebar_active_color: "#6c5ce7".into(),
             sidebar_active_bg: "rgba(255, 255, 255, 0.05)".into(),
             sidebar_item_height: 36,
             terminal_cursor_color: "#7aa2f7".into(),
@@ -138,32 +177,65 @@ impl Default for QunixThemeSettingsData {
             terminal_ansi_magenta: "#bb9af7".into(),
             terminal_ansi_cyan: "#7dcfff".into(),
             terminal_ansi_white: "#a9b1d6".into(),
+            chart_series_1_border: "#22d3ee".into(),
+            chart_series_1_fill: "rgba(14, 116, 144, 0.5)".into(),
+            chart_series_2_border: "#facc15".into(),
+            chart_series_2_fill: "rgba(161, 98, 7, 0.5)".into(),
             egg_banners: std::collections::HashMap::new(),
 
+            announcement_bg: "rgba(108, 92, 231, 0.15)".into(),
+            light_announcement_bg: "rgba(108, 92, 231, 0.1)".into(),
+            announcement_blur: 10,
+            announcement_border_color: "#6c5ce7".into(),
+            light_announcement_border_color: "#6c5ce7".into(),
+            announcement_radius: 12,
+            announcement_cta: true,
+            announcement_cta_bg: "#6c5ce7".into(),
+            light_announcement_cta_bg: "#6c5ce7".into(),
+            announcement_cta_color: "#ffffff".into(),
+            light_announcement_cta_color: "#ffffff".into(),
+            announcement_cta_radius: 8,
+            announcement_cta_link: "".into(),
+            announcement_cta_text: "Go to link...".into(),
+            toast_style: "qunix".into(),
+            toast_timer: true,
+            toast_radius: 8,
+            toast_colored_border: true,
+            toast_background_tint: true,
+            dark_7_color: "#0a0a0a".into(),
+            dark_6_color: "#111111".into(),
+            listing_radius: 12,
+            checkbox_radius: 4,
+            sidebar_hover_style: "style-1".into(),
+            sidebar_width: 256,
+            sidebar_radius: 6,
+            sidebar_active_radius: 6,
+            page_title_icon: true,
+
             // Light Mode Defaults
-            light_background_color: "#f3effaff".into(), 
-            light_text_color: "#1e1631ff".into(), 
-            light_focus_color: "hsla(263, 85%, 60%, 1.00)".into(), 
+            light_background_color: "#f3effa".into(), 
+            light_text_color: "#1e1631".into(), 
+            light_focus_color: "#8542f0".into(), 
             light_shadow_opacity: 0.08,
-            light_sidebar_color: "#ffffffff".into(), 
-            light_card_color: "#ffffffff".into(), 
+            light_sidebar_color: "#ffffff".into(), 
+            light_card_color: "#ffffff".into(), 
             light_border_color: "rgba(108, 92, 231, 0.15)".into(), 
-            light_navbar_color: "#ffffffff".into(),
-            light_terminal_color: "#f1f2f6ff".into(),
-            light_terminal_text_color: "#2f3542ff".into(),   
-            light_input_color: "#f1f2f6ff".into(),
+            light_navbar_color: "#ffffff".into(),
+            light_terminal_color: "#f1f2f6".into(),
+            light_terminal_text_color: "#2f3542".into(),   
+            light_input_color: "#f1f2f6".into(),
             light_background_image: None,
-            light_editor_color: "#ffffffff".into(),
-            light_editor_text_color: "#2f3542ff".into(),
-            light_listing_color: "#ffffffff".into(),
-            light_button_color: "#6c5ce7ff".into(), 
-            light_server_action_bg: "#f1f2f6ff".into(),
-            light_power_start_bg: "#2ed573ff".into(),
-            light_power_restart_bg: "#747d8cff".into(),
-            light_power_stop_bg: "#ff4757ff".into(),
-            light_sidebar_active_color: "#6c5ce7ff".into(),
+            light_editor_color: "#ffffff".into(),
+            light_editor_text_color: "#2f3542".into(),
+            light_listing_color: "#ffffff".into(),
+            light_button_color: "#6c5ce7".into(), 
+            light_server_action_bg: "#f1f2f6".into(),
+            light_power_start_bg: "#2ed573".into(),
+            light_power_restart_bg: "#747d8c".into(),
+            light_power_stop_bg: "#ff4757".into(),
+            light_sidebar_active_color: "#6c5ce7".into(),
             light_sidebar_active_bg: "rgba(108, 92, 231, 0.1)".into(),
-            light_terminal_cursor_color: "#6c5ce7ff".into(),
+            light_terminal_cursor_color: "#6c5ce7".into(),
             light_terminal_selection_color: "rgba(108, 92, 231, 0.3)".into(),
             light_terminal_ansi_black: "#d5d6db".into(),
             light_terminal_ansi_red: "#f7768e".into(),
@@ -173,6 +245,12 @@ impl Default for QunixThemeSettingsData {
             light_terminal_ansi_magenta: "#5a4a78".into(),
             light_terminal_ansi_cyan: "#0f4b6e".into(),
             light_terminal_ansi_white: "#343b58".into(),
+            light_chart_series_1_border: "#0891b2".into(),
+            light_chart_series_1_fill: "rgba(8, 145, 178, 0.15)".into(),
+            light_chart_series_2_border: "#d97706".into(),
+            light_chart_series_2_fill: "rgba(217, 119, 6, 0.15)".into(),
+            light_dark_7_color: "#ffffff".into(),
+            light_dark_6_color: "#ebebeb".into(),
         }
     }
 }
@@ -235,6 +313,10 @@ impl SettingsSerializeExt for QunixThemeSettingsData {
             .write_raw_setting("terminal_ansi_magenta", self.terminal_ansi_magenta.clone())
             .write_raw_setting("terminal_ansi_cyan", self.terminal_ansi_cyan.clone())
             .write_raw_setting("terminal_ansi_white", self.terminal_ansi_white.clone())
+            .write_raw_setting("chart_series_1_border", self.chart_series_1_border.clone())
+            .write_raw_setting("chart_series_1_fill", self.chart_series_1_fill.clone())
+            .write_raw_setting("chart_series_2_border", self.chart_series_2_border.clone())
+            .write_raw_setting("chart_series_2_fill", self.chart_series_2_fill.clone())
             
             // Light Mode Serialization
             .write_raw_setting("light_background_color", self.light_background_color.clone())
@@ -274,7 +356,41 @@ impl SettingsSerializeExt for QunixThemeSettingsData {
             .write_raw_setting("light_terminal_ansi_blue", self.light_terminal_ansi_blue.clone())
             .write_raw_setting("light_terminal_ansi_magenta", self.light_terminal_ansi_magenta.clone())
             .write_raw_setting("light_terminal_ansi_cyan", self.light_terminal_ansi_cyan.clone())
-            .write_raw_setting("light_terminal_ansi_white", self.light_terminal_ansi_white.clone());
+            .write_raw_setting("light_terminal_ansi_white", self.light_terminal_ansi_white.clone())
+            .write_raw_setting("light_chart_series_1_border", self.light_chart_series_1_border.clone())
+            .write_raw_setting("light_chart_series_1_fill", self.light_chart_series_1_fill.clone())
+            .write_raw_setting("light_chart_series_2_border", self.light_chart_series_2_border.clone())
+            .write_raw_setting("light_chart_series_2_fill", self.light_chart_series_2_fill.clone())
+            .write_raw_setting("announcement_bg", self.announcement_bg.clone())
+            .write_raw_setting("light_announcement_bg", self.light_announcement_bg.clone())
+            .write_raw_setting("announcement_blur", self.announcement_blur.to_string())
+            .write_raw_setting("announcement_border_color", self.announcement_border_color.clone())
+            .write_raw_setting("light_announcement_border_color", self.light_announcement_border_color.clone())
+            .write_raw_setting("announcement_radius", self.announcement_radius.to_string())
+            .write_raw_setting("announcement_cta", self.announcement_cta.to_string())
+            .write_raw_setting("announcement_cta_bg", self.announcement_cta_bg.clone())
+            .write_raw_setting("light_announcement_cta_bg", self.light_announcement_cta_bg.clone())
+            .write_raw_setting("announcement_cta_color", self.announcement_cta_color.clone())
+            .write_raw_setting("light_announcement_cta_color", self.light_announcement_cta_color.clone())
+            .write_raw_setting("announcement_cta_radius", self.announcement_cta_radius.to_string())
+            .write_raw_setting("announcement_cta_link", self.announcement_cta_link.clone())
+            .write_raw_setting("announcement_cta_text", self.announcement_cta_text.clone())
+            .write_raw_setting("toast_style", self.toast_style.clone())
+            .write_raw_setting("toast_timer", self.toast_timer.to_string())
+            .write_raw_setting("toast_radius", self.toast_radius.to_string())
+            .write_raw_setting("toast_colored_border", self.toast_colored_border.to_string())
+            .write_raw_setting("toast_background_tint", self.toast_background_tint.to_string())
+            .write_raw_setting("dark_7_color", self.dark_7_color.clone())
+            .write_raw_setting("light_dark_7_color", self.light_dark_7_color.clone())
+            .write_raw_setting("dark_6_color", self.dark_6_color.clone())
+            .write_raw_setting("light_dark_6_color", self.light_dark_6_color.clone())
+            .write_raw_setting("listing_radius", self.listing_radius.to_string())
+            .write_raw_setting("checkbox_radius", self.checkbox_radius.to_string())
+            .write_raw_setting("sidebar_hover_style", self.sidebar_hover_style.clone())
+            .write_raw_setting("sidebar_width", self.sidebar_width.to_string())
+            .write_raw_setting("sidebar_radius", self.sidebar_radius.to_string())
+            .write_raw_setting("sidebar_active_radius", self.sidebar_active_radius.to_string())
+            .write_raw_setting("page_title_icon", self.page_title_icon.to_string());
 
         let serializer = serializer
             .write_serde_setting("egg_banners", &self.egg_banners)
@@ -296,11 +412,6 @@ impl SettingsDeserializeExt for QunixThemeSettingsDataDeserializer {
         let background_color = deserializer
             .take_raw_setting("background_color")
             .unwrap_or(default.background_color);
-
-        tracing::info!(
-            "QUNIX_THEME: Deserialized background_color: {}",
-            background_color
-        );
 
         Ok(Box::new(QunixThemeSettingsData {
             background_color,
@@ -448,6 +559,18 @@ impl SettingsDeserializeExt for QunixThemeSettingsDataDeserializer {
             terminal_ansi_white: deserializer
                 .take_raw_setting("terminal_ansi_white")
                 .unwrap_or(default.terminal_ansi_white),
+            chart_series_1_border: deserializer
+                .take_raw_setting("chart_series_1_border")
+                .unwrap_or(default.chart_series_1_border),
+            chart_series_1_fill: deserializer
+                .take_raw_setting("chart_series_1_fill")
+                .unwrap_or(default.chart_series_1_fill),
+            chart_series_2_border: deserializer
+                .take_raw_setting("chart_series_2_border")
+                .unwrap_or(default.chart_series_2_border),
+            chart_series_2_fill: deserializer
+                .take_raw_setting("chart_series_2_fill")
+                .unwrap_or(default.chart_series_2_fill),
             egg_banners: deserializer
                 .read_serde_setting("egg_banners")
                 .unwrap_or_else(|_| default.egg_banners),
@@ -549,6 +672,123 @@ impl SettingsDeserializeExt for QunixThemeSettingsDataDeserializer {
             light_terminal_ansi_white: deserializer
                 .take_raw_setting("light_terminal_ansi_white")
                 .unwrap_or(default.light_terminal_ansi_white),
+            light_chart_series_1_border: deserializer
+                .take_raw_setting("light_chart_series_1_border")
+                .unwrap_or(default.light_chart_series_1_border),
+            light_chart_series_1_fill: deserializer
+                .take_raw_setting("light_chart_series_1_fill")
+                .unwrap_or(default.light_chart_series_1_fill),
+            light_chart_series_2_border: deserializer
+                .take_raw_setting("light_chart_series_2_border")
+                .unwrap_or(default.light_chart_series_2_border),
+            light_chart_series_2_fill: deserializer
+                .take_raw_setting("light_chart_series_2_fill")
+                .unwrap_or(default.light_chart_series_2_fill),
+
+            announcement_bg: deserializer
+                .take_raw_setting("announcement_bg")
+                .unwrap_or(default.announcement_bg),
+            light_announcement_bg: deserializer
+                .take_raw_setting("light_announcement_bg")
+                .unwrap_or(default.light_announcement_bg),
+            announcement_blur: deserializer
+                .take_raw_setting("announcement_blur")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.announcement_blur),
+            announcement_border_color: deserializer
+                .take_raw_setting("announcement_border_color")
+                .unwrap_or(default.announcement_border_color),
+            light_announcement_border_color: deserializer
+                .take_raw_setting("light_announcement_border_color")
+                .unwrap_or(default.light_announcement_border_color),
+            announcement_radius: deserializer
+                .take_raw_setting("announcement_radius")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.announcement_radius),
+            announcement_cta: deserializer
+                .take_raw_setting("announcement_cta")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.announcement_cta),
+            announcement_cta_bg: deserializer
+                .take_raw_setting("announcement_cta_bg")
+                .unwrap_or(default.announcement_cta_bg),
+            light_announcement_cta_bg: deserializer
+                .take_raw_setting("light_announcement_cta_bg")
+                .unwrap_or(default.light_announcement_cta_bg),
+            announcement_cta_color: deserializer
+                .take_raw_setting("announcement_cta_color")
+                .unwrap_or(default.announcement_cta_color),
+            light_announcement_cta_color: deserializer
+                .take_raw_setting("light_announcement_cta_color")
+                .unwrap_or(default.light_announcement_cta_color),
+            announcement_cta_radius: deserializer
+                .take_raw_setting("announcement_cta_radius")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.announcement_cta_radius),
+            announcement_cta_link: deserializer
+                .take_raw_setting("announcement_cta_link")
+                .unwrap_or(default.announcement_cta_link),
+            announcement_cta_text: deserializer
+                .take_raw_setting("announcement_cta_text")
+                .unwrap_or(default.announcement_cta_text),
+            toast_style: deserializer
+                .take_raw_setting("toast_style")
+                .unwrap_or(default.toast_style),
+            toast_timer: deserializer
+                .take_raw_setting("toast_timer")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.toast_timer),
+            toast_radius: deserializer
+                .take_raw_setting("toast_radius")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.toast_radius),
+            toast_colored_border: deserializer
+                .take_raw_setting("toast_colored_border")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.toast_colored_border),
+            toast_background_tint: deserializer
+                .take_raw_setting("toast_background_tint")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.toast_background_tint),
+            dark_7_color: deserializer
+                .take_raw_setting("dark_7_color")
+                .unwrap_or(default.dark_7_color),
+            light_dark_7_color: deserializer
+                .take_raw_setting("light_dark_7_color")
+                .unwrap_or(default.light_dark_7_color),
+            dark_6_color: deserializer
+                .take_raw_setting("dark_6_color")
+                .unwrap_or(default.dark_6_color),
+            light_dark_6_color: deserializer
+                .take_raw_setting("light_dark_6_color")
+                .unwrap_or(default.light_dark_6_color),
+            listing_radius: deserializer
+                .take_raw_setting("listing_radius")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.listing_radius),
+            checkbox_radius: deserializer
+                .take_raw_setting("checkbox_radius")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.checkbox_radius),
+            sidebar_hover_style: deserializer
+                .take_raw_setting("sidebar_hover_style")
+                .unwrap_or(default.sidebar_hover_style),
+            sidebar_width: deserializer
+                .take_raw_setting("sidebar_width")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.sidebar_width),
+            sidebar_radius: deserializer
+                .take_raw_setting("sidebar_radius")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.sidebar_radius),
+            sidebar_active_radius: deserializer
+                .take_raw_setting("sidebar_active_radius")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.sidebar_active_radius),
+            page_title_icon: deserializer
+                .take_raw_setting("page_title_icon")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.page_title_icon),
         }))
     }
 }

@@ -230,6 +230,97 @@ mod put {
         #[serde(alias = "lightSidebarActiveBg", alias = "light_sidebar_active_bg")]
         #[garde(length(chars, min = 4, max = 100))]
         pub light_sidebar_active_bg: Option<compact_str::CompactString>,
+
+        #[serde(alias = "announcementBg", alias = "announcement_bg")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub announcement_bg: Option<compact_str::CompactString>,
+        #[serde(alias = "lightAnnouncementBg", alias = "light_announcement_bg")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_announcement_bg: Option<compact_str::CompactString>,
+        #[serde(alias = "announcementBlur", alias = "announcement_blur")]
+        #[garde(range(min = 0, max = 100))]
+        pub announcement_blur: Option<i32>,
+        #[serde(alias = "announcementBorderColor", alias = "announcement_border_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub announcement_border_color: Option<compact_str::CompactString>,
+        #[serde(alias = "lightAnnouncementBorderColor", alias = "light_announcement_border_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_announcement_border_color: Option<compact_str::CompactString>,
+        #[serde(alias = "announcementRadius", alias = "announcement_radius")]
+        #[garde(range(min = 0, max = 100))]
+        pub announcement_radius: Option<i32>,
+        #[serde(alias = "announcementCta", alias = "announcement_cta")]
+        #[garde(skip)]
+        pub announcement_cta: Option<bool>,
+        #[serde(alias = "announcementCtaBg", alias = "announcement_cta_bg")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub announcement_cta_bg: Option<compact_str::CompactString>,
+        #[serde(alias = "lightAnnouncementCtaBg", alias = "light_announcement_cta_bg")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_announcement_cta_bg: Option<compact_str::CompactString>,
+        #[serde(alias = "announcementCtaColor", alias = "announcement_cta_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub announcement_cta_color: Option<compact_str::CompactString>,
+        #[serde(alias = "lightAnnouncementCtaColor", alias = "light_announcement_cta_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_announcement_cta_color: Option<compact_str::CompactString>,
+        #[serde(alias = "announcementCtaRadius", alias = "announcement_cta_radius")]
+        #[garde(range(min = 0, max = 100))]
+        pub announcement_cta_radius: Option<i32>,
+        #[serde(alias = "announcementCtaLink", alias = "announcement_cta_link")]
+        #[garde(skip)]
+        pub announcement_cta_link: Option<compact_str::CompactString>,
+        #[serde(alias = "announcementCtaText", alias = "announcement_cta_text")]
+        #[garde(skip)]
+        pub announcement_cta_text: Option<compact_str::CompactString>,
+        #[serde(alias = "toastStyle", alias = "toast_style")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub toast_style: Option<compact_str::CompactString>,
+        #[serde(alias = "toastTimer", alias = "toast_timer")]
+        #[garde(skip)]
+        pub toast_timer: Option<bool>,
+        #[serde(alias = "toastRadius", alias = "toast_radius")]
+        #[garde(range(min = 0, max = 100))]
+        pub toast_radius: Option<i32>,
+        #[serde(alias = "toastColoredBorder", alias = "toast_colored_border")]
+        #[garde(skip)]
+        pub toast_colored_border: Option<bool>,
+        #[serde(alias = "toastBackgroundTint", alias = "toast_background_tint")]
+        #[garde(skip)]
+        pub toast_background_tint: Option<bool>,
+        #[serde(alias = "dark7Color", alias = "dark_7_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub dark_7_color: Option<compact_str::CompactString>,
+        #[serde(alias = "lightDark7Color", alias = "light_dark_7_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_dark_7_color: Option<compact_str::CompactString>,
+        #[serde(alias = "dark6Color", alias = "dark_6_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub dark_6_color: Option<compact_str::CompactString>,
+        #[serde(alias = "lightDark6Color", alias = "light_dark_6_color")]
+        #[garde(length(chars, min = 4, max = 100))]
+        pub light_dark_6_color: Option<compact_str::CompactString>,
+        #[serde(alias = "listingRadius", alias = "listing_radius")]
+        #[garde(range(min = 0, max = 100))]
+        pub listing_radius: Option<i32>,
+        #[serde(alias = "checkboxRadius", alias = "checkbox_radius")]
+        #[garde(range(min = 0, max = 100))]
+        pub checkbox_radius: Option<i32>,
+        #[serde(alias = "sidebarHoverStyle", alias = "sidebar_hover_style")]
+        #[garde(length(chars, min = 1, max = 50))]
+        pub sidebar_hover_style: Option<compact_str::CompactString>,
+        #[serde(alias = "sidebarWidth", alias = "sidebar_width")]
+        #[garde(range(min = 150, max = 400))]
+        pub sidebar_width: Option<i32>,
+        #[serde(alias = "sidebarRadius", alias = "sidebar_radius")]
+        #[garde(range(min = 0, max = 50))]
+        pub sidebar_radius: Option<i32>,
+        #[serde(alias = "sidebarActiveRadius", alias = "sidebar_active_radius")]
+        #[garde(range(min = 0, max = 50))]
+        pub sidebar_active_radius: Option<i32>,
+        #[serde(alias = "pageTitleIcon", alias = "page_title_icon")]
+        #[garde(skip)]
+        pub page_title_icon: Option<bool>,
     }
 
     #[utoipa::path(
@@ -431,6 +522,97 @@ mod put {
         }
         if let Some(light_sab) = data.light_sidebar_active_bg {
             ext_settings.light_sidebar_active_bg = light_sab;
+        }
+
+        if let Some(ann_bg) = data.announcement_bg {
+            ext_settings.announcement_bg = ann_bg;
+        }
+        if let Some(light_ann_bg) = data.light_announcement_bg {
+            ext_settings.light_announcement_bg = light_ann_bg;
+        }
+        if let Some(ann_blur) = data.announcement_blur {
+            ext_settings.announcement_blur = ann_blur;
+        }
+        if let Some(ann_border) = data.announcement_border_color {
+            ext_settings.announcement_border_color = ann_border;
+        }
+        if let Some(light_ann_border) = data.light_announcement_border_color {
+            ext_settings.light_announcement_border_color = light_ann_border;
+        }
+        if let Some(ann_radius) = data.announcement_radius {
+            ext_settings.announcement_radius = ann_radius;
+        }
+        if let Some(cta_enabled) = data.announcement_cta {
+            ext_settings.announcement_cta = cta_enabled;
+        }
+        if let Some(cta_bg) = data.announcement_cta_bg {
+            ext_settings.announcement_cta_bg = cta_bg;
+        }
+        if let Some(light_cta_bg) = data.light_announcement_cta_bg {
+            ext_settings.light_announcement_cta_bg = light_cta_bg;
+        }
+        if let Some(cta_color) = data.announcement_cta_color {
+            ext_settings.announcement_cta_color = cta_color;
+        }
+        if let Some(light_cta_color) = data.light_announcement_cta_color {
+            ext_settings.light_announcement_cta_color = light_cta_color;
+        }
+        if let Some(cta_radius) = data.announcement_cta_radius {
+            ext_settings.announcement_cta_radius = cta_radius;
+        }
+        if let Some(cta_link) = data.announcement_cta_link {
+            ext_settings.announcement_cta_link = cta_link;
+        }
+        if let Some(cta_text) = data.announcement_cta_text {
+            ext_settings.announcement_cta_text = cta_text;
+        }
+        if let Some(t_style) = data.toast_style {
+            ext_settings.toast_style = t_style;
+        }
+        if let Some(t_timer) = data.toast_timer {
+            ext_settings.toast_timer = t_timer;
+        }
+        if let Some(t_radius) = data.toast_radius {
+            ext_settings.toast_radius = t_radius;
+        }
+        if let Some(t_colored_border) = data.toast_colored_border {
+            ext_settings.toast_colored_border = t_colored_border;
+        }
+        if let Some(t_background_tint) = data.toast_background_tint {
+            ext_settings.toast_background_tint = t_background_tint;
+        }
+        if let Some(d7) = data.dark_7_color {
+            ext_settings.dark_7_color = d7;
+        }
+        if let Some(ld7) = data.light_dark_7_color {
+            ext_settings.light_dark_7_color = ld7;
+        }
+        if let Some(d6) = data.dark_6_color {
+            ext_settings.dark_6_color = d6;
+        }
+        if let Some(ld6) = data.light_dark_6_color {
+            ext_settings.light_dark_6_color = ld6;
+        }
+        if let Some(list_rad) = data.listing_radius {
+            ext_settings.listing_radius = list_rad;
+        }
+        if let Some(chk_rad) = data.checkbox_radius {
+            ext_settings.checkbox_radius = chk_rad;
+        }
+        if let Some(hover_style) = data.sidebar_hover_style {
+            ext_settings.sidebar_hover_style = hover_style;
+        }
+        if let Some(sb_w) = data.sidebar_width {
+            ext_settings.sidebar_width = sb_w;
+        }
+        if let Some(sb_r) = data.sidebar_radius {
+            ext_settings.sidebar_radius = sb_r;
+        }
+        if let Some(sb_ar) = data.sidebar_active_radius {
+            ext_settings.sidebar_active_radius = sb_ar;
+        }
+        if let Some(pti) = data.page_title_icon {
+            ext_settings.page_title_icon = pti;
         }
 
         settings.save().await?;
