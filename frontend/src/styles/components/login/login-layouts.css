@@ -1,0 +1,450 @@
+/* ========================================================================== */
+/* Login Layout Modes (Default, Flat, Side Banner, Floating, Panels)          */
+/* ========================================================================== */
+
+/* 1. Default & Flat Layout Mode - Pure background with no container box */
+html:not([data-login-layout]).qunix-auth-active .h-screen>div,
+html[data-login-layout="default"].qunix-auth-active .h-screen>div,
+html[data-login-layout="flat"].qunix-auth-active .h-screen>div {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: auto !important;
+  max-width: 460px !important;
+  width: 95% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+}
+
+html[data-login-layout="flat"].qunix-auth-active .h-screen>div>div:not(.qunix-auth-logo),
+html:not([data-login-layout]).qunix-auth-active .h-screen>div>div:not(.qunix-auth-logo),
+html[data-login-layout="default"].qunix-auth-active .h-screen>div>div:not(.qunix-auth-logo) {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+}
+
+/* Custom Login Layout Modes - Desktop Only (min-width: 769px) */
+@media (min-width: 769px) {
+
+  /* 2. Side Banner Layout Mode (Form Left, Banner Right) */
+  html[data-login-layout="side-banner"].qunix-auth-active #window_null_inner,
+  html[data-login-layout="side-banner"].qunix-auth-active .h-screen {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    justify-content: stretch !important;
+    min-height: 100vh !important;
+    height: 100vh !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background-color: var(--ds-login-bg-color, var(--ds-background, #070708)) !important;
+  }
+
+  html[data-login-layout="side-banner"].qunix-auth-active .qunix-form-container,
+  html[data-login-layout="side-banner"].qunix-auth-active .h-screen>div[class*="overflow-auto"],
+  html[data-login-layout="side-banner"].qunix-auth-active .h-screen>div:not(#qunix-login-banner):not([style*="position: fixed"]) {
+    order: 1 !important;
+    flex: 0 0 50% !important;
+    width: 50% !important;
+    max-width: 50% !important;
+    min-width: 50% !important;
+    background-color: var(--ds-login-bg-color, var(--ds-background, #070708)) !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 0 40px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    overflow-y: auto !important;
+    z-index: 10 !important;
+  }
+
+  html[data-login-layout="side-banner"].qunix-auth-active .qunix-form-container>div,
+  html[data-login-layout="side-banner"].qunix-auth-active .h-screen>div[class*="overflow-auto"]>div,
+  html[data-login-layout="side-banner"].qunix-auth-active .h-screen>div:not(#qunix-login-banner)>div {
+    max-width: 440px !important;
+    width: 100% !important;
+  }
+
+  html[data-login-layout="side-banner"].qunix-auth-active #qunix-login-banner {
+    order: 2 !important;
+    flex: 0 0 50% !important;
+    width: 50% !important;
+    max-width: 50% !important;
+    min-width: 50% !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    display: block !important;
+    position: relative !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background-color: var(--ds-login-bg-color, var(--ds-background, #070708)) !important;
+    z-index: 5 !important;
+  }
+
+  html[data-login-layout="side-banner"].qunix-auth-active #qunix-login-banner-inner {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100vh !important;
+    background-image: var(--ds-login-banner-image) !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 1 !important;
+  }
+
+  /* Prevent any img tag from duplicating or overlapping the banner background */
+  #qunix-login-banner img,
+  #qunix-login-banner-inner img {
+    display: none !important;
+  }
+
+  html[data-login-layout="side-banner"].qunix-auth-active #qunix-login-banner-inner::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.1) 100%) !important;
+    z-index: 2 !important;
+    pointer-events: none !important;
+  }
+
+  /* 2b. Side Banner Inverted Layout Mode (Banner Left, Form Right) */
+  html[data-login-layout="side-banner-inverted"].qunix-auth-active #window_null_inner,
+  html[data-login-layout="side-banner-inverted"].qunix-auth-active .h-screen {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    justify-content: stretch !important;
+    min-height: 100vh !important;
+    height: 100vh !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background-color: var(--ds-login-bg-color, var(--ds-background, #070708)) !important;
+  }
+
+  html[data-login-layout="side-banner-inverted"].qunix-auth-active #qunix-login-banner {
+    order: 1 !important;
+    flex: 0 0 50% !important;
+    width: 50% !important;
+    max-width: 50% !important;
+    min-width: 50% !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    display: block !important;
+    position: relative !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    background-color: var(--ds-login-bg-color, var(--ds-background, #070708)) !important;
+    z-index: 5 !important;
+  }
+
+  html[data-login-layout="side-banner-inverted"].qunix-auth-active #qunix-login-banner-inner {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100vh !important;
+    background-image: var(--ds-login-banner-image) !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 1 !important;
+  }
+
+  html[data-login-layout="side-banner-inverted"].qunix-auth-active #qunix-login-banner-inner::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.1) 100%) !important;
+    z-index: 2 !important;
+  }
+
+  html[data-login-layout="side-banner-inverted"].qunix-auth-active .qunix-form-container,
+  html[data-login-layout="side-banner-inverted"].qunix-auth-active .h-screen>div[class*="overflow-auto"],
+  html[data-login-layout="side-banner-inverted"].qunix-auth-active .h-screen>div:not(#qunix-login-banner):not([style*="position: fixed"]) {
+    order: 2 !important;
+    flex: 0 0 50% !important;
+    width: 50% !important;
+    max-width: 50% !important;
+    min-width: 50% !important;
+    background-color: var(--ds-login-bg-color, var(--ds-background, #070708)) !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 0 40px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    overflow-y: auto !important;
+    z-index: 10 !important;
+  }
+
+  html[data-login-layout="side-banner-inverted"].qunix-auth-active .qunix-form-container>div,
+  html[data-login-layout="side-banner-inverted"].qunix-auth-active .h-screen>div[class*="overflow-auto"]>div,
+  html[data-login-layout="side-banner-inverted"].qunix-auth-active .h-screen>div:not(#qunix-login-banner)>div {
+    max-width: 440px !important;
+    width: 100% !important;
+  }
+
+  /* Portal & hidden fixed elements inside .h-screen should never be flex items */
+  .qunix-auth-active .h-screen > div[style*="position: fixed"],
+  .qunix-auth-active .h-screen > div[id^="mantine-"]:not(.qunix-form-container) {
+    display: none !important;
+    flex: 0 0 0px !important;
+    width: 0 !important;
+    height: 0 !important;
+    min-width: 0 !important;
+    max-width: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    pointer-events: none !important;
+  }
+
+  /* 3. Floating Banner Layout Mode */
+  html[data-login-layout="floating-banner"].qunix-auth-active .h-screen {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 100vh !important;
+    width: 100vw !important;
+    background-color: var(--ds-login-bg-color, var(--ds-background, #070708)) !important;
+  }
+
+  html[data-login-layout="floating-banner"].qunix-auth-active .h-screen>div {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    justify-content: center !important;
+    max-width: 860px !important;
+    width: 90% !important;
+    background: var(--ds-card-bg, #121212) !important;
+    border: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.1)) !important;
+    border-radius: var(--ds-card-radius, 12px) !important;
+    min-height: 520px !important;
+    height: auto !important;
+    max-height: 94vh !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3) !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    margin: auto !important;
+  }
+
+  html[data-login-layout="floating-banner"].qunix-auth-active .h-screen>div>.qunix-form-wrapper,
+  html[data-login-layout="floating-banner"].qunix-auth-active .h-screen>div>div:not(#qunix-login-banner) {
+    flex: 1 1 50% !important;
+    max-width: 50% !important;
+    width: 50% !important;
+    min-height: 100% !important;
+    padding: 32px 36px !important;
+    box-sizing: border-box !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    overflow-y: auto !important;
+  }
+
+  html[data-login-layout="floating-banner"] #qunix-login-banner {
+    flex: 1 1 50% !important;
+    width: 50% !important;
+    max-width: 50% !important;
+    height: auto !important;
+    min-height: 100% !important;
+    align-self: stretch !important;
+    display: block !important;
+    position: relative !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  html[data-login-layout="floating-banner"] #qunix-login-banner-inner {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    background-image: var(--ds-login-banner-image) !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+  }
+
+  /* 4. Panels Layout Mode */
+  html[data-login-layout="panels"].qunix-auth-active .h-screen {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 100vh !important;
+    width: 100vw !important;
+    background-color: var(--ds-login-bg-color, var(--ds-background, #070708)) !important;
+  }
+
+  html[data-login-layout="panels"].qunix-auth-active .h-screen>div {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    max-width: 860px !important;
+    width: 90% !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: auto !important;
+    gap: 24px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  html[data-login-layout="panels"].qunix-auth-active .h-screen>div>div {
+    flex: 1 1 50% !important;
+    max-width: calc(50% - 12px) !important;
+    width: calc(50% - 12px) !important;
+    background: var(--ds-card-bg, #121212) !important;
+    border: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.1)) !important;
+    border-radius: var(--ds-card-radius, 12px) !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2) !important;
+    padding: 32px !important;
+    box-sizing: border-box !important;
+  }
+
+  html[data-login-layout="panels"] #qunix-login-banner {
+    flex: 1 1 50% !important;
+    width: calc(50% - 12px) !important;
+    max-width: calc(50% - 12px) !important;
+    height: 460px !important;
+    display: block !important;
+    border: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.1)) !important;
+    border-radius: var(--ds-card-radius, 12px) !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2) !important;
+    overflow: hidden !important;
+    position: relative !important;
+  }
+
+  html[data-login-layout="panels"] #qunix-login-banner-inner {
+    width: 100% !important;
+    height: 100% !important;
+    background-image: var(--ds-login-banner-image) !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+  }
+}
+
+/* Mobile responsive layout overrides (<769px) */
+@media (max-width: 768px) {
+  html.qunix-auth-active .h-screen {
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 16px !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    overflow-y: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Form outer container across ALL login layout modes - CENTERED DEFAULT LOGIN UI STYLE */
+  html.qunix-auth-active .h-screen>div,
+  html[data-login-layout].qunix-auth-active .h-screen>div,
+  html.qunix-auth-active .qunix-form-container {
+    flex: 0 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    max-width: 460px !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: auto !important;
+    gap: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  html.qunix-auth-active .h-screen>div>div:not(.qunix-auth-logo),
+  html[data-login-layout].qunix-auth-active .h-screen>div>div:not(.qunix-auth-logo),
+  html.qunix-auth-active .qunix-form-wrapper {
+    flex: 0 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Hide banner by default on mobile for all layouts */
+  #qunix-login-banner,
+  #qunix-login-banner-inner {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+}

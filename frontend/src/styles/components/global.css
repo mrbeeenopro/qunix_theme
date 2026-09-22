@@ -1,0 +1,239 @@
+/* 1. Global */
+html,
+body {
+  min-height: 100% !important;
+  min-height: 100dvh !important;
+}
+
+#root {
+  min-height: 100% !important;
+  min-height: 100dvh !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+html:not(.qunix-auth-active) #window_null_inner {
+  min-height: 100% !important;
+  min-height: 100dvh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+  width: 100% !important;
+}
+
+#window_null_inner > .lg\:flex,
+#window_null_inner > div.lg\:flex {
+  min-height: 100% !important;
+  min-height: 100dvh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+}
+
+@media (min-width: 1024px) {
+  #window_null_inner > .lg\:flex,
+  #window_null_inner > div.lg\:flex {
+    flex-direction: row !important;
+  }
+}
+
+#dashboard-root,
+#server-root,
+#admin-root {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+}
+
+html,
+body,
+#root,
+#app,
+.mantine-AppShell-root,
+.mantine-AppShell-main,
+main,
+section {
+  background-color: var(--ds-background) !important;
+  color: var(--ds-gray-900) !important;
+  font-family: var(--ds-font-family), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+html.has-bg-image,
+body.has-bg-image,
+.has-bg-image #root,
+.has-bg-image #app,
+.has-bg-image .mantine-AppShell-root,
+.has-bg-image .mantine-AppShell-main,
+.has-bg-image main,
+.has-bg-image section {
+  background-color: transparent !important;
+}
+
+html.has-bg-image::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--ds-background);
+  z-index: -3;
+}
+
+/*
+ * Wallpaper rendered via #qunix-wallpaper-img (injected by JS).
+ * Using a real <img> element instead of a CSS ::after pseudo-element with filter:blur()
+ * means the blurred image is pre-composited as a static GPU layer — it NEVER repaints
+ * on scroll because nothing inside it changes. The old ::after approach forced a full
+ * repaint of the entire viewport on every scroll tick.
+ *
+ * ponytail: oversized by 10% on each axis so CSS blur edges don't show.
+ */
+#qunix-wallpaper-img {
+  position: fixed !important;
+  top: -10px !important;
+  left: -10px !important;
+  width: calc(100vw + 20px) !important;
+  height: calc(100vh + 20px) !important;
+  max-width: none !important;
+  max-height: none !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  z-index: -2 !important;
+  pointer-events: none !important;
+  transform: scale(1.05) translate3d(0, 0, 0) !important;
+  backface-visibility: hidden !important;
+  border: none !important;
+  outline: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  contain: strict;
+}
+
+:root, :host {
+  --font-sans: var(--ds-font-family), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, span, a, label, input, button, select, textarea, .mantine-Text-root, .mantine-Title-root, .mantine-Badge-root, .mantine-Button-root, .mantine-Modal-root, .mantine-Drawer-root, .mantine-Menu-dropdown {
+  font-family: var(--ds-font-family), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+code, pre, kbd, .xterm, .xterm * {
+  font-family: var(--ds-terminal-font-family, monospace) !important;
+}
+
+/* 4. Tables & Lists */
+.mantine-Table-root,
+.mantine-Table-thead,
+.mantine-Table-tbody,
+.mantine-Table-tr,
+.mantine-Table-td,
+.mantine-Table-th,
+.mantine-Table-ScrollContainer,
+.mantine-Table-scrollContainer {
+  background-color: var(--ds-listing-bg) !important;
+}
+
+.mantine-Table-ScrollContainer,
+.mantine-Table-scrollContainer {
+  border-radius: var(--ds-listing-radius) !important;
+  overflow: hidden !important;
+}
+
+body.has-bg-image .mantine-Table-root,
+body.has-bg-image .mantine-Table-thead,
+body.has-bg-image .mantine-Table-tbody,
+body.has-bg-image .mantine-Table-tr,
+body.has-bg-image .mantine-Table-td,
+body.has-bg-image .mantine-Table-th,
+body.has-bg-image .mantine-Table-ScrollContainer,
+body.has-bg-image .mantine-Table-scrollContainer {
+  background-color: color-mix(in srgb, var(--ds-listing-bg), transparent var(--ds-glass-transparency)) !important;
+}
+
+.mantine-Table-tr:hover {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+.mantine-Checkbox-input {
+  border-radius: var(--ds-checkbox-radius) !important;
+}
+
+/* Fix some stuff */
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3 {
+  letter-spacing: normal !important;
+  line-height: 1.2 !important;
+  color: var(--ds-gray-900) !important;
+}
+
+.workflow-develop {
+  color: #0a72ef !important;
+}
+
+.workflow-preview {
+  color: #de1d8d !important;
+}
+
+.workflow-ship {
+  color: #ff5b4f !important;
+}
+
+*:not(
+  code,
+  pre,
+  .xterm,
+  .xterm *,
+  [class*="monaco"],
+  .cm-editor,
+  .cm-editor *,
+  .fa,
+  .fas,
+  .far,
+  .fab,
+  .fal,
+  .fad,
+  .fat,
+  svg,
+  i
+) {
+  font-variant-ligatures: common-ligatures;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+i,
+svg,
+.fa,
+.fas,
+.far,
+.fab,
+[class*="icon"] {
+  vertical-align: middle !important;
+  background-color: transparent !important;
+}
+
+img:not(#qunix-wallpaper-img) {
+  vertical-align: middle !important;
+  background-color: transparent !important;
+}
+
+/* Global Scrollbar Hide */
+*, *::before, *::after {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+

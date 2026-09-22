@@ -1,0 +1,248 @@
+/* ========================================================================== */
+/* Mobile Sidebar Drawer (<1024px) Layout & Touch Formatting                  */
+/* ========================================================================== */
+
+.mantine-Drawer-content {
+  background-color: var(--ds-sidebar-bg, #16161e) !important;
+  border-right: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.1)) !important;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.85) !important;
+  width: 290px !important;
+  max-width: 86vw !important;
+}
+
+.mantine-Drawer-body {
+  height: 100% !important;
+  padding: 16px 14px !important;
+  background-color: transparent !important;
+}
+
+/* Inside the mobile Drawer, ALWAYS render the full wide sidebar with text & full buttons */
+.mantine-Drawer-content #sidebar-content {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  width: 100% !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+  overflow: visible !important;
+}
+
+.mantine-Drawer-content #sidebar-content > div.shrink-0:first-child {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 10px !important;
+}
+
+.mantine-Drawer-content #sidebar-content div.h-16,
+.mantine-Drawer-content #sidebar-content div.flex.justify-start.items-center {
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  width: 100% !important;
+  gap: 10px !important;
+}
+
+.mantine-Drawer-content #sidebar-content h1,
+.mantine-Drawer-content #sidebar-content h2,
+.mantine-Drawer-content #sidebar-content .brand-logo-text {
+  display: inline-block !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+}
+
+.mantine-Drawer-content #sidebar-content button:has(svg[data-icon="magnifying-glass"]),
+.mantine-Drawer-content #sidebar-content .qunix-quick-actions-trigger {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  height: 42px !important;
+  min-height: 42px !important;
+  justify-content: flex-start !important;
+  padding: 8px 12px !important;
+  border-radius: var(--ds-sidebar-radius, 8px) !important;
+  display: flex !important;
+}
+
+.mantine-Drawer-content #sidebar-content button:has(svg[data-icon="magnifying-glass"]) .mantine-Button-inner {
+  width: 100% !important;
+  justify-content: flex-start !important;
+}
+
+.mantine-Drawer-content #sidebar-content button:has(svg[data-icon="magnifying-glass"]) .mantine-Button-label {
+  display: inline-flex !important;
+  font-size: 13.5px !important;
+}
+
+.mantine-Drawer-content #sidebar-content button:has(svg[data-icon="magnifying-glass"]) kbd {
+  display: inline-flex !important;
+  margin-left: auto !important;
+}
+
+.mantine-Drawer-content #sidebar-content .qunix-server-status-card-wide {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+}
+
+.mantine-Drawer-content #sidebar-content .qunix-server-status-btn-icon {
+  display: none !important;
+}
+
+.mantine-Drawer-content #sidebar-content a {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  display: block !important;
+}
+
+.mantine-Drawer-content #sidebar-content a .mantine-Button-root {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  justify-content: flex-start !important;
+  padding: 8px 12px !important;
+  border-radius: var(--ds-sidebar-radius, 8px) !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.mantine-Drawer-content #sidebar-content a .mantine-Button-root .mantine-Button-inner {
+  width: 100% !important;
+  justify-content: flex-start !important;
+  display: flex !important;
+}
+
+.mantine-Drawer-content #sidebar-content a .mantine-Button-root .mantine-Button-label {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  font-size: 13.5px !important;
+  line-height: normal !important;
+  width: 100% !important;
+  height: auto !important;
+}
+
+.mantine-Drawer-content #sidebar-content .qunix-nav-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+  gap: 10px !important;
+}
+
+.mantine-Drawer-content #sidebar-content .qunix-nav-text {
+  display: inline-block !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  color: inherit !important;
+  text-align: left !important;
+  white-space: nowrap !important;
+}
+
+.mantine-Drawer-content #sidebar-content .qunix-nav-icon,
+.mantine-Drawer-content #sidebar-content a .mantine-Button-root svg {
+  display: inline-block !important;
+  font-size: 16px !important;
+  width: 18px !important;
+  min-width: 18px !important;
+  margin-right: 0 !important;
+  flex-shrink: 0 !important;
+}
+
+.mantine-Drawer-content #sidebar-content [data-qunix-category-divider],
+.mantine-Drawer-content #sidebar-content .mantine-Divider-root {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  margin: 10px 0 !important;
+}
+
+.mantine-Drawer-content #sidebar-content [data-qunix-category-divider] span,
+.mantine-Drawer-content #sidebar-content .mantine-Divider-root span {
+  display: inline-block !important;
+}
+
+.mantine-Drawer-content #sidebar-content #sidebar-account-card {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  height: auto !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 6px 10px !important;
+  display: flex !important;
+  border-radius: var(--ds-sidebar-radius, 10px) !important;
+  box-sizing: border-box !important;
+  gap: 6px !important;
+  overflow: visible !important;
+}
+
+.mantine-Drawer-content #sidebar-content #sidebar-account-card a {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+  gap: 8px !important;
+}
+
+.mantine-Drawer-content #sidebar-content #sidebar-account-card a > span {
+  display: inline-block !important;
+  font-size: 13px !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  min-width: 0 !important;
+  flex: 1 1 auto !important;
+}
+
+.mantine-Drawer-content #sidebar-account-card .qunix-bell-slot {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+}
+
+.mantine-Drawer-content #sidebar-account-card .qunix-bell-slot .qunix-bell-btn {
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+
+.mantine-Drawer-content #sidebar-content #sidebar-account-card .mantine-ActionIcon-root {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+}
+
+.mantine-Drawer-content .qunix-icon-sidebar-bell-slot {
+  display: none !important;
+}
+
+@media (max-width: 1023px) {
+  #sidebar-desktop {
+    display: none !important;
+  }
+
+  .mantine-AppShell-main {
+    padding-left: 0 !important;
+  }
+}

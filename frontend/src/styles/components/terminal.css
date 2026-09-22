@@ -1,0 +1,424 @@
+/* xterm */
+.mantine-Card-root .xterm,
+.xterm-viewport,
+.xterm-screen,
+.xterm-rows,
+.xterm-container {
+  contain: content !important;
+  transform: translateZ(0) !important;
+  background-color: var(--ds-terminal-bg) !important;
+}
+
+.xterm,
+.xterm-rows,
+.xterm-rows *,
+.xterm span {
+  font-family: var(--ds-terminal-font-family, "JetBrainsMono Nerd Font", "JetBrains Mono", monospace) !important;
+}
+
+.xterm .xterm-selection div,
+.xterm .xterm-selection-layer div {
+  background-color: rgba(108, 92, 231, 0.35) !important;
+  pointer-events: none !important;
+}
+
+.xterm .xterm-cursor {
+  background-color: var(--ds-terminal-cursor) !important;
+}
+
+.xterm .xterm-color-0 {
+  color: var(--ds-terminal-ansi-black) !important;
+}
+
+.xterm .xterm-bg-color-0 {
+  background-color: var(--ds-terminal-ansi-black) !important;
+}
+
+.xterm .xterm-color-1 {
+  color: var(--ds-terminal-ansi-red) !important;
+}
+
+.xterm .xterm-bg-color-1 {
+  background-color: var(--ds-terminal-ansi-red) !important;
+}
+
+.xterm .xterm-color-2 {
+  color: var(--ds-terminal-ansi-green) !important;
+}
+
+.xterm .xterm-bg-color-2 {
+  background-color: var(--ds-terminal-ansi-green) !important;
+}
+
+.xterm .xterm-color-3 {
+  color: var(--ds-terminal-ansi-yellow) !important;
+}
+
+.xterm .xterm-bg-color-3 {
+  background-color: var(--ds-terminal-ansi-yellow) !important;
+}
+
+.xterm .xterm-color-4 {
+  color: var(--ds-terminal-ansi-blue) !important;
+}
+
+.xterm .xterm-bg-color-4 {
+  background-color: var(--ds-terminal-ansi-blue) !important;
+}
+
+.xterm .xterm-color-5 {
+  color: var(--ds-terminal-ansi-magenta) !important;
+}
+
+.xterm .xterm-bg-color-5 {
+  background-color: var(--ds-terminal-ansi-magenta) !important;
+}
+
+.xterm .xterm-color-6 {
+  color: var(--ds-terminal-ansi-cyan) !important;
+}
+
+.xterm .xterm-bg-color-6 {
+  background-color: var(--ds-terminal-ansi-cyan) !important;
+}
+
+.xterm .xterm-color-7 {
+  color: var(--ds-terminal-ansi-white) !important;
+}
+
+.xterm .xterm-bg-color-7 {
+  background-color: var(--ds-terminal-ansi-white) !important;
+}
+
+.cm-editor,
+.cm-scroller,
+[class*="monaco-editor"] {
+  background-color: var(--ds-editor-bg) !important;
+  color: var(--ds-editor-text) !important;
+  font-family: "JetBrains Mono", monospace !important;
+}
+
+.xterm-rows {
+  color: var(--ds-terminal-text) !important;
+}
+
+code,
+pre,
+.xterm,
+.xterm *,
+[class*="monaco"],
+.cm-editor,
+.cm-editor * {
+  font-family: "JetBrains Mono", monospace !important;
+}
+
+/* Console log filter tabs */
+.qunix-console-filter-tabs {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.qunix-console-filter-tab {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #a29bfe !important;
+  padding: 4px 10px !important;
+  border-radius: 6px !important;
+  font-size: 11px !important;
+  font-family: inherit !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  line-height: 1.2 !important;
+  outline: none !important;
+  white-space: nowrap !important;
+}
+
+/* Mobile responsive layout for Console Header */
+@media (max-width: 640px) {
+  .mantine-Card-root>div:has(.qunix-console-filter-tabs) {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+  }
+
+  .mantine-Card-root>div:has(.qunix-console-filter-tabs)>div:first-child {
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    font-size: 0 !important;
+    /* Hide raw text "Connected (144ms ping)" to save space */
+  }
+
+  .mantine-Card-root>div:has(.qunix-console-filter-tabs)>div:first-child>* {
+    font-size: 11px !important;
+    /* Restore font size for element children */
+  }
+
+  .qunix-console-filter-tabs {
+    flex: 1 !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    padding-bottom: 2px !important;
+    scrollbar-width: none !important;
+  }
+
+  .qunix-console-filter-tabs::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .mantine-Card-root>div:has(.qunix-console-filter-tabs)>div:last-child {
+    width: 100% !important;
+    justify-content: flex-end !important;
+    gap: 8px !important;
+  }
+}
+
+.qunix-console-filter-tab:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.qunix-console-filter-tab.active {
+  background: var(--ds-announcement-cta-bg, #6c5ce7) !important;
+  border-color: var(--ds-announcement-cta-bg, #6c5ce7) !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(108, 92, 231, 0.3) !important;
+}
+
+/* Light mode overrides for filter tabs */
+html[data-mantine-color-scheme="light"] .qunix-console-filter-tab {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  color: #5f27cd !important;
+}
+
+html[data-mantine-color-scheme="light"] .qunix-console-filter-tab:hover {
+  background: rgba(0, 0, 0, 0.08) !important;
+  color: #341f97 !important;
+}
+
+html[data-mantine-color-scheme="light"] .qunix-console-filter-tab.active {
+  background: var(--ds-announcement-cta-bg, #6c5ce7) !important;
+  border-color: var(--ds-announcement-cta-bg, #6c5ce7) !important;
+  color: #ffffff !important;
+}
+
+/* File Editor Container & Bottom Edge Spacing Fix — Locked Dimensions & Zero Radius */
+.monaco-editor,
+[class*="monaco-editor"],
+.prism-code-editor,
+.cm-editor,
+#file-editor-container,
+#qunix-prism-mobile-editor,
+#qunix-prism-mobile-editor .prism-code-editor,
+#qunix-prism-toolbar,
+#qunix-prism-toolbar-content,
+div:has(> .monaco-editor),
+div:has(> [class*="monaco-editor"]) {
+  border-radius: 0 !important;
+  overflow: hidden !important;
+}
+
+#file-editor-container,
+div:has(> .monaco-editor),
+div:has(> [class*="monaco-editor"]) {
+  border-radius: 0 !important;
+  margin-bottom: 16px !important;
+  max-height: calc(100vh - 180px) !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 768px) {
+  #file-editor-container,
+  div:has(> .monaco-editor),
+  div:has(> [class*="monaco-editor"]),
+  #qunix-prism-mobile-editor {
+    border-radius: 0 !important;
+    height: calc(100dvh - 160px) !important;
+    min-height: calc(100dvh - 160px) !important;
+    max-height: calc(100dvh - 160px) !important;
+    box-sizing: border-box !important;
+    margin-bottom: 0 !important;
+    overflow: hidden !important;
+  }
+
+  #qunix-prism-mobile-editor {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  #qunix-prism-mobile-editor > div:not(#qunix-prism-toolbar) {
+    flex: 1 1 auto !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    border-radius: 0 !important;
+  }
+
+  #qunix-prism-mobile-editor .prism-code-editor {
+    border-radius: 0 !important;
+    height: 100% !important;
+    font-size: 13px !important;
+    line-height: 1.7 !important;
+    --padding-inline: 0.75em;
+    --number-spacing: 0.75em;
+  }
+}
+
+/* ============================================================
+   Mobile Prism Code Editor — touch-friendly styling
+   ============================================================ */
+
+#qunix-prism-mobile-editor {
+  border-radius: 0 !important;
+  overflow: hidden !important;
+  margin-bottom: 0 !important;
+}
+
+#qunix-prism-mobile-editor .prism-code-editor {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', 'Cascadia Code', monospace !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  border-radius: 0 !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Larger touch targets for line numbers and padding */
+#qunix-prism-mobile-editor .prism-code-editor {
+  --padding-inline: 1em;
+  --number-spacing: 1em;
+}
+
+/* Active line highlight — subtle glow */
+#qunix-prism-mobile-editor .active-line::after {
+  border-radius: 0;
+}
+
+/* Textarea — better caret and selection for touch */
+#qunix-prism-mobile-editor .pce-textarea {
+  font-size: inherit !important;
+  line-height: inherit !important;
+  caret-color: var(--ds-button-bg, #7aa2f7) !important;
+}
+
+/* Wrapper — ensure proper spacing */
+#qunix-prism-mobile-editor .pce-wrapper {
+  margin: 0.25em 0 !important;
+}
+
+/* ============================================================
+   Prism Code Editor Token Color Formatting (YAML & Multi-lang)
+   ============================================================ */
+
+.prism-code-editor {
+  background-color: var(--ds-card-bg, #121212) !important;
+  color: var(--ds-gray-900, #e2e8f0) !important;
+}
+
+/* Line numbers & active line */
+.prism-code-editor .show-line-numbers .pce-line:before {
+  color: var(--ds-gray-500, #807b99) !important;
+  opacity: 0.8;
+}
+
+.prism-code-editor .active-line:after {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-left: 3px solid var(--ds-button-bg, #6c5ce7) !important;
+}
+
+/* Syntax Highlighting Tokens (YAML / YML, JS/TS, Python, Bash, JSON, Rust, Go, SQL, etc.) */
+.prism-code-editor .token.comment,
+.prism-code-editor .token.prolog,
+.prism-code-editor .token.doctype,
+.prism-code-editor .token.cdata,
+#qunix-prism-mobile-editor .token.comment {
+  color: #768390 !important;
+  font-style: italic !important;
+}
+
+.prism-code-editor .token.punctuation,
+#qunix-prism-mobile-editor .token.punctuation {
+  color: #8b949e !important;
+}
+
+/* YML / YAML Keys, Properties & Attributes */
+.prism-code-editor .token.atrule,
+.prism-code-editor .token.attr-name,
+.prism-code-editor .token.key,
+.prism-code-editor .token.property,
+#qunix-prism-mobile-editor .token.atrule,
+#qunix-prism-mobile-editor .token.attr-name,
+#qunix-prism-mobile-editor .token.key,
+#qunix-prism-mobile-editor .token.property {
+  color: #7ee787 !important; /* Bright green for YAML keys */
+  font-weight: 600 !important;
+}
+
+/* Strings & Text Scalars */
+.prism-code-editor .token.string,
+.prism-code-editor .token.char,
+.prism-code-editor .token.attr-value,
+.prism-code-editor .token.regex,
+.prism-code-editor .token.variable,
+#qunix-prism-mobile-editor .token.string,
+#qunix-prism-mobile-editor .token.char,
+#qunix-prism-mobile-editor .token.attr-value,
+#qunix-prism-mobile-editor .token.regex,
+#qunix-prism-mobile-editor .token.variable {
+  color: #a5d6ff !important; /* Soft light cyan/blue for strings */
+}
+
+/* Numbers & Quantifiers */
+.prism-code-editor .token.number,
+.prism-code-editor .token.constant,
+#qunix-prism-mobile-editor .token.number,
+#qunix-prism-mobile-editor .token.constant {
+  color: #79c0ff !important; /* Vivid blue for numbers */
+  font-weight: 500 !important;
+}
+
+/* Booleans & Important Literals */
+.prism-code-editor .token.boolean,
+.prism-code-editor .token.important,
+#qunix-prism-mobile-editor .token.boolean,
+#qunix-prism-mobile-editor .token.important {
+  color: #ff7b72 !important; /* Coral red for booleans */
+  font-weight: 600 !important;
+}
+
+/* Keywords, Tags & Directives */
+.prism-code-editor .token.keyword,
+.prism-code-editor .token.tag,
+.prism-code-editor .token.selector,
+#qunix-prism-mobile-editor .token.keyword,
+#qunix-prism-mobile-editor .token.tag,
+#qunix-prism-mobile-editor .token.selector {
+  color: #f69d50 !important; /* Warm orange for keywords & tags */
+  font-weight: 600 !important;
+}
+
+/* Functions, Methods & Classes */
+.prism-code-editor .token.function,
+.prism-code-editor .token.class-name,
+#qunix-prism-mobile-editor .token.function,
+#qunix-prism-mobile-editor .token.class-name {
+  color: #d2a8ff !important; /* Lavender purple for functions */
+  font-weight: 600 !important;
+}
+
+/* Operators, Symbols & Entities */
+.prism-code-editor .token.operator,
+.prism-code-editor .token.entity,
+.prism-code-editor .token.url,
+.prism-code-editor .token.symbol,
+#qunix-prism-mobile-editor .token.operator,
+#qunix-prism-mobile-editor .token.entity,
+#qunix-prism-mobile-editor .token.url,
+#qunix-prism-mobile-editor .token.symbol {
+  color: #f778ba !important; /* Pink for operators & symbols */
+}

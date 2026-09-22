@@ -1,0 +1,356 @@
+/* ========================================================================== */
+/* Sidebar Base — Spacing, Layout, Dimensions & General Alignment            */
+/* ========================================================================== */
+
+/* Sidebar Spacing & Scrollbar/Overflow Hide */
+#sidebar-content > div.shrink-0,
+#sidebar-content div.overflow-y-auto,
+.sidebar,
+.mantine-AppShell-navbar,
+.mantine-AppShell-navbar>div {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: var(--ds-sidebar-item-gap) !important;
+  overflow-x: hidden !important;
+  overscroll-behavior-y: contain !important;
+  -webkit-overflow-scrolling: touch !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+#sidebar-content div.overflow-y-auto::-webkit-scrollbar,
+.sidebar::-webkit-scrollbar,
+.mantine-AppShell-navbar::-webkit-scrollbar,
+.mantine-AppShell-navbar>div::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* Sidebar Width overrides */
+.mantine-AppShell-navbar,
+#sidebar-desktop {
+  width: var(--ds-sidebar-width, 256px) !important;
+  min-width: var(--ds-sidebar-width, 256px) !important;
+  max-width: var(--ds-sidebar-width, 256px) !important;
+}
+
+.mantine-AppShell-main {
+  padding-left: var(--ds-sidebar-width, 256px) !important;
+}
+
+.mantine-NavLink-root {
+  display: block !important;
+  margin-bottom: var(--ds-sidebar-item-gap) !important;
+  margin-left: 8px !important;
+  margin-right: 8px !important;
+  width: calc(100% - 16px) !important;
+  border-radius: var(--ds-sidebar-radius, 6px) !important;
+  transition: all 0.2s ease !important;
+}
+
+.mantine-NavLink-root[data-active],
+.sidebar a .mantine-Button-root.active,
+#sidebar-content a .mantine-Button-root.active,
+.mantine-AppShell-navbar a .mantine-Button-root.active,
+.mantine-Button-root.active {
+  background-color: var(--ds-sidebar-active-bg) !important;
+  color: var(--ds-sidebar-active-color) !important;
+  border-color: var(--ds-sidebar-active-color) !important;
+  border-radius: var(--ds-sidebar-active-radius, 6px) !important;
+}
+
+.sidebar a .mantine-Button-root.active *,
+#sidebar-content a .mantine-Button-root.active *,
+.mantine-AppShell-navbar a .mantine-Button-root.active * {
+  color: var(--ds-sidebar-active-color) !important;
+}
+
+/* Sidebar Item Height & Icon-Text Alignment override */
+.sidebar a .mantine-Button-root,
+#sidebar-content a .mantine-Button-root,
+.mantine-AppShell-navbar a .mantine-Button-root {
+  height: var(--ds-sidebar-item-height) !important;
+  border-radius: var(--ds-sidebar-radius, 6px) !important;
+}
+
+/* Vertical Sidebar Mode: Force Left Alignment for all sidebar button links */
+html:not([data-dashboard-layout="horizontal"]):not([data-sidebar-style="icons"]) #sidebar-content a .mantine-Button-root,
+html:not([data-dashboard-layout="horizontal"]):not([data-sidebar-style="icons"]) .sidebar a .mantine-Button-root,
+html:not([data-dashboard-layout="horizontal"]):not([data-sidebar-style="icons"]) .mantine-AppShell-navbar a .mantine-Button-root {
+  justify-content: flex-start !important;
+  text-align: left !important;
+}
+
+html:not([data-dashboard-layout="horizontal"]):not([data-sidebar-style="icons"]) #sidebar-content a .mantine-Button-root .mantine-Button-inner,
+html:not([data-dashboard-layout="horizontal"]):not([data-sidebar-style="icons"]) .sidebar a .mantine-Button-root .mantine-Button-inner,
+html:not([data-dashboard-layout="horizontal"]):not([data-sidebar-style="icons"]) .mantine-AppShell-navbar a .mantine-Button-root .mantine-Button-inner {
+  justify-content: flex-start !important;
+  width: 100% !important;
+}
+
+html:not([data-dashboard-layout="horizontal"]):not([data-sidebar-style="icons"]) #sidebar-content a .mantine-Button-root .mantine-Button-label,
+html:not([data-dashboard-layout="horizontal"]):not([data-sidebar-style="icons"]) .sidebar a .mantine-Button-root .mantine-Button-label,
+html:not([data-dashboard-layout="horizontal"]):not([data-sidebar-style="icons"]) .mantine-AppShell-navbar a .mantine-Button-root .mantine-Button-label {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+  text-align: left !important;
+  white-space: nowrap !important;
+}
+
+html:not([data-dashboard-layout="horizontal"]):not([data-sidebar-style="icons"]) .qunix-nav-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  width: 100% !important;
+  gap: 10px !important;
+}
+
+.sidebar a .mantine-Button-root svg,
+#sidebar-content a .mantine-Button-root svg,
+.mantine-AppShell-navbar a .mantine-Button-root svg {
+  margin-right: 0 !important;
+  flex-shrink: 0 !important;
+}
+
+.mantine-NavLink-root:hover {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+.mantine-NavLink-icon,
+.mantine-NavLink-icon * {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Prevent sidebar hover styles from breaking action icon buttons in the sidebar */
+#sidebar-content .mantine-ActionIcon-root,
+.sidebar .mantine-ActionIcon-root,
+.mantine-AppShell-navbar .mantine-ActionIcon-root {
+  position: relative !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  width: var(--ai-size, 34px) !important;
+  min-width: var(--ai-size, 34px) !important;
+  max-width: var(--ai-size, 34px) !important;
+  height: var(--ai-size, 34px) !important;
+  border-radius: var(--ai-radius, 8px) !important;
+  border: var(--ai-border, none) !important;
+  background: var(--ai-bg) !important;
+  background-color: var(--ai-bg) !important;
+  color: var(--ai-color) !important;
+  box-shadow: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+#sidebar-content .mantine-ActionIcon-root::after,
+.sidebar .mantine-ActionIcon-root::after,
+.mantine-AppShell-navbar .mantine-ActionIcon-root::after {
+  content: none !important;
+  display: none !important;
+}
+
+#sidebar-content .mantine-ActionIcon-root:hover,
+.sidebar .mantine-ActionIcon-root:hover,
+.mantine-AppShell-navbar .mantine-ActionIcon-root:hover {
+  background: var(--ai-bg-hover, var(--ai-bg)) !important;
+  background-color: var(--ai-bg-hover, var(--ai-bg)) !important;
+  border-color: transparent !important;
+}
+
+#sidebar-content .mantine-ActionIcon-root:active,
+.sidebar .mantine-ActionIcon-root:active,
+.mantine-AppShell-navbar .mantine-ActionIcon-root:active {
+  background: var(--ai-bg-active, var(--ai-bg)) !important;
+  background-color: var(--ai-bg-active, var(--ai-bg)) !important;
+}
+
+/* Fix horizontal overflow on the sidebar when its width is customized/narrow */
+#sidebar-desktop,
+#sidebar-content,
+.sidebar {
+  overflow-x: hidden !important;
+}
+
+/* Ensure the server status indicators wrap cleanly if the sidebar width is narrow, preventing right-side overflow */
+#sidebar-content div.flex.justify-start.items-center,
+.sidebar div.flex.justify-start.items-center {
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  max-width: 100% !important;
+}
+
+/* Quick Actions Trigger Search Button (Custom Colors) */
+#sidebar-content button:has(svg[data-icon="magnifying-glass"]),
+#sidebar-content button:has(.fa-magnifying-glass),
+#sidebar-desktop button:has(svg[data-icon="magnifying-glass"]),
+#sidebar-desktop button:has(.fa-magnifying-glass),
+.mantine-AppShell-navbar button:has(svg[data-icon="magnifying-glass"]),
+.qunix-quick-actions-trigger {
+  background-color: var(--ds-quick-actions-bg, var(--ds-input-bg, #24283b)) !important;
+  color: var(--ds-quick-actions-text, var(--ds-gray-900, #c0caf5)) !important;
+  border: 1px solid var(--ds-quick-actions-border, var(--ds-border-color, rgba(154, 165, 233, 0.15))) !important;
+  border-radius: var(--ds-button-radius, 8px) !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+#sidebar-content button:has(svg[data-icon="magnifying-glass"]):hover,
+#sidebar-content button:has(.fa-magnifying-glass):hover,
+#sidebar-desktop button:has(svg[data-icon="magnifying-glass"]):hover,
+#sidebar-desktop button:has(.fa-magnifying-glass):hover,
+.mantine-AppShell-navbar button:has(svg[data-icon="magnifying-glass"]):hover,
+.qunix-quick-actions-trigger:hover {
+  background-color: color-mix(in srgb, var(--ds-quick-actions-bg, #24283b) 82%, white 18%) !important;
+  border-color: var(--ds-primary-color, #7aa2f7) !important;
+}
+
+#sidebar-content button:has(svg[data-icon="magnifying-glass"]) .mantine-Button-label,
+#sidebar-content button:has(.fa-magnifying-glass) .mantine-Button-label,
+#sidebar-desktop button:has(svg[data-icon="magnifying-glass"]) .mantine-Button-label,
+#sidebar-desktop button:has(.fa-magnifying-glass) .mantine-Button-label,
+.mantine-AppShell-navbar button:has(svg[data-icon="magnifying-glass"]) .mantine-Button-label,
+.qunix-quick-actions-trigger .mantine-Button-label {
+  color: var(--ds-quick-actions-text, var(--ds-gray-900, #c0caf5)) !important;
+  opacity: 0.9 !important;
+}
+
+#sidebar-content button:has(svg[data-icon="magnifying-glass"]) kbd,
+#sidebar-content button:has(.fa-magnifying-glass) kbd,
+#sidebar-content button:has(svg[data-icon="magnifying-glass"]) .mantine-Kbd-root,
+#sidebar-content button:has(.fa-magnifying-glass) .mantine-Kbd-root,
+#sidebar-desktop button:has(svg[data-icon="magnifying-glass"]) kbd,
+#sidebar-desktop button:has(.fa-magnifying-glass) kbd,
+.mantine-AppShell-navbar button:has(svg[data-icon="magnifying-glass"]) kbd,
+.qunix-quick-actions-trigger kbd {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: var(--ds-quick-actions-text, #c0caf5) !important;
+  border: 1px solid var(--ds-quick-actions-border, rgba(255, 255, 255, 0.12)) !important;
+}
+
+html[data-mantine-color-scheme="light"] #sidebar-content button:has(svg[data-icon="magnifying-glass"]) kbd,
+html[data-mantine-color-scheme="light"] #sidebar-content button:has(.fa-magnifying-glass) kbd,
+html[data-mantine-color-scheme="light"] #sidebar-content button:has(svg[data-icon="magnifying-glass"]) .mantine-Kbd-root,
+html[data-mantine-color-scheme="light"] #sidebar-content button:has(.fa-magnifying-glass) .mantine-Kbd-root,
+html[data-mantine-color-scheme="light"] #sidebar-desktop button:has(svg[data-icon="magnifying-glass"]) kbd,
+html[data-mantine-color-scheme="light"] #sidebar-desktop button:has(.fa-magnifying-glass) kbd,
+html[data-mantine-color-scheme="light"] .mantine-AppShell-navbar button:has(svg[data-icon="magnifying-glass"]) kbd,
+html[data-mantine-color-scheme="light"] .qunix-quick-actions-trigger kbd {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  color: #475569 !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Hide Start, Stop, Restart buttons from sidebar status card when hide_sidebar_power_actions is active */
+html[data-hide-sidebar-power="true"] .qunix-server-status-card-wide .flex.gap-2.mt-2,
+html[data-hide-sidebar-power="true"] #sidebar-desktop .qunix-server-status-card-wide .flex.gap-2.mt-2,
+html[data-hide-sidebar-power="true"] #sidebar-mobile .qunix-server-status-card-wide .flex.gap-2.mt-2,
+html[data-hide-sidebar-power="true"] #sidebar-content .qunix-server-status-card-wide .flex.gap-2.mt-2 {
+  display: none !important;
+}
+
+/* In icon-only sidebar mode, also hide the power action icon button when hide_sidebar_power_actions is active */
+html[data-hide-sidebar-power="true"] .qunix-server-status-btn-icon,
+html[data-hide-sidebar-power="true"] #sidebar-desktop .qunix-server-status-btn-icon,
+html[data-hide-sidebar-power="true"] #sidebar-mobile .qunix-server-status-btn-icon {
+  display: none !important;
+}
+
+/* ========================================================================== */
+/* Mobile Sidebar Drawer Banner & Header Sizing                              */
+/* ========================================================================== */
+
+/* Close button positioning in mobile sidebar drawer */
+.qunix-sidebar-mobile-close,
+.mantine-Drawer-body > button.mantine-CloseButton-root {
+  top: 14px !important;
+  right: 14px !important;
+  z-index: 20 !important;
+}
+
+/* Ensure mobile sidebar header reserves room for close button */
+.qunix-sidebar-mobile-header > a:first-child,
+.qunix-sidebar-mobile-drawer #sidebar-content > div.shrink-0:first-child > a:first-child,
+.qunix-sidebar-mobile-content > div.shrink-0:first-child > a:first-child,
+.mantine-Drawer-body #sidebar-content > div.shrink-0:first-child > a:first-child {
+  display: flex !important;
+  align-items: center !important;
+  padding-right: 44px !important;
+  box-sizing: border-box !important;
+  max-width: 100% !important;
+  min-height: 44px !important;
+}
+
+/* Mobile drawer banner container spacing */
+.qunix-sidebar-mobile-header a:has(img[alt*="Banner"]),
+.qunix-sidebar-mobile-drawer #sidebar-content a:has(img[alt*="Banner"]),
+.qunix-sidebar-mobile-content a:has(img[alt*="Banner"]),
+.mantine-Drawer-body #sidebar-content a:has(img[alt*="Banner"]) {
+  margin-bottom: 8px !important;
+}
+
+.qunix-sidebar-mobile-header a:has(img[alt*="Banner"]) div.select-none,
+.qunix-sidebar-mobile-drawer #sidebar-content a:has(img[alt*="Banner"]) div.select-none,
+.qunix-sidebar-mobile-content a:has(img[alt*="Banner"]) div.select-none,
+.mantine-Drawer-body #sidebar-content a:has(img[alt*="Banner"]) div.select-none {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  margin-top: 0 !important;
+  max-height: 48px !important;
+}
+
+/* Constrain banner image in mobile drawer */
+.qunix-sidebar-mobile-drawer #sidebar-content img[alt*="Banner"],
+.qunix-sidebar-mobile-drawer #sidebar-content img[alt*="Calagopus Banner"],
+.qunix-sidebar-mobile-content img[alt*="Banner"],
+.qunix-sidebar-mobile-content img[alt*="Calagopus Banner"],
+.mantine-Drawer-body #sidebar-content img[alt*="Banner"],
+.mantine-Drawer-body #sidebar-content img[alt*="Calagopus Banner"],
+.mantine-Drawer-content #sidebar-content img[alt*="Banner"],
+.mantine-Drawer-content #sidebar-content img[alt*="Calagopus Banner"] {
+  height: 44px !important;
+  max-height: 44px !important;
+  width: auto !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+  object-position: left center !important;
+  display: block !important;
+}
+
+/* Responsive fallback for mobile screen widths <= 1024px */
+@media (max-width: 1024px) {
+  #sidebar-content > div.shrink-0:first-child > a:first-child {
+    padding-right: 44px !important;
+    box-sizing: border-box !important;
+  }
+
+  #sidebar-content img[alt*="Banner"],
+  #sidebar-content img[alt*="Calagopus Banner"],
+  .sidebar img[alt*="Banner"],
+  .sidebar img[alt*="Calagopus Banner"] {
+    height: 44px !important;
+    max-height: 44px !important;
+    width: auto !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    object-position: left center !important;
+    display: block !important;
+  }
+}
+
+/* Desktop Vertical Sidebar Banner Sizing (keeps clean proportions) */
+#sidebar-desktop:not(.qunix-horizontal-sidebar) #sidebar-content > div.shrink-0:first-child img[alt*="Banner"],
+#sidebar-desktop:not(.qunix-horizontal-sidebar) #sidebar-content > div.shrink-0:first-child img[alt*="Calagopus Banner"] {
+  max-height: 56px !important;
+  width: auto !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+  object-position: left center !important;
+  display: block !important;
+  margin-bottom: 6px !important;
+}
+

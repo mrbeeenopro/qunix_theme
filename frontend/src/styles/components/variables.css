@@ -1,0 +1,165 @@
+:root {
+  --ds-font-family: 'JetBrains Mono', monospace;
+  --ds-background: #1a1b26;
+  --ds-sidebar-bg: #16161e;
+  --ds-navbar-bg: #1f2335;
+  --ds-card-bg: rgba(36, 40, 59, 0.74);
+  --ds-terminal-bg: var(--ds-sidebar-bg);
+  --ds-terminal-font-family: 'JetBrains Mono', monospace;
+  --ds-terminal-text: #a9b1d6;
+  --ds-editor-bg: #1a1b26;
+  --ds-editor-text: #c0caf5;
+  --ds-input-bg: #24283b;
+  --ds-quick-actions-bg: var(--ds-input-bg);
+  --ds-quick-actions-text: var(--ds-gray-900);
+  --ds-quick-actions-border: var(--ds-border-color);
+  --ds-primary-color: #7aa2f7;
+  --mantine-color-blue-filled: var(--ds-primary-color) !important;
+  --mantine-color-blue-filled-hover: color-mix(in srgb, var(--ds-primary-color) 85%, black) !important;
+  --mantine-primary-color-filled: var(--ds-primary-color) !important;
+  --mantine-primary-color-filled-hover: color-mix(in srgb, var(--ds-primary-color) 85%, black) !important;
+  --ds-border-color: rgba(154, 165, 233, 0.15);
+  --ds-border-radius: 8px;
+  --ds-button-radius: 8px;
+  --ds-input-radius: 8px;
+  --ds-card-radius: 8px;
+  --ds-listing-radius: 12px;
+  --ds-checkbox-radius: 4px;
+  --ds-navbar-height: 64px;
+  --ds-gray-100: #24283b;
+  --ds-gray-500: #565f89;
+  --ds-gray-800: #565f89;
+  --ds-gray-900: #c0caf5;
+  --ds-text-color: var(--ds-gray-900);
+  --ds-focus-color: #bb9af7;
+  --ds-shadow-border: 0px 0px 0px 1px var(--ds-border-color);
+
+  /* New Customization Variables */
+  --ds-sidebar-item-gap: 10px;
+  --ds-sidebar-item-height: 36px;
+  --ds-sidebar-animation: 1;
+  /* 1 for true, 0 for false */
+  --ds-background-image: none;
+  --ds-sidebar-width: 256px;
+  --ds-sidebar-radius: 6px;
+  --ds-sidebar-active-radius: 6px;
+  --ds-sidebar-blur: 0px;
+  --ds-sidebar-blur-active: none;
+  --ds-wallpaper-blur: 0px;
+  --ds-wallpaper-brightness: 1;
+  --ds-dark-7: #0a0a0a;
+  --ds-dark-6: #111111;
+  --ds-listing-bg: var(--ds-dark-7, #0a0a0a);
+  --ds-glass-transparency: 20%;
+  --mantine-color-dark-6: var(--ds-navbar-bg);
+  --ds-server-action-bg: var(--ds-dark-7, #0a0a0a);
+  --ds-power-start-bg: #40c057;
+  --ds-power-restart-bg: #868e96;
+  --ds-power-stop-bg: #fa5252;
+  --mantine-color-text: var(--ds-gray-900) !important;
+  --mantine-color-body: var(--ds-background) !important;
+  --mantine-color-default-border: var(--ds-border-color) !important;
+  --mantine-color-default: var(--ds-card-bg) !important;
+  --mantine-color-default-color: var(--ds-text-color) !important;
+  --mantine-color-dark-7: var(--ds-dark-7) !important;
+  --ds-popup-window-border-color: rgba(255, 255, 255, 0.12);
+  --ds-sidebar-active-color: var(--ds-primary-color);
+  --ds-sidebar-active-bg: rgba(255, 255, 255, 0.05);
+  --ds-nav-hover-bg: rgba(255, 255, 255, 0.06);
+  --ds-nav-hover-color: #ffffff;
+  --ds-dropdown-bg: #13141f;
+  --ds-dropdown-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
+
+  --ds-announcement-bg: rgba(108, 92, 231, 0.15);
+  --ds-announcement-blur: 10px;
+  --ds-announcement-border: #6c5ce7;
+  --ds-announcement-radius: 12px;
+  --ds-announcement-cta-bg: #6c5ce7;
+  --ds-announcement-cta-color: #ffffff;
+  --ds-announcement-cta-radius: 8px;
+
+  /* Terminal Colors */
+  --ds-terminal-cursor: #7aa2f7;
+  --ds-terminal-selection: rgba(255, 255, 255, 0.15);
+  --ds-terminal-ansi-black: #15161e;
+  --ds-terminal-ansi-red: #f7768e;
+  --ds-terminal-ansi-green: #9ece6a;
+  --ds-terminal-ansi-yellow: #e0af68;
+  --ds-terminal-ansi-blue: #7aa2f7;
+  --ds-terminal-ansi-magenta: #bb9af7;
+  --ds-terminal-ansi-cyan: #7dcfff;
+  --ds-terminal-ansi-white: #a9b1d6;
+  --ds-card-bg-opaque: #0b0c16;
+  --ds-mini-card-bg: #121212;
+}
+
+/* Light Mode Overrides */
+html[data-mantine-color-scheme="light"],
+:root[data-mantine-color-scheme="light"],
+[data-mantine-color-scheme="light"] {
+  --ds-background: #f8fafc;
+  --ds-sidebar-bg: #ffffff;
+  --ds-navbar-bg: #ffffff;
+  --ds-card-bg: #ffffff;
+  --ds-card-bg-opaque: #ffffff;
+  --ds-mini-card-bg: #f1f5f9;
+  --ds-terminal-bg: #ffffff;
+  --ds-terminal-text: #1e293b;
+  --ds-editor-bg: #ffffff;
+  --ds-editor-text: #1e293b;
+  --ds-input-bg: #f1f5f9;
+  --ds-quick-actions-bg: #f1f5f9;
+  --ds-quick-actions-text: #1e293b;
+  --ds-quick-actions-border: rgba(0, 0, 0, 0.08);
+  --ds-primary-color: #2563eb;
+  --mantine-color-blue-filled: var(--ds-primary-color) !important;
+  --mantine-color-blue-filled-hover: color-mix(in srgb, var(--ds-primary-color) 85%, black) !important;
+  --mantine-primary-color-filled: var(--ds-primary-color) !important;
+  --mantine-primary-color-filled-hover: color-mix(in srgb, var(--ds-primary-color) 85%, black) !important;
+  --ds-border-color: rgba(0, 0, 0, 0.08);
+  --ds-gray-100: #e2e8f0;
+  --ds-gray-500: #64748b;
+  --ds-gray-800: #475569;
+  --ds-gray-900: #0f172a;
+  --ds-text-color: #0f172a;
+  --ds-focus-color: #3b82f6;
+  --ds-shadow-border: 0px 0px 0px 1px rgba(0, 0, 0, 0.08);
+
+  --ds-dark-7: #ffffff;
+  --ds-dark-6: #f8fafc;
+  --ds-listing-bg: #ffffff;
+  --mantine-color-dark-6: #ffffff;
+  --ds-server-action-bg: #ffffff;
+  --mantine-color-text: #0f172a !important;
+  --ds-sidebar-active-color: #2563eb;
+  --ds-sidebar-active-bg: rgba(37, 99, 235, 0.08);
+  --ds-nav-hover-bg: rgba(0, 0, 0, 0.04);
+  --ds-nav-hover-color: #0f172a;
+  --ds-dropdown-bg: #ffffff;
+  --ds-dropdown-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+  --ds-mini-card-bg: #f4f4f6;
+  --ds-popup-window-border-color: rgba(0, 0, 0, 0.12);
+  --mantine-color-body: var(--ds-background) !important;
+  --mantine-color-default-border: var(--ds-border-color) !important;
+  --mantine-color-default: var(--ds-card-bg) !important;
+  --mantine-color-default-color: var(--ds-text-color) !important;
+  --mantine-color-dark-7: var(--ds-dark-7) !important;
+
+  --ds-announcement-bg: rgba(99, 102, 241, 0.08);
+  --ds-announcement-blur: 10px;
+  --ds-announcement-border: rgba(99, 102, 241, 0.2);
+  --ds-announcement-cta-bg: #4f46e5;
+  --ds-announcement-cta-color: #ffffff;
+
+  /* Terminal ANSI Colors in Light Mode */
+  --ds-terminal-cursor: #2563eb;
+  --ds-terminal-selection: rgba(37, 99, 235, 0.15);
+  --ds-terminal-ansi-black: #0f172a;
+  --ds-terminal-ansi-red: #dc2626;
+  --ds-terminal-ansi-green: #16a34a;
+  --ds-terminal-ansi-yellow: #ca8a04;
+  --ds-terminal-ansi-blue: #2563eb;
+  --ds-terminal-ansi-magenta: #9333ea;
+  --ds-terminal-ansi-cyan: #0891b2;
+  --ds-terminal-ansi-white: #64748b;
+}

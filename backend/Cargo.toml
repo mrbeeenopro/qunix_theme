@@ -2,7 +2,7 @@
 name = "dev_qunix_theme"
 description = "theme for Calagopus Panel."
 authors = ["Mrbeenopro"]
-version = "1.4.0"
+version = "1.4.7"
 edition = { workspace = true }
 
 [dependencies]
@@ -16,3 +16,5 @@ utoipa = { workspace = true }
 utoipa-axum = { workspace = true }
 axum = { workspace = true }
 garde = { workspace = true }
+uuid = { workspace = true }
+indexmap = { workspace = true }

@@ -1,0 +1,565 @@
+/* ========================================================================== */
+/* Minimized Sidebar (Icons Only Mode) — Desktop Viewport                     */
+/* ========================================================================== */
+
+html[data-sidebar-style="icons"] #sidebar-desktop,
+html[data-sidebar-style="icons"] #sidebar-desktop.w-64\!,
+html[data-sidebar-style="icons"] .mantine-AppShell-navbar {
+  width: 72px !important;
+  min-width: 72px !important;
+  max-width: 72px !important;
+  padding: 10px 8px !important;
+  box-sizing: border-box !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
+/* 1. Top Section (Header) */
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:first-child {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  flex-shrink: 0 !important;
+}
+
+/* ServerStatusIndicator in Icons Only mode: Single 48px x 48px power button matching notification icon */
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:first-child .mantine-Card-root,
+html[data-sidebar-style="icons"] #sidebar-desktop > div.shrink-0:first-child .mantine-Card-root {
+  width: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  max-height: 48px !important;
+  padding: 0 !important;
+  margin: 0 auto !important;
+  border: none !important;
+  background: transparent !important;
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: visible !important;
+  box-sizing: border-box !important;
+  flex-shrink: 0 !important;
+}
+
+/* Hide server name title */
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:first-child .mantine-Card-root .h-5,
+html[data-sidebar-style="icons"] #sidebar-desktop > div.shrink-0:first-child .mantine-Card-root .h-5 {
+  display: none !important;
+}
+
+/* Status indicator dot: mini badge at top-right corner, like notification badge */
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:first-child .mantine-Card-root .h-4,
+html[data-sidebar-style="icons"] #sidebar-desktop > div.shrink-0:first-child .mantine-Card-root .h-4 {
+  position: absolute !important;
+  top: -2px !important;
+  right: -2px !important;
+  z-index: 10 !important;
+  width: auto !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  pointer-events: none !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:first-child .mantine-Card-root .h-4 span:first-child,
+html[data-sidebar-style="icons"] #sidebar-desktop > div.shrink-0:first-child .mantine-Card-root .h-4 span:first-child {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 14px !important;
+  height: 14px !important;
+  border-radius: 9999px !important;
+  background-color: var(--ds-sidebar-bg, #16161e) !important;
+  border: 2px solid var(--ds-sidebar-bg, #16161e) !important;
+  box-sizing: border-box !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:first-child .mantine-Card-root .h-4 span:first-child span,
+html[data-sidebar-style="icons"] #sidebar-desktop > div.shrink-0:first-child .mantine-Card-root .h-4 span:first-child span {
+  width: 8px !important;
+  height: 8px !important;
+  min-width: 8px !important;
+  min-height: 8px !important;
+  border-radius: 9999px !important;
+  display: block !important;
+}
+
+/* Hide text label and uptime */
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:first-child .mantine-Card-root .h-4 span:not(:first-child),
+html[data-sidebar-style="icons"] #sidebar-desktop > div.shrink-0:first-child .mantine-Card-root .h-4 span:not(:first-child) {
+  display: none !important;
+}
+
+/* Single power action button container: 48px x 48px */
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:first-child .mantine-Card-root .flex.gap-2.mt-2,
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:first-child .mantine-Card-root div[class*="gap-2"][class*="mt-2"],
+html[data-sidebar-style="icons"] #sidebar-desktop > div.shrink-0:first-child .mantine-Card-root .flex.gap-2.mt-2,
+html[data-sidebar-style="icons"] #sidebar-desktop > div.shrink-0:first-child .mantine-Card-root div[class*="gap-2"][class*="mt-2"] {
+  width: 48px !important;
+  height: 48px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+}
+
+/* Hide the restart button completely - only 1 single power button */
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:first-child .mantine-Card-root span.inline-block,
+html[data-sidebar-style="icons"] #sidebar-desktop > div.shrink-0:first-child .mantine-Card-root span.inline-block,
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:first-child .mantine-Card-root div[class*="gap-2"] > :nth-child(2),
+html[data-sidebar-style="icons"] #sidebar-desktop > div.shrink-0:first-child .mantine-Card-root div[class*="gap-2"] > :nth-child(2) {
+  display: none !important;
+}
+
+/* The single power button: 48px x 48px rounded pill matching notification bell */
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:first-child .mantine-Card-root .mantine-Button-root,
+html[data-sidebar-style="icons"] #sidebar-desktop > div.shrink-0:first-child .mantine-Card-root .mantine-Button-root {
+  width: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  max-height: 48px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: var(--ds-sidebar-radius, 10px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+  flex: none !important;
+}
+
+/* When Stop (running): red background */
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:first-child .mantine-Card-root .mantine-Button-root[data-color="red"]:not([disabled]),
+html[data-sidebar-style="icons"] #sidebar-desktop > div.shrink-0:first-child .mantine-Card-root .mantine-Button-root[data-color="red"]:not([disabled]) {
+  background-color: var(--ds-power-stop-bg, #fa5252) !important;
+  border: 1px solid rgba(250, 82, 82, 0.4) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(250, 82, 82, 0.25) !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:first-child .mantine-Card-root .mantine-Button-root[data-color="red"]:hover:not([disabled]),
+html[data-sidebar-style="icons"] #sidebar-desktop > div.shrink-0:first-child .mantine-Card-root .mantine-Button-root[data-color="red"]:hover:not([disabled]) {
+  background-color: color-mix(in srgb, var(--ds-power-stop-bg, #fa5252) 85%, white) !important;
+  box-shadow: 0 6px 18px rgba(250, 82, 82, 0.4) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* When Start (offline): green / qunix power start setting color */
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:first-child .mantine-Card-root .mantine-Button-root[data-color="green"]:not([disabled]),
+html[data-sidebar-style="icons"] #sidebar-desktop > div.shrink-0:first-child .mantine-Card-root .mantine-Button-root[data-color="green"]:not([disabled]) {
+  background-color: var(--ds-power-start-bg, #40c057) !important;
+  border: 1px solid rgba(64, 192, 87, 0.4) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(64, 192, 87, 0.25) !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:first-child .mantine-Card-root .mantine-Button-root[data-color="green"]:hover:not([disabled]),
+html[data-sidebar-style="icons"] #sidebar-desktop > div.shrink-0:first-child .mantine-Card-root .mantine-Button-root[data-color="green"]:hover:not([disabled]) {
+  background-color: color-mix(in srgb, var(--ds-power-start-bg, #40c057) 85%, white) !important;
+  box-shadow: 0 6px 18px rgba(64, 192, 87, 0.4) !important;
+  transform: translateY(-1px) !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:first-child .mantine-Card-root .mantine-Button-inner,
+html[data-sidebar-style="icons"] #sidebar-desktop > div.shrink-0:first-child .mantine-Card-root .mantine-Button-inner {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:first-child .mantine-Card-root .mantine-Button-section,
+html[data-sidebar-style="icons"] #sidebar-desktop > div.shrink-0:first-child .mantine-Card-root .mantine-Button-section {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Hide text label */
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:first-child .mantine-Card-root .mantine-Button-label,
+html[data-sidebar-style="icons"] #sidebar-desktop > div.shrink-0:first-child .mantine-Card-root .mantine-Button-label {
+  display: none !important;
+}
+
+/* Icon SVG inside button: 18px white icon */
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:first-child .mantine-Card-root .mantine-Button-root svg,
+html[data-sidebar-style="icons"] #sidebar-desktop > div.shrink-0:first-child .mantine-Card-root .mantine-Button-root svg {
+  display: block !important;
+  font-size: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+  margin: 0 auto !important;
+  color: #ffffff !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* 2. Middle Section (Scrollable Links) */
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.flex-1 {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  scrollbar-width: none !important;
+  padding: 6px 0 !important;
+  margin: 0 !important;
+  gap: 6px !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.flex-1::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* 3. Bottom Section (Footer) */
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:last-child {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  margin-top: auto !important;
+  padding: 6px 0 0 0 !important;
+  gap: 6px !important;
+  flex-shrink: 0 !important;
+}
+
+/* Hide ServerSwitcher in desktop icon footer */
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:last-child .mantine-Select-root,
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:last-child .mantine-InputWrapper-root,
+html[data-sidebar-style="icons"] #sidebar-desktop > div.shrink-0:last-child .mantine-Select-root,
+html[data-sidebar-style="icons"] #sidebar-desktop > div.shrink-0:last-child .mantine-InputWrapper-root {
+  display: none !important;
+}
+
+html[data-sidebar-style="icons"] .mantine-AppShell-main {
+  padding-left: 72px !important;
+}
+
+/* Hide labels, text description, category dividers text in desktop minimized mode */
+html[data-sidebar-style="icons"] #sidebar-desktop .qunix-sidebar-category-header,
+html[data-sidebar-style="icons"] #sidebar-desktop [data-qunix-category-divider] span,
+html[data-sidebar-style="icons"] #sidebar-desktop .mantine-Divider-root span,
+html[data-sidebar-style="icons"] #sidebar-desktop .mantine-NavLink-root span,
+html[data-sidebar-style="icons"] #sidebar-desktop .mantine-NavLink-root .mantine-NavLink-label,
+html[data-sidebar-style="icons"] #sidebar-desktop .mantine-NavLink-root .mantine-NavLink-description,
+html[data-sidebar-style="icons"] #sidebar-desktop .qunix-nav-text {
+  display: none !important;
+}
+
+/* Slim divider in minimized mode - SCOPED TO DESKTOP SIDEBAR ONLY */
+html[data-sidebar-style="icons"] #sidebar-desktop [data-qunix-category-divider],
+html[data-sidebar-style="icons"] #sidebar-desktop .mantine-Divider-root {
+  width: 32px !important;
+  min-width: 32px !important;
+  max-width: 32px !important;
+  margin: 6px auto !important;
+  border-top: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.1)) !important;
+  flex-shrink: 0 !important;
+}
+
+/* Collapse the Logo/Brand header section to only centered icon */
+html[data-sidebar-style="icons"] #sidebar-desktop h1,
+html[data-sidebar-style="icons"] #sidebar-desktop h2,
+html[data-sidebar-style="icons"] #sidebar-desktop .brand-logo-text {
+  display: none !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop div.h-16,
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content > div.shrink-0:first-child a {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  gap: 0 !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop div.h-16 img,
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content img[src*="icon"],
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content img[src*="logo"],
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-content .negev-sidebar-logo {
+  width: 40px !important;
+  height: 40px !important;
+  max-width: 40px !important;
+  max-height: 40px !important;
+  margin: 0 auto !important;
+  object-fit: contain !important;
+}
+
+/* Minimize logo container */
+html[data-sidebar-style="icons"] #sidebar-desktop div.flex.justify-start.items-center {
+  justify-content: center !important;
+  padding: 4px 0 !important;
+}
+
+/* Quick Actions Search Button in Desktop Icon-Only Mode (Uniform 48px square button) */
+html[data-sidebar-style="icons"] #sidebar-desktop button:has(svg[data-icon="magnifying-glass"]),
+html[data-sidebar-style="icons"] #sidebar-desktop button:has(.fa-magnifying-glass),
+html[data-sidebar-style="icons"] #sidebar-desktop .qunix-quick-actions-trigger {
+  width: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: var(--ds-sidebar-radius, 10px) !important;
+  box-sizing: border-box !important;
+  flex-shrink: 0 !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop button:has(svg[data-icon="magnifying-glass"]) .mantine-Button-inner {
+  width: 100% !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop button:has(svg[data-icon="magnifying-glass"]) .mantine-Button-label,
+html[data-sidebar-style="icons"] #sidebar-desktop button:has(svg[data-icon="magnifying-glass"]) .mantine-Button-section[data-position="right"],
+html[data-sidebar-style="icons"] #sidebar-desktop button:has(svg[data-icon="magnifying-glass"]) kbd,
+html[data-sidebar-style="icons"] #sidebar-desktop button:has(svg[data-icon="magnifying-glass"]) .mantine-Kbd-root {
+  display: none !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop button:has(svg[data-icon="magnifying-glass"]) .mantine-Button-section[data-position="left"] {
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop button:has(svg[data-icon="magnifying-glass"]) svg {
+  margin: 0 !important;
+  font-size: 18px !important;
+}
+
+/* Sidebar Nav Links & Buttons in Desktop Icon Mode (Uniform 48px × 48px) */
+html[data-sidebar-style="icons"] #sidebar-desktop a {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  text-decoration: none !important;
+  border-radius: var(--ds-sidebar-radius, 10px) !important;
+  flex-shrink: 0 !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop > div.shrink-0:first-child > a:first-child {
+  height: auto !important;
+  min-height: auto !important;
+  margin-bottom: 4px !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop a .mantine-Button-root {
+  width: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  border-radius: var(--ds-sidebar-radius, 10px) !important;
+  box-sizing: border-box !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop a .mantine-Button-root .mantine-Button-inner {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop a .mantine-Button-root .mantine-Button-label {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop a .mantine-Button-root .mantine-Button-label svg,
+html[data-sidebar-style="icons"] #sidebar-desktop a .mantine-Button-root svg {
+  display: inline-block !important;
+  font-size: 19px !important;
+  margin: 0 !important;
+}
+
+/* User Account Profile Card in Desktop Icon-Only Mode (Uniform 48px × 48px) */
+html[data-sidebar-style="icons"]:not([data-dashboard-layout="horizontal"]) #sidebar-desktop #sidebar-account-card {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  border-radius: var(--ds-sidebar-radius, 10px) !important;
+  border: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.08)) !important;
+  background-color: var(--ds-card-bg, rgba(255, 255, 255, 0.03)) !important;
+  position: relative !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+  flex-shrink: 0 !important;
+}
+
+html[data-sidebar-style="icons"]:not([data-dashboard-layout="horizontal"]) #sidebar-desktop #sidebar-account-card:hover {
+  border-color: var(--ds-primary-color, #7aa2f7) !important;
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+html[data-sidebar-style="icons"]:not([data-dashboard-layout="horizontal"]) #sidebar-desktop #sidebar-account-card a {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex: none !important;
+}
+
+html[data-sidebar-style="icons"]:not([data-dashboard-layout="horizontal"]) #sidebar-desktop #sidebar-account-card a > span {
+  display: none !important;
+}
+
+html[data-sidebar-style="icons"]:not([data-dashboard-layout="horizontal"]) #sidebar-desktop #sidebar-account-card .mantine-Avatar-root {
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;
+  min-height: 38px !important;
+  margin: 0 auto !important;
+  border-radius: 50% !important;
+}
+
+html[data-sidebar-style="icons"]:not([data-dashboard-layout="horizontal"]) #sidebar-desktop #sidebar-account-card .mantine-Avatar-root span {
+  display: flex !important;
+}
+
+html[data-sidebar-style="icons"]:not([data-dashboard-layout="horizontal"]) #sidebar-desktop #sidebar-account-card .mantine-ActionIcon-root {
+  display: none !important;
+}
+
+/* Standalone Notification Bell Button in Desktop Icon-Only Sidebar Mode */
+.qunix-icon-sidebar-bell-slot {
+  display: none !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop .qunix-icon-sidebar-bell-slot,
+html[data-sidebar-style="icons"] #sidebar-content .qunix-icon-sidebar-bell-slot,
+html[data-sidebar-style="icons"] .qunix-icon-sidebar-bell-slot {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  margin: 0 auto !important;
+  flex-shrink: 0 !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop .qunix-icon-sidebar-bell-slot .qunix-bell-btn,
+html[data-sidebar-style="icons"] #sidebar-content .qunix-icon-sidebar-bell-slot .qunix-bell-btn,
+html[data-sidebar-style="icons"] .qunix-icon-sidebar-bell-slot .qunix-bell-btn {
+  width: 48px !important;
+  height: 48px !important;
+  min-width: 48px !important;
+  min-height: 48px !important;
+  border-radius: var(--ds-sidebar-radius, 10px) !important;
+  background-color: var(--ds-card-bg, rgba(255, 255, 255, 0.03)) !important;
+  border: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.08)) !important;
+  color: var(--ds-gray-800, #c0caf5) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+  cursor: pointer !important;
+  position: relative !important;
+  box-sizing: border-box !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop .qunix-icon-sidebar-bell-slot .qunix-bell-btn:hover,
+html[data-sidebar-style="icons"] #sidebar-content .qunix-icon-sidebar-bell-slot .qunix-bell-btn:hover,
+html[data-sidebar-style="icons"] .qunix-icon-sidebar-bell-slot .qunix-bell-btn:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: var(--ds-primary-color, #7aa2f7) !important;
+  color: #ffffff !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop .qunix-icon-sidebar-bell-slot .qunix-bell-btn svg,
+html[data-sidebar-style="icons"] #sidebar-content .qunix-icon-sidebar-bell-slot .qunix-bell-btn svg,
+html[data-sidebar-style="icons"] .qunix-icon-sidebar-bell-slot .qunix-bell-btn svg {
+  width: 18px !important;
+  height: 18px !important;
+  font-size: 18px !important;
+}
+
+html[data-sidebar-style="icons"] #sidebar-desktop .qunix-icon-sidebar-bell-slot .qunix-bell-btn span,
+html[data-sidebar-style="icons"] #sidebar-content .qunix-icon-sidebar-bell-slot .qunix-bell-btn span,
+html[data-sidebar-style="icons"] .qunix-icon-sidebar-bell-slot .qunix-bell-btn span {
+  top: -2px !important;
+  right: -2px !important;
+  min-width: 16px !important;
+  height: 16px !important;
+  font-size: 10px !important;
+  border: 2px solid var(--ds-sidebar-bg, #16161e) !important;
+}
+
+/* Hide embedded bell inside account card in desktop icon mode */
+html[data-sidebar-style="icons"] #sidebar-desktop #sidebar-account-card .qunix-bell-slot,
+html[data-sidebar-style="icons"] #sidebar-account-card .qunix-bell-slot {
+  display: none !important;
+}

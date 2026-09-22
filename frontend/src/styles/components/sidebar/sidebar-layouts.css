@@ -1,0 +1,693 @@
+/* ========================================================================== */
+/* Dashboard Layout Customizations (Floating, Pill, Slim, Horizontal)         */
+/* ========================================================================== */
+
+/* Full-bleed / Fill sidebar layout overrides for non-floating vertical sidebars */
+html:not([data-dashboard-layout="floating"]):not([data-dashboard-layout="horizontal"]) #sidebar-desktop,
+html:not([data-dashboard-layout="floating"]):not([data-dashboard-layout="horizontal"]) .mantine-AppShell-navbar {
+  margin: 0 !important;
+  height: 100vh !important;
+  top: 0 !important;
+  border-radius: 0 !important;
+  border-left: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+/* 1. Floating Layout */
+html[data-dashboard-layout="floating"] .mantine-AppShell-navbar,
+html[data-dashboard-layout="floating"] #sidebar-desktop {
+  margin: 16px !important;
+  height: calc(100vh - 32px) !important;
+  border-radius: 16px !important;
+  border: 1px solid var(--ds-border-color) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, var(--ds-shadow-opacity, 0.25)) !important;
+  background-color: var(--ds-sidebar-bg) !important;
+}
+
+html[data-dashboard-layout="floating"] .mantine-AppShell-main {
+  padding: 16px 16px 16px calc(var(--ds-sidebar-width, 256px) + 32px) !important;
+}
+
+html[data-dashboard-layout="floating"][data-sidebar-style="icons"] .mantine-AppShell-main {
+  padding-left: calc(72px + 32px) !important;
+}
+
+/* 2. Pill Layout */
+html[data-dashboard-layout="pill"] .mantine-NavLink-root,
+html[data-dashboard-layout="pill"] .sidebar a .mantine-Button-root,
+html[data-dashboard-layout="pill"] #sidebar-content a .mantine-Button-root,
+html[data-dashboard-layout="pill"] .mantine-AppShell-navbar a .mantine-Button-root {
+  border-radius: var(--ds-sidebar-radius, 99px) !important;
+}
+
+html[data-dashboard-layout="pill"] .mantine-NavLink-root:hover,
+html[data-dashboard-layout="pill"] .sidebar a:hover .mantine-Button-root,
+html[data-dashboard-layout="pill"] #sidebar-content a:hover .mantine-Button-root,
+html[data-dashboard-layout="pill"] .mantine-AppShell-navbar a:hover .mantine-Button-root {
+  border-radius: var(--ds-sidebar-active-radius, var(--ds-sidebar-radius, 99px)) !important;
+}
+
+/* 3. Slim Layout */
+html[data-dashboard-layout="slim"] {
+  --ds-sidebar-width: 180px !important;
+}
+
+/* 4. Horizontal / Header Layout */
+@media (min-width: 1024px) {
+
+  html[data-dashboard-layout="horizontal"] .mantine-AppShell-navbar,
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop {
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: 0 !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    pointer-events: none !important;
+    display: block !important;
+    overflow: visible !important;
+    contain: none !important;
+  }
+
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 104px !important;
+    min-height: 104px !important;
+    max-height: 104px !important;
+    z-index: 1000 !important;
+    border-bottom: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.1)) !important;
+    background-color: var(--ds-sidebar-bg, #111114) !important;
+    display: block !important;
+    overflow: visible !important;
+    pointer-events: auto !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25) !important;
+  }
+
+  /* Support Wallpaper / Banner Background Image in Horizontal Mode */
+  body.has-bg-image html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content,
+  html.has-bg-image[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content {
+    background-color: rgba(22, 16, 37, 0.75) !important;
+    backdrop-filter: blur(16px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  }
+
+  /* Row 1 Header Container - Flexible 3-zone Header (No Overlap) */
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-horizontal-top-row,
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content>div.shrink-0:not(.pt-2) {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 52px !important;
+    max-height: 52px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    padding: 0 16px !important;
+    box-sizing: border-box !important;
+    z-index: 10 !important;
+    overflow: visible !important;
+  }
+
+  /* Hide raw dividers in header row */
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop .mantine-Divider-root {
+    display: none !important;
+  }
+
+  /* 1. Brand Logo (Left Column - Aligned to Start) */
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-horizontal-brand,
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content>div.shrink-0:not(.pt-2)>a:first-child {
+    display: inline-flex !important;
+    align-items: center !important;
+    height: 52px !important;
+    max-height: 52px !important;
+    max-width: 240px !important;
+    min-width: fit-content !important;
+    z-index: 10 !important;
+    flex-shrink: 0 !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+  }
+
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-horizontal-brand a,
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content>div.shrink-0:not(.pt-2)>a:first-child {
+    display: inline-flex !important;
+    align-items: center !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-decoration: none !important;
+  }
+
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-horizontal-brand a>div,
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content>div.shrink-0:not(.pt-2)>a:first-child>div {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    height: 100% !important;
+    max-height: 52px !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+  }
+
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-horizontal-brand img,
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content>div.shrink-0:not(.pt-2)>a:first-child img,
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content>div.shrink-0:not(.pt-2)>a:first-child svg {
+    height: 28px !important;
+    width: 28px !important;
+    min-width: 28px !important;
+    max-width: 28px !important;
+    object-fit: contain !important;
+    display: inline-block !important;
+    flex-shrink: 0 !important;
+    margin-right: 8px !important;
+  }
+
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-horizontal-brand img[alt*="Banner"],
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content>div.shrink-0:not(.pt-2)>a:first-child img[alt*="Banner"],
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content>div.shrink-0:not(.pt-2)>a:first-child img[alt*="Calagopus Banner"] {
+    height: 32px !important;
+    width: auto !important;
+    min-width: unset !important;
+    max-width: 180px !important;
+    object-fit: contain !important;
+  }
+
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-horizontal-brand h1,
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content>div.shrink-0:not(.pt-2)>a:first-child h1 {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: inline-block !important;
+    max-width: 200px !important;
+    color: var(--ds-text-color, #e2e8f0) !important;
+  }
+
+  /* 2. Center Area (Quick Actions Search - Shrinks gracefully) */
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-horizontal-center {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 20 !important;
+    flex: 1 1 360px !important;
+    max-width: 440px !important;
+    min-width: 120px !important;
+    position: static !important;
+    transform: none !important;
+    left: auto !important;
+    top: auto !important;
+    pointer-events: auto !important;
+  }
+
+  /* Quick Actions Search Button */
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-horizontal-center .qunix-quick-actions-trigger,
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-horizontal-center button:has(svg[data-icon="magnifying-glass"]),
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-horizontal-center button:has(.fa-magnifying-glass),
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content button:has(svg[data-icon="magnifying-glass"]) {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    height: 36px !important;
+    margin: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-shrink: 1 !important;
+  }
+
+  /* 3. Right Area (Right Side - Power Actions & Profile) */
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-horizontal-right,
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content>div.pt-2 {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 8px !important;
+    height: 52px !important;
+    width: auto !important;
+    max-width: fit-content !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    z-index: 10 !important;
+    overflow: visible !important;
+    flex-shrink: 0 !important;
+    flex-grow: 0 !important;
+    position: static !important;
+    right: auto !important;
+    top: auto !important;
+  }
+
+  /* Hide Search Server dropdown input in Horizontal mode */
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop .mantine-Select-root,
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop [class*="mantine-Select"],
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-horizontal-right .mantine-Select-root {
+    display: none !important;
+  }
+
+  /* ServerStatusIndicator Card with Power Actions on the Right */
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-horizontal-right .mantine-Card-root,
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-horizontal-right .qunix-server-status-card-wide,
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop .mantine-Card-root.qunix-server-status-card-wide {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 8px !important;
+    height: 36px !important;
+    max-height: 36px !important;
+    padding: 0 8px !important;
+    margin: 0 !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    flex-shrink: 0 !important;
+    min-height: unset !important;
+  }
+
+  /* Server name row inside status card */
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-server-status-card-wide>div:first-child {
+    height: auto !important;
+    max-width: 100px !important;
+    flex-shrink: 1 !important;
+    min-width: 0 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  /* Status row inside card */
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-server-status-card-wide>div:nth-child(2) {
+    height: auto !important;
+    gap: 4px !important;
+    flex-shrink: 0 !important;
+    min-width: 0 !important;
+  }
+
+  /* Power buttons row */
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-server-status-card-wide>div:nth-child(3) {
+    margin-top: 0 !important;
+    gap: 4px !important;
+    flex-shrink: 0 !important;
+  }
+
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-server-status-card-wide>div:nth-child(3) .mantine-Button-root {
+    height: 26px !important;
+    min-height: 26px !important;
+    padding: 0 8px !important;
+    font-size: 11px !important;
+  }
+
+  /* 4:3 Aspect Ratio and Medium Screen Optimization (<= 1366px) */
+  @media (max-width: 1366px) {
+
+    /* Hide duplicate server name in topbar mini card (already visible in main server header) */
+    html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-server-status-card-wide>div:first-child {
+      display: none !important;
+    }
+
+    html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-horizontal-center {
+      max-width: 260px !important;
+    }
+
+    html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-horizontal-brand h1 {
+      max-width: 140px !important;
+    }
+  }
+
+  /* Narrow 4:3 (<= 1150px e.g. 1024x768) */
+  @media (max-width: 1150px) {
+
+    /* Compact status indicator: hide uptime text string to prevent overcrowding */
+    html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-server-status-card-wide>div:nth-child(2)>span:last-child:not(:first-child) {
+      display: none !important;
+    }
+
+    html[data-dashboard-layout="horizontal"] #sidebar-desktop .qunix-horizontal-center {
+      max-width: 180px !important;
+    }
+
+    html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card>a>span {
+      display: none !important;
+    }
+  }
+
+  /* Profile Account Card on Right - STRICT BEAUTIFUL PILL SIZING */
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card,
+  html[data-dashboard-layout="horizontal"] #sidebar-account-card {
+    width: auto !important;
+    min-width: unset !important;
+    max-width: 240px !important;
+    height: 38px !important;
+    min-height: 38px !important;
+    max-height: 38px !important;
+    padding: 0 10px 0 6px !important;
+    margin: 0 !important;
+    border: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.1)) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    box-shadow: none !important;
+    border-radius: 10px !important;
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    flex-shrink: 0 !important;
+    flex-grow: 0 !important;
+    box-sizing: border-box !important;
+    transition: all 0.2s ease !important;
+  }
+
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card:hover,
+  html[data-dashboard-layout="horizontal"] #sidebar-account-card:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: var(--ds-primary-color, rgba(255, 255, 255, 0.2)) !important;
+  }
+
+  /* User Info Link (Avatar + Name) */
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card>a,
+  html[data-dashboard-layout="horizontal"] #sidebar-account-card>a {
+    display: inline-flex !important;
+    align-items: center !important;
+    flex: 0 1 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
+    height: 100% !important;
+    gap: 8px !important;
+    text-decoration: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Avatar Container */
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card .mantine-Avatar-root,
+  html[data-dashboard-layout="horizontal"] #sidebar-account-card .mantine-Avatar-root,
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card img,
+  html[data-dashboard-layout="horizontal"] #sidebar-account-card img {
+    --avatar-size: 26px !important;
+    --avatar-placeholder-size: 11px !important;
+    height: 26px !important;
+    width: 26px !important;
+    min-width: 26px !important;
+    max-width: 26px !important;
+    max-height: 26px !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    flex-shrink: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Avatar Placeholder Text (Initial letters e.g. AD) */
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card .mantine-Avatar-placeholder,
+  html[data-dashboard-layout="horizontal"] #sidebar-account-card .mantine-Avatar-placeholder,
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card .mantine-Avatar-root span,
+  html[data-dashboard-layout="horizontal"] #sidebar-account-card .mantine-Avatar-root span {
+    font-size: 11px !important;
+    line-height: 1 !important;
+    font-weight: 700 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    text-align: center !important;
+    letter-spacing: -0.5px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Username text */
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card>a>span,
+  html[data-dashboard-layout="horizontal"] #sidebar-account-card>a>span {
+    max-width: 90px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    line-height: 1.2 !important;
+    display: inline-block !important;
+    color: var(--ds-text-color, #e2e8f0) !important;
+  }
+
+  /* Notification Bell Button Slot */
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card .qunix-bell-slot,
+  html[data-dashboard-layout="horizontal"] #sidebar-account-card .qunix-bell-slot {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 28px !important;
+    width: 28px !important;
+    min-width: 28px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    flex-shrink: 0 !important;
+  }
+
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card .qunix-bell-btn,
+  html[data-dashboard-layout="horizontal"] #sidebar-account-card .qunix-bell-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    border-radius: 6px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+    color: var(--ds-gray-800, #94a3b8) !important;
+    transition: color 0.15s ease, background-color 0.15s ease !important;
+  }
+
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card .qunix-bell-btn:hover,
+  html[data-dashboard-layout="horizontal"] #sidebar-account-card .qunix-bell-btn:hover {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card .qunix-bell-btn svg,
+  html[data-dashboard-layout="horizontal"] #sidebar-account-card .qunix-bell-btn svg {
+    font-size: 14px !important;
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  /* Three Dots Menu Button */
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card .mantine-ActionIcon-root,
+  html[data-dashboard-layout="horizontal"] #sidebar-account-card .mantine-ActionIcon-root {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 24px !important;
+    height: 28px !important;
+    min-width: 24px !important;
+    padding: 0 !important;
+    margin: 0 0 0 2px !important;
+    flex-shrink: 0 !important;
+    border-radius: 6px !important;
+    color: var(--ds-gray-800, #94a3b8) !important;
+  }
+
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card .mantine-ActionIcon-root:hover,
+  html[data-dashboard-layout="horizontal"] #sidebar-account-card .mantine-ActionIcon-root:hover {
+    color: #ffffff !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+  }
+
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card .mantine-ActionIcon-root svg,
+  html[data-dashboard-layout="horizontal"] #sidebar-account-card .mantine-ActionIcon-root svg {
+    font-size: 14px !important;
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  /* Light Mode Specific Overrides for Horizontal Top Row */
+  html[data-mantine-color-scheme="light"][data-dashboard-layout="horizontal"] .qunix-horizontal-top-row {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid var(--ds-border-color, rgba(0, 0, 0, 0.08)) !important;
+  }
+
+  html[data-mantine-color-scheme="light"][data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card,
+  html[data-mantine-color-scheme="light"][data-dashboard-layout="horizontal"] #sidebar-account-card {
+    background: rgba(0, 0, 0, 0.03) !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  }
+
+  html[data-mantine-color-scheme="light"][data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card:hover,
+  html[data-mantine-color-scheme="light"][data-dashboard-layout="horizontal"] #sidebar-account-card:hover {
+    background: rgba(0, 0, 0, 0.06) !important;
+    border-color: rgba(0, 0, 0, 0.15) !important;
+  }
+
+  html[data-mantine-color-scheme="light"][data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card span,
+  html[data-mantine-color-scheme="light"][data-dashboard-layout="horizontal"] #sidebar-account-card span {
+    color: #0f172a !important;
+  }
+
+  html[data-mantine-color-scheme="light"][data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card .qunix-bell-btn,
+  html[data-mantine-color-scheme="light"][data-dashboard-layout="horizontal"] #sidebar-account-card .qunix-bell-btn,
+  html[data-mantine-color-scheme="light"][data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card .mantine-ActionIcon-root,
+  html[data-mantine-color-scheme="light"][data-dashboard-layout="horizontal"] #sidebar-account-card .mantine-ActionIcon-root {
+    color: #64748b !important;
+  }
+
+  html[data-mantine-color-scheme="light"][data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card .qunix-bell-btn:hover,
+  html[data-mantine-color-scheme="light"][data-dashboard-layout="horizontal"] #sidebar-account-card .qunix-bell-btn:hover,
+  html[data-mantine-color-scheme="light"][data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-account-card .mantine-ActionIcon-root:hover,
+  html[data-mantine-color-scheme="light"][data-dashboard-layout="horizontal"] #sidebar-account-card .mantine-ActionIcon-root:hover {
+    color: #0f172a !important;
+    background: rgba(0, 0, 0, 0.06) !important;
+  }
+
+  /* Row 2 (Horizontal links menu) */
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content>div.flex-1 {
+    position: absolute !important;
+    top: 52px !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 52px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding: 0 24px !important;
+    gap: 8px !important;
+    border-top: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.08)) !important;
+    background-color: var(--ds-sidebar-bg, #ffffff) !important;
+    box-sizing: border-box !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scrollbar-width: none !important;
+  }
+
+  body.has-bg-image html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content>div.flex-1,
+  html.has-bg-image[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content>div.flex-1 {
+    background-color: rgba(255, 255, 255, 0.03) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+  }
+
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content>div.flex-1::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  /* NavLinks as horizontal items — override wrapper div and anchor width */
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content>div.flex-1>div {
+    width: auto !important;
+    flex-shrink: 0 !important;
+  }
+
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content>div.flex-1 a {
+    width: auto !important;
+    flex-shrink: 0 !important;
+    display: inline-flex !important;
+  }
+
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content>div.flex-1 .mantine-NavLink-root {
+    display: inline-flex !important;
+    align-items: center !important;
+    width: auto !important;
+    height: 36px !important;
+    padding: 0 16px !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    border-radius: var(--ds-button-radius, 8px) !important;
+  }
+
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content>div.flex-1 a .mantine-Button-root {
+    display: inline-flex !important;
+    align-items: center !important;
+    width: auto !important;
+    height: 36px !important;
+    padding: 0 16px !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    border-radius: var(--ds-button-radius, 8px) !important;
+  }
+
+  /* Dividers as vertical lines */
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content>div.flex-1 .mantine-Divider-root {
+    display: inline-flex !important;
+    width: 1px !important;
+    height: 16px !important;
+    min-height: 16px !important;
+    max-height: 16px !important;
+    border-left: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.15)) !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    border-right: none !important;
+    margin: 0 12px !important;
+    align-self: center !important;
+  }
+
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content>div.flex-1 .mantine-Divider-label,
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content>div.flex-1 .qunix-sidebar-category-header,
+  html[data-dashboard-layout="horizontal"] #sidebar-desktop #sidebar-content>div.flex-1 [data-qunix-category-divider] {
+    display: none !important;
+  }
+
+  /* Layout Offsets */
+  html[data-dashboard-layout="horizontal"] .mantine-AppShell-main {
+    padding-left: 16px !important;
+    margin-top: 104px !important;
+    padding-top: 16px !important;
+    height: calc(100% - 104px) !important;
+    box-sizing: border-box !important;
+  }
+
+  html[data-dashboard-layout="horizontal"] #dashboard-root,
+  html[data-dashboard-layout="horizontal"] #server-root,
+  html[data-dashboard-layout="horizontal"] #admin-root {
+    margin-left: 0 !important;
+    margin-top: 104px !important;
+    padding-top: 16px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    height: calc(100dvh - 104px) !important;
+    overflow-y: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Hide Mobile Sidebar Toggle Button Card */
+  html[data-dashboard-layout="horizontal"] [class*="rounded-l-none"] {
+    display: none !important;
+  }
+
+  /* Align sticky elements below horizontal header */
+  html[data-dashboard-layout="horizontal"] [class*="sticky"],
+  html[data-dashboard-layout="horizontal"] .sticky,
+  html[data-dashboard-layout="horizontal"] #console-infobar {
+    top: 0 !important;
+  }
+}

@@ -1,0 +1,991 @@
+/* ========================================================================== */
+/* Dashboard Server Cards & List Layout Banners                               */
+/* ========================================================================== */
+
+/* Dashboard Server Card Banner styling */
+.qunix-server-card.has-banner {
+  background-image:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.8) 100%), var(--ds-egg-banner-image) !important;
+  background-size: cover !important;
+  background-position: center !important;
+  color: #ffffff !important;
+  position: relative !important;
+}
+
+.qunix-server-card.has-banner * {
+  color: #ffffff !important;
+}
+
+/* Dimmed / description labels inside card */
+.qunix-server-card.has-banner p[class*="dimmed"],
+.qunix-server-card.has-banner span[class*="dimmed"],
+.qunix-server-card.has-banner p[class*="text-"],
+.qunix-server-card.has-banner span[class*="text-"] {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Dividers inside cards */
+.qunix-server-card.has-banner .mantine-Divider-root {
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Nested elements like allocation sub-cards */
+.qunix-server-card.has-banner .mantine-Card-root {
+  background-color: rgba(0, 0, 0, 0.35) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.qunix-server-card.has-banner .mantine-Card-root p,
+.qunix-server-card.has-banner .mantine-Card-root span {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Hover effects */
+.qunix-server-card.has-banner:hover {
+  opacity: 0.92 !important;
+}
+
+/* List Layout View classes */
+html.qunix-layout-list .grid.md\:grid-cols-2,
+html.qunix-layout-list .grid.gap-3.grid.md\:grid-cols-2 {
+  grid-template-columns: 1fr !important;
+  gap: 10px !important;
+}
+
+html.qunix-layout-list div[class*="auto-rows-"],
+html.qunix-layout-list .grid[class*="auto-rows-"] {
+  grid-auto-rows: auto !important;
+}
+
+.qunix-list-row-link {
+  text-decoration: none !important;
+  display: block;
+  width: 100%;
+  color: inherit !important;
+}
+
+.qunix-list-row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 14px 20px !important;
+  border-radius: var(--ds-listing-radius, var(--ds-card-radius, 12px)) !important;
+  border: 1px solid var(--ds-border-color) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  background-clip: padding-box !important;
+  transition: all 0.32s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  background-color: var(--ds-card-bg) !important;
+  min-height: 72px !important;
+  box-sizing: border-box !important;
+}
+
+/* List Row Egg Banner Styling */
+.qunix-list-row.has-banner {
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.55) 100%), var(--ds-egg-banner-image) !important;
+  background-size: cover !important;
+  background-position: center !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Right Fade-in Banner Styling */
+.qunix-list-row.has-banner-right {
+  background-image:
+    linear-gradient(to right, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
+  background-size: cover !important;
+  background-position: right center !important;
+  background-repeat: no-repeat !important;
+}
+
+body.has-bg-image .qunix-list-row.has-banner-right {
+  background-image:
+    linear-gradient(to right, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
+}
+
+.qunix-server-card.has-banner-right {
+  background-image:
+    linear-gradient(135deg, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
+  background-size: cover !important;
+  background-position: right center !important;
+  background-repeat: no-repeat !important;
+}
+
+body.has-bg-image .qunix-server-card.has-banner-right {
+  background-image:
+    linear-gradient(135deg, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
+}
+
+/* Left Fade-in Banner Styling */
+.qunix-list-row.has-banner-left {
+  background-image:
+    linear-gradient(to left, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
+  background-size: cover !important;
+  background-position: left center !important;
+  background-repeat: no-repeat !important;
+}
+
+body.has-bg-image .qunix-list-row.has-banner-left {
+  background-image:
+    linear-gradient(to left, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
+}
+
+.qunix-server-card.has-banner-left {
+  background-image:
+    linear-gradient(225deg, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
+  background-size: cover !important;
+  background-position: left center !important;
+  background-repeat: no-repeat !important;
+}
+
+body.has-bg-image .qunix-server-card.has-banner-left {
+  background-image:
+    linear-gradient(225deg, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
+}
+
+/* Upward Fade-in Banner Styling */
+.qunix-list-row.has-banner-up {
+  background-image:
+    linear-gradient(to top, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
+  background-size: cover !important;
+  background-position: center bottom !important;
+  background-repeat: no-repeat !important;
+}
+
+body.has-bg-image .qunix-list-row.has-banner-up {
+  background-image:
+    linear-gradient(to top, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
+}
+
+.qunix-server-card.has-banner-up {
+  background-image:
+    linear-gradient(0deg, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
+  background-size: cover !important;
+  background-position: center bottom !important;
+  background-repeat: no-repeat !important;
+}
+
+body.has-bg-image .qunix-server-card.has-banner-up {
+  background-image:
+    linear-gradient(0deg, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
+}
+
+/* Downward Fade-in Banner Styling */
+.qunix-list-row.has-banner-down {
+  background-image:
+    linear-gradient(to bottom, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
+  background-size: cover !important;
+  background-position: center top !important;
+  background-repeat: no-repeat !important;
+}
+
+body.has-bg-image .qunix-list-row.has-banner-down {
+  background-image:
+    linear-gradient(to bottom, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
+}
+
+.qunix-server-card.has-banner-down {
+  background-image:
+    linear-gradient(180deg, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
+  background-size: cover !important;
+  background-position: center top !important;
+  background-repeat: no-repeat !important;
+}
+
+body.has-bg-image .qunix-server-card.has-banner-down {
+  background-image:
+    linear-gradient(180deg, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
+}
+
+/* Fade Half Banner Styling */
+.qunix-server-card.has-banner-fade-half {
+  background-image:
+    linear-gradient(180deg, var(--ds-card-bg-opaque, #0b0c16) 50%, transparent 100%), var(--ds-egg-banner-image) !important;
+  background-size: cover !important;
+  background-position: center bottom !important;
+  position: relative !important;
+}
+
+.qunix-list-row.has-banner-fade-half {
+  background-image:
+    linear-gradient(90deg, var(--ds-card-bg-opaque, #0b0c16) 50%, transparent 100%), var(--ds-egg-banner-image) !important;
+  background-size: cover !important;
+  background-position: right center !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.qunix-grid-card-wrapper,
+.qunix-server-card {
+  border-radius: var(--ds-card-radius) !important;
+  overflow: hidden !important;
+  background-clip: padding-box !important;
+  transition: transform 0.32s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.32s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.32s ease !important;
+}
+
+.qunix-list-row {
+  transition: transform 0.32s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.32s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.32s ease !important;
+}
+
+.qunix-list-row.has-banner .server-name,
+.qunix-list-row.has-banner .server-ip,
+.qunix-list-row.has-banner .value,
+.qunix-list-row.has-banner .limit {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.qunix-list-row.has-banner .server-tag {
+  background: rgba(255, 255, 255, 0.12) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.qunix-list-row.has-banner .server-icon-wrapper {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+body.has-bg-image .qunix-list-row {
+  background-color: color-mix(in srgb, var(--ds-card-bg), transparent var(--ds-glass-transparency)) !important;
+}
+
+.qunix-list-row:hover {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+html[data-mantine-color-scheme="light"] .qunix-list-row:hover {
+  background-color: rgba(0, 0, 0, 0.02) !important;
+}
+
+/* Hover Animation Settings */
+html.qunix-hover-shift .qunix-list-row:hover,
+html.qunix-hover-shift .qunix-server-row:hover,
+html.qunix-hover-shift table tbody > tr:hover,
+html.qunix-hover-shift .mantine-Table-tbody > tr:hover,
+html.qunix-hover-shift .mantine-Table-tr:hover,
+html.qunix-hover-shift div[class*="ServerGroupItem"]:hover,
+html.qunix-hover-shift div[class*="ServerItem"]:hover {
+  transform: translateX(4px) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18) !important;
+}
+
+html.qunix-hover-shift .qunix-server-card:hover,
+html.qunix-hover-shift .qunix-grid-card-wrapper:hover,
+html.qunix-hover-shift .qunix-stat-card:hover,
+html.qunix-hover-shift .qunix-sparkline-card:hover,
+html.qunix-hover-shift .qunix-sparkline-wrap:hover,
+html.qunix-hover-shift .qunix-card:hover,
+html.qunix-hover-shift [data-qunix-card]:hover,
+html.qunix-hover-shift .mc-vc-type-card:hover,
+html.qunix-hover-shift .mc-vc-version-card:hover,
+html.qunix-hover-shift .mcvc-admin-stat-card:hover,
+html.qunix-hover-shift .mcvc-admin-chart-card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 12px 26px -4px rgba(0, 0, 0, 0.35), 0 4px 10px rgba(0, 0, 0, 0.15) !important;
+}
+
+html.qunix-hover-scale .qunix-list-row:hover,
+html.qunix-hover-scale .qunix-server-row:hover,
+html.qunix-hover-scale table tbody > tr:hover,
+html.qunix-hover-scale .mantine-Table-tbody > tr:hover,
+html.qunix-hover-scale .mantine-Table-tr:hover,
+html.qunix-hover-scale div[class*="ServerGroupItem"]:hover,
+html.qunix-hover-scale div[class*="ServerItem"]:hover {
+  transform: scale(1.015) !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2) !important;
+}
+
+html.qunix-hover-scale .qunix-server-card:hover,
+html.qunix-hover-scale .qunix-grid-card-wrapper:hover,
+html.qunix-hover-scale .qunix-stat-card:hover,
+html.qunix-hover-scale .qunix-sparkline-card:hover,
+html.qunix-hover-scale .qunix-sparkline-wrap:hover,
+html.qunix-hover-scale .qunix-card:hover,
+html.qunix-hover-scale [data-qunix-card]:hover,
+html.qunix-hover-scale .mc-vc-type-card:hover,
+html.qunix-hover-scale .mc-vc-version-card:hover,
+html.qunix-hover-scale .mcvc-admin-stat-card:hover,
+html.qunix-hover-scale .mcvc-admin-chart-card:hover {
+  transform: scale(1.025) translateY(-2px) !important;
+  box-shadow: 0 14px 28px -4px rgba(0, 0, 0, 0.35) !important;
+}
+
+html.qunix-hover-glow .qunix-list-row:hover,
+html.qunix-hover-glow .qunix-server-row:hover,
+html.qunix-hover-glow table tbody > tr:hover,
+html.qunix-hover-glow .mantine-Table-tbody > tr:hover,
+html.qunix-hover-glow .mantine-Table-tr:hover,
+html.qunix-hover-glow div[class*="ServerGroupItem"]:hover,
+html.qunix-hover-glow div[class*="ServerItem"]:hover,
+html.qunix-hover-glow .qunix-server-card:hover,
+html.qunix-hover-glow .qunix-grid-card-wrapper:hover,
+html.qunix-hover-glow .qunix-stat-card:hover,
+html.qunix-hover-glow .qunix-sparkline-card:hover,
+html.qunix-hover-glow .qunix-sparkline-wrap:hover,
+html.qunix-hover-glow .qunix-card:hover,
+html.qunix-hover-glow [data-qunix-card]:hover,
+html.qunix-hover-glow .mc-vc-type-card:hover,
+html.qunix-hover-glow .mc-vc-version-card:hover,
+html.qunix-hover-glow .mcvc-admin-stat-card:hover,
+html.qunix-hover-glow .mcvc-admin-chart-card:hover {
+  border-color: var(--ds-primary-color, #7aa2f7) !important;
+  box-shadow: 0 0 18px rgba(108, 92, 231, 0.5) !important;
+}
+
+html.qunix-hover-none .qunix-list-row:hover,
+html.qunix-hover-none .qunix-server-row:hover,
+html.qunix-hover-none table tbody > tr:hover,
+html.qunix-hover-none .mantine-Table-tbody > tr:hover,
+html.qunix-hover-none .mantine-Table-tr:hover,
+html.qunix-hover-none div[class*="ServerGroupItem"]:hover,
+html.qunix-hover-none div[class*="ServerItem"]:hover,
+html.qunix-hover-none .qunix-server-card:hover,
+html.qunix-hover-none .qunix-grid-card-wrapper:hover,
+html.qunix-hover-none .qunix-stat-card:hover,
+html.qunix-hover-none .qunix-sparkline-card:hover,
+html.qunix-hover-none .qunix-sparkline-wrap:hover,
+html.qunix-hover-none .qunix-card:hover,
+html.qunix-hover-none [data-qunix-card]:hover,
+html.qunix-hover-none .mc-vc-type-card:hover,
+html.qunix-hover-none .mc-vc-version-card:hover,
+html.qunix-hover-none .mcvc-admin-stat-card:hover,
+html.qunix-hover-none .mcvc-admin-chart-card:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.qunix-list-row .sparkline-container {
+  width: 100px !important;
+  height: 25px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.qunix-list-select-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-right: 2px !important;
+  z-index: 10 !important;
+}
+
+.qunix-list-actions-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 10 !important;
+}
+
+.qunix-list-row .server-details {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  flex: 1.5 !important;
+  min-width: 0 !important;
+}
+
+.qunix-list-row .server-icon-wrapper {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 8px !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: var(--ds-gray-800) !important;
+  font-size: 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  position: relative !important;
+}
+
+.qunix-list-row .status-dot {
+  position: absolute !important;
+  bottom: -2px !important;
+  right: -2px !important;
+  width: 9px !important;
+  height: 9px !important;
+  border-radius: 50% !important;
+  border: 1.5px solid var(--ds-card-bg-opaque, #0b0c16) !important;
+  z-index: 5 !important;
+}
+
+.qunix-list-row .status-dot.is-running {
+  background-color: #2ed573 !important;
+  box-shadow: 0 0 6px rgba(46, 213, 115, 0.8) !important;
+}
+
+.qunix-list-row .status-dot.is-starting {
+  background-color: #ffa502 !important;
+  box-shadow: 0 0 6px rgba(255, 165, 2, 0.8) !important;
+}
+
+.qunix-list-row .status-dot.is-suspended {
+  background-color: #ff4757 !important;
+  box-shadow: 0 0 6px rgba(255, 71, 87, 0.8) !important;
+}
+
+.qunix-list-row .status-dot.is-transferring {
+  background-color: #ffa502 !important;
+  box-shadow: 0 0 6px rgba(255, 165, 2, 0.8) !important;
+  animation: qunix-pulse-dot 1.5s infinite ease-in-out !important;
+}
+
+.qunix-list-row .status-dot.is-installing {
+  background-color: #7aa2f7 !important;
+  box-shadow: 0 0 6px rgba(122, 162, 247, 0.8) !important;
+  animation: qunix-pulse-dot 1.5s infinite ease-in-out !important;
+}
+
+.qunix-list-row .status-dot.is-offline {
+  background-color: #747d8c !important;
+}
+
+@keyframes qunix-pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.25); opacity: 0.65; }
+}
+
+html[data-mantine-color-scheme="light"] .qunix-list-row .server-icon-wrapper {
+  background: rgba(0, 0, 0, 0.03) !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+.qunix-list-row .server-info {
+  display: flex !important;
+  flex-direction: column !important;
+  min-width: 0 !important;
+}
+
+.qunix-list-row .server-name-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.qunix-list-row .server-name {
+  font-weight: 600 !important;
+  font-size: 15px !important;
+  color: var(--ds-gray-900) !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.qunix-list-row .server-tag {
+  font-size: 10px !important;
+  font-weight: 500 !important;
+  padding: 1px 6px !important;
+  border-radius: 4px !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: var(--ds-gray-800) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+html[data-mantine-color-scheme="light"] .qunix-list-row .server-tag {
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+
+.qunix-list-row .server-ip {
+  font-size: 12px !important;
+  color: var(--ds-gray-800) !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  margin-top: 2px !important;
+}
+
+.qunix-list-row .server-status {
+  flex: 0.6 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+}
+
+.qunix-list-row .status-badge {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 2px 8px !important;
+  border-radius: 20px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  text-transform: capitalize !important;
+}
+
+.qunix-list-row .status-badge::before {
+  content: "" !important;
+  display: inline-block !important;
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 50% !important;
+}
+
+.qunix-list-row .status-badge.bg-green-500,
+.qunix-list-row .status-badge.bg-server-status-running {
+  background-color: rgba(46, 213, 115, 0.15) !important;
+  color: #2ed573 !important;
+}
+
+.qunix-list-row .status-badge.bg-green-500::before,
+.qunix-list-row .status-badge.bg-server-status-running::before {
+  background-color: #2ed573 !important;
+}
+
+.qunix-list-row .status-badge.bg-yellow-500,
+.qunix-list-row .status-badge.bg-server-status-starting,
+.qunix-list-row .status-badge.bg-server-status-stopping {
+  background-color: rgba(255, 165, 2, 0.15) !important;
+  color: #ffa502 !important;
+}
+
+.qunix-list-row .status-badge.bg-yellow-500::before,
+.qunix-list-row .status-badge.bg-server-status-starting::before,
+.qunix-list-row .status-badge.bg-server-status-stopping::before {
+  background-color: #ffa502 !important;
+}
+
+.qunix-list-row .status-badge.bg-blue-500 {
+  background-color: rgba(122, 162, 247, 0.15) !important;
+  color: #7aa2f7 !important;
+}
+
+.qunix-list-row .status-badge.bg-blue-500::before {
+  background-color: #7aa2f7 !important;
+}
+
+.qunix-list-row .status-badge.bg-orange-500 {
+  background-color: rgba(255, 159, 67, 0.15) !important;
+  color: #ff9f43 !important;
+}
+
+.qunix-list-row .status-badge.bg-orange-500::before {
+  background-color: #ff9f43 !important;
+}
+
+.qunix-list-row .status-badge.bg-red-500,
+.qunix-list-row .status-badge.bg-server-status-offline {
+  background-color: rgba(255, 71, 87, 0.15) !important;
+  color: #ff4757 !important;
+}
+
+.qunix-list-row .status-badge.bg-red-500::before,
+.qunix-list-row .status-badge.bg-server-status-offline::before {
+  background-color: #ff4757 !important;
+}
+
+.qunix-list-row .status-badge.bg-gray-500 {
+  background-color: rgba(116, 125, 140, 0.15) !important;
+  color: #747d8c !important;
+}
+
+.qunix-list-row .status-badge.bg-gray-500::before {
+  background-color: #747d8c !important;
+}
+
+/* Special Status Bar (Suspended, Installing, Transferring, Maintenance) */
+.qunix-list-row .qunix-list-special-status {
+  flex: 3.6 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 8px 14px !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px dashed rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+}
+
+html[data-mantine-color-scheme="light"] .qunix-list-row .qunix-list-special-status {
+  background: rgba(0, 0, 0, 0.03) !important;
+  border: 1px dashed rgba(0, 0, 0, 0.1) !important;
+}
+
+.qunix-list-row .qunix-list-special-icon {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+}
+
+.qunix-list-row .qunix-list-special-status-title {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: var(--ds-gray-900) !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+}
+
+.qunix-list-row .qunix-list-special-status-desc {
+  font-size: 12px !important;
+  color: var(--ds-gray-700, #a1a1aa) !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.qunix-list-row .server-metric {
+  flex: 1.2 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  min-width: 0 !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.qunix-list-row .stat-icon {
+  font-size: 14px !important;
+  color: var(--ds-gray-800) !important;
+  flex-shrink: 0 !important;
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.qunix-list-row .sparkline-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 25px !important;
+  width: 80px !important;
+  flex-shrink: 0 !important;
+  margin-right: 12px !important;
+  overflow: hidden !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.qunix-list-row .metric-text {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 2px !important;
+  font-size: 13px !important;
+}
+
+.qunix-list-row .metric-text .value {
+  font-weight: 600 !important;
+  color: var(--ds-gray-900) !important;
+}
+
+.qunix-list-row .metric-text .limit {
+  font-size: 10px !important;
+  color: var(--ds-gray-800) !important;
+}
+
+.qunix-list-row .metric-progress-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  width: 100% !important;
+}
+
+.qunix-list-row .progress-bar {
+  height: 5px !important;
+  width: 120px !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-radius: 3px !important;
+  overflow: hidden !important;
+}
+
+html[data-mantine-color-scheme="light"] .qunix-list-row .progress-bar {
+  background: rgba(0, 0, 0, 0.06) !important;
+}
+
+.qunix-list-row .progress-fill {
+  height: 100% !important;
+  transition: width 0.3s ease !important;
+  border-radius: 3px !important;
+}
+
+.qunix-list-row .row-arrow {
+  flex: 0.15 !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  color: var(--ds-gray-800) !important;
+  font-size: 14px !important;
+  transition: transform 0.2s ease !important;
+}
+
+.qunix-list-row:hover .row-arrow {
+  transform: translateX(3px) !important;
+  color: var(--ds-gray-900) !important;
+}
+
+/* Dashboard Header Toolbar & Navigation Tabs */
+.qunix-dashboard-header-toolbar {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 16px !important;
+  margin-bottom: 20px !important;
+  border-bottom: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.08)) !important;
+  padding-bottom: 8px !important;
+}
+
+.qunix-dashboard-tabs-wrapper {
+  flex: 1 1 auto !important;
+  min-width: 200px !important;
+}
+
+.qunix-dashboard-tabs-wrapper .mantine-Tabs-root {
+  margin: 0 !important;
+}
+
+.qunix-dashboard-tabs-wrapper .mantine-Tabs-list {
+  border-bottom: none !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.qunix-dashboard-tabs-wrapper a {
+  text-decoration: none !important;
+}
+
+.qunix-dashboard-tabs-wrapper .mantine-Tabs-tab {
+  border: 1px solid transparent !important;
+  border-bottom: 2px solid transparent !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  padding: 6px 14px !important;
+  color: var(--ds-gray-800, #565f89) !important;
+  background: transparent !important;
+  transition: all 0.2s ease !important;
+}
+
+.qunix-dashboard-tabs-wrapper .mantine-Tabs-tab:hover {
+  color: var(--ds-gray-900, #c0caf5) !important;
+  background: var(--ds-nav-hover-bg, rgba(255, 255, 255, 0.04)) !important;
+}
+
+.qunix-dashboard-tabs-wrapper .mantine-Tabs-tab[data-active] {
+  color: var(--ds-gray-900, #ffffff) !important;
+  background: var(--ds-sidebar-active-bg, rgba(255, 255, 255, 0.06)) !important;
+  border-color: var(--ds-border-color, rgba(255, 255, 255, 0.1)) !important;
+  border-bottom: 2px solid var(--ds-primary-color, #7aa2f7) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+.qunix-dashboard-controls-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+  margin-top: 2px !important;
+}
+
+.qunix-dashboard-filters-inner {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+}
+
+.qunix-dashboard-filters-inner .mantine-TextInput-root,
+.qunix-dashboard-filters-inner .mantine-InputWrapper-root {
+  margin: 0 !important;
+}
+
+.qunix-dashboard-filters-inner .mantine-TextInput-input,
+.qunix-dashboard-filters-inner .mantine-Input-input {
+  height: 36px !important;
+  background-color: var(--ds-input-bg, #24283b) !important;
+  border: 1px solid var(--ds-border-color, rgba(154, 165, 233, 0.15)) !important;
+  border-radius: var(--ds-input-radius, 8px) !important;
+  color: var(--ds-gray-900, #c0caf5) !important;
+}
+
+.qunix-dashboard-filters-inner .mantine-Switch-root {
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Layout Switcher UI styling */
+.qunix-layout-toggle-group {
+  display: flex !important;
+  gap: 4px !important;
+  padding: 4px !important;
+  background: rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid var(--ds-border-color) !important;
+  border-radius: 8px !important;
+  align-items: center !important;
+}
+
+html[data-mantine-color-scheme="light"] .qunix-layout-toggle-group {
+  background: rgba(0, 0, 0, 0.03) !important;
+}
+
+.qunix-layout-toggle-btn {
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 6px !important;
+  border: none !important;
+  background: transparent !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: var(--ds-gray-800) !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  padding: 0 !important;
+  font-size: 14px !important;
+  outline: none !important;
+}
+
+.qunix-layout-toggle-btn:hover {
+  color: var(--ds-gray-900) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+html[data-mantine-color-scheme="light"] .qunix-layout-toggle-btn:hover {
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+
+.qunix-layout-toggle-btn.active {
+  color: #ffffff !important;
+  background: var(--ds-primary-color, #7aa2f7) !important;
+  box-shadow: 0 2px 6px rgba(108, 92, 231, 0.25) !important;
+}
+
+/* Responsive adjustment for list layout on small devices */
+@media (max-width: 900px) {
+  .qunix-list-row .sparkline-container {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .qunix-list-row {
+    flex-wrap: nowrap !important;
+    height: 60px !important;
+    min-height: 60px !important;
+    padding: 10px 16px !important;
+    justify-content: flex-start !important;
+    gap: 0 !important;
+  }
+
+  .qunix-list-row .qunix-list-select-wrapper,
+  .qunix-list-row .server-ip,
+  .qunix-list-row .server-tag,
+  .qunix-list-row .sparkline-container,
+  .qunix-list-row .server-metric,
+  .qunix-list-row .qunix-list-special-status,
+  .qunix-list-row .qunix-list-actions-wrapper,
+  .qunix-list-row .row-arrow {
+    display: none !important;
+  }
+
+  .qunix-list-row .server-details {
+    flex: 1 1 auto !important;
+    width: auto !important;
+  }
+
+  .qunix-list-row .server-status {
+    display: flex !important;
+    margin-left: auto !important;
+    flex: 0 0 auto !important;
+  }
+
+  .qunix-list-row .status-badge {
+    font-size: 10px !important;
+    padding: 2px 8px !important;
+  }
+
+  /* Left status border on mobile list rows */
+  .qunix-list-row.status-running,
+  .qunix-list-row.status-green,
+  .qunix-list-row.bg-server-status-running {
+    border-left: 4px solid #2ed573 !important;
+  }
+
+  .qunix-list-row.status-starting,
+  .qunix-list-row.status-stopping,
+  .qunix-list-row.status-transferring,
+  .qunix-list-row.status-yellow,
+  .qunix-list-row.bg-server-status-starting {
+    border-left: 4px solid #ffa502 !important;
+  }
+
+  .qunix-list-row.status-installing,
+  .qunix-list-row.status-blue {
+    border-left: 4px solid #7aa2f7 !important;
+  }
+
+  .qunix-list-row.status-suspended,
+  .qunix-list-row.status-maintenance,
+  .qunix-list-row.status-red {
+    border-left: 4px solid #ff4757 !important;
+  }
+
+  .qunix-list-row.status-offline,
+  .qunix-list-row.status-gray,
+  .qunix-list-row.bg-server-status-offline {
+    border-left: 4px solid #747d8c !important;
+  }
+}
+
+/* Allocation copier styles & hover effects */
+.qunix-list-row .qunix-allocation-copier {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  cursor: pointer !important;
+  margin-top: 2px !important;
+  transition: all 0.2s ease !important;
+  width: fit-content !important;
+}
+
+.qunix-list-row .qunix-allocation-copier .server-ip {
+  margin-top: 0 !important;
+  transition: color 0.2s ease !important;
+}
+
+.qunix-list-row .qunix-allocation-copier .copy-icon {
+  font-size: 11px !important;
+  color: var(--ds-gray-800) !important;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.2s ease !important;
+}
+
+.qunix-list-row .qunix-allocation-copier:hover .server-ip {
+  color: var(--ds-primary-color, #7aa2f7) !important;
+  text-decoration: underline !important;
+}
+
+.qunix-list-row .qunix-allocation-copier:hover .copy-icon {
+  opacity: 1;
+  transform: scale(1);
+  color: var(--ds-primary-color, #7aa2f7) !important;
+}
+
+/* Console Header ActionIcon & FontAwesomeIcon exact color matching */
+.qunix-console-icon-btn,
+button.qunix-console-icon-btn {
+  color: var(--mantine-color-dimmed) !important;
+  background: transparent !important;
+}
+
+.qunix-console-icon-btn:hover,
+button.qunix-console-icon-btn:hover {
+  color: var(--mantine-color-text) !important;
+  background: transparent !important;
+}
+
+.qunix-console-icon-btn svg,
+.qunix-console-icon-btn .svg-inline--fa {
+  color: var(--mantine-color-dimmed) !important;
+  transition: color 0.15s ease !important;
+}
+
+.qunix-console-icon-btn:hover svg,
+.qunix-console-icon-btn:hover .svg-inline--fa,
+.qunix-console-icon-btn.group:hover svg,
+.qunix-console-icon-btn.group:hover .svg-inline--fa {
+  color: var(--mantine-color-text) !important;
+}
+

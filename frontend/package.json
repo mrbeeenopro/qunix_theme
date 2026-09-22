@@ -1,11 +1,12 @@
 {
   "name": "dev.qunix.theme",
   "private": true,
-  "version": "1.4.0",
+  "version": "1.4.7",
   "type": "module",
   "main": "src/index.tsx",
   "types": "src/index.tsx",
   "dependencies": {
+    "prism-code-editor": "^5.2.0",
     "shared": "workspace:*"
   }
 }

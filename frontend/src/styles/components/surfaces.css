@@ -1,0 +1,477 @@
+.mantine-Card-root,
+.mantine-Paper-root,
+.card,
+.container-card,
+.qunix-server-card {
+  border: 1px solid var(--ds-border-color) !important;
+  background-color: var(--ds-card-bg) !important;
+  color: var(--ds-gray-900) !important;
+  border-radius: var(--ds-card-radius) !important;
+}
+
+/* Each card auto-fits its own content height; background image scales individually per card */
+.qunix-grid-card-wrapper {
+  align-self: start !important;
+  height: auto !important;
+  box-sizing: border-box !important;
+}
+
+.qunix-grid-card-wrapper .mantine-Card-root {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+/* Apply overflow: hidden to standard cards but exclude modal containers */
+.mantine-Card-root:not(.mantine-Modal-content),
+.card,
+.container-card,
+.qunix-server-card {
+  overflow: hidden !important;
+}
+
+/* Fix left status stripe corner clipping on server cards */
+.mantine-Card-root>div.absolute.left-0.top-0,
+.mantine-Paper-root>div.absolute.left-0.top-0,
+div.absolute.left-0.top-0.h-full.w-1,
+div.absolute.left-0.top-0.h-full {
+  border-top-left-radius: inherit !important;
+  border-bottom-left-radius: inherit !important;
+  overflow: hidden !important;
+}
+
+/* Ensure vertical card dividers render properly across layouts */
+.mantine-Divider-root[data-orientation="vertical"] {
+  border-top: none !important;
+  border-left: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.12)) !important;
+  width: 0 !important;
+  height: auto !important;
+  min-height: 18px !important;
+  align-self: stretch !important;
+}
+
+/* Disable backdrop blur on ALL modal/drawer overlays globally across the panel to prevent 100% GPU spikes on legacy GPUs like GT630 */
+:root {
+  --overlay-filter: none !important;
+  --overlay-backdrop-filter: none !important;
+}
+
+.qunix-overlay,
+.mantine-Modal-overlay,
+.mantine-Drawer-overlay,
+.mantine-Overlay-root,
+[class*="mantine-Modal-overlay"],
+[class*="mantine-Drawer-overlay"],
+[class*="mantine-Overlay-root"],
+[class*="Overlay-root"],
+.mantine-Overlay-root[style*="backdrop-filter"],
+.mantine-Modal-overlay[style*="backdrop-filter"] {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  --overlay-filter: none !important;
+  filter: none !important;
+}
+
+/* Mantine Modal Container */
+.mantine-Modal-content {
+  background-color: var(--ds-modal-bg, var(--ds-dark-7, #141418)) !important;
+  border: 1px solid var(--ds-border-color) !important;
+  background-image: none !important;
+  color: var(--ds-gray-900) !important;
+  border-radius: var(--ds-card-radius) !important;
+  box-shadow:
+    var(--ds-shadow-border),
+    0 20px 25px -5px rgba(0, 0, 0, 0.4) !important;
+  contain: layout style !important;
+  display: flex !important;
+  flex-direction: column !important;
+  max-height: calc(100vh - 40px) !important;
+  overflow: hidden !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Virtual Window / Popup Window Frame */
+.mantine-Window-root,
+.mantine-Window-container,
+div[id^="window_"].mantine-Window-root {
+  border: 1px solid var(--ds-popup-window-border-color, var(--ds-border-color)) !important;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45) !important;
+  border-radius: var(--ds-card-radius, 8px) !important;
+}
+
+/* Ensure inner window wrapper and root container are never treated as popup frames */
+#window_null_inner,
+div[id$="_inner"] {
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+.mantine-Window-header {
+  border-bottom: 1px solid var(--ds-popup-window-border-color, var(--ds-border-color)) !important;
+}
+
+/* Mantine Drawer Container - Full Height & Contain Overscroll to prevent mobile Chrome toolbar hiding */
+.mantine-Drawer-root,
+.mantine-Drawer-inner,
+.mantine-Drawer-content,
+.mantine-Drawer-body {
+  overscroll-behavior: contain !important;
+}
+
+.mantine-Drawer-content {
+  background-color: var(--ds-sidebar-bg, var(--ds-dark-7, #141418)) !important;
+  border-right: 1px solid var(--ds-border-color) !important;
+  background-image: none !important;
+  color: var(--ds-gray-900) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  overflow: hidden !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Modals & Drawers child cards & permission cards - custom mini card background color (#121212) */
+.mantine-Modal-content .mantine-Card-root,
+.mantine-Modal-content .mantine-Paper-root,
+.mantine-Drawer-content .mantine-Card-root,
+.mantine-Drawer-content .mantine-Paper-root,
+.mantine-CheckboxCard-root {
+  background-color: var(--ds-mini-card-bg, #121212) !important;
+  border: 1px solid var(--ds-border-color) !important;
+  color: var(--ds-gray-900) !important;
+}
+
+/* Selected state for Checkbox.Card & permission items in permission selector */
+.mantine-CheckboxCard-root[data-checked],
+.mantine-Card-root[data-checked],
+.mantine-Paper-root[data-checked] {
+  border-color: var(--ds-power-start-bg, #40c057) !important;
+  background-color: color-mix(in srgb, var(--ds-power-start-bg, #40c057) 15%, var(--ds-mini-card-bg, #121212)) !important;
+}
+
+.mantine-Modal-body {
+  overflow-y: auto !important;
+  max-height: calc(100vh - 130px) !important;
+  -webkit-overflow-scrolling: touch;
+  flex: 1 1 auto !important;
+}
+
+.mantine-Menu-dropdown {
+  border: 1px solid var(--ds-border-color) !important;
+  background-color: var(--ds-navbar-bg) !important;
+  background-image: none !important;
+  color: var(--ds-gray-900) !important;
+  border-radius: var(--ds-card-radius) !important;
+  box-shadow:
+    var(--ds-shadow-border),
+    0 20px 25px -5px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* ponytail: only sidebar + header get backdrop-filter. Cards/papers use opaque color-mix bg only — no GPU blur layers */
+body.has-bg-image .mantine-Card-root:not(.mantine-Modal-content *),
+body.has-bg-image .mantine-Paper-root:not(.mantine-Modal-content *):not(.mantine-Paper-root *),
+body.has-bg-image .card:not(.mantine-Modal-content *),
+body.has-bg-image .container-card:not(.mantine-Modal-content *) {
+  background-color: color-mix(in srgb, var(--ds-card-bg), transparent var(--ds-glass-transparency)) !important;
+}
+
+/* 3. General Elements */
+.mantine-Button-root {
+  border: 1px solid var(--ds-border-color) !important;
+  border-radius: var(--ds-button-radius) !important;
+  transition: transform 0.1s ease;
+}
+
+.mantine-Button-root:active {
+  transform: scale(0.98);
+}
+
+.mantine-Button-filled.mantine-Button-dark {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: none !important;
+}
+
+.mantine-TextInput-input:not([data-variant="unstyled"]),
+.mantine-PasswordInput-input:not([data-variant="unstyled"]),
+.mantine-Select-input:not([data-variant="unstyled"]),
+.mantine-Textarea-input:not([data-variant="unstyled"]),
+.mantine-NumberInput-input:not([data-variant="unstyled"]),
+.mantine-NativeSelect-input:not([data-variant="unstyled"]),
+.mantine-Autocomplete-input:not([data-variant="unstyled"]),
+.mantine-TagsInput-input:not([data-variant="unstyled"]),
+.mantine-MultiSelect-input:not([data-variant="unstyled"]),
+.mantine-PinInput-input:not([data-variant="unstyled"]),
+.mantine-JsonInput-input:not([data-variant="unstyled"]),
+.mantine-DateTimePicker-input:not([data-variant="unstyled"]),
+.mantine-TimeInput-input:not([data-variant="unstyled"]),
+.mantine-FileInput-input:not([data-variant="unstyled"]),
+.mantine-ColorInput-input:not([data-variant="unstyled"]) {
+  border: 1px solid var(--ds-border-color) !important;
+  background-color: var(--ds-input-bg) !important;
+  color: var(--ds-gray-900) !important;
+  border-radius: var(--ds-input-radius) !important;
+}
+
+.mantine-TextInput-input:not([data-variant="unstyled"]):focus,
+.mantine-PasswordInput-input:not([data-variant="unstyled"]):focus,
+.mantine-Select-input:not([data-variant="unstyled"]):focus,
+.mantine-Textarea-input:not([data-variant="unstyled"]):focus,
+.mantine-NumberInput-input:not([data-variant="unstyled"]):focus,
+.mantine-NativeSelect-input:not([data-variant="unstyled"]):focus,
+.mantine-Autocomplete-input:not([data-variant="unstyled"]):focus,
+.mantine-TagsInput-input:not([data-variant="unstyled"]):focus,
+.mantine-MultiSelect-input:not([data-variant="unstyled"]):focus,
+.mantine-PinInput-input:not([data-variant="unstyled"]):focus,
+.mantine-JsonInput-input:not([data-variant="unstyled"]):focus,
+.mantine-DateTimePicker-input:not([data-variant="unstyled"]):focus,
+.mantine-TimeInput-input:not([data-variant="unstyled"]):focus,
+.mantine-FileInput-input:not([data-variant="unstyled"]):focus,
+.mantine-ColorInput-input:not([data-variant="unstyled"]):focus {
+  box-shadow: 0px 0px 0px 2px var(--ds-focus-color) !important;
+}
+
+.mantine-AppShell-header {
+  background-color: var(--ds-navbar-bg) !important;
+  background-image: none !important;
+  height: var(--ds-navbar-height) !important;
+  border-bottom: 1px solid var(--ds-border-color) !important;
+  z-index: 100;
+}
+
+.mantine-AppShell-navbar,
+.sidebar {
+  background-color: var(--ds-sidebar-bg) !important;
+  background-image: none !important;
+  border-right: 1px solid var(--ds-border-color) !important;
+  padding-top: var(--ds-sidebar-item-gap) !important;
+}
+
+.mantine-Drawer-content,
+.mantine-Drawer-inner .mantine-Paper-root {
+  background-color: var(--ds-sidebar-bg, #16161e) !important;
+  background-image: none !important;
+  border-right: 1px solid var(--ds-border-color) !important;
+}
+
+body.has-bg-image .mantine-AppShell-navbar,
+body.has-bg-image .sidebar {
+  background-color: color-mix(in srgb, var(--ds-sidebar-bg), transparent var(--ds-glass-transparency)) !important;
+  backdrop-filter: var(--ds-sidebar-blur-active) !important;
+  -webkit-backdrop-filter: var(--ds-sidebar-blur-active) !important;
+}
+
+/* Global Power Action Buttons Color Variables & Sync */
+:root,
+html,
+body,
+.sidebar,
+.mantine-AppShell-navbar,
+.mantine-Drawer-content,
+#sidebar-content,
+#console-infobar {
+  --mantine-color-green-filled: var(--ds-power-start-bg, #40c057) !important;
+  --mantine-color-green-filled-hover: color-mix(in srgb, var(--ds-power-start-bg, #40c057) 85%, white) !important;
+
+  --mantine-color-gray-filled: var(--ds-power-restart-bg, #868e96) !important;
+  --mantine-color-gray-filled-hover: color-mix(in srgb, var(--ds-power-restart-bg, #868e96) 85%, white) !important;
+
+  --mantine-color-red-filled: var(--ds-power-stop-bg, #fa5252) !important;
+  --mantine-color-red-filled-hover: color-mix(in srgb, var(--ds-power-stop-bg, #fa5252) 85%, white) !important;
+}
+
+/* Explicit Power Control Button Color overrides across the entire panel */
+#console-infobar .mantine-Button-root[data-color="green"]:not([disabled]),
+.qunix-server-status-card-wide .mantine-Button-root[data-color="green"]:not([disabled]),
+.mantine-Button-root[data-color="green"]:not([disabled]) {
+  background-color: var(--ds-power-start-bg, #40c057) !important;
+  color: #ffffff !important;
+}
+
+#console-infobar .mantine-Button-root[data-color="green"]:hover:not([disabled]),
+.qunix-server-status-card-wide .mantine-Button-root[data-color="green"]:hover:not([disabled]),
+.mantine-Button-root[data-color="green"]:hover:not([disabled]) {
+  background-color: color-mix(in srgb, var(--ds-power-start-bg, #40c057) 85%, white) !important;
+}
+
+#console-infobar .mantine-Button-root[data-color="gray"]:not([disabled]),
+.qunix-server-status-card-wide .mantine-Button-root[data-color="gray"]:not([disabled]) {
+  background-color: var(--ds-power-restart-bg, #868e96) !important;
+  color: #ffffff !important;
+}
+
+#console-infobar .mantine-Button-root[data-color="gray"]:hover:not([disabled]),
+.qunix-server-status-card-wide .mantine-Button-root[data-color="gray"]:hover:not([disabled]) {
+  background-color: color-mix(in srgb, var(--ds-power-restart-bg, #868e96) 85%, white) !important;
+}
+
+#console-infobar .mantine-Button-root[data-color="red"]:not([disabled]),
+.qunix-server-status-card-wide .mantine-Button-root[data-color="red"]:not([disabled]),
+.mantine-Button-root[data-color="red"]:not([disabled]) {
+  background-color: var(--ds-power-stop-bg, #fa5252) !important;
+  color: #ffffff !important;
+}
+
+#console-infobar .mantine-Button-root[data-color="red"]:hover:not([disabled]),
+.qunix-server-status-card-wide .mantine-Button-root[data-color="red"]:hover:not([disabled]),
+.mantine-Button-root[data-color="red"]:hover:not([disabled]) {
+  background-color: color-mix(in srgb, var(--ds-power-stop-bg, #fa5252) 85%, white) !important;
+}
+
+[id="title-card-header"] {
+  background-color: var(--ds-navbar-bg) !important;
+}
+
+body.has-bg-image [id="title-card-header"],
+body.has-bg-image .mantine-AppShell-header {
+  background-color: color-mix(in srgb, var(--ds-navbar-bg), transparent var(--ds-glass-transparency)) !important;
+  backdrop-filter: var(--ds-sidebar-blur-active) !important;
+  -webkit-backdrop-filter: var(--ds-sidebar-blur-active) !important;
+}
+
+/* Page Title Icons setting: When disabled, hide title card icon badges */
+html[data-page-title-icon="false"] #title-card-icon,
+html[data-page-title-icon="false"] [id="title-card-icon"],
+html[data-page-title-icon="false"] .title-card-icon,
+html[data-page-title-icon="false"] #title-card-header>#title-card-icon,
+html[data-page-title-icon="false"] .qunix-replaced-container-icon {
+  display: none !important;
+}
+
+/* ========================================================================== */
+/* Version Chooser Component Theme Surfaces                                   */
+/* ========================================================================== */
+.mc-vc-type-card,
+.mc-vc-version-card,
+.mcvc-admin-stat-card,
+.mcvc-admin-chart-card {
+  background-color: var(--ds-card-bg, rgba(255, 255, 255, 0.03)) !important;
+  border: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.08)) !important;
+  border-radius: var(--ds-listing-radius, var(--ds-card-radius, 10px)) !important;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.mc-vc-type-card:hover,
+.mc-vc-version-card:hover {
+  background-color: var(--ds-nav-hover-bg, rgba(255, 255, 255, 0.06)) !important;
+}
+
+html[data-mantine-color-scheme="light"] .mc-vc-type-card,
+html[data-mantine-color-scheme="light"] .mc-vc-version-card,
+html[data-mantine-color-scheme="light"] .mcvc-admin-stat-card,
+html[data-mantine-color-scheme="light"] .mcvc-admin-chart-card {
+  background-color: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+}
+
+html[data-mantine-color-scheme="light"] .mc-vc-type-card:hover,
+html[data-mantine-color-scheme="light"] .mc-vc-version-card:hover {
+  background-color: #f8fafc !important;
+  border-color: rgba(0, 0, 0, 0.14) !important;
+}
+
+/* Progress & Queue elements overflow containment (Upload, Download, Pull, Unzip) */
+.mantine-Card-root .mantine-Progress-root,
+.mantine-Progress-root {
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+.qunix-operations-card,
+[class*="UploadsCard"],
+[class*="FileOperationRow"],
+[class*="UploadFileRow"],
+[class*="UploadFolderRow"] {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Ensure fixed queue popup / card near sidebar never overflows viewport or sidebar */
+.fixed.bottom-4.left-4 {
+  max-width: min(calc(100vw - 32px), 360px) !important;
+  overflow-x: hidden !important;
+  word-break: break-word !important;
+  overflow-wrap: anywhere !important;
+}
+
+/* ========================================================================== */
+/* Local Font Definitions (Zero Network Delay / Works with Strict HTTPS CSP)   */
+/* ========================================================================== */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: local('JetBrains Mono'), local('JetBrainsMono Nerd Font'), local('JetBrainsMono-Regular'), local('JetBrainsMono');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrainsMono Nerd Font';
+  src: local('JetBrainsMono Nerd Font'), local('JetBrains Mono'), local('JetBrainsMono-Regular');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ========================================================================== */
+/* ========================================================================== */
+/* Privacy Mode: Blur Protection with Instant Hover Unblur (Addresses & Email)*/
+/* ========================================================================== */
+html[data-privacy-blur="true"] .qunix-privacy-blur,
+html[data-privacy-blur="true"] [data-privacy-sensitive="true"],
+html[data-privacy-blur="true"] .qunix-banner-allocation-pill,
+html[data-privacy-blur="true"] .qunix-compact-info-card:first-child .font-mono,
+html[data-privacy-blur="true"] [data-allocation-id],
+html[data-privacy-blur="true"] .qunix-allocation-copier,
+html[data-privacy-blur="true"] .server-ip,
+html[data-privacy-blur="true"] .qunix-grid-card-wrapper div[class*="@md:justify-end"] button,
+html[data-privacy-blur="true"] .qunix-server-card div[class*="@md:justify-end"] button,
+html[data-privacy-blur="true"] div[class*="@md:justify-end"]>button,
+html[data-privacy-blur="true"] div[class*="@md:justify-end"]>div.flex-row>button,
+html[data-privacy-blur="true"] input[autocomplete="email"],
+html[data-privacy-blur="true"] input[name="email"],
+html[data-privacy-blur="true"] input[type="email"],
+html[data-privacy-blur="true"] .mantine-Spotlight-actionDescription,
+html[data-privacy-blur="true"] [class*="Spotlight-actionDescription"],
+html[data-privacy-blur="true"] tr td:has(.qunix-privacy-blur)+td code,
+html[data-privacy-blur="true"] tr td:has([data-privacy-sensitive="true"])+td code,
+html[data-privacy-blur="true"] .mantine-Modal-content button.cursor-pointer:has(code) {
+  filter: blur(5.5px) !important;
+  transition: filter 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  user-select: none !important;
+}
+
+html[data-privacy-blur="true"] .qunix-privacy-blur:hover,
+html[data-privacy-blur="true"] [data-privacy-sensitive="true"]:hover,
+html[data-privacy-blur="true"] .qunix-banner-allocation-pill:hover,
+html[data-privacy-blur="true"] .qunix-compact-info-card:first-child .font-mono:hover,
+html[data-privacy-blur="true"] [data-allocation-id]:hover,
+html[data-privacy-blur="true"] .qunix-allocation-copier:hover,
+html[data-privacy-blur="true"] .server-ip:hover,
+html[data-privacy-blur="true"] .qunix-grid-card-wrapper div[class*="@md:justify-end"] button:hover,
+html[data-privacy-blur="true"] .qunix-server-card div[class*="@md:justify-end"] button:hover,
+html[data-privacy-blur="true"] div[class*="@md:justify-end"]>button:hover,
+html[data-privacy-blur="true"] div[class*="@md:justify-end"]>div.flex-row>button:hover,
+html[data-privacy-blur="true"] input[autocomplete="email"]:hover,
+html[data-privacy-blur="true"] input[autocomplete="email"]:focus,
+html[data-privacy-blur="true"] input[name="email"]:hover,
+html[data-privacy-blur="true"] input[name="email"]:focus,
+html[data-privacy-blur="true"] input[type="email"]:hover,
+html[data-privacy-blur="true"] input[type="email"]:focus,
+html[data-privacy-blur="true"] .mantine-Spotlight-actionDescription:hover,
+html[data-privacy-blur="true"] [class*="Spotlight-actionDescription"]:hover,
+html[data-privacy-blur="true"] tr td:has(.qunix-privacy-blur)+td code:hover,
+html[data-privacy-blur="true"] tr td:has([data-privacy-sensitive="true"])+td code:hover,
+html[data-privacy-blur="true"] tr:hover td code,
+html[data-privacy-blur="true"] .mantine-Modal-content button.cursor-pointer:has(code):hover {
+  filter: blur(0) !important;
+  user-select: auto !important;
+}

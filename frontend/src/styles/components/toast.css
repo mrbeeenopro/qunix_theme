@@ -1,0 +1,172 @@
+/* Custom Toast / Flash Message Styles */
+.qunix-custom-toast-container {
+  position: relative;
+  background: rgba(10, 10, 10, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 4px solid var(--toast-accent);
+  border-radius: var(--toast-radius, 8px) !important;
+  overflow: hidden;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  padding: 12px 16px;
+  transition: all 0.3s ease;
+  color: #ffffff;
+}
+
+html[data-mantine-color-scheme="light"] .qunix-custom-toast-container {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  border-left: 4px solid var(--toast-accent) !important;
+  color: #0f172a !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.08) !important;
+}
+
+html[data-mantine-color-scheme="light"] .qunix-custom-toast-container .qunix-custom-toast-close {
+  color: rgba(0, 0, 0, 0.4) !important;
+}
+
+html[data-mantine-color-scheme="light"] .qunix-custom-toast-container .qunix-custom-toast-close:hover {
+  color: #0f172a !important;
+}
+
+.qunix-custom-toast-container.has-colored-border {
+  border: 1.5px solid var(--toast-accent) !important;
+}
+
+.qunix-custom-toast-container.has-bg-tint {
+  background: var(--toast-bg, color-mix(in srgb, var(--toast-accent) 8%, rgba(10, 10, 10, 0.45))) !important;
+}
+
+.qunix-custom-toast-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.qunix-custom-toast-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--toast-accent);
+  color: #ffffff;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.qunix-custom-toast-icon {
+  font-size: 16px;
+}
+
+.qunix-custom-toast-message {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+.qunix-custom-toast-close {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.qunix-custom-toast-close:hover {
+  color: #ffffff;
+}
+
+.qunix-custom-toast-timer-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: var(--toast-accent);
+  animation: qunix-toast-timer-anim 7.5s linear forwards;
+  border-bottom-left-radius: var(--toast-radius, 8px) !important;
+  border-bottom-right-radius: var(--toast-radius, 8px) !important;
+}
+
+/* Qunix Theme Toast */
+.qunix-theme-toast-container {
+  position: relative;
+  background: var(--ds-card-bg);
+  border: 1px solid var(--ds-border-color);
+  border-radius: var(--toast-radius, 8px) !important;
+  box-shadow: var(--ds-shadow-border);
+  padding: 12px 16px;
+  transition: all 0.3s ease;
+  color: var(--ds-gray-900);
+}
+
+.qunix-theme-toast-container.has-colored-border {
+  border: 1.5px solid var(--toast-accent) !important;
+}
+
+.qunix-theme-toast-container.has-bg-tint {
+  background: var(--toast-bg, color-mix(in srgb, var(--toast-accent) 8%, var(--ds-card-bg))) !important;
+}
+
+.qunix-theme-toast-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.qunix-theme-toast-icon {
+  color: var(--toast-accent);
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.qunix-theme-toast-message {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+.qunix-theme-toast-close {
+  background: none;
+  border: none;
+  color: var(--ds-gray-800);
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.qunix-theme-toast-close:hover {
+  color: var(--ds-gray-900);
+}
+
+.qunix-theme-toast-timer-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: var(--toast-accent);
+  animation: qunix-toast-timer-anim 7.5s linear forwards;
+  border-bottom-left-radius: var(--toast-radius, 8px) !important;
+  border-bottom-right-radius: var(--toast-radius, 8px) !important;
+}
+
+@keyframes qunix-toast-timer-anim {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}

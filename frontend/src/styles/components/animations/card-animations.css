@@ -1,0 +1,824 @@
+/* ========================================================================== */
+/* Card Entrance & Staggered Cascade Delays                                   */
+/* ========================================================================== */
+
+:root {
+  --qunix-anim-duration: 0.55s;
+  --qunix-anim-timing: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ----------------------------- */
+/* --- Slide Up (Default) ---    */
+/* ----------------------------- */
+html[data-card-animation="slide-up"] .mantine-Card-root:not(.mantine-Modal-content):not(.mantine-Drawer-content):not(.mantine-Menu-dropdown):not(.mantine-Popover-dropdown):not(.mantine-Tooltip-tooltip):not(#sidebar-desktop):not(#sidebar-content *):not([class*="lg:hidden"]),
+html[data-card-animation="slide-up"] .mantine-Paper-root:not(.mantine-Modal-content):not(.mantine-Drawer-content):not(.mantine-Menu-dropdown):not(.mantine-Popover-dropdown):not(.mantine-Tooltip-tooltip):not(#sidebar-desktop):not(#sidebar-content *):not([class*="lg:hidden"]),
+html[data-card-animation="slide-up"] .mantine-Table-root,
+html[data-card-animation="slide-up"] .mantine-Table-ScrollContainer,
+html[data-card-animation="slide-up"] .mantine-Table-scrollContainer,
+html[data-card-animation="slide-up"] div:has(> .mantine-Table-ScrollContainer),
+html[data-card-animation="slide-up"] div:has(> .mantine-Table-scrollContainer),
+html[data-card-animation="slide-up"] .qunix-server-card,
+html[data-card-animation="slide-up"] .qunix-grid-card-wrapper,
+html[data-card-animation="slide-up"] .qunix-server-row,
+html[data-card-animation="slide-up"] .qunix-stat-card,
+html[data-card-animation="slide-up"] .qunix-console-wrap,
+html[data-card-animation="slide-up"] .qunix-sparkline-card,
+html[data-card-animation="slide-up"] .qunix-sparkline-wrap,
+html[data-card-animation="slide-up"] .qunix-server-banner,
+html[data-card-animation="slide-up"] .qunix-card,
+html[data-card-animation="slide-up"] [data-qunix-card],
+html[data-card-animation="slide-up"] .container-card,
+html[data-card-animation="slide-up"] .card,
+html[data-card-animation="slide-up"] .mantine-Tabs-panel,
+html[data-card-animation="slide-up"] .mantine-Accordion-item,
+html[data-card-animation="slide-up"] .mantine-Timeline-item,
+html[data-card-animation="slide-up"] div:has(> .xterm),
+html[data-card-animation="slide-up"] div[class*="ServerGroupItem"],
+html[data-card-animation="slide-up"] div[class*="ServerItem"],
+html[data-card-animation="slide-up"] .mc-vc-type-card,
+html[data-card-animation="slide-up"] .mc-vc-version-card,
+html[data-card-animation="slide-up"] .mcvc-admin-stat-card,
+html[data-card-animation="slide-up"] .mcvc-admin-chart-card,
+html[data-card-animation="slide-up"] .mc-vc-tabs,
+html[data-card-animation="slide-up"] [class*="FileBreadcrumbs"],
+html[data-card-animation="slide-up"] [class*="FileActionBar"],
+html[data-card-animation="slide-up"] [class*="FileToolbar"],
+html[data-card-animation="slide-up"] [class*="FileDiskUsageBar"] {
+  animation: qunix-card-slide-up var(--qunix-anim-duration) var(--qunix-anim-timing) both;
+}
+
+/* ----------------------------- */
+/* --- Gentle Fade In ---        */
+/* ----------------------------- */
+html[data-card-animation="fade"] .mantine-Card-root:not(.mantine-Modal-content):not(.mantine-Drawer-content):not(.mantine-Menu-dropdown):not(.mantine-Popover-dropdown):not(.mantine-Tooltip-tooltip):not(#sidebar-desktop):not(#sidebar-content *):not([class*="lg:hidden"]),
+html[data-card-animation="fade"] .mantine-Paper-root:not(.mantine-Modal-content):not(.mantine-Drawer-content):not(.mantine-Menu-dropdown):not(.mantine-Popover-dropdown):not(.mantine-Tooltip-tooltip):not(#sidebar-desktop):not(#sidebar-content *):not([class*="lg:hidden"]),
+html[data-card-animation="fade"] .mantine-Table-root,
+html[data-card-animation="fade"] .mantine-Table-ScrollContainer,
+html[data-card-animation="fade"] .mantine-Table-scrollContainer,
+html[data-card-animation="fade"] div:has(> .mantine-Table-ScrollContainer),
+html[data-card-animation="fade"] div:has(> .mantine-Table-scrollContainer),
+html[data-card-animation="fade"] .qunix-server-card,
+html[data-card-animation="fade"] .qunix-grid-card-wrapper,
+html[data-card-animation="fade"] .qunix-server-row,
+html[data-card-animation="fade"] .qunix-stat-card,
+html[data-card-animation="fade"] .qunix-console-wrap,
+html[data-card-animation="fade"] .qunix-sparkline-card,
+html[data-card-animation="fade"] .qunix-sparkline-wrap,
+html[data-card-animation="fade"] .qunix-server-banner,
+html[data-card-animation="fade"] .qunix-card,
+html[data-card-animation="fade"] [data-qunix-card],
+html[data-card-animation="fade"] .container-card,
+html[data-card-animation="fade"] .card,
+html[data-card-animation="fade"] .mantine-Tabs-panel,
+html[data-card-animation="fade"] .mantine-Accordion-item,
+html[data-card-animation="fade"] .mantine-Timeline-item,
+html[data-card-animation="fade"] div:has(> .xterm),
+html[data-card-animation="fade"] div[class*="ServerGroupItem"],
+html[data-card-animation="fade"] div[class*="ServerItem"],
+html[data-card-animation="fade"] .mc-vc-type-card,
+html[data-card-animation="fade"] .mc-vc-version-card,
+html[data-card-animation="fade"] .mcvc-admin-stat-card,
+html[data-card-animation="fade"] .mcvc-admin-chart-card,
+html[data-card-animation="fade"] .mc-vc-tabs,
+html[data-card-animation="fade"] [class*="FileBreadcrumbs"],
+html[data-card-animation="fade"] [class*="FileActionBar"],
+html[data-card-animation="fade"] [class*="FileToolbar"],
+html[data-card-animation="fade"] [class*="FileDiskUsageBar"] {
+  animation: qunix-card-fade var(--qunix-anim-duration) ease-out both;
+}
+
+/* ----------------------------- */
+/* --- Scale Zoom In ---         */
+/* ----------------------------- */
+html[data-card-animation="scale"] .mantine-Card-root:not(.mantine-Modal-content):not(.mantine-Drawer-content):not(.mantine-Menu-dropdown):not(.mantine-Popover-dropdown):not(.mantine-Tooltip-tooltip):not(#sidebar-desktop):not(#sidebar-content *):not([class*="lg:hidden"]),
+html[data-card-animation="scale"] .mantine-Paper-root:not(.mantine-Modal-content):not(.mantine-Drawer-content):not(.mantine-Menu-dropdown):not(.mantine-Popover-dropdown):not(.mantine-Tooltip-tooltip):not(#sidebar-desktop):not(#sidebar-content *):not([class*="lg:hidden"]),
+html[data-card-animation="scale"] .mantine-Table-root,
+html[data-card-animation="scale"] .mantine-Table-ScrollContainer,
+html[data-card-animation="scale"] .mantine-Table-scrollContainer,
+html[data-card-animation="scale"] div:has(> .mantine-Table-ScrollContainer),
+html[data-card-animation="scale"] div:has(> .mantine-Table-scrollContainer),
+html[data-card-animation="scale"] .qunix-server-card,
+html[data-card-animation="scale"] .qunix-grid-card-wrapper,
+html[data-card-animation="scale"] .qunix-server-row,
+html[data-card-animation="scale"] .qunix-stat-card,
+html[data-card-animation="scale"] .qunix-console-wrap,
+html[data-card-animation="scale"] .qunix-sparkline-card,
+html[data-card-animation="scale"] .qunix-sparkline-wrap,
+html[data-card-animation="scale"] .qunix-server-banner,
+html[data-card-animation="scale"] .qunix-card,
+html[data-card-animation="scale"] [data-qunix-card],
+html[data-card-animation="scale"] .container-card,
+html[data-card-animation="scale"] .card,
+html[data-card-animation="scale"] .mantine-Tabs-panel,
+html[data-card-animation="scale"] .mantine-Accordion-item,
+html[data-card-animation="scale"] .mantine-Timeline-item,
+html[data-card-animation="scale"] div:has(> .xterm),
+html[data-card-animation="scale"] div[class*="ServerGroupItem"],
+html[data-card-animation="scale"] div[class*="ServerItem"],
+html[data-card-animation="scale"] .mc-vc-type-card,
+html[data-card-animation="scale"] .mc-vc-version-card,
+html[data-card-animation="scale"] .mcvc-admin-stat-card,
+html[data-card-animation="scale"] .mcvc-admin-chart-card,
+html[data-card-animation="scale"] .mc-vc-tabs,
+html[data-card-animation="scale"] [class*="FileBreadcrumbs"],
+html[data-card-animation="scale"] [class*="FileActionBar"],
+html[data-card-animation="scale"] [class*="FileToolbar"],
+html[data-card-animation="scale"] [class*="FileDiskUsageBar"] {
+  animation: qunix-card-scale var(--qunix-anim-duration) var(--qunix-anim-timing) both;
+}
+
+/* ----------------------------- */
+/* --- Spring Pop / Bounce ---   */
+/* ----------------------------- */
+html[data-card-animation="pop"] .mantine-Card-root:not(.mantine-Modal-content):not(.mantine-Drawer-content):not(.mantine-Menu-dropdown):not(.mantine-Popover-dropdown):not(.mantine-Tooltip-tooltip):not(#sidebar-desktop):not(#sidebar-content *):not([class*="lg:hidden"]),
+html[data-card-animation="pop"] .mantine-Paper-root:not(.mantine-Modal-content):not(.mantine-Drawer-content):not(.mantine-Menu-dropdown):not(.mantine-Popover-dropdown):not(.mantine-Tooltip-tooltip):not(#sidebar-desktop):not(#sidebar-content *):not([class*="lg:hidden"]),
+html[data-card-animation="pop"] .mantine-Table-root,
+html[data-card-animation="pop"] .mantine-Table-ScrollContainer,
+html[data-card-animation="pop"] .mantine-Table-scrollContainer,
+html[data-card-animation="pop"] div:has(> .mantine-Table-ScrollContainer),
+html[data-card-animation="pop"] div:has(> .mantine-Table-scrollContainer),
+html[data-card-animation="pop"] .qunix-server-card,
+html[data-card-animation="pop"] .qunix-grid-card-wrapper,
+html[data-card-animation="pop"] .qunix-server-row,
+html[data-card-animation="pop"] .qunix-stat-card,
+html[data-card-animation="pop"] .qunix-console-wrap,
+html[data-card-animation="pop"] .qunix-sparkline-card,
+html[data-card-animation="pop"] .qunix-sparkline-wrap,
+html[data-card-animation="pop"] .qunix-server-banner,
+html[data-card-animation="pop"] .qunix-card,
+html[data-card-animation="pop"] [data-qunix-card],
+html[data-card-animation="pop"] .container-card,
+html[data-card-animation="pop"] .card,
+html[data-card-animation="pop"] .mantine-Tabs-panel,
+html[data-card-animation="pop"] .mantine-Accordion-item,
+html[data-card-animation="pop"] .mantine-Timeline-item,
+html[data-card-animation="pop"] div:has(> .xterm),
+html[data-card-animation="pop"] div[class*="ServerGroupItem"],
+html[data-card-animation="pop"] div[class*="ServerItem"],
+html[data-card-animation="pop"] .mc-vc-type-card,
+html[data-card-animation="pop"] .mc-vc-version-card,
+html[data-card-animation="pop"] .mcvc-admin-stat-card,
+html[data-card-animation="pop"] .mcvc-admin-chart-card,
+html[data-card-animation="pop"] .mc-vc-tabs,
+html[data-card-animation="pop"] [class*="FileBreadcrumbs"],
+html[data-card-animation="pop"] [class*="FileActionBar"],
+html[data-card-animation="pop"] [class*="FileToolbar"],
+html[data-card-animation="pop"] [class*="FileDiskUsageBar"] {
+  animation: qunix-card-pop 0.58s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* ----------------------------- */
+/* --- Slide From Left ---       */
+/* ----------------------------- */
+html[data-card-animation="slide-left"] .mantine-Card-root:not(.mantine-Modal-content):not(.mantine-Drawer-content):not(.mantine-Menu-dropdown):not(.mantine-Popover-dropdown):not(.mantine-Tooltip-tooltip):not(#sidebar-desktop):not(#sidebar-content *):not([class*="lg:hidden"]),
+html[data-card-animation="slide-left"] .mantine-Paper-root:not(.mantine-Modal-content):not(.mantine-Drawer-content):not(.mantine-Menu-dropdown):not(.mantine-Popover-dropdown):not(.mantine-Tooltip-tooltip):not(#sidebar-desktop):not(#sidebar-content *):not([class*="lg:hidden"]),
+html[data-card-animation="slide-left"] .mantine-Table-root,
+html[data-card-animation="slide-left"] .mantine-Table-ScrollContainer,
+html[data-card-animation="slide-left"] .mantine-Table-scrollContainer,
+html[data-card-animation="slide-left"] div:has(> .mantine-Table-ScrollContainer),
+html[data-card-animation="slide-left"] div:has(> .mantine-Table-scrollContainer),
+html[data-card-animation="slide-left"] .qunix-server-card,
+html[data-card-animation="slide-left"] .qunix-grid-card-wrapper,
+html[data-card-animation="slide-left"] .qunix-server-row,
+html[data-card-animation="slide-left"] .qunix-stat-card,
+html[data-card-animation="slide-left"] .qunix-console-wrap,
+html[data-card-animation="slide-left"] .qunix-sparkline-card,
+html[data-card-animation="slide-left"] .qunix-sparkline-wrap,
+html[data-card-animation="slide-left"] .qunix-server-banner,
+html[data-card-animation="slide-left"] .qunix-card,
+html[data-card-animation="slide-left"] [data-qunix-card],
+html[data-card-animation="slide-left"] .container-card,
+html[data-card-animation="slide-left"] .card,
+html[data-card-animation="slide-left"] .mantine-Tabs-panel,
+html[data-card-animation="slide-left"] .mantine-Accordion-item,
+html[data-card-animation="slide-left"] .mantine-Timeline-item,
+html[data-card-animation="slide-left"] div:has(> .xterm),
+html[data-card-animation="slide-left"] div[class*="ServerGroupItem"],
+html[data-card-animation="slide-left"] div[class*="ServerItem"],
+html[data-card-animation="slide-left"] .mc-vc-type-card,
+html[data-card-animation="slide-left"] .mc-vc-version-card,
+html[data-card-animation="slide-left"] .mcvc-admin-stat-card,
+html[data-card-animation="slide-left"] .mcvc-admin-chart-card,
+html[data-card-animation="slide-left"] .mc-vc-tabs,
+html[data-card-animation="slide-left"] [class*="FileBreadcrumbs"],
+html[data-card-animation="slide-left"] [class*="FileActionBar"],
+html[data-card-animation="slide-left"] [class*="FileToolbar"],
+html[data-card-animation="slide-left"] [class*="FileDiskUsageBar"] {
+  animation: qunix-card-slide-left var(--qunix-anim-duration) var(--qunix-anim-timing) both;
+}
+
+/* ----------------------------- */
+/* --- Slide From Right ---      */
+/* ----------------------------- */
+html[data-card-animation="slide-right"] .mantine-Card-root:not(.mantine-Modal-content):not(.mantine-Drawer-content):not(.mantine-Menu-dropdown):not(.mantine-Popover-dropdown):not(.mantine-Tooltip-tooltip):not(#sidebar-desktop):not(#sidebar-content *):not([class*="lg:hidden"]),
+html[data-card-animation="slide-right"] .mantine-Paper-root:not(.mantine-Modal-content):not(.mantine-Drawer-content):not(.mantine-Menu-dropdown):not(.mantine-Popover-dropdown):not(.mantine-Tooltip-tooltip):not(#sidebar-desktop):not(#sidebar-content *):not([class*="lg:hidden"]),
+html[data-card-animation="slide-right"] .mantine-Table-root,
+html[data-card-animation="slide-right"] .mantine-Table-ScrollContainer,
+html[data-card-animation="slide-right"] .mantine-Table-scrollContainer,
+html[data-card-animation="slide-right"] div:has(> .mantine-Table-ScrollContainer),
+html[data-card-animation="slide-right"] div:has(> .mantine-Table-scrollContainer),
+html[data-card-animation="slide-right"] .qunix-server-card,
+html[data-card-animation="slide-right"] .qunix-grid-card-wrapper,
+html[data-card-animation="slide-right"] .qunix-server-row,
+html[data-card-animation="slide-right"] .qunix-stat-card,
+html[data-card-animation="slide-right"] .qunix-console-wrap,
+html[data-card-animation="slide-right"] .qunix-sparkline-card,
+html[data-card-animation="slide-right"] .qunix-sparkline-wrap,
+html[data-card-animation="slide-right"] .qunix-server-banner,
+html[data-card-animation="slide-right"] .qunix-card,
+html[data-card-animation="slide-right"] [data-qunix-card],
+html[data-card-animation="slide-right"] .container-card,
+html[data-card-animation="slide-right"] .card,
+html[data-card-animation="slide-right"] .mantine-Tabs-panel,
+html[data-card-animation="slide-right"] .mantine-Accordion-item,
+html[data-card-animation="slide-right"] .mantine-Timeline-item,
+html[data-card-animation="slide-right"] div:has(> .xterm),
+html[data-card-animation="slide-right"] div[class*="ServerGroupItem"],
+html[data-card-animation="slide-right"] div[class*="ServerItem"],
+html[data-card-animation="slide-right"] .mc-vc-type-card,
+html[data-card-animation="slide-right"] .mc-vc-version-card,
+html[data-card-animation="slide-right"] .mcvc-admin-stat-card,
+html[data-card-animation="slide-right"] .mcvc-admin-chart-card,
+html[data-card-animation="slide-right"] .mc-vc-tabs,
+html[data-card-animation="slide-right"] [class*="FileBreadcrumbs"],
+html[data-card-animation="slide-right"] [class*="FileActionBar"],
+html[data-card-animation="slide-right"] [class*="FileToolbar"],
+html[data-card-animation="slide-right"] [class*="FileDiskUsageBar"] {
+  animation: qunix-card-slide-right var(--qunix-anim-duration) var(--qunix-anim-timing) both;
+}
+
+/* ----------------------------- */
+/* --- 3D Perspective Flip ---   */
+/* ----------------------------- */
+html[data-card-animation="flip"] .mantine-Card-root:not(.mantine-Modal-content):not(.mantine-Drawer-content):not(.mantine-Menu-dropdown):not(.mantine-Popover-dropdown):not(.mantine-Tooltip-tooltip):not(#sidebar-desktop):not(#sidebar-content *):not([class*="lg:hidden"]),
+html[data-card-animation="flip"] .mantine-Paper-root:not(.mantine-Modal-content):not(.mantine-Drawer-content):not(.mantine-Menu-dropdown):not(.mantine-Popover-dropdown):not(.mantine-Tooltip-tooltip):not(#sidebar-desktop):not(#sidebar-content *):not([class*="lg:hidden"]),
+html[data-card-animation="flip"] .mantine-Table-root,
+html[data-card-animation="flip"] .mantine-Table-ScrollContainer,
+html[data-card-animation="flip"] .mantine-Table-scrollContainer,
+html[data-card-animation="flip"] div:has(> .mantine-Table-ScrollContainer),
+html[data-card-animation="flip"] div:has(> .mantine-Table-scrollContainer),
+html[data-card-animation="flip"] .qunix-server-card,
+html[data-card-animation="flip"] .qunix-grid-card-wrapper,
+html[data-card-animation="flip"] .qunix-server-row,
+html[data-card-animation="flip"] .qunix-stat-card,
+html[data-card-animation="flip"] .qunix-console-wrap,
+html[data-card-animation="flip"] .qunix-sparkline-card,
+html[data-card-animation="flip"] .qunix-sparkline-wrap,
+html[data-card-animation="flip"] .qunix-server-banner,
+html[data-card-animation="flip"] .qunix-card,
+html[data-card-animation="flip"] [data-qunix-card],
+html[data-card-animation="flip"] .container-card,
+html[data-card-animation="flip"] .card,
+html[data-card-animation="flip"] .mantine-Tabs-panel,
+html[data-card-animation="flip"] .mantine-Accordion-item,
+html[data-card-animation="flip"] .mantine-Timeline-item,
+html[data-card-animation="flip"] div:has(> .xterm),
+html[data-card-animation="flip"] div[class*="ServerGroupItem"],
+html[data-card-animation="flip"] div[class*="ServerItem"],
+html[data-card-animation="flip"] .mc-vc-type-card,
+html[data-card-animation="flip"] .mc-vc-version-card,
+html[data-card-animation="flip"] .mcvc-admin-stat-card,
+html[data-card-animation="flip"] .mcvc-admin-chart-card,
+html[data-card-animation="flip"] .mc-vc-tabs,
+html[data-card-animation="flip"] [class*="FileBreadcrumbs"],
+html[data-card-animation="flip"] [class*="FileActionBar"],
+html[data-card-animation="flip"] [class*="FileToolbar"],
+html[data-card-animation="flip"] [class*="FileDiskUsageBar"] {
+  animation: qunix-card-flip 0.58s var(--qunix-anim-timing) both;
+}
+
+/* ----------------------------- */
+/* --- Ambient Glow In ---       */
+/* ----------------------------- */
+html[data-card-animation="glow"] .mantine-Card-root:not(.mantine-Modal-content):not(.mantine-Drawer-content):not(.mantine-Menu-dropdown):not(.mantine-Popover-dropdown):not(.mantine-Tooltip-tooltip):not(#sidebar-desktop):not(#sidebar-content *):not([class*="lg:hidden"]),
+html[data-card-animation="glow"] .mantine-Paper-root:not(.mantine-Modal-content):not(.mantine-Drawer-content):not(.mantine-Menu-dropdown):not(.mantine-Popover-dropdown):not(.mantine-Tooltip-tooltip):not(#sidebar-desktop):not(#sidebar-content *):not([class*="lg:hidden"]),
+html[data-card-animation="glow"] .mantine-Table-root,
+html[data-card-animation="glow"] .mantine-Table-ScrollContainer,
+html[data-card-animation="glow"] .mantine-Table-scrollContainer,
+html[data-card-animation="glow"] div:has(> .mantine-Table-ScrollContainer),
+html[data-card-animation="glow"] div:has(> .mantine-Table-scrollContainer),
+html[data-card-animation="glow"] .qunix-server-card,
+html[data-card-animation="glow"] .qunix-grid-card-wrapper,
+html[data-card-animation="glow"] .qunix-server-row,
+html[data-card-animation="glow"] .qunix-stat-card,
+html[data-card-animation="glow"] .qunix-console-wrap,
+html[data-card-animation="glow"] .qunix-sparkline-card,
+html[data-card-animation="glow"] .qunix-sparkline-wrap,
+html[data-card-animation="glow"] .qunix-server-banner,
+html[data-card-animation="glow"] .qunix-card,
+html[data-card-animation="glow"] [data-qunix-card],
+html[data-card-animation="glow"] .container-card,
+html[data-card-animation="glow"] .card,
+html[data-card-animation="glow"] .mantine-Tabs-panel,
+html[data-card-animation="glow"] .mantine-Accordion-item,
+html[data-card-animation="glow"] .mantine-Timeline-item,
+html[data-card-animation="glow"] div:has(> .xterm),
+html[data-card-animation="glow"] div[class*="ServerGroupItem"],
+html[data-card-animation="glow"] div[class*="ServerItem"],
+html[data-card-animation="glow"] .mc-vc-type-card,
+html[data-card-animation="glow"] .mc-vc-version-card,
+html[data-card-animation="glow"] .mcvc-admin-stat-card,
+html[data-card-animation="glow"] .mcvc-admin-chart-card,
+html[data-card-animation="glow"] .mc-vc-tabs,
+html[data-card-animation="glow"] [class*="FileBreadcrumbs"],
+html[data-card-animation="glow"] [class*="FileActionBar"],
+html[data-card-animation="glow"] [class*="FileToolbar"],
+html[data-card-animation="glow"] [class*="FileDiskUsageBar"] {
+  animation: qunix-card-glow 0.62s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ----------------------------- */
+/* --- None (Instant) ---        */
+/* ----------------------------- */
+html[data-card-animation="none"] .mantine-Card-root,
+html[data-card-animation="none"] .mantine-Paper-root,
+html[data-card-animation="none"] .mantine-Table-root,
+html[data-card-animation="none"] .mantine-Table-ScrollContainer,
+html[data-card-animation="none"] .mantine-Table-scrollContainer,
+html[data-card-animation="none"] .qunix-server-card,
+html[data-card-animation="none"] .qunix-grid-card-wrapper,
+html[data-card-animation="none"] .qunix-server-row,
+html[data-card-animation="none"] .qunix-stat-card,
+html[data-card-animation="none"] .qunix-console-wrap,
+html[data-card-animation="none"] .qunix-sparkline-card,
+html[data-card-animation="none"] .qunix-sparkline-wrap,
+html[data-card-animation="none"] .qunix-server-banner,
+html[data-card-animation="none"] .qunix-card,
+html[data-card-animation="none"] [data-qunix-card],
+html[data-card-animation="none"] .container-card,
+html[data-card-animation="none"] .card,
+html[data-card-animation="none"] .mantine-Tabs-panel,
+html[data-card-animation="none"] .mantine-Accordion-item,
+html[data-card-animation="none"] .mantine-Timeline-item,
+html[data-card-animation="none"] div:has(> .xterm),
+html[data-card-animation="none"] div[class*="ServerGroupItem"],
+html[data-card-animation="none"] div[class*="ServerItem"],
+html[data-card-animation="none"] .mc-vc-type-card,
+html[data-card-animation="none"] .mc-vc-version-card,
+html[data-card-animation="none"] .mcvc-admin-stat-card,
+html[data-card-animation="none"] .mcvc-admin-chart-card,
+html[data-card-animation="none"] .mc-vc-tabs {
+  animation: none !important;
+}
+
+/* Table Rows & Listing Item Transitions */
+html[data-card-animation]:not([data-card-animation="none"]) table tbody > tr,
+html[data-card-animation]:not([data-card-animation="none"]) .mantine-Table-tbody > tr,
+html[data-card-animation]:not([data-card-animation="none"]) .mantine-Table-tr {
+  animation: qunix-card-fade var(--qunix-anim-duration) ease-out both;
+}
+
+/* Staggered Cascade Delays for Grids, Lists, Table Rows & Version Chooser */
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(1),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(1),
+html[data-card-animation]:not([data-card-animation="none"]) tbody > tr:nth-child(1),
+html[data-card-animation]:not([data-card-animation="none"]) .mantine-Table-tbody > tr:nth-child(1),
+html[data-card-animation]:not([data-card-animation="none"]) .qunix-dashboard-grid > *:nth-child(1),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(1),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(1),
+html[data-card-animation]:not([data-card-animation="none"]) .mcvc-admin-stat-grid > *:nth-child(1) {
+  animation-delay: 0.04s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(2),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(2),
+html[data-card-animation]:not([data-card-animation="none"]) tbody > tr:nth-child(2),
+html[data-card-animation]:not([data-card-animation="none"]) .mantine-Table-tbody > tr:nth-child(2),
+html[data-card-animation]:not([data-card-animation="none"]) .qunix-dashboard-grid > *:nth-child(2),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(2),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(2),
+html[data-card-animation]:not([data-card-animation="none"]) .mcvc-admin-stat-grid > *:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(3),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(3),
+html[data-card-animation]:not([data-card-animation="none"]) tbody > tr:nth-child(3),
+html[data-card-animation]:not([data-card-animation="none"]) .mantine-Table-tbody > tr:nth-child(3),
+html[data-card-animation]:not([data-card-animation="none"]) .qunix-dashboard-grid > *:nth-child(3),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(3),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(3),
+html[data-card-animation]:not([data-card-animation="none"]) .mcvc-admin-stat-grid > *:nth-child(3) {
+  animation-delay: 0.12s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(4),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(4),
+html[data-card-animation]:not([data-card-animation="none"]) tbody > tr:nth-child(4),
+html[data-card-animation]:not([data-card-animation="none"]) .mantine-Table-tbody > tr:nth-child(4),
+html[data-card-animation]:not([data-card-animation="none"]) .qunix-dashboard-grid > *:nth-child(4),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(4),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(4),
+html[data-card-animation]:not([data-card-animation="none"]) .mcvc-admin-stat-grid > *:nth-child(4) {
+  animation-delay: 0.16s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(5),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(5),
+html[data-card-animation]:not([data-card-animation="none"]) tbody > tr:nth-child(5),
+html[data-card-animation]:not([data-card-animation="none"]) .mantine-Table-tbody > tr:nth-child(5),
+html[data-card-animation]:not([data-card-animation="none"]) .qunix-dashboard-grid > *:nth-child(5),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(5),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(5),
+html[data-card-animation]:not([data-card-animation="none"]) .mcvc-admin-stat-grid > *:nth-child(5) {
+  animation-delay: 0.20s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(6),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(6),
+html[data-card-animation]:not([data-card-animation="none"]) tbody > tr:nth-child(6),
+html[data-card-animation]:not([data-card-animation="none"]) .mantine-Table-tbody > tr:nth-child(6),
+html[data-card-animation]:not([data-card-animation="none"]) .qunix-dashboard-grid > *:nth-child(6),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(6),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(6),
+html[data-card-animation]:not([data-card-animation="none"]) .mcvc-admin-stat-grid > *:nth-child(6) {
+  animation-delay: 0.24s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(7),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(7),
+html[data-card-animation]:not([data-card-animation="none"]) tbody > tr:nth-child(7),
+html[data-card-animation]:not([data-card-animation="none"]) .mantine-Table-tbody > tr:nth-child(7),
+html[data-card-animation]:not([data-card-animation="none"]) .qunix-dashboard-grid > *:nth-child(7),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(7),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(7),
+html[data-card-animation]:not([data-card-animation="none"]) .mcvc-admin-stat-grid > *:nth-child(7) {
+  animation-delay: 0.28s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(8),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(8),
+html[data-card-animation]:not([data-card-animation="none"]) tbody > tr:nth-child(8),
+html[data-card-animation]:not([data-card-animation="none"]) .mantine-Table-tbody > tr:nth-child(8),
+html[data-card-animation]:not([data-card-animation="none"]) .qunix-dashboard-grid > *:nth-child(8),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(8),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(8),
+html[data-card-animation]:not([data-card-animation="none"]) .mcvc-admin-stat-grid > *:nth-child(8) {
+  animation-delay: 0.32s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(9),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(9),
+html[data-card-animation]:not([data-card-animation="none"]) tbody > tr:nth-child(9),
+html[data-card-animation]:not([data-card-animation="none"]) .mantine-Table-tbody > tr:nth-child(9),
+html[data-card-animation]:not([data-card-animation="none"]) .qunix-dashboard-grid > *:nth-child(9),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(9),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(9),
+html[data-card-animation]:not([data-card-animation="none"]) .mcvc-admin-stat-grid > *:nth-child(9) {
+  animation-delay: 0.36s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(10),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(10),
+html[data-card-animation]:not([data-card-animation="none"]) tbody > tr:nth-child(10),
+html[data-card-animation]:not([data-card-animation="none"]) .mantine-Table-tbody > tr:nth-child(10),
+html[data-card-animation]:not([data-card-animation="none"]) .qunix-dashboard-grid > *:nth-child(10),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(10),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(10),
+html[data-card-animation]:not([data-card-animation="none"]) .mcvc-admin-stat-grid > *:nth-child(10) {
+  animation-delay: 0.40s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(11),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(11),
+html[data-card-animation]:not([data-card-animation="none"]) tbody > tr:nth-child(11),
+html[data-card-animation]:not([data-card-animation="none"]) .mantine-Table-tbody > tr:nth-child(11),
+html[data-card-animation]:not([data-card-animation="none"]) .qunix-dashboard-grid > *:nth-child(11),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(11),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(11),
+html[data-card-animation]:not([data-card-animation="none"]) .mcvc-admin-stat-grid > *:nth-child(11) {
+  animation-delay: 0.44s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(12),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(12),
+html[data-card-animation]:not([data-card-animation="none"]) tbody > tr:nth-child(12),
+html[data-card-animation]:not([data-card-animation="none"]) .mantine-Table-tbody > tr:nth-child(12),
+html[data-card-animation]:not([data-card-animation="none"]) .qunix-dashboard-grid > *:nth-child(12),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(12),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(12),
+html[data-card-animation]:not([data-card-animation="none"]) .mcvc-admin-stat-grid > *:nth-child(12) {
+  animation-delay: 0.48s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(13),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(13),
+html[data-card-animation]:not([data-card-animation="none"]) tbody > tr:nth-child(13),
+html[data-card-animation]:not([data-card-animation="none"]) .mantine-Table-tbody > tr:nth-child(13),
+html[data-card-animation]:not([data-card-animation="none"]) .qunix-dashboard-grid > *:nth-child(13),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(13),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(13),
+html[data-card-animation]:not([data-card-animation="none"]) .mcvc-admin-stat-grid > *:nth-child(13) {
+  animation-delay: 0.52s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(14),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(14),
+html[data-card-animation]:not([data-card-animation="none"]) tbody > tr:nth-child(14),
+html[data-card-animation]:not([data-card-animation="none"]) .mantine-Table-tbody > tr:nth-child(14),
+html[data-card-animation]:not([data-card-animation="none"]) .qunix-dashboard-grid > *:nth-child(14),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(14),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(14),
+html[data-card-animation]:not([data-card-animation="none"]) .mcvc-admin-stat-grid > *:nth-child(14) {
+  animation-delay: 0.56s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(15),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(15),
+html[data-card-animation]:not([data-card-animation="none"]) tbody > tr:nth-child(15),
+html[data-card-animation]:not([data-card-animation="none"]) .mantine-Table-tbody > tr:nth-child(15),
+html[data-card-animation]:not([data-card-animation="none"]) .qunix-dashboard-grid > *:nth-child(15),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(15),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(15),
+html[data-card-animation]:not([data-card-animation="none"]) .mcvc-admin-stat-grid > *:nth-child(15) {
+  animation-delay: 0.60s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(16),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(16),
+html[data-card-animation]:not([data-card-animation="none"]) tbody > tr:nth-child(16),
+html[data-card-animation]:not([data-card-animation="none"]) .mantine-Table-tbody > tr:nth-child(16),
+html[data-card-animation]:not([data-card-animation="none"]) .qunix-dashboard-grid > *:nth-child(16),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(16),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(16) {
+  animation-delay: 0.32s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(17),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(17),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(17),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(17) {
+  animation-delay: 0.34s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(18),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(18),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(18),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(18) {
+  animation-delay: 0.36s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(19),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(19),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(19),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(19) {
+  animation-delay: 0.38s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(20),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(20),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(20),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(20) {
+  animation-delay: 0.40s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(21),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(21),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(21),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(21) {
+  animation-delay: 0.42s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(22),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(22),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(22),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(22) {
+  animation-delay: 0.44s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(23),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(23),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(23),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(23) {
+  animation-delay: 0.46s;
+}
+
+html[data-card-animation]:not([data-card-animation="none"]) .grid > *:nth-child(24),
+html[data-card-animation]:not([data-card-animation="none"]) [class*="grid"] > *:nth-child(24),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-type-grid > *:nth-child(24),
+html[data-card-animation]:not([data-card-animation="none"]) .mc-vc-version-grid > *:nth-child(24) {
+  animation-delay: 0.48s;
+}
+
+/* Prevent Nested Card Double-Animation Jitter */
+html[data-card-animation]:not([data-card-animation="none"]) .mantine-Card-root .mantine-Card-root:not([class*="col-span"]):not([class*="grid"] *),
+html[data-card-animation]:not([data-card-animation="none"]) .mantine-Paper-root .mantine-Paper-root:not([class*="col-span"]):not([class*="grid"] *) {
+  animation: none !important;
+}
+
+/* ========================================================================== */
+/* Dedicated Listing & Server Cards Entrance Animation Override               */
+/* ========================================================================== */
+
+/* None (Instant) */
+html[data-listing-animation="none"] .qunix-server-card,
+html[data-listing-animation="none"] .qunix-grid-card-wrapper,
+html[data-listing-animation="none"] .qunix-server-row,
+html[data-listing-animation="none"] .qunix-server-card-outer,
+html[data-listing-animation="none"] .mantine-Table-root,
+html[data-listing-animation="none"] .mantine-Table-ScrollContainer,
+html[data-listing-animation="none"] .mantine-Table-scrollContainer,
+html[data-listing-animation="none"] div:has(> .mantine-Table-ScrollContainer),
+html[data-listing-animation="none"] div:has(> .mantine-Table-scrollContainer),
+html[data-listing-animation="none"] table tbody > tr,
+html[data-listing-animation="none"] .mantine-Table-tbody > tr,
+html[data-listing-animation="none"] .mantine-Table-tr,
+html[data-listing-animation="none"] div[class*="ServerGroupItem"],
+html[data-listing-animation="none"] div[class*="ServerItem"],
+html[data-listing-animation="none"] .mc-vc-type-card,
+html[data-listing-animation="none"] .mc-vc-version-card,
+html[data-listing-animation="none"] .mcvc-admin-stat-card,
+html[data-listing-animation="none"] .mcvc-admin-chart-card,
+html[data-listing-animation="none"] .mc-vc-tabs {
+  animation: none !important;
+}
+
+/* Slide Up */
+html[data-listing-animation="slide-up"] .qunix-server-card,
+html[data-listing-animation="slide-up"] .qunix-grid-card-wrapper,
+html[data-listing-animation="slide-up"] .qunix-server-row,
+html[data-listing-animation="slide-up"] .qunix-server-card-outer,
+html[data-listing-animation="slide-up"] .mantine-Table-root,
+html[data-listing-animation="slide-up"] .mantine-Table-ScrollContainer,
+html[data-listing-animation="slide-up"] .mantine-Table-scrollContainer,
+html[data-listing-animation="slide-up"] div:has(> .mantine-Table-ScrollContainer),
+html[data-listing-animation="slide-up"] div:has(> .mantine-Table-scrollContainer),
+html[data-listing-animation="slide-up"] table tbody > tr,
+html[data-listing-animation="slide-up"] .mantine-Table-tbody > tr,
+html[data-listing-animation="slide-up"] .mantine-Table-tr,
+html[data-listing-animation="slide-up"] div[class*="ServerGroupItem"],
+html[data-listing-animation="slide-up"] div[class*="ServerItem"],
+html[data-listing-animation="slide-up"] .mc-vc-type-card,
+html[data-listing-animation="slide-up"] .mc-vc-version-card,
+html[data-listing-animation="slide-up"] .mcvc-admin-stat-card,
+html[data-listing-animation="slide-up"] .mcvc-admin-chart-card,
+html[data-listing-animation="slide-up"] .mc-vc-tabs {
+  animation: qunix-card-slide-up var(--qunix-anim-duration) var(--qunix-anim-timing) both !important;
+}
+
+/* Gentle Fade */
+html[data-listing-animation="fade"] .qunix-server-card,
+html[data-listing-animation="fade"] .qunix-grid-card-wrapper,
+html[data-listing-animation="fade"] .qunix-server-row,
+html[data-listing-animation="fade"] .qunix-server-card-outer,
+html[data-listing-animation="fade"] .mantine-Table-root,
+html[data-listing-animation="fade"] .mantine-Table-ScrollContainer,
+html[data-listing-animation="fade"] .mantine-Table-scrollContainer,
+html[data-listing-animation="fade"] div:has(> .mantine-Table-ScrollContainer),
+html[data-listing-animation="fade"] div:has(> .mantine-Table-scrollContainer),
+html[data-listing-animation="fade"] table tbody > tr,
+html[data-listing-animation="fade"] .mantine-Table-tbody > tr,
+html[data-listing-animation="fade"] .mantine-Table-tr,
+html[data-listing-animation="fade"] div[class*="ServerGroupItem"],
+html[data-listing-animation="fade"] div[class*="ServerItem"],
+html[data-listing-animation="fade"] .mc-vc-type-card,
+html[data-listing-animation="fade"] .mc-vc-version-card,
+html[data-listing-animation="fade"] .mcvc-admin-stat-card,
+html[data-listing-animation="fade"] .mcvc-admin-chart-card,
+html[data-listing-animation="fade"] .mc-vc-tabs {
+  animation: qunix-card-fade var(--qunix-anim-duration) ease-out both !important;
+}
+
+/* Scale Zoom In */
+html[data-listing-animation="scale"] .qunix-server-card,
+html[data-listing-animation="scale"] .qunix-grid-card-wrapper,
+html[data-listing-animation="scale"] .qunix-server-row,
+html[data-listing-animation="scale"] .qunix-server-card-outer,
+html[data-listing-animation="scale"] .mantine-Table-root,
+html[data-listing-animation="scale"] .mantine-Table-ScrollContainer,
+html[data-listing-animation="scale"] .mantine-Table-scrollContainer,
+html[data-listing-animation="scale"] div:has(> .mantine-Table-ScrollContainer),
+html[data-listing-animation="scale"] div:has(> .mantine-Table-scrollContainer),
+html[data-listing-animation="scale"] table tbody > tr,
+html[data-listing-animation="scale"] .mantine-Table-tbody > tr,
+html[data-listing-animation="scale"] .mantine-Table-tr,
+html[data-listing-animation="scale"] div[class*="ServerGroupItem"],
+html[data-listing-animation="scale"] div[class*="ServerItem"],
+html[data-listing-animation="scale"] .mc-vc-type-card,
+html[data-listing-animation="scale"] .mc-vc-version-card,
+html[data-listing-animation="scale"] .mcvc-admin-stat-card,
+html[data-listing-animation="scale"] .mcvc-admin-chart-card,
+html[data-listing-animation="scale"] .mc-vc-tabs {
+  animation: qunix-card-scale var(--qunix-anim-duration) var(--qunix-anim-timing) both !important;
+}
+
+/* Spring Pop */
+html[data-listing-animation="pop"] .qunix-server-card,
+html[data-listing-animation="pop"] .qunix-grid-card-wrapper,
+html[data-listing-animation="pop"] .qunix-server-row,
+html[data-listing-animation="pop"] .qunix-server-card-outer,
+html[data-listing-animation="pop"] .mantine-Table-root,
+html[data-listing-animation="pop"] .mantine-Table-ScrollContainer,
+html[data-listing-animation="pop"] .mantine-Table-scrollContainer,
+html[data-listing-animation="pop"] div:has(> .mantine-Table-ScrollContainer),
+html[data-listing-animation="pop"] div:has(> .mantine-Table-scrollContainer),
+html[data-listing-animation="pop"] table tbody > tr,
+html[data-listing-animation="pop"] .mantine-Table-tbody > tr,
+html[data-listing-animation="pop"] .mantine-Table-tr,
+html[data-listing-animation="pop"] div[class*="ServerGroupItem"],
+html[data-listing-animation="pop"] div[class*="ServerItem"],
+html[data-listing-animation="pop"] .mc-vc-type-card,
+html[data-listing-animation="pop"] .mc-vc-version-card,
+html[data-listing-animation="pop"] .mcvc-admin-stat-card,
+html[data-listing-animation="pop"] .mcvc-admin-chart-card,
+html[data-listing-animation="pop"] .mc-vc-tabs {
+  animation: qunix-card-pop var(--qunix-anim-duration) cubic-bezier(0.34, 1.56, 0.64, 1) both !important;
+}
+
+/* Slide From Left */
+html[data-listing-animation="slide-left"] .qunix-server-card,
+html[data-listing-animation="slide-left"] .qunix-grid-card-wrapper,
+html[data-listing-animation="slide-left"] .qunix-server-row,
+html[data-listing-animation="slide-left"] .qunix-server-card-outer,
+html[data-listing-animation="slide-left"] .mantine-Table-root,
+html[data-listing-animation="slide-left"] .mantine-Table-ScrollContainer,
+html[data-listing-animation="slide-left"] .mantine-Table-scrollContainer,
+html[data-listing-animation="slide-left"] div:has(> .mantine-Table-ScrollContainer),
+html[data-listing-animation="slide-left"] div:has(> .mantine-Table-scrollContainer),
+html[data-listing-animation="slide-left"] table tbody > tr,
+html[data-listing-animation="slide-left"] .mantine-Table-tbody > tr,
+html[data-listing-animation="slide-left"] .mantine-Table-tr,
+html[data-listing-animation="slide-left"] div[class*="ServerGroupItem"],
+html[data-listing-animation="slide-left"] div[class*="ServerItem"],
+html[data-listing-animation="slide-left"] .mc-vc-type-card,
+html[data-listing-animation="slide-left"] .mc-vc-version-card,
+html[data-listing-animation="slide-left"] .mcvc-admin-stat-card,
+html[data-listing-animation="slide-left"] .mcvc-admin-chart-card,
+html[data-listing-animation="slide-left"] .mc-vc-tabs {
+  animation: qunix-card-slide-left var(--qunix-anim-duration) var(--qunix-anim-timing) both !important;
+}
+
+/* 3D Perspective Flip */
+html[data-listing-animation="flip"] .qunix-server-card,
+html[data-listing-animation="flip"] .qunix-grid-card-wrapper,
+html[data-listing-animation="flip"] .qunix-server-row,
+html[data-listing-animation="flip"] .qunix-server-card-outer,
+html[data-listing-animation="flip"] .mantine-Table-root,
+html[data-listing-animation="flip"] .mantine-Table-ScrollContainer,
+html[data-listing-animation="flip"] .mantine-Table-scrollContainer,
+html[data-listing-animation="flip"] div:has(> .mantine-Table-ScrollContainer),
+html[data-listing-animation="flip"] div:has(> .mantine-Table-scrollContainer),
+html[data-listing-animation="flip"] table tbody > tr,
+html[data-listing-animation="flip"] .mantine-Table-tbody > tr,
+html[data-listing-animation="flip"] .mantine-Table-tr,
+html[data-listing-animation="flip"] div[class*="ServerGroupItem"],
+html[data-listing-animation="flip"] div[class*="ServerItem"],
+html[data-listing-animation="flip"] .mc-vc-type-card,
+html[data-listing-animation="flip"] .mc-vc-version-card,
+html[data-listing-animation="flip"] .mcvc-admin-stat-card,
+html[data-listing-animation="flip"] .mcvc-admin-chart-card,
+html[data-listing-animation="flip"] .mc-vc-tabs {
+  animation: qunix-card-flip var(--qunix-anim-duration) var(--qunix-anim-timing) both !important;
+}
+
+/* Ambient Shimmer Glow */
+html[data-listing-animation="glow"] .qunix-server-card,
+html[data-listing-animation="glow"] .qunix-grid-card-wrapper,
+html[data-listing-animation="glow"] .qunix-server-row,
+html[data-listing-animation="glow"] .qunix-server-card-outer,
+html[data-listing-animation="glow"] .mantine-Table-root,
+html[data-listing-animation="glow"] .mantine-Table-ScrollContainer,
+html[data-listing-animation="glow"] .mantine-Table-scrollContainer,
+html[data-listing-animation="glow"] div:has(> .mantine-Table-ScrollContainer),
+html[data-listing-animation="glow"] div:has(> .mantine-Table-scrollContainer),
+html[data-listing-animation="glow"] table tbody > tr,
+html[data-listing-animation="glow"] .mantine-Table-tbody > tr,
+html[data-listing-animation="glow"] .mantine-Table-tr,
+html[data-listing-animation="glow"] div[class*="ServerGroupItem"],
+html[data-listing-animation="glow"] div[class*="ServerItem"],
+html[data-listing-animation="glow"] .mc-vc-type-card,
+html[data-listing-animation="glow"] .mc-vc-version-card,
+html[data-listing-animation="glow"] .mcvc-admin-stat-card,
+html[data-listing-animation="glow"] .mcvc-admin-chart-card,
+html[data-listing-animation="glow"] .mc-vc-tabs {
+  animation: qunix-card-glow calc(var(--qunix-anim-duration) * 1.2) ease-out both !important;
+}
+
+/* Accessibility Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .mantine-Card-root,
+  .mantine-Paper-root,
+  .mantine-Table-root,
+  .mantine-Table-ScrollContainer,
+  .mantine-Table-scrollContainer,
+  .qunix-server-card,
+  .qunix-grid-card-wrapper,
+  .qunix-server-row,
+  .qunix-stat-card,
+  .qunix-console-wrap,
+  .qunix-sparkline-card,
+  .qunix-sparkline-wrap,
+  .qunix-server-banner,
+  .qunix-card,
+  [data-qunix-card],
+  .container-card,
+  .card,
+  .mantine-Tabs-panel,
+  .mantine-Accordion-item,
+  .mantine-Timeline-item,
+  div:has(> .xterm),
+  div[class*="ServerGroupItem"],
+  div[class*="ServerItem"] {
+    animation: none !important;
+  }
+}

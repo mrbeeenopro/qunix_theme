@@ -1,0 +1,44 @@
+/* Dark premium inputs override (exclude ColorPicker internals) */
+#qunix-settings-page input:not([class*="mantine-ColorPicker"]):not([class*="mantine-ColorSwatch"]),
+#qunix-settings-page select,
+#qunix-settings-page textarea,
+#qunix-settings-page .mantine-Input-input:not([class*="ColorPicker"]),
+#qunix-settings-page .mantine-TextInput-input,
+#qunix-settings-page .mantine-PasswordInput-input,
+#qunix-settings-page .mantine-Select-input,
+#qunix-settings-page .mantine-Textarea-input,
+#qunix-settings-page .mantine-NumberInput-input,
+#qunix-settings-page .mantine-ColorInput-input {
+  background-color: #0d0d0f !important;
+  border: 1px solid #1a1a20 !important;
+  color: #e2e8f0 !important;
+}
+/* Ensure ColorPicker internal elements keep their native styling */
+#qunix-settings-page .mantine-ColorPicker-wrapper input,
+#qunix-settings-page .mantine-ColorPicker-body input {
+  background: transparent !important;
+  border: none !important;
+}
+
+#qunix-settings-page label,
+#qunix-settings-page .mantine-InputWrapper-label {
+  color: #a1a1aa !important;
+  font-weight: 500 !important;
+  font-size: 11px !important;
+}
+
+#qunix-settings-page button[role="tab"] {
+  background-color: transparent !important;
+  color: #71717a !important;
+  border: 1px solid transparent !important;
+}
+#qunix-settings-page button[role="tab"][data-active="true"],
+#qunix-settings-page button[role="tab"][data-active] {
+  background-color: rgba(108, 92, 231, 0.12) !important;
+  border: 1px solid #6c5ce7 !important;
+  color: #a29bfe !important;
+}
+
+#qunix-settings-page .mantine-ScrollArea-viewport {
+  background-color: #070708 !important;
+}

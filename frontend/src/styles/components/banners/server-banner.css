@@ -1,0 +1,232 @@
+/* ========================================================================== */
+/* Server Console Banner & Power Controls                                     */
+/* ========================================================================== */
+
+html[data-mantine-color-scheme="light"] {
+  --ds-card-bg-opaque: #ffffff !important;
+}
+
+/* Server action container & buttons styling */
+#console-infobar {
+  background-color: var(--ds-server-action-bg, var(--ds-dark-7, #0a0a0a)) !important;
+  border: 1px solid var(--ds-border-color) !important;
+  border-radius: var(--ds-console-banner-radius, 16px) !important;
+  padding: 16px !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: all 0.3s ease !important;
+
+  /* Redefine Mantine color variables for children buttons */
+  --mantine-color-green-filled: var(--ds-power-start-bg, #40c057) !important;
+  --mantine-color-green-filled-hover: color-mix(in srgb, var(--ds-power-start-bg, #40c057) 85%, white) !important;
+
+  --mantine-color-gray-filled: var(--ds-power-restart-bg, #868e96) !important;
+  --mantine-color-gray-filled-hover: color-mix(in srgb, var(--ds-power-restart-bg, #868e96) 85%, white) !important;
+
+  --mantine-color-red-filled: var(--ds-power-stop-bg, #fa5252) !important;
+  --mantine-color-red-filled-hover: color-mix(in srgb, var(--ds-power-stop-bg, #fa5252) 85%, white) !important;
+}
+
+html[data-mantine-color-scheme="light"] #console-infobar {
+  background-color: #ffffff !important;
+  border: 1px solid var(--ds-border-color, rgba(0, 0, 0, 0.08)) !important;
+}
+
+html[data-mantine-color-scheme="light"] #console-infobar h1,
+html[data-mantine-color-scheme="light"] #console-infobar .mantine-Title-root,
+html[data-mantine-color-scheme="light"] #console-infobar span {
+  color: #0f172a !important;
+}
+
+html[data-mantine-color-scheme="light"] #console-infobar p {
+  color: #475569 !important;
+}
+
+/* Banner-active state */
+html.has-server-banner #console-infobar {
+  min-height: 130px !important;
+  background-image: var(--ds-server-banner-image) !important;
+  background-size: cover !important;
+  background-position: center !important;
+  border-radius: var(--ds-console-banner-radius, 16px) !important;
+  border: 1px solid var(--ds-border-color) !important;
+  box-shadow:
+    var(--ds-shadow-border),
+    0 10px 15px -3px rgba(0, 0, 0, 0.3) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+  padding: 0 !important;
+
+  /* Transparent colors for glassmorphic power buttons */
+  --mantine-color-green-filled: color-mix(in srgb, var(--ds-power-start-bg, #40c057) 85%, transparent) !important;
+  --mantine-color-green-filled-hover: var(--ds-power-start-bg, #40c057) !important;
+
+  --mantine-color-gray-filled: color-mix(in srgb, var(--ds-power-restart-bg, #868e96) 85%, transparent) !important;
+  --mantine-color-gray-filled-hover: var(--ds-power-restart-bg, #868e96) !important;
+
+  --mantine-color-red-filled: color-mix(in srgb, var(--ds-power-stop-bg, #fa5252) 85%, transparent) !important;
+  --mantine-color-red-filled-hover: var(--ds-power-stop-bg, #fa5252) !important;
+}
+
+html.has-server-banner #console-infobar button,
+#console-infobar button {
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 24px !important;
+}
+
+html.has-server-banner #console-infobar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.8) 100%) !important;
+  z-index: 1;
+  pointer-events: none;
+}
+
+html.has-server-banner #console-infobar>* {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+html.has-server-banner #console-infobar>div {
+  width: 100% !important;
+  min-height: 130px !important;
+  padding: 16px 24px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: flex-end !important;
+}
+
+html.has-server-banner #console-infobar h1,
+html.has-server-banner #console-infobar .mantine-Title-root {
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+}
+
+html.has-server-banner #console-infobar p,
+html.has-server-banner #console-infobar text {
+  color: rgba(255, 255, 255, 0.75) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Stats overlay inside banner styling */
+.qunix-banner-stats {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  gap: 16px !important;
+  margin-top: 8px !important;
+  background-color: rgba(0, 0, 0, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  padding: 6px 12px !important;
+  border-radius: 12px !important;
+  font-size: 11px !important;
+  font-family: var(--ds-font-family), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  width: fit-content !important;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}
+
+.qunix-banner-stat-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.qunix-banner-stat-item svg {
+  color: rgba(255, 255, 255, 0.7) !important;
+  width: 12px !important;
+  height: 12px !important;
+}
+
+/* Hide default vertical stats cards and expand terminal console */
+.qunix-stretched-console-grid>div:nth-child(2) {
+  display: none !important;
+}
+
+.qunix-stretched-console-grid>div:first-child {
+  grid-column: span 4 / span 4 !important;
+  height: 60vh !important;
+}
+
+/* Allocation pill inside banner styling */
+.qunix-banner-allocation-pill {
+  position: absolute !important;
+  top: 24px !important;
+  right: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background-color: rgba(0, 0, 0, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  padding: 6px 12px !important;
+  border-radius: 20px !important;
+  font-size: 12px !important;
+  font-family: var(--ds-font-family), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  color: #ffffff !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1) !important;
+  z-index: 10 !important;
+  transition: all 0.2s ease !important;
+}
+
+.qunix-banner-allocation-pill:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  transform: translateY(-1px) !important;
+}
+
+.qunix-banner-allocation-pill:active {
+  transform: translateY(0) !important;
+}
+
+.qunix-banner-allocation-pill .copied-text {
+  font-size: 11px !important;
+  color: var(--ds-power-start-bg, #40c057) !important;
+  font-weight: bold !important;
+}
+
+.qunix-banner-allocation-pill svg {
+  color: rgba(255, 255, 255, 0.7) !important;
+  width: 12px !important;
+  height: 12px !important;
+}
+
+/* Responsive server banner adjustments for mobile/tablet */
+@media (max-width: 768px) {
+  html.has-server-banner #console-infobar {
+    min-height: auto !important;
+  }
+
+  html.has-server-banner #console-infobar>div {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    min-height: auto !important;
+    gap: 16px !important;
+    padding: 16px !important;
+  }
+
+  html.has-server-banner #console-infobar h1,
+  html.has-server-banner #console-infobar .mantine-Title-root {
+    max-width: calc(100% - 160px) !important;
+  }
+
+  html.has-server-banner #console-infobar .qunix-banner-stats {
+    margin-top: 8px !important;
+  }
+}

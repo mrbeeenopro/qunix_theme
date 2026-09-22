@@ -1,0 +1,284 @@
+/* ========================================================================== */
+/* Login Logo Positioning & Sizing Styles                                     */
+/* ========================================================================== */
+
+/* Universal logo container resets */
+.qunix-auth-active .qunix-auth-logo,
+.qunix-auth-active div.select-none:has(img),
+.qunix-auth-active div.select-none.mb-5 {
+  box-sizing: border-box !important;
+}
+
+/* ========================================================================== */
+/* 0. Logo Position: Hidden                                                   */
+/* ========================================================================== */
+html.qunix-auth-active[data-login-logo-position="hidden"] .qunix-auth-logo,
+html.qunix-auth-active[data-login-logo-position="hidden"] div.select-none:has(img),
+html.qunix-auth-active[data-login-logo-position="hidden"] div.select-none.mb-5,
+html.qunix-auth-active[data-login-logo-position="hidden"] img[alt*="Calagopus"] {
+  display: none !important;
+}
+
+/* ========================================================================== */
+/* 1. Above-Form Logo Mode (Centered directly above login card)               */
+/* ========================================================================== */
+.qunix-auth-active .qunix-auth-logo,
+.qunix-auth-active div.select-none:has(img),
+.qunix-auth-active div.select-none.mb-5,
+html.qunix-auth-active:not([data-login-logo-position="header"]) .qunix-auth-logo,
+html.qunix-auth-active:not([data-login-logo-position="header"]) div.select-none:has(img),
+html.qunix-auth-active[data-login-logo-position="above-form"] .qunix-auth-logo,
+html.qunix-auth-active[data-login-logo-position="above-form"] div.select-none,
+html.qunix-auth-active[data-login-logo-position="above-form"] div.select-none.mb-5 {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  margin: 0 auto 20px auto !important;
+  width: auto !important;
+  max-width: 100% !important;
+  height: auto !important;
+  z-index: 1 !important;
+  text-align: center !important;
+}
+
+/* Icon variant in Above-Form */
+.qunix-auth-active .qunix-auth-logo.is-icon-logo img,
+.qunix-auth-active .qunix-auth-logo:has(h1) img,
+.qunix-auth-active div.select-none:has(h1) img,
+.qunix-auth-active img[alt*="Calagopus Icon"],
+html.qunix-auth-active:not([data-login-logo-position="header"]) div.select-none:has(h1) img,
+html.qunix-auth-active[data-login-logo-position="above-form"] .qunix-auth-logo.is-icon-logo img,
+html.qunix-auth-active[data-login-logo-position="above-form"] div.select-none:has(h1) img {
+  position: static !important;
+  width: 44px !important;
+  height: 44px !important;
+  max-width: 44px !important;
+  max-height: 44px !important;
+  min-height: unset !important;
+  object-fit: contain !important;
+  margin: 0 !important;
+  flex: 0 0 44px !important;
+}
+
+/* Full Banner variant in Above-Form / Default — NEVER ALLOW RAW FULL-WIDTH OVERFLOW */
+.qunix-auth-active .qunix-auth-logo img[alt*="Calagopus Banner"],
+.qunix-auth-active .qunix-auth-logo img[alt*="Banner"],
+.qunix-auth-active .qunix-auth-logo.is-banner-logo img,
+.qunix-auth-active .qunix-auth-logo:not(:has(h1)) img,
+.qunix-auth-active div.select-none:not(:has(h1)) img,
+.qunix-auth-active div.select-none img[alt*="Banner"],
+.qunix-auth-active .qunix-auth-logo img,
+html.qunix-auth-active[data-login-logo-position="above-form"] .qunix-auth-logo img,
+html.qunix-auth-active[data-login-logo-position="above-form"] div.select-none img,
+html.qunix-auth-active:not([data-login-logo-position="header"]) .qunix-auth-logo.is-banner-logo img,
+html.qunix-auth-active:not([data-login-logo-position="header"]) .qunix-auth-logo:not(:has(h1)) img {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: min(440px, 92vw) !important;
+  max-height: 90px !important;
+  min-height: unset !important;
+  min-width: unset !important;
+  object-fit: contain !important;
+  margin: 0 auto !important;
+  display: block !important;
+  flex: 0 1 auto !important;
+}
+
+/* Hide app name / h1 when banner logo is used */
+.qunix-auth-active .qunix-auth-logo.is-banner-logo h1,
+.qunix-auth-active .qunix-auth-logo.is-banner-logo .qunix-auth-title,
+.qunix-auth-active .qunix-auth-logo:has(img[alt*="Banner"]) h1,
+.qunix-auth-active .qunix-auth-logo:has(img[alt*="Banner"]) .qunix-auth-title,
+.qunix-auth-active .qunix-auth-logo:has(.qunix-auth-logo-banner) h1,
+.qunix-auth-active .qunix-auth-logo:has(.qunix-auth-logo-banner) .qunix-auth-title,
+.qunix-auth-active div.select-none:has(img[alt*="Banner"]) h1 {
+  display: none !important;
+}
+
+.qunix-auth-active .qunix-auth-logo h1,
+.qunix-auth-active .qunix-auth-logo .qunix-auth-title,
+.qunix-auth-active div.select-none:has(img) h1,
+html.qunix-auth-active[data-login-logo-position="above-form"] .qunix-auth-logo h1,
+html.qunix-auth-active[data-login-logo-position="above-form"] .qunix-auth-logo .qunix-auth-title,
+html.qunix-auth-active[data-login-logo-position="above-form"] div.select-none:has(img) h1 {
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  margin: 0 !important;
+  text-align: center !important;
+  flex: 0 0 auto !important;
+  color: var(--ds-text-color, var(--ds-gray-900, #ffffff)) !important;
+  white-space: nowrap !important;
+}
+
+/* ========================================================================== */
+/* 2. Header Logo Mode (Fixed in top-left viewport corner)                    */
+/* ========================================================================== */
+@media (min-width: 769px) {
+  html.qunix-auth-active[data-login-logo-position="header"] .qunix-auth-logo,
+  html.qunix-auth-active[data-login-logo-position="header"] div.select-none:has(img),
+  html.qunix-auth-active[data-login-logo-position="header"] div.select-none.mb-5 {
+    position: fixed !important;
+    top: 24px !important;
+    left: 24px !important;
+    margin: 0 !important;
+    width: auto !important;
+    max-width: 320px !important;
+    height: auto !important;
+    z-index: 1000 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+  }
+
+  html.qunix-auth-active[data-login-logo-position="header"] .qunix-auth-logo.is-banner-logo,
+  html.qunix-auth-active[data-login-logo-position="header"] .qunix-auth-logo:has(img[alt*="Banner"]),
+  html.qunix-auth-active[data-login-logo-position="header"] div.select-none:has(img[alt*="Banner"]) {
+    max-width: min(500px, calc(50vw - 48px)) !important;
+  }
+
+  html.qunix-auth-active:not([data-login-layout="side-banner"])[data-login-logo-position="header"] .qunix-auth-logo.is-banner-logo,
+  html.qunix-auth-active:not([data-login-layout="side-banner"])[data-login-logo-position="header"] .qunix-auth-logo:has(img[alt*="Banner"]),
+  html.qunix-auth-active:not([data-login-layout="side-banner"])[data-login-logo-position="header"] div.select-none:has(img[alt*="Banner"]) {
+    max-width: min(500px, calc(100vw - 180px)) !important;
+  }
+
+  html.qunix-auth-active[data-login-logo-position="header"] .qunix-auth-logo.is-icon-logo img,
+  html.qunix-auth-active[data-login-logo-position="header"] .qunix-auth-logo:has(h1) img,
+  html.qunix-auth-active[data-login-logo-position="header"] div.select-none:has(h1) img,
+  html.qunix-auth-active[data-login-logo-position="header"] img[alt*="Calagopus Icon"] {
+    position: static !important;
+    width: 36px !important;
+    height: 36px !important;
+    max-width: 36px !important;
+    max-height: 36px !important;
+    min-height: unset !important;
+    object-fit: contain !important;
+    margin: 0 !important;
+    flex: 0 0 36px !important;
+  }
+
+  html.qunix-auth-active[data-login-logo-position="header"] .qunix-auth-logo img[alt*="Calagopus Banner"],
+  html.qunix-auth-active[data-login-logo-position="header"] .qunix-auth-logo img[alt*="Banner"],
+  html.qunix-auth-active[data-login-logo-position="header"] .qunix-auth-logo.is-banner-logo img,
+  html.qunix-auth-active[data-login-logo-position="header"] .qunix-auth-logo:not(:has(h1)) img,
+  html.qunix-auth-active[data-login-logo-position="header"] div.select-none:not(:has(h1)) img,
+  html.qunix-auth-active[data-login-logo-position="header"] div.select-none img[alt*="Banner"] {
+    max-height: 80px !important;
+    max-width: min(480px, calc(50vw - 48px)) !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    margin: 0 !important;
+    display: block !important;
+  }
+
+  html.qunix-auth-active:not([data-login-layout="side-banner"])[data-login-logo-position="header"] .qunix-auth-logo img[alt*="Calagopus Banner"],
+  html.qunix-auth-active:not([data-login-layout="side-banner"])[data-login-logo-position="header"] .qunix-auth-logo img[alt*="Banner"],
+  html.qunix-auth-active:not([data-login-layout="side-banner"])[data-login-logo-position="header"] .qunix-auth-logo.is-banner-logo img,
+  html.qunix-auth-active:not([data-login-layout="side-banner"])[data-login-logo-position="header"] .qunix-auth-logo:not(:has(h1)) img,
+  html.qunix-auth-active:not([data-login-layout="side-banner"])[data-login-logo-position="header"] div.select-none:not(:has(h1)) img,
+  html.qunix-auth-active:not([data-login-layout="side-banner"])[data-login-logo-position="header"] div.select-none img[alt*="Banner"] {
+    max-width: min(480px, calc(100vw - 180px)) !important;
+  }
+
+  html.qunix-auth-active[data-login-logo-position="header"] .qunix-auth-logo h1,
+  html.qunix-auth-active[data-login-logo-position="header"] .qunix-auth-logo .qunix-auth-title,
+  html.qunix-auth-active[data-login-logo-position="header"] div.select-none:has(img) h1 {
+    font-size: 1.15rem !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    color: #ffffff !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6) !important;
+    flex: 0 0 auto !important;
+    white-space: nowrap !important;
+  }
+}
+
+/* Mobile header logo */
+@media (max-width: 768px) {
+  html.qunix-auth-active[data-login-logo-position="header"] .qunix-auth-logo,
+  html.qunix-auth-active[data-login-logo-position="header"] div.select-none:has(img),
+  html.qunix-auth-active[data-login-logo-position="header"] div.select-none.mb-5 {
+    position: fixed !important;
+    top: 16px !important;
+    left: 16px !important;
+    margin: 0 !important;
+    width: auto !important;
+    max-width: 220px !important;
+    height: auto !important;
+    z-index: 1000 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+
+  html.qunix-auth-active[data-login-logo-position="header"] .qunix-auth-logo.is-banner-logo,
+  html.qunix-auth-active[data-login-logo-position="header"] .qunix-auth-logo:has(img[alt*="Banner"]),
+  html.qunix-auth-active[data-login-logo-position="header"] div.select-none:has(img[alt*="Banner"]) {
+    max-width: calc(100vw - 32px) !important;
+  }
+
+  html.qunix-auth-active[data-login-logo-position="header"] .qunix-auth-logo.is-icon-logo img,
+  html.qunix-auth-active[data-login-logo-position="header"] .qunix-auth-logo:has(h1) img,
+  html.qunix-auth-active[data-login-logo-position="header"] div.select-none:has(h1) img,
+  html.qunix-auth-active[data-login-logo-position="header"] img[alt*="Calagopus Icon"] {
+    position: static !important;
+    width: 30px !important;
+    height: 30px !important;
+    max-width: 30px !important;
+    max-height: 30px !important;
+    min-height: unset !important;
+    object-fit: contain !important;
+    margin: 0 !important;
+    flex: 0 0 30px !important;
+  }
+
+  html.qunix-auth-active[data-login-logo-position="header"] .qunix-auth-logo img[alt*="Calagopus Banner"],
+  html.qunix-auth-active[data-login-logo-position="header"] .qunix-auth-logo img[alt*="Banner"],
+  html.qunix-auth-active[data-login-logo-position="header"] .qunix-auth-logo.is-banner-logo img,
+  html.qunix-auth-active[data-login-logo-position="header"] .qunix-auth-logo:not(:has(h1)) img,
+  html.qunix-auth-active[data-login-logo-position="header"] div.select-none:not(:has(h1)) img,
+  html.qunix-auth-active[data-login-logo-position="header"] div.select-none img[alt*="Banner"] {
+    max-height: 56px !important;
+    max-width: min(340px, calc(100vw - 32px)) !important;
+    width: auto !important;
+    height: auto !important;
+    object-fit: contain !important;
+    margin: 0 !important;
+    display: block !important;
+  }
+
+  html.qunix-auth-active[data-login-logo-position="header"] .qunix-auth-logo h1,
+  html.qunix-auth-active[data-login-logo-position="header"] .qunix-auth-logo .qunix-auth-title,
+  html.qunix-auth-active[data-login-logo-position="header"] div.select-none:has(img) h1 {
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    color: var(--ds-gray-900, #ffffff) !important;
+    white-space: nowrap !important;
+  }
+
+  html.qunix-auth-active[data-login-logo-position="above-form"] .qunix-auth-logo,
+  html.qunix-auth-active[data-login-logo-position="above-form"] div.select-none:has(img),
+  html.qunix-auth-active[data-login-logo-position="above-form"] div.select-none.mb-5 {
+    margin: 0 auto 16px auto !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    width: auto !important;
+    position: relative !important;
+  }
+}

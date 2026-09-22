@@ -1,0 +1,238 @@
+/* ========================================================================== */
+/* Option 3: Compact Console Layout & Sparkline Cards                         */
+/* ========================================================================== */
+
+html.qunix-console-compact #console-infobar {
+  min-height: 48px !important;
+  padding: 10px 16px !important;
+  background-color: var(--ds-server-action-bg, var(--ds-card-bg, #0a0a0f)) !important;
+  background-image: none !important;
+  border-radius: 12px !important;
+  border: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.08)) !important;
+}
+
+html[data-mantine-color-scheme="light"].qunix-console-compact #console-infobar,
+html[data-mantine-color-scheme="light"] html.qunix-console-compact #console-infobar,
+html[data-mantine-color-scheme="light"] #console-infobar {
+  background-color: #ffffff !important;
+  border: 1px solid var(--ds-border-color, rgba(0, 0, 0, 0.08)) !important;
+}
+
+html[data-mantine-color-scheme="light"].qunix-console-compact #console-infobar h1,
+html[data-mantine-color-scheme="light"].qunix-console-compact #console-infobar .mantine-Title-root,
+html[data-mantine-color-scheme="light"].qunix-console-compact #console-infobar span {
+  color: #0f172a !important;
+}
+
+html[data-mantine-color-scheme="light"].qunix-console-compact #console-infobar p {
+  color: #475569 !important;
+}
+
+html.qunix-console-compact #console-infobar > div {
+  min-height: 32px !important;
+  padding: 0 !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+}
+
+html.qunix-console-compact #console-infobar h1,
+html.qunix-console-compact #console-infobar .mantine-Title-root {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+}
+
+html.qunix-console-compact .qunix-banner-allocation-pill {
+  position: static !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  margin-left: 12px !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: 6px !important;
+  padding: 3px 10px !important;
+  font-size: 12px !important;
+  color: var(--ds-gray-900, #e2e8f0) !important;
+  box-shadow: none !important;
+}
+
+html[data-mantine-color-scheme="light"].qunix-console-compact .qunix-banner-allocation-pill {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  color: #0f172a !important;
+}
+
+/* Console main grid container: Terminal on left (1fr), custom sparkline cards on right (340px) */
+html.qunix-console-compact #console-infobar + .grid {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 340px !important;
+  gap: 16px !important;
+  align-items: stretch !important;
+  min-height: calc(100vh - 160px) !important;
+}
+
+html.qunix-console-compact #console-infobar + .grid > *:nth-child(1) {
+  grid-column: 1 / 2 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+html.qunix-console-compact #console-infobar + .grid > *:nth-child(1) > * {
+  height: 100% !important;
+  min-height: calc(100vh - 220px) !important;
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+html.qunix-console-compact #console-infobar + .grid > *:nth-child(1) .terminal-container,
+html.qunix-console-compact #console-infobar + .grid > *:nth-child(1) .xterm,
+html.qunix-console-compact #console-infobar + .grid > *:nth-child(1) .xterm-viewport,
+html.qunix-console-compact #console-infobar + .grid > *:nth-child(1) .mantine-Paper-root {
+  flex: 1 1 auto !important;
+  height: 100% !important;
+}
+
+html.qunix-console-compact #console-infobar + .grid > *:nth-child(2) {
+  grid-column: 2 / 3 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Hide original ServerDetails elements in right sidebar so only our custom sparkline cards show */
+html.qunix-console-compact #console-infobar + .grid > *:nth-child(2) > *:not(.qunix-compact-sidebar-cards):not(.qunix-compact-mount-slot) {
+  display: none !important;
+}
+
+html.qunix-console-compact #console-infobar + .grid > *:nth-child(2) .qunix-compact-mount-slot,
+html.qunix-console-compact #console-infobar + .grid > *:nth-child(2) .qunix-compact-sidebar-cards {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  flex: 1 1 auto !important;
+  gap: 10px !important;
+  box-sizing: border-box !important;
+}
+
+html.qunix-console-compact .qunix-compact-card {
+  background-color: var(--ds-card-bg, rgba(16, 18, 27, 0.75)) !important;
+  border: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.08)) !important;
+  border-radius: var(--ds-card-radius, 12px) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.25) !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+html[data-mantine-color-scheme="light"].qunix-console-compact .qunix-compact-card,
+html[data-mantine-color-scheme="light"] .qunix-compact-card {
+  background-color: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+html.qunix-console-compact .qunix-compact-card:hover {
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 6px 20px -2px rgba(0, 0, 0, 0.35) !important;
+}
+
+html[data-mantine-color-scheme="light"].qunix-console-compact .qunix-compact-card:hover,
+html[data-mantine-color-scheme="light"] .qunix-compact-card:hover {
+  border-color: rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Info cards (Address, Uptime) have compact fixed height */
+html.qunix-console-compact .qunix-compact-info-card {
+  flex: 0 0 auto !important;
+}
+
+/* Chart cards (CPU, Memory, Disk, Network) flex equally to fill all remaining height with console */
+html.qunix-console-compact .qunix-compact-chart-card {
+  flex: 1 1 0% !important;
+  min-height: 90px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+}
+
+html.qunix-console-compact .qunix-sparkline-wrap {
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+  width: 100% !important;
+  min-height: 36px !important;
+}
+
+html.qunix-console-compact .qunix-sparkline-wrap > div {
+  width: 100% !important;
+  height: 100% !important;
+  flex: 1 1 auto !important;
+  min-height: 36px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-end !important;
+}
+
+html.qunix-console-compact .qunix-sparkline-wrap svg {
+  width: 100% !important;
+  height: 100% !important;
+  flex: 1 1 auto !important;
+  min-height: 36px !important;
+  display: block !important;
+}
+
+/* Hide bottom default ServerStats charts container ONLY when compact sidebar is mounted */
+html.qunix-console-compact.qunix-compact-mounted #console-infobar + .grid ~ div,
+html.qunix-console-compact.qunix-compact-mounted .recharts-responsive-container,
+html.qunix-console-compact.qunix-compact-mounted .recharts-wrapper,
+html.qunix-console-compact.qunix-compact-mounted [class*="StreamChart"] {
+  display: none !important;
+}
+
+/* Mobile & Tablet Responsive Adjustments (<1024px) */
+@media (max-width: 1024px) {
+  html.qunix-console-compact #console-infobar {
+    padding: 12px !important;
+  }
+
+  html.qunix-console-compact #console-infobar > div {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  html.qunix-console-compact #console-infobar + .grid {
+    grid-template-columns: 1fr !important;
+    min-height: auto !important;
+  }
+
+  html.qunix-console-compact #console-infobar + .grid > *:nth-child(1),
+  html.qunix-console-compact #console-infobar + .grid > *:nth-child(2) {
+    grid-column: 1 / 2 !important;
+  }
+
+  html.qunix-console-compact #console-infobar + .grid > *:nth-child(1) > * {
+    min-height: 55vh !important;
+    height: 55vh !important;
+  }
+
+  html.qunix-console-compact #console-infobar + .grid > *:nth-child(2) .qunix-compact-sidebar-cards {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  html.qunix-console-compact #console-infobar + .grid > *:nth-child(2) .qunix-compact-sidebar-cards {
+    grid-template-columns: 1fr !important;
+  }
+}

@@ -1,0 +1,325 @@
+/* ========================================================================== */
+/* Login Base Layout, Form Inputs, Captcha & Support Link                     */
+/* ========================================================================== */
+
+/* Base layouts */
+.qunix-auth-active,
+.qunix-auth-active body,
+.qunix-auth-active #root {
+  background-color: var(--ds-login-bg-color, var(--ds-background, #070708)) !important;
+  background-image: var(--ds-login-bg-image, none) !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+.qunix-auth-active .h-screen {
+  background-color: var(--ds-login-bg-color, var(--ds-background, #070708)) !important;
+  background-image: var(--ds-login-bg-image, none) !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  display: flex !important;
+}
+
+/* Inner card and paper styling for auth pages - Add proper padding so text/inputs are never cut by border radius */
+.qunix-auth-active form,
+.qunix-auth-active form > div,
+.qunix-auth-active .qunix-form-wrapper,
+.qunix-auth-active .qunix-form-container > div {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.qunix-auth-active .mantine-Card-root,
+.qunix-auth-active .mantine-Paper-root,
+.qunix-auth-active [class*="mantine-Paper"],
+.qunix-auth-active [class*="mantine-Card"],
+html.qunix-auth-active .mantine-Card-root,
+html.qunix-auth-active .mantine-Paper-root,
+html.qunix-auth-active [class*="mantine-Paper"],
+html.qunix-auth-active [class*="mantine-Card"] {
+  padding: 24px !important;
+  border-radius: var(--ds-card-radius, 14px) !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+}
+
+/* Form Input & Validation Styling */
+.qunix-auth-active .mantine-TextInput-input,
+.qunix-auth-active .mantine-PasswordInput-input,
+.qunix-auth-active .mantine-PasswordInput-innerInput,
+.qunix-auth-active input {
+  border-radius: var(--ds-input-radius, 8px) !important;
+  padding-left: 14px !important;
+}
+
+.qunix-auth-active .mantine-TextInput-wrapper:has([data-position="left"]) .mantine-TextInput-input,
+.qunix-auth-active .mantine-Input-wrapper:has([data-position="left"]) .mantine-Input-input,
+.qunix-auth-active div:has(> [data-position="left"]) input,
+.qunix-auth-active div.relative:has(> svg) input,
+.qunix-auth-active div.relative:has(> i) input,
+.qunix-auth-active div.has-icon input {
+  padding-left: 2.75rem !important;
+}
+
+.qunix-auth-active .mantine-PasswordInput-innerInput {
+  padding-right: 36px !important;
+}
+
+.qunix-auth-active [data-position="left"],
+.qunix-auth-active .mantine-TextInput-section[data-position="left"],
+.qunix-auth-active .mantine-Input-section[data-position="left"] {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2.75rem !important;
+  pointer-events: none !important;
+  z-index: 5 !important;
+}
+
+.qunix-auth-active label,
+.qunix-auth-active .mantine-InputWrapper-label,
+.qunix-auth-active [class*="InputWrapper-label"] {
+  display: block !important;
+  margin-bottom: 6px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: var(--ds-gray-900, #ffffff) !important;
+  overflow: visible !important;
+  letter-spacing: normal !important;
+  text-indent: 0 !important;
+}
+
+.qunix-auth-active div.relative>svg,
+.qunix-auth-active div.relative>i {
+  position: absolute !important;
+  top: 50% !important;
+  left: 12px !important;
+  transform: translateY(-50%) !important;
+  z-index: 5 !important;
+  pointer-events: none !important;
+}
+
+.qunix-auth-active p.text-red-500,
+.qunix-auth-active div.text-red-500,
+.qunix-auth-active span.text-red-500,
+.qunix-auth-active .text-red-500 {
+  margin-top: 6px !important;
+  margin-bottom: 12px !important;
+  display: block !important;
+  position: relative !important;
+  line-height: 1.4 !important;
+}
+
+/* Support Link Styling */
+.qunix-login-support-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  text-decoration: none !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  background-color: var(--ds-primary-color, #6c5ce7) !important;
+  padding: 8px 16px !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  cursor: pointer !important;
+}
+
+.qunix-login-support-btn:hover {
+  text-decoration: none !important;
+  background-color: color-mix(in srgb, var(--ds-primary-color, #6c5ce7) 85%, white) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35) !important;
+}
+
+.qunix-login-support-btn svg {
+  color: #ffffff !important;
+}
+
+/* Header Actions Container (Quick Language Switcher + Support Button) */
+#qunix-login-header-actions,
+.qunix-login-header-actions {
+  position: fixed !important;
+  top: 24px !important;
+  right: 24px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin: 0 !important;
+  z-index: 1000 !important;
+}
+
+#qunix-login-lang-portal-slot,
+.qunix-login-lang-portal-slot {
+  display: inline-flex !important;
+  align-items: center !important;
+  position: relative !important;
+}
+
+.qunix-login-lang-select-wrapper {
+  width: 140px !important;
+  min-width: 130px !important;
+  max-width: 160px !important;
+}
+
+.qunix-login-lang-select-wrapper .mantine-Select-root {
+  width: 100% !important;
+}
+
+.qunix-login-lang-select-wrapper .qunix-auth-lang-input,
+.qunix-login-lang-select-wrapper input {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  height: 34px !important;
+  min-height: 34px !important;
+  cursor: pointer !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.qunix-login-lang-select-wrapper .qunix-auth-lang-input:hover,
+.qunix-login-lang-select-wrapper input:hover {
+  background-color: rgba(255, 255, 255, 0.16) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35) !important;
+}
+
+.qunix-login-lang-select-wrapper .mantine-Select-section svg {
+  color: #a29bfe !important;
+}
+
+#qunix-login-support,
+.qunix-login-support-btn {
+  position: static !important;
+  top: auto !important;
+  right: auto !important;
+  margin: 0 !important;
+  z-index: 1000 !important;
+  height: 34px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+}
+
+html[data-login-support-position="above-form"] #qunix-login-support,
+html[data-login-support-position="above-form"] .qunix-login-support-btn {
+  position: relative !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: auto !important;
+  margin: 16px auto 0 auto !important;
+  display: inline-flex !important;
+  align-self: center !important;
+  z-index: 1 !important;
+}
+
+@media (max-width: 768px) {
+  #qunix-login-header-actions,
+  .qunix-login-header-actions {
+    top: 16px !important;
+    right: 16px !important;
+    gap: 8px !important;
+  }
+
+  #qunix-login-lang-container,
+  .qunix-login-lang-container {
+    padding: 5px 10px !important;
+    font-size: 11px !important;
+  }
+
+  #qunix-login-lang-select {
+    font-size: 11px !important;
+  }
+
+  .qunix-login-support-btn {
+    padding: 6px 12px !important;
+    font-size: 11px !important;
+  }
+
+  html[data-login-support-position="above-form"] #qunix-login-support,
+  html[data-login-support-position="above-form"] .qunix-login-support-btn {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    margin: 12px auto 0 auto !important;
+    padding: 6px 12px !important;
+    font-size: 11px !important;
+  }
+}
+
+/* Captcha (Turnstile / reCAPTCHA / hCaptcha) Styling */
+.qunix-auth-active form {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  width: 100% !important;
+}
+
+.qunix-auth-active form>div {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+}
+
+.qunix-auth-active iframe[src*="challenges.cloudflare.com"],
+.qunix-auth-active iframe[src*="turnstile"],
+.qunix-auth-active iframe[src*="recaptcha"],
+.qunix-auth-active iframe[src*="hcaptcha"],
+.qunix-auth-active .cf-turnstile,
+.qunix-auth-active .g-recaptcha,
+.qunix-auth-active div[class*="turnstile"],
+.qunix-auth-active div[class*="captcha"],
+.qunix-auth-active div[id*="turnstile"],
+.qunix-auth-active div[id*="cf-turnstile"] {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: 14px !important;
+  margin-bottom: 14px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  align-self: center !important;
+  float: none !important;
+  clear: both !important;
+}
+
+.qunix-auth-active form div:has(iframe),
+.qunix-auth-active form div:has(.cf-turnstile),
+.qunix-auth-active form div:has([class*="turnstile"]),
+.qunix-auth-active form div:has([id*="turnstile"]) {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100% !important;
+}
+
+.qunix-auth-active [class*="turnstile"]+p,
+.qunix-auth-active [class*="turnstile"]+div,
+.qunix-auth-active [class*="captcha"]+p,
+.qunix-auth-active [class*="captcha"]+div {
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: block !important;
+}

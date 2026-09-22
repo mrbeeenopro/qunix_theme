@@ -1,0 +1,149 @@
+/* 5. Alerts & Announcements */
+.mantine-Alert-root {
+  background-color: var(--ds-announcement-bg) !important;
+  border: 1px solid var(--ds-border-color) !important;
+  border-left: 4px solid var(--ds-announcement-border) !important;
+  border-radius: var(--ds-announcement-radius) !important;
+  overflow: hidden !important;
+}
+
+/* Info Announcement Style */
+.mantine-Alert-root[data-color="blue"],
+.mantine-Alert-root[data-color="cyan"],
+.mantine-Alert-root.qunix-alert-info {
+  background-color: var(--ds-announcement-info-bg, var(--ds-announcement-bg)) !important;
+  border-left-color: var(--ds-announcement-info-border, var(--ds-announcement-border)) !important;
+}
+
+/* Error Announcement Style */
+.mantine-Alert-root[data-color="red"],
+.mantine-Alert-root.qunix-alert-error {
+  background-color: var(--ds-announcement-error-bg, var(--ds-announcement-bg)) !important;
+  border-left-color: var(--ds-announcement-error-border, var(--ds-announcement-border)) !important;
+}
+
+/* Warning Announcement Style */
+.mantine-Alert-root[data-color="yellow"],
+.mantine-Alert-root[data-color="orange"],
+.mantine-Alert-root.qunix-alert-warning {
+  background-color: var(--ds-announcement-warning-bg, var(--ds-announcement-bg)) !important;
+  border-left-color: var(--ds-announcement-warning-border, var(--ds-announcement-border)) !important;
+}
+
+/* Success Announcement Style */
+.mantine-Alert-root[data-color="green"],
+.mantine-Alert-root[data-color="teal"],
+.mantine-Alert-root.qunix-alert-success {
+  background-color: var(--ds-announcement-success-bg, var(--ds-announcement-bg)) !important;
+  border-left-color: var(--ds-announcement-success-border, var(--ds-announcement-border)) !important;
+}
+
+/* CTA button styling for links inside announcements */
+.mantine-Alert-root a {
+  display: inline-block !important;
+  background-color: var(--ds-announcement-cta-bg) !important;
+  color: var(--ds-announcement-cta-color) !important;
+  padding: 6px 14px !important;
+  border-radius: var(--ds-announcement-cta-radius) !important;
+  font-weight: 600 !important;
+  font-size: 11px !important;
+  text-decoration: none !important;
+  margin-top: 8px !important;
+  transition: all 0.2s ease-in-out !important;
+}
+
+.mantine-Alert-root a:hover {
+  filter: brightness(1.15) !important;
+  text-decoration: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Specific right-aligned layout for the customizable announcement CTA button */
+.qunix-announcement-alert {
+  position: relative !important;
+}
+
+.qunix-announcement-alert .mantine-Alert-body {
+  padding-right: 140px !important;
+}
+
+.qunix-announcement-alert.has-close-button .mantine-Alert-body {
+  padding-right: 180px !important;
+}
+
+.mantine-Alert-root a.qunix-announcement-cta-btn {
+  display: inline-flex !important;
+  position: absolute !important;
+  right: 16px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  padding: 8px 16px !important;
+  background-color: var(--ds-announcement-cta-bg) !important;
+  color: var(--ds-announcement-cta-color) !important;
+  border-radius: var(--ds-announcement-cta-radius) !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  text-decoration: none !important;
+  margin-top: 0 !important;
+  transition:
+    filter 0.2s ease,
+    transform 0.1s ease,
+    box-shadow 0.2s ease !important;
+  cursor: pointer !important;
+  border: none !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  white-space: nowrap !important;
+  z-index: 10 !important;
+}
+
+.qunix-announcement-alert.has-close-button a.qunix-announcement-cta-btn {
+  right: 44px !important;
+}
+
+.mantine-Alert-root a.qunix-announcement-cta-btn:hover {
+  filter: brightness(1.1) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+.mantine-Alert-root a.qunix-announcement-cta-btn:active {
+  transform: translateY(-50%) scale(0.98) !important;
+}
+
+/* Mobile responsive layout */
+@media (max-width: 640px) {
+  .qunix-announcement-alert .mantine-Alert-body {
+    padding-right: 0 !important;
+  }
+  .qunix-announcement-alert.has-close-button .mantine-Alert-body {
+    padding-right: 28px !important;
+  }
+  .mantine-Alert-root a.qunix-announcement-cta-btn {
+    position: static !important;
+    transform: none !important;
+    margin-top: 12px !important;
+    display: flex !important;
+    width: max-content !important;
+  }
+  .qunix-announcement-alert.has-close-button a.qunix-announcement-cta-btn {
+    right: auto !important;
+  }
+  .mantine-Alert-root a.qunix-announcement-cta-btn:active {
+    transform: scale(0.98) !important;
+  }
+}
+
+/* Notification Drawer Animation */
+@keyframes qunix-slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: qunix-slide-in 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
