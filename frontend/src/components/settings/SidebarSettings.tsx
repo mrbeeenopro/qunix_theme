@@ -72,14 +72,14 @@ const ADMIN_SUB_ITEMS = [
   { key: 'admin_activity', label: 'Admin: Activity' },
 ];
 
-const HOVER_STYLES = [
+const getHoverStyles = (accent: string) => [
   {
     value: 'none',
     label: 'Default',
     description: 'Use the standard panel hover style without overrides.',
     svg: (
       <svg width='80' height='60' viewBox='0 0 80 60' fill='none' xmlns='http://www.w3.org/2000/svg'>
-        <rect width='80' height='60' rx='6' fill='#1e1631' stroke='rgba(255,255,255,0.06)' strokeWidth='1.5' />
+        <rect width='80' height='60' rx='6' fill='#131123' stroke='rgba(255,255,255,0.06)' strokeWidth='1.5' />
         <rect x='5' y='5' width='20' height='50' rx='3' fill='#161025' />
         <rect x='8' y='10' width='14' height='6' rx='2' fill='rgba(255,255,255,0.2)' />
         <rect x='8' y='20' width='14' height='6' rx='2' fill='rgba(255,255,255,0.4)' />
@@ -90,22 +90,15 @@ const HOVER_STYLES = [
   {
     value: 'style-1',
     label: 'Right Indicator',
-    description: 'Subtle gradient background with a vertical indicator line on the right edge.',
+    description: 'Subtle accent background with a vertical indicator line on the right edge.',
     svg: (
       <svg width='80' height='60' viewBox='0 0 80 60' fill='none' xmlns='http://www.w3.org/2000/svg'>
-        <rect width='80' height='60' rx='6' fill='#1e1631' stroke='rgba(255,255,255,0.06)' strokeWidth='1.5' />
+        <rect width='80' height='60' rx='6' fill='#131123' stroke='rgba(255,255,255,0.06)' strokeWidth='1.5' />
         <rect x='5' y='5' width='20' height='50' rx='3' fill='#161025' />
         <rect x='8' y='10' width='14' height='6' rx='2' fill='rgba(255,255,255,0.2)' />
-        <rect x='8' y='20' width='14' height='6' rx='2' fill='url(#style1-grad-admin)' />
-        <line x1='22' y1='20' x2='22' y2='26' stroke='#6c5ce7' strokeWidth='1.5' strokeLinecap='round' />
+        <rect x='8' y='20' width='14' height='6' rx='2' fill='rgba(108, 92, 231, 0.15)' />
+        <line x1='22' y1='20' x2='22' y2='26' stroke={accent} strokeWidth='1.5' strokeLinecap='round' />
         <rect x='8' y='30' width='14' height='6' rx='2' fill='rgba(255,255,255,0.2)' />
-
-        <defs>
-          <linearGradient id='style1-grad-admin' x1='8' y1='20' x2='22' y2='20' gradientUnits='userSpaceOnUse'>
-            <stop stopColor='rgba(108, 92, 231, 0.15)' />
-            <stop offset='1' stopColor='rgba(108, 92, 231, 0.02)' />
-          </linearGradient>
-        </defs>
       </svg>
     ),
   },
@@ -115,12 +108,12 @@ const HOVER_STYLES = [
     description: 'Rounded card style with a vertical left indicator pill.',
     svg: (
       <svg width='80' height='60' viewBox='0 0 80 60' fill='none' xmlns='http://www.w3.org/2000/svg'>
-        <rect width='80' height='60' rx='6' fill='#1e1631' stroke='rgba(255,255,255,0.06)' strokeWidth='1.5' />
+        <rect width='80' height='60' rx='6' fill='#131123' stroke='rgba(255,255,255,0.06)' strokeWidth='1.5' />
         <rect x='5' y='5' width='20' height='50' rx='3' fill='#161025' />
         <rect x='8' y='10' width='14' height='6' rx='2' fill='rgba(255,255,255,0.2)' />
         <rect x='8' y='20' width='14' height='6' rx='3' fill='rgba(255,255,255,0.05)' />
-        <line x1='6.5' y1='21.5' x2='6.5' y2='24.5' stroke='#6c5ce7' strokeWidth='1.5' strokeLinecap='round' />
-        <rect x='10' y='20' width='10' height='6' rx='1' fill='#6c5ce7' fillOpacity='0.8' />
+        <line x1='6.5' y1='21.5' x2='6.5' y2='24.5' stroke={accent} strokeWidth='1.5' strokeLinecap='round' />
+        <rect x='10' y='20' width='10' height='6' rx='1' fill={accent} fillOpacity='0.8' />
         <rect x='8' y='30' width='14' height='6' rx='2' fill='rgba(255,255,255,0.2)' />
       </svg>
     ),
@@ -131,10 +124,10 @@ const HOVER_STYLES = [
     description: 'Floating rounded card with side margins, no vertical indicators.',
     svg: (
       <svg width='80' height='60' viewBox='0 0 80 60' fill='none' xmlns='http://www.w3.org/2000/svg'>
-        <rect width='80' height='60' rx='6' fill='#1e1631' stroke='rgba(255,255,255,0.06)' strokeWidth='1.5' />
+        <rect width='80' height='60' rx='6' fill='#131123' stroke='rgba(255,255,255,0.06)' strokeWidth='1.5' />
         <rect x='5' y='5' width='20' height='50' rx='3' fill='#161025' />
         <rect x='8' y='10' width='14' height='6' rx='2' fill='rgba(255,255,255,0.2)' />
-        <rect x='9' y='20' width='12' height='6' rx='3' fill='#6c5ce7' fillOpacity='0.9' />
+        <rect x='9' y='20' width='12' height='6' rx='3' fill={accent} fillOpacity='0.9' />
         <rect x='8' y='30' width='14' height='6' rx='2' fill='rgba(255,255,255,0.2)' />
       </svg>
     ),
@@ -145,10 +138,10 @@ const HOVER_STYLES = [
     description: 'Square blocks that expand completely to the edges of the sidebar.',
     svg: (
       <svg width='80' height='60' viewBox='0 0 80 60' fill='none' xmlns='http://www.w3.org/2000/svg'>
-        <rect width='80' height='60' rx='6' fill='#1e1631' stroke='rgba(255,255,255,0.06)' strokeWidth='1.5' />
+        <rect width='80' height='60' rx='6' fill='#131123' stroke='rgba(255,255,255,0.06)' strokeWidth='1.5' />
         <rect x='5' y='5' width='20' height='50' rx='3' fill='#161025' />
         <rect x='8' y='10' width='14' height='6' rx='2' fill='rgba(255,255,255,0.2)' />
-        <rect x='5' y='20' width='20' height='6' fill='#6c5ce7' fillOpacity='0.8' />
+        <rect x='5' y='20' width='20' height='6' fill={accent} fillOpacity='0.8' />
         <rect x='8' y='30' width='14' height='6' rx='2' fill='rgba(255,255,255,0.2)' />
       </svg>
     ),
@@ -159,10 +152,10 @@ const HOVER_STYLES = [
     description: 'Sidebar items scale up and shift smoothly on hover.',
     svg: (
       <svg width='80' height='60' viewBox='0 0 80 60' fill='none' xmlns='http://www.w3.org/2000/svg'>
-        <rect width='80' height='60' rx='6' fill='#1e1631' stroke='rgba(255,255,255,0.06)' strokeWidth='1.5' />
+        <rect width='80' height='60' rx='6' fill='#131123' stroke='rgba(255,255,255,0.06)' strokeWidth='1.5' />
         <rect x='5' y='5' width='20' height='50' rx='3' fill='#161025' />
         <rect x='8' y='10' width='14' height='6' rx='2' fill='rgba(255,255,255,0.2)' />
-        <rect x='7' y='20' width='16' height='7' rx='3' fill='#6c5ce7' />
+        <rect x='7' y='20' width='16' height='7' rx='3' fill={accent} />
         <rect x='8' y='31' width='14' height='6' rx='2' fill='rgba(255,255,255,0.2)' />
       </svg>
     ),
@@ -176,6 +169,13 @@ interface SidebarSettingsProps {
 
 export function SidebarSettings({ form, extensions = [] }: SidebarSettingsProps) {
   const { t: tExt } = useExtTranslations();
+  const themeAccent = form.values.button_color || form.values.focus_color || '#6c5ce7';
+  const cardBgUnselected = '#131123';
+  const cardBorderUnselected = '1px solid #1e2430';
+  const cardBgSelected = `color-mix(in srgb, ${themeAccent} 14%, transparent)`;
+  const cardBorderSelected = `2px solid ${themeAccent}`;
+  const accentTextColor = `color-mix(in srgb, ${themeAccent} 80%, white)`;
+
   const [openCategories, setOpenCategories] = useState<Record<string, boolean>>({
     dashboard: true,
     admin: false,
@@ -564,7 +564,7 @@ export function SidebarSettings({ form, extensions = [] }: SidebarSettingsProps)
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: 'var(--ds-primary-color, #7aa2f7)',
+              color: themeAccent,
             }}
           >
             <DynamicIcon icon={iconStr} style={{ fontSize: '15px' }} />
@@ -625,9 +625,19 @@ export function SidebarSettings({ form, extensions = [] }: SidebarSettingsProps)
               />
               <Button
                 variant='light'
-                color='blue'
                 onClick={() => openPicker(item.key)}
-                style={{ width: '32px', minWidth: '32px', height: '28px', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                style={{
+                  width: '32px',
+                  minWidth: '32px',
+                  height: '28px',
+                  padding: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: `color-mix(in srgb, ${themeAccent} 15%, transparent)`,
+                  color: accentTextColor,
+                  border: `1px solid color-mix(in srgb, ${themeAccent} 35%, transparent)`,
+                }}
                 title='Choose Icon visually'
               >
                 <FontAwesomeIcon icon={faMousePointer} style={{ fontSize: '11px' }} />
@@ -649,7 +659,7 @@ export function SidebarSettings({ form, extensions = [] }: SidebarSettingsProps)
               fontSize: '11px',
               fontWeight: 'bold',
               display: 'block',
-              color: '#a29bfe',
+              color: accentTextColor,
               marginBottom: '12px',
             }}
           >
@@ -728,7 +738,7 @@ export function SidebarSettings({ form, extensions = [] }: SidebarSettingsProps)
               fontSize: '11px',
               fontWeight: 'bold',
               display: 'block',
-              color: '#a29bfe',
+              color: accentTextColor,
               marginBottom: '12px',
             }}
           >
@@ -736,7 +746,7 @@ export function SidebarSettings({ form, extensions = [] }: SidebarSettingsProps)
             Sidebar Hover Animation Style
           </span>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '8px' }}>
-            {HOVER_STYLES.map((style) => {
+            {getHoverStyles(themeAccent).map((style) => {
               const isIconsOnly = form.values.sidebar_style === 'icons';
               const isSelected = isIconsOnly
                 ? style.value === 'none'
@@ -749,8 +759,8 @@ export function SidebarSettings({ form, extensions = [] }: SidebarSettingsProps)
                     form.setFieldValue('sidebar_hover_style', style.value);
                   }}
                   style={{
-                    background: '#0a0a0c',
-                    border: isSelected ? '2px solid #6c5ce7' : '1px solid #222228',
+                    background: isSelected ? cardBgSelected : cardBgUnselected,
+                    border: isSelected ? cardBorderSelected : cardBorderUnselected,
                     borderRadius: '8px',
                     padding: '8px',
                     cursor: isIconsOnly ? 'not-allowed' : 'pointer',
@@ -759,14 +769,14 @@ export function SidebarSettings({ form, extensions = [] }: SidebarSettingsProps)
                     alignItems: 'center',
                     gap: '6px',
                     transition: 'all 0.15s ease',
-                    boxShadow: isSelected ? '0 0 10px rgba(108, 92, 231, 0.15)' : 'none',
+                    boxShadow: 'none',
                     opacity: isIconsOnly && style.value !== 'none' ? 0.35 : 1,
                   }}
                 >
                   <div style={{ transform: 'scale(0.85)', margin: '-4px 0' }}>{style.svg}</div>
                   <div style={{ textAlign: 'center' }}>
                     <div
-                      style={{ fontSize: '10px', fontWeight: 600, color: isSelected ? '#a29bfe' : '#e2e8f0' }}
+                      style={{ fontSize: '10px', fontWeight: 600, color: isSelected ? accentTextColor : '#e2e8f0' }}
                     >
                       {style.label}
                     </div>
@@ -777,7 +787,7 @@ export function SidebarSettings({ form, extensions = [] }: SidebarSettingsProps)
           </div>
 
           <Switch
-            label='Hover Glow Click Animations'
+            label='Click Animations'
             mt='sm'
             checked={form.values.sidebar_animation}
             onChange={(event) => form.setFieldValue('sidebar_animation', event.currentTarget.checked)}
@@ -812,7 +822,7 @@ export function SidebarSettings({ form, extensions = [] }: SidebarSettingsProps)
               fontSize: '11px',
               fontWeight: 'bold',
               display: 'block',
-              color: '#a29bfe',
+              color: accentTextColor,
               marginBottom: '4px',
             }}
           >
@@ -845,7 +855,7 @@ export function SidebarSettings({ form, extensions = [] }: SidebarSettingsProps)
               fontSize: '11px',
               fontWeight: 'bold',
               display: 'block',
-              color: '#a29bfe',
+              color: accentTextColor,
               marginBottom: '4px',
             }}
           >
@@ -861,8 +871,7 @@ export function SidebarSettings({ form, extensions = [] }: SidebarSettingsProps)
               lineHeight: '1.4',
             }}
           >
-            <FontAwesomeIcon icon={faInfoCircle} style={{ marginRight: '4px' }} />
-            Choose an icon pack, pick an icon graphically, or add custom extension routes below:
+            Configure icon packs, graphical picker, or custom extension routes:
           </span>
 
           {/* Category Accordions */}
@@ -894,7 +903,7 @@ export function SidebarSettings({ form, extensions = [] }: SidebarSettingsProps)
                       icon={faChevronRight}
                       style={{
                         fontSize: '10px',
-                        color: isOpen ? '#7aa2f7' : '#71717a',
+                        color: isOpen ? themeAccent : '#71717a',
                         transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)',
                         transition: 'transform 0.2s ease',
                       }}
@@ -947,7 +956,6 @@ export function SidebarSettings({ form, extensions = [] }: SidebarSettingsProps)
                       />
                       <Button
                         size="xs"
-                        color="blue"
                         onClick={() => {
                           if (!newRoutePath.trim()) return;
                           const path = newRoutePath.trim();
@@ -956,7 +964,12 @@ export function SidebarSettings({ form, extensions = [] }: SidebarSettingsProps)
                           }
                           setNewRoutePath('');
                         }}
-                        style={{ height: '32px' }}
+                        style={{
+                          height: '32px',
+                          background: themeAccent,
+                          color: '#ffffff',
+                          border: 'none',
+                        }}
                       >
                         Add Route Item
                       </Button>
@@ -999,51 +1012,32 @@ export function SidebarSettings({ form, extensions = [] }: SidebarSettingsProps)
               Choose provider
             </span>
             <Group gap='xs'>
-              <Button
-                size='xs'
-                variant={activeProvider === 'fontawesome' ? 'filled' : 'light'}
-                color={activeProvider === 'fontawesome' ? 'blue' : 'gray'}
-                onClick={() => setActiveProvider('fontawesome')}
-                styles={{ root: { height: '24px', fontSize: '10px' } }}
-              >
-                FontAwesome
-              </Button>
-              <Button
-                size='xs'
-                variant={activeProvider === 'heroicons' ? 'filled' : 'light'}
-                color={activeProvider === 'heroicons' ? 'blue' : 'gray'}
-                onClick={() => setActiveProvider('heroicons')}
-                styles={{ root: { height: '24px', fontSize: '10px' } }}
-              >
-                Heroicons
-              </Button>
-              <Button
-                size='xs'
-                variant={activeProvider === 'mdi' ? 'filled' : 'light'}
-                color={activeProvider === 'mdi' ? 'blue' : 'gray'}
-                onClick={() => setActiveProvider('mdi')}
-                styles={{ root: { height: '24px', fontSize: '10px' } }}
-              >
-                MUI Icons
-              </Button>
-              <Button
-                size='xs'
-                variant={activeProvider === 'lineicons' ? 'filled' : 'light'}
-                color={activeProvider === 'lineicons' ? 'blue' : 'gray'}
-                onClick={() => setActiveProvider('lineicons')}
-                styles={{ root: { height: '24px', fontSize: '10px' } }}
-              >
-                Lineicons
-              </Button>
-              <Button
-                size='xs'
-                variant={activeProvider === 'lucide' ? 'filled' : 'light'}
-                color={activeProvider === 'lucide' ? 'blue' : 'gray'}
-                onClick={() => setActiveProvider('lucide')}
-                styles={{ root: { height: '24px', fontSize: '10px' } }}
-              >
-                Lucide
-              </Button>
+              {[
+                { id: 'fontawesome', label: 'FontAwesome' },
+                { id: 'heroicons', label: 'Heroicons' },
+                { id: 'mdi', label: 'MUI Icons' },
+                { id: 'lineicons', label: 'Lineicons' },
+                { id: 'lucide', label: 'Lucide' },
+              ].map((p) => {
+                const isActive = activeProvider === p.id;
+                return (
+                  <Button
+                    key={p.id}
+                    size='xs'
+                    variant={isActive ? 'filled' : 'light'}
+                    onClick={() => setActiveProvider(p.id as any)}
+                    style={{
+                      height: '24px',
+                      fontSize: '10px',
+                      background: isActive ? themeAccent : `color-mix(in srgb, ${themeAccent} 10%, transparent)`,
+                      color: isActive ? '#ffffff' : accentTextColor,
+                      border: isActive ? `1px solid ${themeAccent}` : '1px solid transparent',
+                    }}
+                  >
+                    {p.label}
+                  </Button>
+                );
+              })}
             </Group>
           </Group>
 
@@ -1052,24 +1046,29 @@ export function SidebarSettings({ form, extensions = [] }: SidebarSettingsProps)
               Icon Style
             </span>
             <Group gap='xs'>
-              <Button
-                size='xs'
-                variant={activeStyle === 'outline' ? 'filled' : 'light'}
-                color={activeStyle === 'outline' ? 'blue' : 'gray'}
-                onClick={() => setActiveStyle('outline')}
-                styles={{ root: { height: '24px', fontSize: '10px' } }}
-              >
-                Outline
-              </Button>
-              <Button
-                size='xs'
-                variant={activeStyle === 'solid' ? 'filled' : 'light'}
-                color={activeStyle === 'solid' ? 'blue' : 'gray'}
-                onClick={() => setActiveStyle('solid')}
-                styles={{ root: { height: '24px', fontSize: '10px' } }}
-              >
-                Solid
-              </Button>
+              {[
+                { id: 'outline', label: 'Outline' },
+                { id: 'solid', label: 'Solid' },
+              ].map((s) => {
+                const isActive = activeStyle === s.id;
+                return (
+                  <Button
+                    key={s.id}
+                    size='xs'
+                    variant={isActive ? 'filled' : 'light'}
+                    onClick={() => setActiveStyle(s.id as any)}
+                    style={{
+                      height: '24px',
+                      fontSize: '10px',
+                      background: isActive ? themeAccent : `color-mix(in srgb, ${themeAccent} 10%, transparent)`,
+                      color: isActive ? '#ffffff' : accentTextColor,
+                      border: isActive ? `1px solid ${themeAccent}` : '1px solid transparent',
+                    }}
+                  >
+                    {s.label}
+                  </Button>
+                );
+              })}
             </Group>
           </Group>
 
@@ -1106,7 +1105,7 @@ export function SidebarSettings({ form, extensions = [] }: SidebarSettingsProps)
                       outline: 'none',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.borderColor = 'var(--ds-primary-color, #7aa2f7)';
+                      e.currentTarget.style.borderColor = themeAccent;
                       e.currentTarget.style.background = '#1c1c24';
                     }}
                     onMouseLeave={(e) => {
@@ -1121,7 +1120,7 @@ export function SidebarSettings({ form, extensions = [] }: SidebarSettingsProps)
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        color: 'var(--ds-primary-color, #7aa2f7)',
+                        color: themeAccent,
                         fontSize: '18px',
                       }}
                     >
@@ -1163,7 +1162,6 @@ export function SidebarSettings({ form, extensions = [] }: SidebarSettingsProps)
               Cancel
             </Button>
             <Button
-              color='blue'
               onClick={() => {
                 if (activeItemKey) {
                   const newIcons = { ...sidebarIcons };
@@ -1172,7 +1170,13 @@ export function SidebarSettings({ form, extensions = [] }: SidebarSettingsProps)
                 }
                 setPickerOpen(false);
               }}
-              styles={{ root: { height: '32px', fontSize: '12px' } }}
+              style={{
+                height: '32px',
+                fontSize: '12px',
+                background: themeAccent,
+                color: '#ffffff',
+                border: 'none',
+              }}
             >
               Reset to defaults
             </Button>

@@ -46,6 +46,9 @@ export function ColorsSettings({ form }: ColorsSettingsProps) {
     addToast(tExt('admin.toasts.presetApplied', { name: preset.name }), 'success');
   };
 
+  const themeAccent = form.values.button_color || form.values.focus_color || '#6c5ce7';
+  const accentTextColor = `color-mix(in srgb, ${themeAccent} 80%, white)`;
+
   return (
     <>
       {/* Presets */}
@@ -58,7 +61,7 @@ export function ColorsSettings({ form }: ColorsSettingsProps) {
             fontWeight: 'bold',
             display: 'block',
             marginBottom: '10px',
-            color: '#a29bfe',
+            color: accentTextColor,
           }}
         >
           <FontAwesomeIcon icon={faCogs} style={{ marginRight: '6px' }} />
@@ -98,7 +101,22 @@ export function ColorsSettings({ form }: ColorsSettingsProps) {
         </Group>
       </div>
 
-      <Tabs value={activeTab} onChange={(val) => setActiveTab(val || 'dark')} variant='pills' classNames={{ list: 'mb-3' }}>
+      <Tabs
+        value={activeTab}
+        onChange={(val) => setActiveTab(val || 'dark')}
+        variant='pills'
+        classNames={{ list: 'mb-3' }}
+        styles={{
+          tab: {
+            fontSize: '12px',
+            '&[data-active]': {
+              backgroundColor: `color-mix(in srgb, ${themeAccent} 15%, transparent) !important`,
+              borderColor: `${themeAccent} !important`,
+              color: `${accentTextColor} !important`,
+            },
+          },
+        }}
+      >
         <Tabs.List>
           <Tabs.Tab value='dark'>{tExt('admin.colors.darkTab', {})}</Tabs.Tab>
           <Tabs.Tab value='light'>{tExt('admin.colors.lightTab', {})}</Tabs.Tab>

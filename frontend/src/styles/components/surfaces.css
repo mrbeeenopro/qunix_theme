@@ -113,6 +113,101 @@ div[id$="_inner"] {
   border-bottom: 1px solid var(--ds-popup-window-border-color, var(--ds-border-color)) !important;
 }
 
+/* ========================================================
+   Dialog Design Variations (Stark, Classic, Accent, Glass)
+   ======================================================== */
+
+/* 1. Stark (Default): Seamless, clean, flat, NO dividing lines under header */
+html[data-dialog-design="stark"] .mantine-Modal-header,
+html:not([data-dialog-design]) .mantine-Modal-header,
+html[data-dialog-design="stark"] .mantine-Window-header,
+html:not([data-dialog-design]) .mantine-Window-header {
+  border-bottom: none !important;
+  background: transparent !important;
+  padding-bottom: 6px !important;
+}
+
+html[data-dialog-design="stark"] .mantine-Modal-body,
+html:not([data-dialog-design]) .mantine-Modal-body {
+  border-top: none !important;
+  padding-top: 4px !important;
+}
+
+/* 2. Classic: Clear header and footer divider line */
+html[data-dialog-design="classic"] .mantine-Modal-header,
+html[data-dialog-design="classic"] .mantine-Window-header {
+  border-bottom: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.1)) !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+  padding: 14px 18px !important;
+}
+
+html[data-dialog-design="classic"] .mantine-Modal-body > div:last-child:has(button) {
+  border-top: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.08)) !important;
+  padding-top: 14px !important;
+  margin-top: 14px !important;
+}
+
+/* 3. Accent Header: Solid accent bar header across top */
+html[data-dialog-design="accent"] .mantine-Modal-header,
+html[data-dialog-design="accent"] .mantine-Window-header {
+  background: var(--ds-dialog-accent-color, var(--ds-primary-color, var(--ds-button-color, #6c5ce7))) !important;
+  color: #ffffff !important;
+  border-bottom: none !important;
+  padding: 12px 18px !important;
+  margin: 0 !important;
+}
+
+html[data-dialog-design="accent"] .mantine-Modal-title,
+html[data-dialog-design="accent"] .mantine-Modal-close,
+html[data-dialog-design="accent"] .mantine-Window-header * {
+  color: #ffffff !important;
+}
+
+/* 4. Glass: Frosted translucent glass dialog */
+html[data-dialog-design="glass"] .mantine-Modal-content,
+html[data-dialog-design="glass"] div[id^="window_"].mantine-Window-root {
+  background: rgba(14, 20, 31, 0.78) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6) !important;
+}
+
+html[data-dialog-design="glass"] .mantine-Modal-header,
+html[data-dialog-design="glass"] .mantine-Window-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: transparent !important;
+}
+
+/* ========================================================
+   Card Border Variations (None, Subtle, Strong, Accent)
+   ======================================================== */
+
+html[data-card-border="none"] .mantine-Card-root:not(.mantine-Modal-content *),
+html[data-card-border="none"] .mantine-Paper-root:not(.mantine-Modal-content *),
+html[data-card-border="none"] .qunix-card-flat {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+html[data-card-border="subtle"] .mantine-Card-root:not(.mantine-Modal-content *),
+html[data-card-border="subtle"] .mantine-Paper-root:not(.mantine-Modal-content *),
+html[data-card-border="subtle"] .qunix-card-flat {
+  border: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.1)) !important;
+}
+
+html[data-card-border="strong"] .mantine-Card-root:not(.mantine-Modal-content *),
+html[data-card-border="strong"] .mantine-Paper-root:not(.mantine-Modal-content *),
+html[data-card-border="strong"] .qunix-card-flat {
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+}
+
+html[data-card-border="accent"] .mantine-Card-root:not(.mantine-Modal-content *),
+html[data-card-border="accent"] .mantine-Paper-root:not(.mantine-Modal-content *),
+html[data-card-border="accent"] .qunix-card-flat {
+  border: 1.5px solid var(--ds-button-color, #38bdf8) !important;
+}
+
 /* Mantine Drawer Container - Full Height & Contain Overscroll to prevent mobile Chrome toolbar hiding */
 .mantine-Drawer-root,
 .mantine-Drawer-inner,
@@ -474,4 +569,122 @@ html[data-privacy-blur="true"] tr:hover td code,
 html[data-privacy-blur="true"] .mantine-Modal-content button.cursor-pointer:has(code):hover {
   filter: blur(0) !important;
   user-select: auto !important;
+}
+
+/* ========================================================================== */
+/* Clean Title Headers (Restricted/Clean Background Behind Titles)             */
+/* ========================================================================== */
+html[data-clean-titles="true"] [id="title-card-header"],
+html[data-clean-titles="true"] body.has-bg-image [id="title-card-header"],
+html[data-clean-titles="true"] .title-card-header,
+html[data-clean-titles="true"] [class*="title-card-header"] {
+  background: transparent !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* ========================================================================== */
+/* Button Styles Customization (Filled vs Outline)                            */
+/* ========================================================================== */
+html[data-button-style="outline"] .mantine-Button-root:not(.mantine-Button-subtle):not(.mantine-Button-transparent) {
+  background-color: transparent !important;
+  border: 1.5px solid var(--ds-primary, #6c5ce7) !important;
+  color: var(--ds-primary, #a29bfe) !important;
+}
+
+html[data-button-style="outline"] .mantine-Button-root:not(.mantine-Button-subtle):not(.mantine-Button-transparent):hover {
+  background-color: color-mix(in srgb, var(--ds-primary, #6c5ce7) 15%, transparent) !important;
+  box-shadow: none !important;
+}
+
+/* ========================================================================== */
+/* Input Styles Customization (Filled vs Outline)                             */
+/* ========================================================================== */
+html[data-input-style="outline"] .mantine-Input-input,
+html[data-input-style="outline"] .mantine-TextInput-input,
+html[data-input-style="outline"] .mantine-Select-input,
+html[data-input-style="outline"] .mantine-Textarea-input,
+html[data-input-style="outline"] .mantine-PasswordInput-input,
+html[data-input-style="outline"] .mantine-NumberInput-input {
+  background-color: transparent !important;
+  border: 1.5px solid var(--ds-border-color, rgba(255, 255, 255, 0.2)) !important;
+}
+
+html[data-input-style="outline"] .mantine-Input-input:focus,
+html[data-input-style="outline"] .mantine-TextInput-input:focus,
+html[data-input-style="outline"] .mantine-Select-input:focus,
+html[data-input-style="outline"] .mantine-Textarea-input:focus,
+html[data-input-style="outline"] .mantine-PasswordInput-input:focus,
+html[data-input-style="outline"] .mantine-NumberInput-input:focus {
+  border-color: var(--ds-primary, #6c5ce7) !important;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--ds-primary, #6c5ce7) 25%, transparent) !important;
+}
+
+/* ========================================================================== */
+/* Switch Styles Customization (Pill vs Square vs Glow)                       */
+/* ========================================================================== */
+html[data-switch-style="square"] .mantine-Switch-track {
+  border-radius: 4px !important;
+}
+
+html[data-switch-style="square"] .mantine-Switch-thumb {
+  border-radius: 3px !important;
+}
+
+html[data-switch-style="glow"] .mantine-Switch-track:has(input:checked) {
+  box-shadow: none !important;
+  border: 1px solid color-mix(in srgb, var(--ds-primary, #6c5ce7) 50%, transparent) !important;
+}
+
+html[data-switch-style="glow"] .mantine-Switch-thumb {
+  box-shadow: none !important;
+}
+
+/* ========================================================================== */
+/* Icon Styles Customization (Default vs Badge vs Minimal)                    */
+/* ========================================================================== */
+html[data-icon-style="badge"] #sidebar-desktop .mantine-NavLink-icon,
+html[data-icon-style="badge"] .qunix-nav-item .qunix-nav-icon,
+html[data-icon-style="badge"] [id="title-card-icon"] {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 6px !important;
+  padding: 4px !important;
+}
+
+html[data-icon-style="minimal"] .mantine-NavLink-icon,
+html[data-icon-style="minimal"] .qunix-nav-icon,
+html[data-icon-style="minimal"] [id="title-card-icon"] {
+  opacity: 0.75 !important;
+  filter: grayscale(30%) !important;
+}
+
+/* ========================================================================== */
+/* Component Overlay Customization                                            */
+/* ========================================================================== */
+html[data-component-overlay="glass"] .qunix-server-card,
+html[data-component-overlay="glass"] .qunix-server-grid-card,
+html[data-component-overlay="glass"] .qunix-list-row {
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  background-color: rgba(14, 18, 27, 0.65) !important;
+}
+
+html[data-component-overlay="solid"] .qunix-server-card,
+html[data-component-overlay="solid"] .qunix-server-grid-card,
+html[data-component-overlay="solid"] .qunix-list-row {
+  background-color: rgba(11, 13, 20, 0.95) !important;
+}
+
+html[data-component-overlay="radial"] .qunix-server-card,
+html[data-component-overlay="radial"] .qunix-server-grid-card,
+html[data-component-overlay="radial"] .qunix-list-row {
+  background-image: radial-gradient(circle at 85% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 60%), var(--ds-egg-banner-image) !important;
+}
+
+html[data-component-overlay="none"] .qunix-server-card,
+html[data-component-overlay="none"] .qunix-server-grid-card,
+html[data-component-overlay="none"] .qunix-list-row {
+  background-image: var(--ds-egg-banner-image) !important;
 }

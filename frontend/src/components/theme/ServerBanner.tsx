@@ -122,7 +122,8 @@ const Sparkline: React.FC<{
   fillId: string;
   formatValue?: (v: number) => string;
   height?: number | string;
-}> = ({ data, color, fillId, formatValue, height = 36 }) => {
+  maxVal?: number;
+}> = ({ data, color, fillId, formatValue, height = 36, maxVal }) => {
   const containerRef = React.useRef<SVGSVGElement>(null);
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
 
@@ -130,8 +131,8 @@ const Sparkline: React.FC<{
     return <div className='w-full h-9' />;
   }
 
-  const dataMin = Math.min(...data);
-  const dataMax = Math.max(...data);
+  const dataMin = maxVal && maxVal > 0 ? 0 : Math.min(...data);
+  const dataMax = maxVal && maxVal > 0 ? Math.max(maxVal, ...data) : Math.max(...data);
   const range = dataMax > dataMin ? dataMax - dataMin : 1;
   const width = 300;
   const h = 40;
@@ -591,7 +592,13 @@ const CompactConsoleSidebar: React.FC = () => {
           {cpuPercent}% <span className='text-xs font-normal text-neutral-400'>/ {cpuMax}</span>
         </div>
         <div className='qunix-sparkline-wrap'>
-          <Sparkline data={cpuHistory} color={chart1Color} fillId='qunixCpuGrad' formatValue={(v) => `${v.toFixed(2)}%`} />
+          <Sparkline
+            data={cpuHistory}
+            color={chart1Color}
+            fillId='qunixCpuGrad'
+            formatValue={(v) => `${v.toFixed(2)}%`}
+            maxVal={server.limits.cpu > 0 ? server.limits.cpu : undefined}
+          />
         </div>
       </div>
 
@@ -607,7 +614,13 @@ const CompactConsoleSidebar: React.FC = () => {
           {memUsed} <span className='text-xs font-normal text-neutral-400'>/ {memMax}</span>
         </div>
         <div className='qunix-sparkline-wrap'>
-          <Sparkline data={memHistory} color={chart1Color} fillId='qunixMemGrad' formatValue={(v) => bytesToString(v)} />
+          <Sparkline
+            data={memHistory}
+            color={chart1Color}
+            fillId='qunixMemGrad'
+            formatValue={(v) => bytesToString(v)}
+            maxVal={server.limits.memory > 0 ? mbToBytes(server.limits.memory) : undefined}
+          />
         </div>
       </div>
 
@@ -634,13 +647,19 @@ const CompactConsoleSidebar: React.FC = () => {
               className='h-full rounded-full transition-all duration-500'
               style={{
                 width: `${Math.min(100, Math.max(0, diskPercent))}%`,
-                background: `linear-gradient(90deg, ${chart1Color}, ${chart2Color})`,
+                background: chart1Color,
               }}
             />
           </div>
         )}
         <div className='qunix-sparkline-wrap'>
-          <Sparkline data={diskHistory} color={chart1Color} fillId='qunixDiskGrad' formatValue={(v) => bytesToString(v)} />
+          <Sparkline
+            data={diskHistory}
+            color={chart1Color}
+            fillId='qunixDiskGrad'
+            formatValue={(v) => bytesToString(v)}
+            maxVal={server.limits.disk > 0 ? mbToBytes(server.limits.disk) : undefined}
+          />
         </div>
       </div>
 
@@ -706,10 +725,26 @@ export const ServerBannerComponent: React.FC = () => {
   const [hasBanner, setHasBanner] = useState(false);
 
   useEffect(() => {
+    const routeOrder = server?.eggConfiguration?.routeOrder;
+    if (routeOrder && Array.isArray(routeOrder)) {
+      const hasConsole = routeOrder.some((item: any) => item.type === 'route' && item.path === '/console');
+      if (!hasConsole) {
+        const rootIdx = routeOrder.findIndex((item: any) => item.type === 'route' && item.path === '/');
+        if (rootIdx !== -1) {
+          routeOrder.splice(rootIdx + 1, 0, { type: 'route', path: '/console' });
+        } else {
+          routeOrder.push({ type: 'route', path: '/console' });
+        }
+      }
+    }
+  }, [server?.eggConfiguration?.routeOrder]);
+
+  useEffect(() => {
     const handleLoaded = (e: Event) => {
       setSettings((e as CustomEvent).detail);
     };
     window.addEventListener('qunix-settings-loaded', handleLoaded);
+    window.addEventListener('qunix-theme-settings-changed', handleLoaded);
 
     if (!(window as any).qunixThemeSettings) {
       axiosInstance
@@ -725,6 +760,7 @@ export const ServerBannerComponent: React.FC = () => {
 
     return () => {
       window.removeEventListener('qunix-settings-loaded', handleLoaded);
+      window.removeEventListener('qunix-theme-settings-changed', handleLoaded);
       const root = document.documentElement;
       root.style.setProperty('--ds-server-banner-image', 'none');
       root.classList.remove('has-server-banner', 'qunix-console-compact');
@@ -744,7 +780,12 @@ export const ServerBannerComponent: React.FC = () => {
       )) ||
       (typeof document !== 'undefined' && !!document.getElementById('console-infobar')));
 
-  const consoleStyle = settings?.console_style || settings?.consoleStyle || 'default';
+  const consoleStyle =
+    settings?.console_style ||
+    settings?.consoleStyle ||
+    (typeof window !== 'undefined' ? (window as any).qunixThemeSettings?.console_style : null) ||
+    (typeof document !== 'undefined' ? document.documentElement.getAttribute('data-console-style') : null) ||
+    'default';
 
   useEffect(() => {
     const root = document.documentElement;
@@ -764,7 +805,17 @@ export const ServerBannerComponent: React.FC = () => {
     }
 
     root.classList.remove('qunix-console-compact', 'qunix-compact-mounted');
-    if (consoleStyle === 'mini') {
+    if (consoleStyle === 'mini' || consoleStyle === 'custom') {
+      let customComponents: any = {};
+      try {
+        customComponents = JSON.parse(localStorage.getItem('qunix_custom_console_components') || '{}');
+      } catch (_) {}
+      if (consoleStyle === 'custom' && customComponents.hero_banner === false) {
+        root.style.setProperty('--ds-server-banner-image', 'none');
+        root.classList.remove('has-server-banner');
+        setHasBanner(false);
+        return;
+      }
       const eggBanners: any = settings.egg_banners || settings.eggBanners || {};
       const egg: any = (server as any)?.egg;
       const nest: any = (server as any)?.nest;

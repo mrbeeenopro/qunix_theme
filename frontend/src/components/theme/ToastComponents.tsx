@@ -120,3 +120,55 @@ export const QunixThemeToast: React.FC<{
     </div>
   );
 };
+
+export const GlassToast: React.FC<{
+  color?: string;
+  onClose?: () => void;
+  children: React.ReactNode;
+  showTimer?: boolean;
+  radius?: number;
+  coloredBorder?: boolean;
+  backgroundTint?: boolean;
+}> = ({ color, onClose, children, showTimer = true, radius = 10, coloredBorder = true, backgroundTint = true }) => {
+  let icon = faCircleInfo;
+  let accentColor = '#3b82f6';
+
+  if (color === 'green' || color === 'success') {
+    icon = faCircleCheck;
+    accentColor = '#22c55e';
+  } else if (color === 'red' || color === 'error') {
+    icon = faCircleXmark;
+    accentColor = '#ef4444';
+  } else if (color === 'yellow' || color === 'warning') {
+    icon = faCircleExclamation;
+    accentColor = '#f59e0b';
+  } else if (color === 'blue' || color === 'info') {
+    icon = faCircleInfo;
+    accentColor = '#3b82f6';
+  }
+
+  return (
+    <div
+      className={`qunix-glass-toast-container ${coloredBorder ? 'has-colored-border' : ''} ${backgroundTint ? 'has-bg-tint' : ''}`}
+      style={
+        {
+          '--toast-accent': accentColor,
+          '--toast-radius': `${radius}px`,
+        } as any
+      }
+    >
+      <div className='qunix-glass-toast-content'>
+        <div className='qunix-glass-toast-icon-badge'>
+          <FontAwesomeIcon icon={icon} className='qunix-glass-toast-icon' />
+        </div>
+        <div className='qunix-glass-toast-message'>{children}</div>
+        {onClose && (
+          <button onClick={onClose} className='qunix-glass-toast-close'>
+            &times;
+          </button>
+        )}
+      </div>
+      {showTimer && <div className='qunix-glass-toast-timer-bar' />}
+    </div>
+  );
+};

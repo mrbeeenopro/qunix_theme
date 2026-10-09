@@ -10,9 +10,11 @@ interface EmbedSettingsProps {
 }
 
 export function EmbedSettings({ form }: EmbedSettingsProps) {
+  const themeAccent = form.values.button_color || form.values.focus_color || '#6c5ce7';
+  const accentTextColor = `color-mix(in srgb, ${themeAccent} 80%, white)`;
   const embedTitle = form.values.embed_title || 'Qunix Panel — High Performance Game Servers';
   const embedDesc = form.values.embed_description || 'Manage game servers, nodes, allocations and system resources with an ultra-responsive panel interface.';
-  const embedColor = form.values.embed_color || '#6c5ce7';
+  const embedColor = form.values.embed_color || themeAccent;
   const embedImage = form.values.embed_image || '';
   const embedSiteName = form.values.embed_site_name || 'Qunix™';
 
@@ -25,7 +27,7 @@ export function EmbedSettings({ form }: EmbedSettingsProps) {
             fontSize: '11px',
             fontWeight: 'bold',
             display: 'block',
-            color: '#a29bfe',
+            color: accentTextColor,
             marginBottom: '4px',
           }}
         >
@@ -39,7 +41,7 @@ export function EmbedSettings({ form }: EmbedSettingsProps) {
         <Stack gap='sm'>
           <NumberInput
             label='Preloader Minimum Load Time (ms)'
-            description='How long the initial preloader screen stays visible before fading out (e.g. 1500 = 1.5s)'
+            description='Minimum display duration before fading out'
             min={0}
             max={10000}
             step={250}
@@ -48,20 +50,20 @@ export function EmbedSettings({ form }: EmbedSettingsProps) {
 
           <TextInput
             label='Preloader Custom Logo URL'
-            description='Custom logo image displayed in center of preloader screen'
+            description='Logo displayed on preloader screen'
             placeholder='/login_bg.png or https://...'
             {...form.getInputProps('preloader_logo')}
           />
 
           <ColorField
             label='Preloader Background Color'
-            description='Background color for boot screen'
+            description='Boot screen background color'
             {...form.getInputProps('preloader_bg_color')}
           />
 
           <TextInput
             label='Preloader Background Image URL'
-            description='Wallpaper background image on preloader screen'
+            description='Boot screen background image'
             placeholder='https://...'
             {...form.getInputProps('preloader_bg_image')}
           />
@@ -77,7 +79,7 @@ export function EmbedSettings({ form }: EmbedSettingsProps) {
             fontSize: '11px',
             fontWeight: 'bold',
             display: 'block',
-            color: '#a29bfe',
+            color: accentTextColor,
             marginBottom: '4px',
           }}
         >
@@ -85,14 +87,14 @@ export function EmbedSettings({ form }: EmbedSettingsProps) {
           Social Meta Tags & Discord Embeds
         </span>
         <Text size="xs" c="dimmed" style={{ lineHeight: '1.4' }}>
-          Configure OpenGraph metadata rendered when sharing panel links on Discord, Twitter, Facebook, or iMessage.
+          Configure OpenGraph metadata for link previews.
         </Text>
       </div>
 
       <Stack gap="sm">
         <TextInput
           label="Embed Site / Author Name"
-          description="Site brand or author name displayed at the top of the embed"
+          description="Brand or site name displayed in embed header"
           placeholder="Qunix™"
           leftSection={<FontAwesomeIcon icon={faShareNodes} style={{ fontSize: '12px', color: '#64748b' }} />}
           {...form.getInputProps('embed_site_name')}
@@ -100,7 +102,7 @@ export function EmbedSettings({ form }: EmbedSettingsProps) {
 
         <TextInput
           label="Embed Title"
-          description="Heading title shown on social media embed cards"
+          description="Title shown on social preview cards"
           placeholder="Qunix Panel — High Performance Game Servers"
           leftSection={<FontAwesomeIcon icon={faHeading} style={{ fontSize: '12px', color: '#64748b' }} />}
           {...form.getInputProps('embed_title')}
@@ -108,7 +110,7 @@ export function EmbedSettings({ form }: EmbedSettingsProps) {
 
         <Textarea
           label="Embed Description"
-          description="Summary text paragraph rendered inside social embed cards"
+          description="Summary description for link previews"
           placeholder="Manage game servers, nodes, allocations and system resources..."
           rows={3}
           {...form.getInputProps('embed_description')}
@@ -116,13 +118,13 @@ export function EmbedSettings({ form }: EmbedSettingsProps) {
 
         <ColorField
           label="Embed Theme Color"
-          description="Left accent border color used by Discord & browser headers"
+          description="Accent color for Discord & browser embed borders"
           {...form.getInputProps('embed_color')}
         />
 
         <TextInput
           label="Embed Image URL"
-          description="Large banner preview image URL for social media link previews"
+          description="Banner preview image for link cards"
           placeholder="https://example.com/banner.png"
           leftSection={<FontAwesomeIcon icon={faImage} style={{ fontSize: '12px', color: '#64748b' }} />}
           {...form.getInputProps('embed_image')}
@@ -132,7 +134,7 @@ export function EmbedSettings({ form }: EmbedSettingsProps) {
       {/* Live Preview Section */}
       <Stack gap="xs" style={{ marginTop: '8px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <FontAwesomeIcon icon={faEye} style={{ color: '#a29bfe', fontSize: '12px' }} />
+          <FontAwesomeIcon icon={faEye} style={{ color: accentTextColor, fontSize: '12px' }} />
           <Text size="xs" fw={700} c="dimmed" style={{ textTransform: 'uppercase', letterSpacing: '0.5px' }}>
             Live Discord Embed Preview
           </Text>
@@ -158,7 +160,7 @@ export function EmbedSettings({ form }: EmbedSettingsProps) {
                 width: '28px',
                 height: '28px',
                 borderRadius: '50%',
-                background: 'linear-gradient(135deg, #6c5ce7, #a29bfe)',
+                background: 'var(--ds-primary-color, #6c5ce7)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',

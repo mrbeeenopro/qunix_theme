@@ -22,7 +22,7 @@ html[data-sidebar-hover-style="style-1"] .mantine-NavLink-root:hover,
 html[data-sidebar-hover-style="style-1"] .sidebar a:hover .mantine-Button-root,
 html[data-sidebar-hover-style="style-1"] #sidebar-content a:hover .mantine-Button-root,
 html[data-sidebar-hover-style="style-1"] .mantine-AppShell-navbar a:hover .mantine-Button-root {
-  background: linear-gradient(to left, rgba(255, 255, 255, 0.02) 0%, transparent 100%) !important;
+  background: rgba(255, 255, 255, 0.03) !important;
   border-right-color: rgba(255, 255, 255, 0.1) !important;
   border-radius: var(--ds-sidebar-active-radius, var(--ds-sidebar-radius, 6px)) !important;
 }
@@ -34,9 +34,7 @@ html[data-sidebar-hover-style="style-1"] .mantine-AppShell-navbar a.active .mant
 html[data-sidebar-hover-style="style-1"] .sidebar a .mantine-Button-root.active,
 html[data-sidebar-hover-style="style-1"] #sidebar-content a .mantine-Button-root.active,
 html[data-sidebar-hover-style="style-1"] .mantine-AppShell-navbar a .mantine-Button-root.active {
-  background: linear-gradient(to left,
-      color-mix(in srgb, var(--ds-sidebar-active-bg) 20%, transparent) 0%,
-      transparent 100%) !important;
+  background: color-mix(in srgb, var(--ds-sidebar-active-bg) 15%, transparent) !important;
   border-right-color: var(--ds-sidebar-active-color) !important;
   color: var(--ds-sidebar-active-color) !important;
   border-radius: var(--ds-sidebar-active-radius, 6px) !important;
@@ -245,22 +243,9 @@ html[data-sidebar-hover-style="grow"] .mantine-AppShell-navbar a.active .mantine
   border-radius: var(--ds-sidebar-active-radius, var(--ds-sidebar-radius, 6px)) !important;
 }
 
-/* Click Animation */
+/* Click press feedback (no mouse-follow spotlight) */
 .mantine-NavLink-root::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(300px circle at var(--mouse-x, -100%) var(--mouse-y, -100%),
-      rgba(255, 255, 255, 0.05),
-      transparent 60%);
-  opacity: calc(var(--ds-sidebar-animation) * 1);
-  transition: opacity 0.3s;
-  pointer-events: none;
-  z-index: 0;
-  contain: strict;
+  display: none;
 }
 
 .mantine-NavLink-root>* {

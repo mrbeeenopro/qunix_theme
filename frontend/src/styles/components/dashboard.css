@@ -1,0 +1,771 @@
+/* ========================================================================== */
+/* Qunix Theme — Flat Modern Server Dashboard & Mobile Grid Layout             */
+/* ========================================================================== */
+
+/* Base Flat Card Token: Solid background, 1px crisp border, zero blurs when flat design is true */
+.qunix-card-flat {
+  background-color: var(--ds-card-bg, #12141a) !important;
+  border: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.08)) !important;
+  border-radius: var(--ds-card-radius, 8px) !important;
+  color: var(--ds-text-color, #e2e8f0) !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease !important;
+  contain: content;
+}
+
+.qunix-card-flat:hover {
+  border-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+/* Global Card Surfaces & Shader Fade Variations (data-card-style) */
+
+/* 1. Flat Solid / Disable Shader Fade */
+html[data-card-style="none"] .qunix-card-flat,
+html[data-card-style="none"] .qunix-server-card,
+html[data-card-style="none"] .qunix-server-grid-card,
+html[data-card-style="none"] .mantine-Card-root,
+html[data-card-style="none"] .mantine-Paper-root:not(.mantine-Modal-content),
+html[data-card-style="none"] .card,
+html[data-card-style="none"] .container-card {
+  background: var(--ds-card-bg, #12141a) !important;
+  background-image: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+/* 2. Subtle Shader Fade (Smooth diagonal 135° soft gradient fade) */
+html[data-card-style="subtle-fade"] .qunix-card-flat,
+html[data-card-style="subtle-fade"] .qunix-server-card,
+html[data-card-style="subtle-fade"] .qunix-server-grid-card,
+html[data-card-style="subtle-fade"] .mantine-Card-root,
+html[data-card-style="subtle-fade"] .mantine-Paper-root:not(.mantine-Modal-content),
+html[data-card-style="subtle-fade"] .card,
+html[data-card-style="subtle-fade"] .container-card {
+  background: var(--ds-card-bg, #12141a) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* 3. Top Accent Fade (Vertical light wash highlighted from top rim downwards) */
+html[data-card-style="top-accent"] .qunix-card-flat,
+html[data-card-style="top-accent"] .qunix-server-card,
+html[data-card-style="top-accent"] .qunix-server-grid-card,
+html[data-card-style="top-accent"] .mantine-Card-root,
+html[data-card-style="top-accent"] .mantine-Paper-root:not(.mantine-Modal-content),
+html[data-card-style="top-accent"] .card,
+html[data-card-style="top-accent"] .container-card {
+  background: var(--ds-card-bg, #12141a) !important;
+  border-top: 2px solid var(--ds-border-color, rgba(255, 255, 255, 0.15)) !important;
+}
+
+/* 4. Frosted Glass (Layered translucency with soft blur & luminous border) */
+html[data-card-style="glass"] .qunix-card-flat,
+html[data-card-style="glass"] .qunix-server-card,
+html[data-card-style="glass"] .qunix-server-grid-card,
+html[data-card-style="glass"] .mantine-Card-root,
+html[data-card-style="glass"] .mantine-Paper-root:not(.mantine-Modal-content),
+html[data-card-style="glass"] .card,
+html[data-card-style="glass"] .container-card {
+  background: rgba(18, 20, 26, 0.75) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* 5. Crisp Border Outline (Pure dark background framed by crisp high-contrast border) */
+html[data-card-style="border-only"] .qunix-card-flat,
+html[data-card-style="border-only"] .qunix-server-card,
+html[data-card-style="border-only"] .qunix-server-grid-card,
+html[data-card-style="border-only"] .mantine-Card-root,
+html[data-card-style="border-only"] .mantine-Paper-root:not(.mantine-Modal-content),
+html[data-card-style="border-only"] .card,
+html[data-card-style="border-only"] .container-card {
+  background: var(--ds-card-bg, #0d0f14) !important;
+  background-image: none !important;
+  border: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.18)) !important;
+  box-shadow: none !important;
+}
+
+/* 6. Accent rim (was glow-rim — solid accent border, no halo) */
+html[data-card-style="glow-rim"] .qunix-card-flat,
+html[data-card-style="glow-rim"] .qunix-server-card,
+html[data-card-style="glow-rim"] .qunix-server-grid-card,
+html[data-card-style="glow-rim"] .mantine-Card-root,
+html[data-card-style="glow-rim"] .mantine-Paper-root:not(.mantine-Modal-content),
+html[data-card-style="glow-rim"] .card,
+html[data-card-style="glow-rim"] .container-card {
+  background: var(--ds-card-bg, #12141a) !important;
+  background-image: none !important;
+  border: 1px solid color-mix(in srgb, var(--ds-button-color, #6c5ce7) 45%, var(--ds-border-color, rgba(255, 255, 255, 0.12))) !important;
+  box-shadow: none !important;
+}
+
+/* Modern Flat UI DISABLED fallback when no explicit data-card-style is set */
+html[data-flat-design="false"]:not([data-card-style]) .qunix-card-flat,
+html[data-flat-design="false"]:not([data-card-style]) .qunix-server-card,
+html[data-flat-design="false"]:not([data-card-style]) .qunix-server-grid-card,
+html[data-flat-design="false"]:not([data-card-style]) .mantine-Card-root,
+html[data-flat-design="false"]:not([data-card-style]) .mantine-Paper-root:not(.mantine-Modal-content) {
+  background: var(--ds-card-bg, #12141a) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.3) !important;
+}
+
+html[data-flat-design="false"] .qunix-card-flat:hover,
+html[data-flat-design="false"] .qunix-server-card:hover,
+html[data-flat-design="false"] .qunix-server-grid-card:hover {
+  border-color: rgba(255, 255, 255, 0.26) !important;
+  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.55) !important;
+}
+
+html[data-flat-design="false"] #qunix-sidebar,
+html[data-flat-design="false"] nav[aria-label="Sidebar"],
+html[data-flat-design="false"] .mantine-AppShell-navbar,
+html[data-flat-design="false"] .mantine-AppShell-header {
+  background: #111217 !important;
+  box-shadow: 4px 0 24px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* Light mode adjustments */
+html[data-mantine-color-scheme="light"] .qunix-card-flat {
+  background-color: var(--ds-card-bg, #ffffff) !important;
+  border: 1px solid var(--ds-border-color, #e2e8f0) !important;
+  color: var(--ds-text-color, #1a202c) !important;
+}
+
+html[data-mantine-color-scheme="light"] .qunix-card-flat:hover {
+  border-color: #cbd5e0 !important;
+}
+
+html[data-mantine-color-scheme="light"][data-flat-design="false"] .qunix-card-flat,
+html[data-mantine-color-scheme="light"][data-flat-design="false"] .qunix-server-grid-card {
+  background: var(--ds-card-bg, #ffffff) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.06) !important;
+}
+
+html[data-mantine-color-scheme="light"][data-card-style="none"] .qunix-card-flat,
+html[data-mantine-color-scheme="light"][data-card-style="none"] .mantine-Card-root,
+html[data-mantine-color-scheme="light"][data-card-style="none"] .card {
+  background: var(--ds-card-bg, #ffffff) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+html[data-mantine-color-scheme="light"][data-card-style="subtle-fade"] .qunix-card-flat,
+html[data-mantine-color-scheme="light"][data-card-style="subtle-fade"] .mantine-Card-root,
+html[data-mantine-color-scheme="light"][data-card-style="subtle-fade"] .card {
+  background: var(--ds-card-bg, #ffffff) !important;
+}
+
+html[data-mantine-color-scheme="light"][data-card-style="top-accent"] .qunix-card-flat,
+html[data-mantine-color-scheme="light"][data-card-style="top-accent"] .mantine-Card-root,
+html[data-mantine-color-scheme="light"][data-card-style="top-accent"] .card {
+  background: var(--ds-card-bg, #ffffff) !important;
+  border-top: 2px solid var(--ds-border-color, #cbd5e1) !important;
+}
+
+html[data-mantine-color-scheme="light"][data-card-style="glass"] .qunix-card-flat,
+html[data-mantine-color-scheme="light"][data-card-style="glass"] .mantine-Card-root,
+html[data-mantine-color-scheme="light"][data-card-style="glass"] .card {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 6px 20px -2px rgba(0, 0, 0, 0.06) !important;
+}
+
+/* Server Status Indicator Dot */
+.qunix-status-indicator {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.qunix-status-indicator.qunix-status-running {
+  background-color: #2ed573;
+}
+
+.qunix-status-indicator.qunix-status-offline {
+  background-color: #747d8c;
+}
+
+.qunix-status-indicator.qunix-status-starting {
+  background-color: #e0af68;
+  animation: qunix-status-pulse 1.4s ease-in-out infinite;
+}
+
+.qunix-status-indicator.qunix-status-stopping {
+  background-color: #ff6b6b;
+  animation: qunix-status-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes qunix-status-pulse {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Flat Badges */
+.qunix-flat-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #e2e8f0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.qunix-flat-badge-subtle {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+html[data-mantine-color-scheme="light"] .qunix-flat-badge {
+  background-color: #edf2f7;
+  border-color: #e2e8f0;
+  color: #2d3748;
+}
+
+/* Flat Action Buttons */
+.qunix-btn-flat {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+  min-height: 34px;
+}
+
+.qunix-btn-flat:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.qunix-btn-start {
+  background-color: var(--ds-power-start-bg, #40c057) !important;
+  color: #ffffff !important;
+  border-color: color-mix(in srgb, var(--ds-power-start-bg, #40c057) 80%, white) !important;
+}
+
+.qunix-btn-start:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--ds-power-start-bg, #40c057) 85%, white) !important;
+  border-color: color-mix(in srgb, var(--ds-power-start-bg, #40c057) 90%, white) !important;
+}
+
+.qunix-btn-restart {
+  background-color: var(--ds-power-restart-bg, #868e96) !important;
+  color: #ffffff !important;
+  border-color: color-mix(in srgb, var(--ds-power-restart-bg, #868e96) 80%, white) !important;
+}
+
+.qunix-btn-restart:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--ds-power-restart-bg, #868e96) 85%, white) !important;
+  border-color: color-mix(in srgb, var(--ds-power-restart-bg, #868e96) 90%, white) !important;
+}
+
+.qunix-btn-stop {
+  background-color: var(--ds-power-stop-bg, #fa5252) !important;
+  color: #ffffff !important;
+  border-color: color-mix(in srgb, var(--ds-power-stop-bg, #fa5252) 80%, white) !important;
+}
+
+.qunix-btn-stop:hover:not(:disabled) {
+  background-color: color-mix(in srgb, var(--ds-power-stop-bg, #fa5252) 85%, white) !important;
+  border-color: color-mix(in srgb, var(--ds-power-stop-bg, #fa5252) 90%, white) !important;
+}
+
+.qunix-btn-kill {
+  background-color: color-mix(in srgb, var(--ds-power-stop-bg, #fa5252) 70%, black) !important;
+  color: #ff8787 !important;
+  border-color: color-mix(in srgb, var(--ds-power-stop-bg, #fa5252) 60%, black) !important;
+}
+
+.qunix-btn-kill:hover:not(:disabled) {
+  background-color: var(--ds-power-stop-bg, #fa5252) !important;
+  color: #ffffff !important;
+  border-color: var(--ds-power-stop-bg, #fa5252) !important;
+}
+
+/* Flat Progress Bars */
+.qunix-flat-progress {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+html[data-mantine-color-scheme="light"] .qunix-flat-progress {
+  background-color: #e2e8f0 !important;
+}
+
+/* Quick Navigation Bento Tiles */
+.qunix-nav-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 8px;
+  border-radius: var(--ds-card-radius, 8px);
+  background-color: var(--ds-card-bg, #12141a);
+  border: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.08));
+  text-decoration: none !important;
+  color: var(--ds-text-color, #e2e8f0) !important;
+  transition: all 0.15s ease;
+  min-height: 78px;
+}
+
+.qunix-nav-tile:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.04);
+  transform: translateY(-1px);
+}
+
+.qunix-nav-tile-icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.qunix-nav-tile-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Nav tiles inside card container have subtle subcard contrast */
+.qunix-card-flat .qunix-nav-tile {
+  background-color: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.qunix-card-flat .qunix-nav-tile:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.16);
+  transform: translateY(-1px);
+}
+
+html[data-mantine-color-scheme="light"] .qunix-card-flat .qunix-nav-tile {
+  background-color: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+html[data-mantine-color-scheme="light"] .qunix-card-flat .qunix-nav-tile:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+/* Server Grid Card (Flat, No Gradient/Grass Design) */
+.qunix-server-grid-card {
+  border-radius: var(--ds-card-radius, 8px) !important;
+  background-color: var(--ds-card-bg, #12141a) !important;
+  border: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.08)) !important;
+  padding: 14px 16px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  position: relative !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transition: border-color 0.15s ease, background-color 0.15s ease !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  contain: layout style;
+}
+
+.qunix-server-grid-card:hover {
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.qunix-server-grid-card.is-selected {
+  border-color: #0a72ef !important;
+  background-color: rgba(10, 114, 239, 0.05) !important;
+}
+
+/* ========================================================================== */
+/* Specific Server Grid Styles (data-server-grid-style)                       */
+/* ========================================================================== */
+
+/* 0. Calagopus Default Grid Style */
+[data-server-grid-style="default"] .qunix-server-grid-card,
+[data-grid-style="default"] .qunix-server-grid-card,
+.qunix-server-grid-card[data-grid-style="default"],
+.qunix-server-grid-card.qunix-grid-style-default,
+html[data-server-grid-style="default"] .qunix-server-grid-card {
+  border-radius: var(--ds-card-radius, 8px) !important;
+  background-color: var(--ds-card-bg, #12141a) !important;
+  border: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.08)) !important;
+  padding: 14px 16px !important;
+}
+
+/* 1. Modern Bento (Clean stacked widgets with high-tech accents) */
+[data-server-grid-style="modern-bento"] .qunix-server-grid-card,
+[data-grid-style="modern-bento"] .qunix-server-grid-card,
+.qunix-server-grid-card[data-grid-style="modern-bento"],
+.qunix-server-grid-card.qunix-grid-style-modern-bento,
+html[data-server-grid-style="modern-bento"] .qunix-server-grid-card {
+  border-radius: 12px !important;
+  background: #14121e !important;
+  border: 1px solid rgba(139, 92, 246, 0.22) !important;
+  padding: 16px !important;
+  box-shadow: 0 4px 20px -2px rgba(108, 92, 231, 0.1) !important;
+}
+
+[data-server-grid-style="modern-bento"] .qunix-server-grid-card:hover,
+[data-grid-style="modern-bento"] .qunix-server-grid-card:hover,
+.qunix-server-grid-card[data-grid-style="modern-bento"]:hover,
+.qunix-server-grid-card.qunix-grid-style-modern-bento:hover,
+html[data-server-grid-style="modern-bento"] .qunix-server-grid-card:hover {
+  border-color: rgba(167, 139, 250, 0.45) !important;
+  background: #181525 !important;
+  box-shadow: 0 10px 28px -4px rgba(108, 92, 231, 0.22) !important;
+}
+
+[data-server-grid-style="modern-bento"] .qunix-server-grid-card .qunix-server-icon-box,
+[data-grid-style="modern-bento"] .qunix-server-grid-card .qunix-server-icon-box,
+.qunix-server-grid-card[data-grid-style="modern-bento"] .qunix-server-icon-box,
+.qunix-server-grid-card.qunix-grid-style-modern-bento .qunix-server-icon-box {
+  background: rgba(108, 92, 231, 0.18) !important;
+  border: 1px solid rgba(139, 92, 246, 0.3) !important;
+  color: #a29bfe !important;
+  border-radius: 10px !important;
+}
+
+[data-server-grid-style="modern-bento"] .qunix-server-grid-card .qunix-grid-metrics-row,
+[data-grid-style="modern-bento"] .qunix-server-grid-card .qunix-grid-metrics-row,
+.qunix-server-grid-card[data-grid-style="modern-bento"] .qunix-grid-metrics-row,
+.qunix-server-grid-card.qunix-grid-style-modern-bento .qunix-grid-metrics-row {
+  background: rgba(28, 24, 42, 0.8) !important;
+  border: 1px solid rgba(139, 92, 246, 0.12) !important;
+  border-radius: 8px !important;
+  padding: 8px 10px !important;
+  margin-bottom: 10px !important;
+}
+
+/* 2. Minimal Clean (Monochrome, razor-thin lines, high whitespace) */
+[data-server-grid-style="minimal-clean"] .qunix-server-grid-card,
+[data-grid-style="minimal-clean"] .qunix-server-grid-card,
+.qunix-server-grid-card[data-grid-style="minimal-clean"],
+.qunix-server-grid-card.qunix-grid-style-minimal-clean,
+html[data-server-grid-style="minimal-clean"] .qunix-server-grid-card {
+  border-radius: 3px !important;
+  padding: 12px 14px !important;
+  border: 1px solid rgba(255, 255, 255, 0.06) !important;
+  background-color: #0b0c10 !important;
+  box-shadow: none !important;
+}
+
+[data-server-grid-style="minimal-clean"] .qunix-server-grid-card:hover,
+[data-grid-style="minimal-clean"] .qunix-server-grid-card:hover,
+.qunix-server-grid-card[data-grid-style="minimal-clean"]:hover,
+.qunix-server-grid-card.qunix-grid-style-minimal-clean:hover,
+html[data-server-grid-style="minimal-clean"] .qunix-server-grid-card:hover {
+  border-color: rgba(255, 255, 255, 0.22) !important;
+  background-color: #10121a !important;
+}
+
+[data-server-grid-style="minimal-clean"] .qunix-server-grid-card .qunix-server-icon-box,
+[data-grid-style="minimal-clean"] .qunix-server-grid-card .qunix-server-icon-box,
+.qunix-server-grid-card[data-grid-style="minimal-clean"] .qunix-server-icon-box,
+.qunix-server-grid-card.qunix-grid-style-minimal-clean .qunix-server-icon-box {
+  border-radius: 3px !important;
+  background: #14161f !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-server-grid-style="minimal-clean"] .qunix-server-grid-card .qunix-grid-metrics-row,
+[data-grid-style="minimal-clean"] .qunix-server-grid-card .qunix-grid-metrics-row,
+.qunix-server-grid-card[data-grid-style="minimal-clean"] .qunix-grid-metrics-row,
+.qunix-server-grid-card.qunix-grid-style-minimal-clean .qunix-grid-metrics-row {
+  border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+  padding-top: 8px !important;
+  margin-bottom: 8px !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+}
+
+/* 3. Glass Depth (Floating layered frosted card) */
+[data-server-grid-style="glass-depth"] .qunix-server-grid-card,
+[data-grid-style="glass-depth"] .qunix-server-grid-card,
+.qunix-server-grid-card[data-grid-style="glass-depth"],
+.qunix-server-grid-card.qunix-grid-style-glass-depth,
+html[data-server-grid-style="glass-depth"] .qunix-server-grid-card {
+  border-radius: 12px !important;
+  background: rgba(16, 18, 27, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.45) !important;
+  padding: 16px !important;
+}
+
+[data-server-grid-style="glass-depth"] .qunix-server-grid-card:hover,
+[data-grid-style="glass-depth"] .qunix-server-grid-card:hover,
+.qunix-server-grid-card[data-grid-style="glass-depth"]:hover,
+.qunix-server-grid-card.qunix-grid-style-glass-depth:hover,
+html[data-server-grid-style="glass-depth"] .qunix-server-grid-card:hover {
+  border-color: rgba(255, 255, 255, 0.32) !important;
+  box-shadow: 0 18px 40px -4px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+}
+
+[data-server-grid-style="glass-depth"] .qunix-server-grid-card .qunix-server-icon-box,
+[data-grid-style="glass-depth"] .qunix-server-grid-card .qunix-server-icon-box,
+.qunix-server-grid-card[data-grid-style="glass-depth"] .qunix-server-icon-box,
+.qunix-server-grid-card.qunix-grid-style-glass-depth .qunix-server-icon-box {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 12px !important;
+}
+
+[data-server-grid-style="glass-depth"] .qunix-server-grid-card .qunix-grid-metrics-row,
+[data-grid-style="glass-depth"] .qunix-server-grid-card .qunix-grid-metrics-row,
+.qunix-server-grid-card[data-grid-style="glass-depth"] .qunix-grid-metrics-row,
+.qunix-server-grid-card.qunix-grid-style-glass-depth .qunix-grid-metrics-row {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  border-radius: 10px !important;
+  padding: 8px 10px !important;
+  margin-bottom: 10px !important;
+}
+
+/* 4. Compact Dense (Streamlined overview for operators with many servers) */
+[data-server-grid-style="compact-dense"] .qunix-server-grid-card,
+[data-grid-style="compact-dense"] .qunix-server-grid-card,
+.qunix-server-grid-card[data-grid-style="compact-dense"],
+.qunix-server-grid-card.qunix-grid-style-compact-dense,
+html[data-server-grid-style="compact-dense"] .qunix-server-grid-card {
+  border-radius: 6px !important;
+  padding: 10px 12px !important;
+  min-height: unset !important;
+  background: #111319 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+[data-server-grid-style="compact-dense"] .qunix-server-grid-card:hover,
+[data-grid-style="compact-dense"] .qunix-server-grid-card:hover,
+.qunix-server-grid-card[data-grid-style="compact-dense"]:hover,
+.qunix-server-grid-card.qunix-grid-style-compact-dense:hover,
+html[data-server-grid-style="compact-dense"] .qunix-server-grid-card:hover {
+  border-color: rgba(255, 255, 255, 0.22) !important;
+  background: #151821 !important;
+}
+
+[data-server-grid-style="compact-dense"] .qunix-server-grid-card .qunix-server-icon-box,
+[data-grid-style="compact-dense"] .qunix-server-grid-card .qunix-server-icon-box,
+.qunix-server-grid-card[data-grid-style="compact-dense"] .qunix-server-icon-box,
+.qunix-server-grid-card.qunix-grid-style-compact-dense .qunix-server-icon-box {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 6px !important;
+}
+
+[data-server-grid-style="compact-dense"] .qunix-server-grid-card .qunix-grid-metrics-row,
+[data-grid-style="compact-dense"] .qunix-server-grid-card .qunix-grid-metrics-row,
+.qunix-server-grid-card[data-grid-style="compact-dense"] .qunix-grid-metrics-row,
+.qunix-server-grid-card.qunix-grid-style-compact-dense .qunix-grid-metrics-row {
+  margin-bottom: 4px !important;
+  padding-top: 4px !important;
+  gap: 6px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+[data-server-grid-style="compact-dense"] .qunix-server-grid-card .qunix-grid-card-footer,
+[data-grid-style="compact-dense"] .qunix-server-grid-card .qunix-grid-card-footer,
+.qunix-server-grid-card[data-grid-style="compact-dense"] .qunix-grid-card-footer,
+.qunix-server-grid-card.qunix-grid-style-compact-dense .qunix-grid-card-footer {
+  padding-top: 4px !important;
+}
+
+/* Light mode overrides for server grid card styles */
+html[data-mantine-color-scheme="light"] [data-server-grid-style="modern-bento"] .qunix-server-grid-card,
+html[data-mantine-color-scheme="light"] .qunix-server-grid-card[data-grid-style="modern-bento"],
+html[data-mantine-color-scheme="light"] .qunix-server-grid-card.qunix-grid-style-modern-bento {
+  background: #f5f3ff !important;
+  border-color: rgba(139, 92, 246, 0.25) !important;
+}
+
+html[data-mantine-color-scheme="light"] [data-server-grid-style="minimal-clean"] .qunix-server-grid-card,
+html[data-mantine-color-scheme="light"] .qunix-server-grid-card[data-grid-style="minimal-clean"],
+html[data-mantine-color-scheme="light"] .qunix-server-grid-card.qunix-grid-style-minimal-clean {
+  background: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+html[data-mantine-color-scheme="light"] [data-server-grid-style="glass-depth"] .qunix-server-grid-card,
+html[data-mantine-color-scheme="light"] .qunix-server-grid-card[data-grid-style="glass-depth"],
+html[data-mantine-color-scheme="light"] .qunix-server-grid-card.qunix-grid-style-glass-depth {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.06) !important;
+}
+
+html[data-mantine-color-scheme="light"] [data-server-grid-style="compact-dense"] .qunix-server-grid-card,
+html[data-mantine-color-scheme="light"] .qunix-server-grid-card[data-grid-style="compact-dense"],
+html[data-mantine-color-scheme="light"] .qunix-server-grid-card.qunix-grid-style-compact-dense {
+  background: #f8fafc !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Mobile Layout UI for Server Grid */
+.qunix-grid-metrics-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.qunix-grid-mobile-compact-view {
+  display: none;
+}
+
+/* When viewport is mobile (< 640px) */
+@media (max-width: 640px) {
+  .qunix-server-grid-card {
+    padding: 12px 14px !important;
+  }
+
+  .qunix-grid-card-inner {
+    display: none;
+  }
+
+  .qunix-grid-mobile-compact-view {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .qunix-dashboard-hero {
+    padding: 14px !important;
+  }
+}
+
+/* Flat Checkbox */
+.qunix-checkbox-flat {
+  accent-color: #0a72ef;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+/* ========================================================================== */
+/* Specific Server List Styles (data-server-list-style)                       */
+/* ========================================================================== */
+
+/* 1. Default Calagopus List (Clean standard row) */
+html[data-server-list-style="default"] .qunix-list-row,
+.qunix-list-row[data-list-style="default"] {
+  border-radius: var(--ds-listing-radius, var(--ds-card-radius, 8px)) !important;
+}
+
+/* 2. Modern Compact (High density, slim margins, compact badges) */
+html[data-server-list-style="modern-compact"] .qunix-list-row,
+.qunix-list-row[data-list-style="modern-compact"] {
+  padding: 8px 14px !important;
+  min-height: 54px !important;
+  border-radius: 6px !important;
+  gap: 12px !important;
+}
+
+html[data-server-list-style="modern-compact"] .qunix-list-row .server-icon-wrapper,
+.qunix-list-row[data-list-style="modern-compact"] .server-icon-wrapper {
+  width: 32px !important;
+  height: 32px !important;
+  font-size: 14px !important;
+}
+
+html[data-server-list-style="modern-compact"] .qunix-list-row .server-name,
+.qunix-list-row[data-list-style="modern-compact"] .server-name {
+  font-size: 13px !important;
+}
+
+html[data-server-list-style="modern-compact"] .qunix-list-row .server-tag,
+.qunix-list-row[data-list-style="modern-compact"] .server-tag {
+  font-size: 10px !important;
+  padding: 1px 6px !important;
+}
+
+/* 3. Glass Row (Frosted glassmorphism backdrop blur) */
+html[data-server-list-style="glass-row"] .qunix-list-row,
+.qunix-list-row[data-list-style="glass-row"] {
+  border-radius: 8px !important;
+  background: rgba(16, 18, 24, 0.85) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
+}
+
+html[data-server-list-style="glass-row"] .qunix-list-row:hover,
+.qunix-list-row[data-list-style="glass-row"]:hover {
+  border-color: rgba(255, 255, 255, 0.24) !important;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35) !important;
+}
+
+/* 5. Floating Card Row (Separated floating card blocks with soft depth) */
+html[data-server-list-style="card-row"] .qunix-list-row,
+.qunix-list-row[data-list-style="card-row"] {
+  border-radius: 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.09) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35) !important;
+  margin-bottom: 8px !important;
+}
+
+html[data-server-list-style="card-row"] .qunix-list-row:hover,
+.qunix-list-row[data-list-style="card-row"]:hover {
+  border-color: rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* Custom Modular Console Layout Container & Auto-Scale (Image 1) */
+.qunix-custom-console-container {
+  display: grid;
+  align-items: stretch;
+}
+
+.qunix-custom-console-container > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.qunix-console-terminal-wrapper {
+  transition: height 0.05s ease;
+}
+
+.qunix-console-terminal-wrapper .xterm,
+.qunix-console-terminal-wrapper .xterm-screen,
+.qunix-console-terminal-wrapper .xterm-viewport {
+  height: 100% !important;
+}
+
+

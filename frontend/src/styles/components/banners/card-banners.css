@@ -42,7 +42,77 @@
 
 /* Hover effects */
 .qunix-server-card.has-banner:hover {
-  opacity: 0.92 !important;
+  opacity: 0.95 !important;
+}
+
+/* Card Banner Container Base Positioning */
+.qunix-server-grid-card[class*="has-banner"],
+.qunix-server-card[class*="has-banner"],
+.mantine-Card-root[class*="has-banner"],
+.qunix-list-row[class*="has-banner"] {
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.qunix-server-grid-card[class*="has-banner"] .qunix-grid-card-inner,
+.qunix-server-grid-card[class*="has-banner"] .qunix-grid-mobile-compact-view {
+  position: relative;
+  z-index: 1;
+}
+
+.qunix-server-grid-card[class*="has-banner"] .text-blue-400 {
+  color: #60a5fa !important;
+}
+
+.qunix-server-grid-card[class*="has-banner"] .text-purple-400 {
+  color: #c084fc !important;
+}
+
+.qunix-server-grid-card[class*="has-banner"] .text-emerald-400 {
+  color: #34d399 !important;
+}
+
+/* Banner Shader Container & Anti-Double-Stack */
+.qunix-banner-shader-container {
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  overflow: hidden !important;
+  border-radius: inherit !important;
+  opacity: 0.95;
+  transition: opacity 0.25s ease;
+}
+
+.qunix-server-grid-card:hover .qunix-banner-shader-container {
+  opacity: 1;
+}
+
+.qunix-server-grid-card:has(.qunix-banner-shader-container)[class*="has-banner"] {
+  background-image: none !important;
+}
+
+/* Server status — flat accent borders (no glow) */
+.qunix-server-grid-card.qunix-server-status-running,
+.qunix-list-row.status-running {
+  border-color: rgba(34, 197, 94, 0.45) !important;
+  box-shadow: none !important;
+}
+
+.qunix-server-grid-card.qunix-server-status-running:hover,
+.qunix-list-row.status-running:hover {
+  border-color: rgba(34, 197, 94, 0.75) !important;
+  box-shadow: none !important;
+}
+
+.qunix-server-grid-card.qunix-server-status-starting {
+  border-color: rgba(234, 179, 8, 0.45) !important;
+  box-shadow: none !important;
+}
+
+.qunix-server-grid-card.qunix-server-status-stopping {
+  border-color: rgba(249, 115, 22, 0.45) !important;
+  box-shadow: none !important;
 }
 
 /* List Layout View classes */
@@ -81,138 +151,262 @@ html.qunix-layout-list .grid[class*="auto-rows-"] {
   box-sizing: border-box !important;
 }
 
-/* List Row Egg Banner Styling */
-.qunix-list-row.has-banner {
-  background-image:
-    linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.55) 100%), var(--ds-egg-banner-image) !important;
-  background-size: cover !important;
-  background-position: center !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
-}
+/* ========================================================================== */
+/* Universal Server Card & List Banner Effects                                */
+/* ========================================================================== */
 
-/* Right Fade-in Banner Styling */
-.qunix-list-row.has-banner-right {
-  background-image:
-    linear-gradient(to right, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
-  background-size: cover !important;
-  background-position: right center !important;
-  background-repeat: no-repeat !important;
-}
-
+/* 1. Right Fade-in Banner Styling (Banner on right, fading to card background on left) */
+.qunix-server-grid-card.has-banner-right,
+.qunix-server-card.has-banner-right,
+.mantine-Card-root.has-banner-right,
+.qunix-list-row.has-banner-right,
+html[data-flat-design] .qunix-server-grid-card.has-banner-right,
+html[data-flat-design] .qunix-server-card.has-banner-right,
+html[data-flat-design] .mantine-Card-root.has-banner-right,
+html[data-flat-design] .qunix-list-row.has-banner-right,
+html[data-server-grid-style] .qunix-server-grid-card.has-banner-right,
+html[data-server-list-style] .qunix-list-row.has-banner-right,
+body.has-bg-image .qunix-server-grid-card.has-banner-right,
+body.has-bg-image .qunix-server-card.has-banner-right,
+body.has-bg-image .mantine-Card-root.has-banner-right,
 body.has-bg-image .qunix-list-row.has-banner-right {
   background-image:
-    linear-gradient(to right, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
-}
-
-.qunix-server-card.has-banner-right {
-  background-image:
-    linear-gradient(135deg, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
+    linear-gradient(to right, rgba(11, 12, 22, 0.85) 0%, rgba(11, 12, 22, 0.50) 50%, rgba(11, 12, 22, 0.10) 100%),
+    var(--ds-egg-banner-image) !important;
   background-size: cover !important;
-  background-position: right center !important;
+  background-position: center !important;
   background-repeat: no-repeat !important;
+  background-color: var(--ds-card-bg-opaque, #0b0c16) !important;
 }
 
-body.has-bg-image .qunix-server-card.has-banner-right {
-  background-image:
-    linear-gradient(135deg, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
-}
-
-/* Left Fade-in Banner Styling */
-.qunix-list-row.has-banner-left {
-  background-image:
-    linear-gradient(to left, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
-  background-size: cover !important;
-  background-position: left center !important;
-  background-repeat: no-repeat !important;
-}
-
+/* 2. Left Fade-in Banner Styling */
+.qunix-server-grid-card.has-banner-left,
+.qunix-server-card.has-banner-left,
+.mantine-Card-root.has-banner-left,
+.qunix-list-row.has-banner-left,
+html[data-flat-design] .qunix-server-grid-card.has-banner-left,
+html[data-flat-design] .qunix-server-card.has-banner-left,
+html[data-flat-design] .mantine-Card-root.has-banner-left,
+html[data-flat-design] .qunix-list-row.has-banner-left,
+html[data-server-grid-style] .qunix-server-grid-card.has-banner-left,
+html[data-server-list-style] .qunix-list-row.has-banner-left,
+body.has-bg-image .qunix-server-grid-card.has-banner-left,
+body.has-bg-image .qunix-server-card.has-banner-left,
+body.has-bg-image .mantine-Card-root.has-banner-left,
 body.has-bg-image .qunix-list-row.has-banner-left {
   background-image:
-    linear-gradient(to left, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
-}
-
-.qunix-server-card.has-banner-left {
-  background-image:
-    linear-gradient(225deg, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
+    linear-gradient(to left, rgba(11, 12, 22, 0.85) 0%, rgba(11, 12, 22, 0.50) 50%, rgba(11, 12, 22, 0.10) 100%),
+    var(--ds-egg-banner-image) !important;
   background-size: cover !important;
-  background-position: left center !important;
+  background-position: center !important;
   background-repeat: no-repeat !important;
+  background-color: var(--ds-card-bg-opaque, #0b0c16) !important;
 }
 
-body.has-bg-image .qunix-server-card.has-banner-left {
-  background-image:
-    linear-gradient(225deg, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
-}
-
-/* Upward Fade-in Banner Styling */
-.qunix-list-row.has-banner-up {
-  background-image:
-    linear-gradient(to top, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
-  background-size: cover !important;
-  background-position: center bottom !important;
-  background-repeat: no-repeat !important;
-}
-
+/* 3. Upward Fade-in Banner Styling */
+.qunix-server-grid-card.has-banner-up,
+.qunix-server-card.has-banner-up,
+.mantine-Card-root.has-banner-up,
+.qunix-list-row.has-banner-up,
+html[data-flat-design] .qunix-server-grid-card.has-banner-up,
+html[data-flat-design] .qunix-server-card.has-banner-up,
+html[data-flat-design] .mantine-Card-root.has-banner-up,
+html[data-flat-design] .qunix-list-row.has-banner-up,
+html[data-server-grid-style] .qunix-server-grid-card.has-banner-up,
+html[data-server-list-style] .qunix-list-row.has-banner-up,
+body.has-bg-image .qunix-server-grid-card.has-banner-up,
+body.has-bg-image .qunix-server-card.has-banner-up,
+body.has-bg-image .mantine-Card-root.has-banner-up,
 body.has-bg-image .qunix-list-row.has-banner-up {
   background-image:
-    linear-gradient(to top, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
-}
-
-.qunix-server-card.has-banner-up {
-  background-image:
-    linear-gradient(0deg, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
+    linear-gradient(to top, rgba(11, 12, 22, 0.85) 0%, rgba(11, 12, 22, 0.45) 50%, rgba(11, 12, 22, 0.10) 100%),
+    var(--ds-egg-banner-image) !important;
   background-size: cover !important;
-  background-position: center bottom !important;
+  background-position: center !important;
   background-repeat: no-repeat !important;
+  background-color: var(--ds-card-bg-opaque, #0b0c16) !important;
 }
 
-body.has-bg-image .qunix-server-card.has-banner-up {
-  background-image:
-    linear-gradient(0deg, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
-}
-
-/* Downward Fade-in Banner Styling */
-.qunix-list-row.has-banner-down {
-  background-image:
-    linear-gradient(to bottom, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
-  background-size: cover !important;
-  background-position: center top !important;
-  background-repeat: no-repeat !important;
-}
-
+/* 4. Downward Fade-in Banner Styling */
+.qunix-server-grid-card.has-banner-down,
+.qunix-server-card.has-banner-down,
+.mantine-Card-root.has-banner-down,
+.qunix-list-row.has-banner-down,
+html[data-flat-design] .qunix-server-grid-card.has-banner-down,
+html[data-flat-design] .qunix-server-card.has-banner-down,
+html[data-flat-design] .mantine-Card-root.has-banner-down,
+html[data-flat-design] .qunix-list-row.has-banner-down,
+html[data-server-grid-style] .qunix-server-grid-card.has-banner-down,
+html[data-server-list-style] .qunix-list-row.has-banner-down,
+body.has-bg-image .qunix-server-grid-card.has-banner-down,
+body.has-bg-image .qunix-server-card.has-banner-down,
+body.has-bg-image .mantine-Card-root.has-banner-down,
 body.has-bg-image .qunix-list-row.has-banner-down {
   background-image:
-    linear-gradient(to bottom, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
-}
-
-.qunix-server-card.has-banner-down {
-  background-image:
-    linear-gradient(180deg, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
+    linear-gradient(to bottom, rgba(11, 12, 22, 0.85) 0%, rgba(11, 12, 22, 0.45) 50%, rgba(11, 12, 22, 0.10) 100%),
+    var(--ds-egg-banner-image) !important;
   background-size: cover !important;
-  background-position: center top !important;
+  background-position: center !important;
   background-repeat: no-repeat !important;
+  background-color: var(--ds-card-bg-opaque, #0b0c16) !important;
 }
 
-body.has-bg-image .qunix-server-card.has-banner-down {
+/* 5. Fade Half Banner Styling */
+.qunix-server-grid-card.has-banner-fade-half,
+.qunix-server-card.has-banner-fade-half,
+.mantine-Card-root.has-banner-fade-half,
+.qunix-list-row.has-banner-fade-half,
+html[data-flat-design] .qunix-server-grid-card.has-banner-fade-half,
+html[data-flat-design] .qunix-server-card.has-banner-fade-half,
+html[data-flat-design] .mantine-Card-root.has-banner-fade-half,
+html[data-flat-design] .qunix-list-row.has-banner-fade-half,
+html[data-server-grid-style] .qunix-server-grid-card.has-banner-fade-half,
+html[data-server-list-style] .qunix-list-row.has-banner-fade-half,
+body.has-bg-image .qunix-server-grid-card.has-banner-fade-half,
+body.has-bg-image .qunix-server-card.has-banner-fade-half,
+body.has-bg-image .mantine-Card-root.has-banner-fade-half,
+body.has-bg-image .qunix-list-row.has-banner-fade-half {
   background-image:
-    linear-gradient(180deg, var(--ds-card-bg-opaque, #0b0c16) 45%, transparent 85%), var(--ds-egg-banner-image) !important;
-}
-
-/* Fade Half Banner Styling */
-.qunix-server-card.has-banner-fade-half {
-  background-image:
-    linear-gradient(180deg, var(--ds-card-bg-opaque, #0b0c16) 50%, transparent 100%), var(--ds-egg-banner-image) !important;
+    linear-gradient(to right, rgba(11, 12, 22, 0.80) 0%, rgba(11, 12, 22, 0.45) 50%, rgba(11, 12, 22, 0.10) 100%),
+    var(--ds-egg-banner-image) !important;
   background-size: cover !important;
-  background-position: center bottom !important;
-  position: relative !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-color: var(--ds-card-bg-opaque, #0b0c16) !important;
 }
 
-.qunix-list-row.has-banner-fade-half {
+/* 6. Dark Overlay Full Cover Banner Styling */
+.qunix-server-grid-card.has-banner,
+.qunix-server-card.has-banner,
+.mantine-Card-root.has-banner,
+.qunix-list-row.has-banner,
+html[data-flat-design] .qunix-server-grid-card.has-banner,
+html[data-flat-design] .qunix-server-card.has-banner,
+html[data-flat-design] .mantine-Card-root.has-banner,
+html[data-flat-design] .qunix-list-row.has-banner,
+html[data-server-grid-style] .qunix-server-grid-card.has-banner,
+html[data-server-list-style] .qunix-list-row.has-banner,
+body.has-bg-image .qunix-server-grid-card.has-banner,
+body.has-bg-image .qunix-server-card.has-banner,
+body.has-bg-image .mantine-Card-root.has-banner,
+body.has-bg-image .qunix-list-row.has-banner {
   background-image:
-    linear-gradient(90deg, var(--ds-card-bg-opaque, #0b0c16) 50%, transparent 100%), var(--ds-egg-banner-image) !important;
+    linear-gradient(180deg, rgba(11, 12, 22, 0.35) 0%, rgba(11, 12, 22, 0.75) 100%),
+    var(--ds-egg-banner-image) !important;
   background-size: cover !important;
-  background-position: right center !important;
-  border-color: rgba(255, 255, 255, 0.1) !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-color: var(--ds-card-bg-opaque, #0b0c16) !important;
+}
+
+html[data-mantine-color-scheme="light"] .qunix-server-grid-card.has-banner,
+html[data-mantine-color-scheme="light"] .qunix-server-card.has-banner,
+html[data-mantine-color-scheme="light"] .mantine-Card-root.has-banner,
+html[data-mantine-color-scheme="light"] .qunix-list-row.has-banner {
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.9) 100%),
+    var(--ds-egg-banner-image) !important;
+}
+
+html[data-mantine-color-scheme="light"] .qunix-server-grid-card.has-banner-right,
+html[data-mantine-color-scheme="light"] .qunix-server-card.has-banner-right,
+html[data-mantine-color-scheme="light"] .mantine-Card-root.has-banner-right,
+html[data-mantine-color-scheme="light"] .qunix-list-row.has-banner-right {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.50) 50%, rgba(255, 255, 255, 0.10) 100%),
+    var(--ds-egg-banner-image) !important;
+}
+
+html[data-mantine-color-scheme="light"] .qunix-server-grid-card.has-banner-left,
+html[data-mantine-color-scheme="light"] .qunix-server-card.has-banner-left,
+html[data-mantine-color-scheme="light"] .mantine-Card-root.has-banner-left,
+html[data-mantine-color-scheme="light"] .qunix-list-row.has-banner-left {
+  background-image:
+    linear-gradient(to left, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.50) 50%, rgba(255, 255, 255, 0.10) 100%),
+    var(--ds-egg-banner-image) !important;
+}
+
+/* ========================================================================== */
+/* Component Overlay Overrides for Cards & Rows with Banners                 */
+/* ========================================================================== */
+
+/* Glass Overlay (Frosted Glass) */
+html[data-component-overlay="glass"] .qunix-server-grid-card[class*="has-banner"],
+html[data-component-overlay="glass"] .qunix-server-card[class*="has-banner"],
+html[data-component-overlay="glass"] .mantine-Card-root[class*="has-banner"],
+html[data-component-overlay="glass"] .qunix-list-row[class*="has-banner"],
+.qunix-server-grid-card[data-component-overlay="glass"][class*="has-banner"],
+.qunix-list-row[data-component-overlay="glass"][class*="has-banner"] {
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  background-image:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(14, 18, 27, 0.70) 100%),
+    var(--ds-egg-banner-image) !important;
+  background-color: rgba(14, 18, 27, 0.65) !important;
+}
+
+html[data-mantine-color-scheme="light"][data-component-overlay="glass"] .qunix-server-grid-card[class*="has-banner"],
+html[data-mantine-color-scheme="light"][data-component-overlay="glass"] .qunix-server-card[class*="has-banner"],
+html[data-mantine-color-scheme="light"][data-component-overlay="glass"] .mantine-Card-root[class*="has-banner"],
+html[data-mantine-color-scheme="light"][data-component-overlay="glass"] .qunix-list-row[class*="has-banner"] {
+  background-image:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.50) 0%, rgba(240, 242, 245, 0.70) 100%),
+    var(--ds-egg-banner-image) !important;
+  background-color: rgba(255, 255, 255, 0.65) !important;
+}
+
+/* Solid Shield Overlay */
+html[data-component-overlay="solid"] .qunix-server-grid-card[class*="has-banner"],
+html[data-component-overlay="solid"] .qunix-server-card[class*="has-banner"],
+html[data-component-overlay="solid"] .mantine-Card-root[class*="has-banner"],
+html[data-component-overlay="solid"] .qunix-list-row[class*="has-banner"],
+.qunix-server-grid-card[data-component-overlay="solid"][class*="has-banner"],
+.qunix-list-row[data-component-overlay="solid"][class*="has-banner"] {
+  background-image:
+    linear-gradient(180deg, rgba(11, 13, 20, 0.90) 0%, rgba(11, 13, 20, 0.95) 100%),
+    var(--ds-egg-banner-image) !important;
+  background-color: rgba(11, 13, 20, 0.95) !important;
+}
+
+html[data-mantine-color-scheme="light"][data-component-overlay="solid"] .qunix-server-grid-card[class*="has-banner"],
+html[data-mantine-color-scheme="light"][data-component-overlay="solid"] .qunix-server-card[class*="has-banner"],
+html[data-mantine-color-scheme="light"][data-component-overlay="solid"] .mantine-Card-root[class*="has-banner"],
+html[data-mantine-color-scheme="light"][data-component-overlay="solid"] .qunix-list-row[class*="has-banner"] {
+  background-image:
+    linear-gradient(180deg, rgba(244, 245, 247, 0.90) 0%, rgba(244, 245, 247, 0.95) 100%),
+    var(--ds-egg-banner-image) !important;
+  background-color: rgba(244, 245, 247, 0.95) !important;
+}
+
+/* Radial Glow Overlay */
+html[data-component-overlay="radial"] .qunix-server-grid-card[class*="has-banner"],
+html[data-component-overlay="radial"] .qunix-server-card[class*="has-banner"],
+html[data-component-overlay="radial"] .mantine-Card-root[class*="has-banner"],
+html[data-component-overlay="radial"] .qunix-list-row[class*="has-banner"],
+.qunix-server-grid-card[data-component-overlay="radial"][class*="has-banner"],
+.qunix-list-row[data-component-overlay="radial"][class*="has-banner"] {
+  background-image:
+    radial-gradient(circle at 75% 40%, rgba(108, 92, 231, 0.32) 0%, rgba(11, 12, 22, 0.85) 75%),
+    var(--ds-egg-banner-image) !important;
+}
+
+html[data-mantine-color-scheme="light"][data-component-overlay="radial"] .qunix-server-grid-card[class*="has-banner"],
+html[data-mantine-color-scheme="light"][data-component-overlay="radial"] .qunix-server-card[class*="has-banner"],
+html[data-mantine-color-scheme="light"][data-component-overlay="radial"] .mantine-Card-root[class*="has-banner"],
+html[data-mantine-color-scheme="light"][data-component-overlay="radial"] .qunix-list-row[class*="has-banner"] {
+  background-image:
+    radial-gradient(circle at 75% 40%, rgba(108, 92, 231, 0.20) 0%, rgba(244, 245, 247, 0.85) 75%),
+    var(--ds-egg-banner-image) !important;
+}
+
+/* None / Raw Image Overlay */
+html[data-component-overlay="none"] .qunix-server-grid-card[class*="has-banner"],
+html[data-component-overlay="none"] .qunix-server-card[class*="has-banner"],
+html[data-component-overlay="none"] .mantine-Card-root[class*="has-banner"],
+html[data-component-overlay="none"] .qunix-list-row[class*="has-banner"],
+.qunix-server-grid-card[data-component-overlay="none"][class*="has-banner"],
+.qunix-list-row[data-component-overlay="none"][class*="has-banner"] {
+  background-image: var(--ds-egg-banner-image) !important;
 }
 
 .qunix-grid-card-wrapper,
@@ -329,7 +523,7 @@ html.qunix-hover-glow .mc-vc-version-card:hover,
 html.qunix-hover-glow .mcvc-admin-stat-card:hover,
 html.qunix-hover-glow .mcvc-admin-chart-card:hover {
   border-color: var(--ds-primary-color, #7aa2f7) !important;
-  box-shadow: 0 0 18px rgba(108, 92, 231, 0.5) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25) !important;
 }
 
 html.qunix-hover-none .qunix-list-row:hover,
@@ -411,28 +605,23 @@ html.qunix-hover-none .mcvc-admin-chart-card:hover {
 
 .qunix-list-row .status-dot.is-running {
   background-color: #2ed573 !important;
-  box-shadow: 0 0 6px rgba(46, 213, 115, 0.8) !important;
 }
 
 .qunix-list-row .status-dot.is-starting {
   background-color: #ffa502 !important;
-  box-shadow: 0 0 6px rgba(255, 165, 2, 0.8) !important;
 }
 
 .qunix-list-row .status-dot.is-suspended {
   background-color: #ff4757 !important;
-  box-shadow: 0 0 6px rgba(255, 71, 87, 0.8) !important;
 }
 
 .qunix-list-row .status-dot.is-transferring {
   background-color: #ffa502 !important;
-  box-shadow: 0 0 6px rgba(255, 165, 2, 0.8) !important;
   animation: qunix-pulse-dot 1.5s infinite ease-in-out !important;
 }
 
 .qunix-list-row .status-dot.is-installing {
   background-color: #7aa2f7 !important;
-  box-shadow: 0 0 6px rgba(122, 162, 247, 0.8) !important;
   animation: qunix-pulse-dot 1.5s infinite ease-in-out !important;
 }
 
@@ -848,7 +1037,23 @@ html[data-mantine-color-scheme="light"] .qunix-layout-toggle-btn:hover {
 .qunix-layout-toggle-btn.active {
   color: #ffffff !important;
   background: var(--ds-primary-color, #7aa2f7) !important;
-  box-shadow: 0 2px 6px rgba(108, 92, 231, 0.25) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+
+.qunix-layout-toggle-btn.qunix-customize-btn {
+  width: auto !important;
+  min-width: fit-content !important;
+  padding: 0 10px !important;
+  gap: 6px !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+}
+
+.qunix-layout-toggle-btn.qunix-customize-btn svg {
+  width: 12px !important;
+  height: 12px !important;
+  display: inline-block !important;
+  flex-shrink: 0 !important;
 }
 
 /* Responsive adjustment for list layout on small devices */

@@ -31,6 +31,7 @@ import ActionIcon from '@/elements/buttons/ActionIcon.tsx';
 import { bytesToString, mbToBytes } from '@/lib/format/size.ts';
 import { formatAllocation, serverStatusInfo, statusToColor } from '@/lib/domain/server.ts';
 import Sparkline from './Sparkline.tsx';
+import { getBannerUrl, getEggImageUrl } from '../../lib/eggResolver.ts';
 
 // Sparkline Cache & Component
 const metricHistoryCache: Record<string, number[]> = {};
@@ -81,7 +82,9 @@ export const QunixServerListRow: React.FC<{
   showSelection?: boolean;
   showContextMenu?: boolean;
   bannerUrl?: string | null;
+  eggImageUrl?: string | null;
   activeStyle?: string | null;
+  listStyle?: string | null;
 }> = ({
   server,
   stats,
@@ -94,7 +97,9 @@ export const QunixServerListRow: React.FC<{
   showSelection = true,
   showContextMenu = true,
   bannerUrl,
+  eggImageUrl,
   activeStyle,
+  listStyle,
 }) => {
   const { t } = useTranslations();
   const { user } = useAuth();
@@ -118,7 +123,24 @@ export const QunixServerListRow: React.FC<{
   const color = statusToColor(state as any);
 
   // Settings Configuration
-  const s = (window as any).qunixThemeSettings;
+  const [themeSettings, setThemeSettings] = useState(() =>
+    typeof window !== 'undefined' ? (window as any).qunixThemeSettings : null
+  );
+
+  useEffect(() => {
+    const handleSettingsChange = (e: any) => {
+      setThemeSettings({
+        ...((window as any).qunixThemeSettings || {}),
+        ...(e.detail || {}),
+      });
+    };
+    window.addEventListener('qunix-theme-settings-changed', handleSettingsChange);
+    return () => {
+      window.removeEventListener('qunix-theme-settings-changed', handleSettingsChange);
+    };
+  }, []);
+
+  const s = themeSettings || (typeof window !== 'undefined' ? (window as any).qunixThemeSettings : null);
   const chartType = s?.list_layout_chart || s?.listLayoutChart || 'cpu';
 
   let currentVal: number | undefined;
@@ -382,26 +404,50 @@ export const QunixServerListRow: React.FC<{
               ];
               const customStyles: React.CSSProperties = {};
 
-              if (bannerUrl && activeStyle !== 'disabled') {
+              const resolvedActiveStyle = activeStyle || s?.list_banner_style || s?.listBannerStyle || 'right';
+              const resolvedEggImageUrl = eggImageUrl || getEggImageUrl(server, s);
+              const resolvedBannerUrl =
+                bannerUrl !== undefined && bannerUrl !== null
+                  ? bannerUrl
+                  : getBannerUrl(server, s) || resolvedEggImageUrl;
+
+              if (resolvedBannerUrl && resolvedActiveStyle !== 'disabled') {
                 classes.push('qunix-server-card');
-                if (activeStyle === 'right') {
+                if (resolvedActiveStyle === 'right') {
                   classes.push('has-banner-right');
-                } else if (activeStyle === 'fade-left') {
+                } else if (resolvedActiveStyle === 'fade-left' || resolvedActiveStyle === 'left') {
                   classes.push('has-banner-left');
-                } else if (activeStyle === 'fade-up') {
+                } else if (resolvedActiveStyle === 'fade-up' || resolvedActiveStyle === 'up') {
                   classes.push('has-banner-up');
-                } else if (activeStyle === 'fade-down') {
+                } else if (resolvedActiveStyle === 'fade-down' || resolvedActiveStyle === 'down') {
                   classes.push('has-banner-down');
-                } else if (activeStyle === 'fade-half') {
+                } else if (resolvedActiveStyle === 'fade-half') {
                   classes.push('has-banner-fade-half');
                 } else {
                   classes.push('has-banner');
                 }
-                (customStyles as any)['--ds-egg-banner-image'] = `url("${bannerUrl}")`;
+                (customStyles as any)['--ds-egg-banner-image'] = `url("${resolvedBannerUrl}")`;
               }
 
+              const resolvedOverlayStyle =
+                s?.component_overlay_style ||
+                s?.componentOverlayStyle ||
+                (typeof document !== 'undefined' ? document.documentElement.getAttribute('data-component-overlay') : null) ||
+                'fade';
+
+              const resolvedListStyle =
+                listStyle ||
+                s?.server_list_style ||
+                (typeof window !== 'undefined' && (window as any).qunixThemeSettings?.server_list_style) ||
+                'default';
+
               return (
-                <div className={classes.filter(Boolean).join(' ')} style={customStyles}>
+                <div
+                  className={[...classes, `qunix-list-style-${resolvedListStyle}`].filter(Boolean).join(' ')}
+                  style={customStyles}
+                  data-list-style={resolvedListStyle}
+                  data-component-overlay={resolvedOverlayStyle}
+                >
                   {showSelection !== false && (
                     <div
                       className='qunix-list-select-wrapper'
@@ -434,25 +480,10 @@ export const QunixServerListRow: React.FC<{
                   )}
 
                   <div className='server-details'>
-                    <div className='server-icon-wrapper'>
-                      {(bannerUrl || server.egg?.name) && (
-                        <img
-                          src={bannerUrl || `/banners/${server.egg.name.toLowerCase().replace(/[^a-z0-9]/g, '-')}.png`}
-                          alt={server.egg?.name || 'Server'}
-                          loading='lazy'
-                          decoding='async'
-                          onError={(e) => {
-                            e.currentTarget.style.display = 'none';
-                            if (e.currentTarget.nextElementSibling) {
-                              (e.currentTarget.nextElementSibling as HTMLElement).style.display = 'inline-block';
-                            }
-                          }}
-                          style={{ width: '22px', height: '22px', objectFit: 'cover', borderRadius: '4px' }}
-                        />
-                      )}
+                    <div className='server-icon-wrapper flex items-center justify-center overflow-hidden'>
                       <FontAwesomeIcon
                         icon={faServer}
-                        style={{ display: (bannerUrl || server.egg?.name) ? 'none' : 'inline-block' }}
+                        className='server-icon'
                       />
                       <span className={`status-dot ${dotClass}`} />
                     </div>

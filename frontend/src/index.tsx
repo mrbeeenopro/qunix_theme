@@ -45,12 +45,15 @@ import {
   faSun,
   faArrowRightFromBracket,
   faEyeSlash,
+  faGauge,
+  faTerminal,
 } from '@fortawesome/free-solid-svg-icons';
 import Notification from '@/elements/feedback/Notification.tsx';
 import { NotificationCenter } from './components/theme/NotificationCenter.tsx';
+import { QunixTelemetryModal } from './components/theme/QunixTelemetryModal.tsx';
 import { useToast } from '@/providers/ToastProvider.tsx';
 import { Extension, ExtensionContext, globalTranslationHandle } from 'shared';
-import { useComputedColorScheme, useMantineColorScheme, type MantineThemeOverride, ActionIcon, Divider as MantineDivider } from '@mantine/core';
+import { useComputedColorScheme, useMantineColorScheme, type MantineThemeOverride, ActionIcon, Divider as MantineDivider, Loader, Skeleton, Center, Box, Group as MantineGroup, Stack } from '@mantine/core';
 import { axiosInstance } from '@/api/axios.ts';
 import { useServerStore } from '@/stores/server.ts';
 import { useUserStore } from '@/stores/user.ts';
@@ -62,10 +65,12 @@ import { formatAllocation } from '@/lib/domain/server.ts';
 import { copyToClipboard } from '@/lib/clipboard/copy.ts';
 import Alert from '@/elements/feedback/Alert.tsx';
 import Spinner from '@/elements/feedback/Spinner.tsx';
-import * as Spinners from 'react-spinners';
 import pkg from '../package.json';
 import './app.css';
 import { renderPreloaderCanvas } from './lib/preloaderCanvas.ts';
+import { QunixServerCardSkeleton } from './components/theme/QunixSkeletonLoader.tsx';
+import { loadFont } from './lib/fontManager.ts';
+import { getBannerUrl, getEggImageUrl } from './lib/eggResolver.ts';
 
 // Preloader with multiple high-tech styles, exact duration timing & smooth dismissal
 (function initQunixDynamicPreloader() {
@@ -80,7 +85,12 @@ import { renderPreloaderCanvas } from './lib/preloaderCanvas.ts';
     const userPrivacy = localStorage.getItem('qunix_user_privacy_mode');
     const isPrivacy = userPrivacy !== null ? userPrivacy === 'true' : false;
     document.documentElement.setAttribute('data-privacy-blur', isPrivacy ? 'true' : 'false');
-    const enabled = settings.enable_preloader !== undefined ? settings.enable_preloader : true;
+    document.documentElement.setAttribute('data-dialog-design', settings.dialog_design || settings.dialogDesign || 'stark');
+    document.documentElement.setAttribute('data-card-border', settings.card_border || settings.cardBorder || 'subtle');
+    const dialogAccentInit = settings.dialog_accent_color || settings.dialogAccentColor || settings.button_color || '#6c5ce7';
+    document.documentElement.style.setProperty('--ds-dialog-accent-color', dialogAccentInit);
+    document.documentElement.style.setProperty('--ds-button-color', settings.button_color || '#6c5ce7');
+    const enabled = settings.enable_preloader === true;
 
     // Clean up any static preloader if preloader is disabled
     const staticShell = document.getElementById('qunix-preloader-shell');
@@ -166,7 +176,7 @@ import { renderPreloaderCanvas } from './lib/preloaderCanvas.ts';
 
     const bgStyle = bgImgUrl && bgImgUrl.trim()
       ? `background-image: url("${bgImgUrl}"); background-size: cover; background-position: center; background-repeat: no-repeat; background-color: ${bgColor};`
-      : `background: radial-gradient(circle at 50% 35%, rgba(108, 92, 231, 0.22), transparent 65%), ${bgColor};`;
+      : `background: ${bgColor};`;
 
     const styleEl = document.createElement('style');
     styleEl.id = 'qunix-dyn-preloader-style';
@@ -219,7 +229,7 @@ import { renderPreloaderCanvas } from './lib/preloaderCanvas.ts';
         font-weight: 700;
         letter-spacing: -0.5px;
         color: #ffffff;
-        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+        text-shadow: none;
         margin-bottom: 4px;
       }
       .qunix-dyn-subtitle {
@@ -229,7 +239,7 @@ import { renderPreloaderCanvas } from './lib/preloaderCanvas.ts';
         letter-spacing: 2.2px;
         color: #a9b1d6;
         text-transform: uppercase;
-        text-shadow: 0 0 10px ${accentColor}66;
+        text-shadow: none;
         animation: qunix-text-pulse 2s ease-in-out infinite;
       }
 
@@ -359,6 +369,23 @@ const LazyConfiguration: React.FC = (props) => (
   </React.Suspense>
 );
 
+import { QunixServerDashboardSkeleton, QunixServerConsoleSkeleton } from './components/theme/QunixSkeletonLoader.tsx';
+
+const QunixServerDashboardLazy = React.lazy(() => import('./components/theme/QunixServerDashboard.tsx'));
+const QunixServerConsoleLazy = React.lazy(() => import('./components/theme/QunixServerConsole.tsx'));
+
+const LazyServerDashboard: React.FC = (props) => (
+  <React.Suspense fallback={<QunixServerDashboardSkeleton />}>
+    <QunixServerDashboardLazy {...props} />
+  </React.Suspense>
+);
+
+const LazyServerConsole: React.FC = (props) => (
+  <React.Suspense fallback={<QunixServerConsoleSkeleton />}>
+    <QunixServerConsoleLazy {...props} />
+  </React.Suspense>
+);
+
 import Sidebar from '@/elements/navigation/Sidebar.tsx';
 import Button from '@/elements/buttons/Button.tsx';
 import Tooltip from '@/elements/overlays/Tooltip.tsx';
@@ -380,7 +407,7 @@ import {
   QunixDashboardContainerWrapper,
 } from './components/theme/DashboardLayout.tsx';
 import ServerBannerComponent from './components/theme/ServerBanner.tsx';
-import { CustomToast, QunixThemeToast } from './components/theme/ToastComponents.tsx';
+import { CustomToast, QunixThemeToast, GlassToast } from './components/theme/ToastComponents.tsx';
 import QunixPrivacyContainer from './components/theme/QunixPrivacyContainer.tsx';
 
 if (typeof window !== 'undefined' && !(window as any).qunixRenderedServersMap) {
@@ -399,6 +426,7 @@ const ITEM_DEFAULT_ICONS: Record<string, string> = {
   sessions: 'shield-check',
   shortcuts: 'command-line',
   activity: 'clock',
+  server_dashboard: 'chart-bar',
   server_console: 'terminal',
   server_files: 'folder',
   server_databases: 'circle-stack',
@@ -466,8 +494,9 @@ const getSidebarKey = (to: string): string | null => {
   // Match server routes
   if (cleanPath.startsWith('/server/')) {
     const parts = cleanPath.split('/'); // ["", "server", "uuid", "subpage"]
-    if (parts.length === 3) return 'server_console';
+    if (parts.length === 3) return 'server_dashboard';
     const sub = parts[3];
+    if (sub === 'console') return 'server_console';
     if (sub === 'files' || parts.slice(3).join('/').startsWith('files')) return 'server_files';
     if (sub === 'databases') return 'server_databases';
     if (sub === 'schedules') return 'server_schedules';
@@ -1157,272 +1186,9 @@ const QunixSidebarLink: React.FC<any> = (props) => {
   );
 };
 
-const qunixFontBlobCache = new Map<string, string>();
-const qunixLoadedFonts = new Set<string>();
-
-async function fetchAndInjectFontCSS(cssOrFontUrl: string, familyName: string, targetDoc: Document = document) {
-  const fontSlug = familyName.replace(/\s+/g, '-').toLowerCase();
-  const styleId = `qunix-font-style-${fontSlug}`;
-  const existingEl = document.getElementById(styleId);
-  if (existingEl && existingEl.textContent && existingEl.textContent.includes('@font-face') && qunixLoadedFonts.has(styleId)) {
-    if (targetDoc && targetDoc !== document) {
-      let targetEl = targetDoc.getElementById(styleId) as HTMLStyleElement | null;
-      if (!targetEl) {
-        targetEl = targetDoc.createElement('style');
-        targetEl.id = styleId;
-        targetDoc.head?.appendChild(targetEl);
-      }
-      targetEl.textContent = existingEl.textContent;
-    }
-    return;
-  }
-
-  try {
-    const isFontFile = /\.(woff2?|ttf|otf)(\?.*)?$/i.test(cssOrFontUrl);
-    if (isFontFile) {
-      let finalUrl = cssOrFontUrl;
-      if (cssOrFontUrl.startsWith('http://') || cssOrFontUrl.startsWith('https://')) {
-        let blobUrl = qunixFontBlobCache.get(cssOrFontUrl);
-        if (!blobUrl) {
-          const ctrl = new AbortController();
-          const timer = setTimeout(() => ctrl.abort(), 2500);
-          try {
-            const res = await fetch(cssOrFontUrl, { signal: ctrl.signal });
-            if (res.ok) {
-              const blob = await res.blob();
-              blobUrl = URL.createObjectURL(blob);
-              qunixFontBlobCache.set(cssOrFontUrl, blobUrl);
-            }
-          } catch (_) {} finally {
-            clearTimeout(timer);
-          }
-        }
-        if (blobUrl) finalUrl = blobUrl;
-      }
-
-      const ext = cssOrFontUrl.match(/\.(woff2?|ttf|otf)/i)?.[1]?.toLowerCase() || 'woff2';
-      const format = ext === 'ttf' ? 'truetype' : ext === 'otf' ? 'opentype' : ext;
-
-      const existingLink = document.getElementById(styleId);
-      if (existingLink && existingLink.tagName.toLowerCase() === 'link') {
-        existingLink.remove();
-      }
-
-      const cssContent = `@font-face { font-family: "${familyName}"; src: url("${finalUrl}") format("${format}"); font-display: swap; }`;
-      const injectDirect = (doc: Document) => {
-        if (!doc || !doc.head) return;
-        let styleEl = doc.getElementById(styleId) as HTMLStyleElement | null;
-        if (!styleEl) {
-          styleEl = doc.createElement('style');
-          styleEl.id = styleId;
-          doc.head.appendChild(styleEl);
-        }
-        styleEl.textContent = cssContent;
-      };
-      injectDirect(document);
-      if (targetDoc && targetDoc !== document) {
-        injectDirect(targetDoc);
-      }
-      qunixLoadedFonts.add(styleId);
-      return;
-    }
-
-    // 1. Fetch stylesheet text with 2500ms timeout
-    const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), 2500);
-    let res: Response;
-    try {
-      res = await fetch(cssOrFontUrl, {
-        signal: ctrl.signal,
-        headers: { Accept: 'text/css,*/*;q=0.1' },
-      });
-    } catch (_fetchErr) {
-      return;
-    } finally {
-      clearTimeout(timer);
-    }
-
-    if (!res || !res.ok) return;
-
-    let cssText = await res.text();
-
-    // 2. Extract font binary URLs inside url(...)
-    const urlRegex = /url\((?:['"]?)(https?:\/\/[^)'"]+)(?:['"]?)\)/g;
-    const matches = Array.from(cssText.matchAll(urlRegex));
-    const allFontUrls = Array.from(new Set(matches.map((m) => m[1])));
-
-    // Limit to at most 4 primary font binaries (avoids 60 parallel fetches)
-    const targetFontUrls = allFontUrls.slice(0, 4);
-
-    // 3. Fetch font binaries in parallel with 2000ms timeout per file
-    await Promise.all(
-      targetFontUrls.map(async (fUrl) => {
-        try {
-          let blobUrl = qunixFontBlobCache.get(fUrl);
-          if (!blobUrl) {
-            const fontCtrl = new AbortController();
-            const fontTimer = setTimeout(() => fontCtrl.abort(), 2000);
-            try {
-              const fontRes = await fetch(fUrl, { signal: fontCtrl.signal });
-              if (fontRes.ok) {
-                const fontBlob = await fontRes.blob();
-                blobUrl = URL.createObjectURL(fontBlob);
-                qunixFontBlobCache.set(fUrl, blobUrl);
-              }
-            } finally {
-              clearTimeout(fontTimer);
-            }
-          }
-          if (blobUrl) {
-            cssText = cssText.split(fUrl).join(blobUrl);
-          }
-        } catch (_fErr) {}
-      })
-    );
-
-    // 4. Strip unconverted remote font URLs in @font-face blocks so CSP doesn't warn
-    cssText = cssText.replace(/@font-face\s*\{[^}]*url\(\s*['"]?https?:\/\/[^}]*\}/gi, '');
-
-    // 5. Inject inline <style> element
-    const injectIntoDoc = (doc: Document) => {
-      if (!doc || !doc.head) return;
-      const existingLink = doc.getElementById(styleId);
-      if (existingLink && existingLink.tagName.toLowerCase() === 'link') {
-        existingLink.remove();
-      }
-      let styleEl = doc.getElementById(styleId) as HTMLStyleElement | null;
-      if (!styleEl) {
-        styleEl = doc.createElement('style');
-        styleEl.id = styleId;
-        doc.head.appendChild(styleEl);
-      }
-      styleEl.textContent = cssText;
-    };
-
-    injectIntoDoc(document);
-    if (targetDoc && targetDoc !== document) {
-      injectIntoDoc(targetDoc);
-    }
-    qunixLoadedFonts.add(styleId);
-
-    try {
-      if (document.fonts && document.fonts.load) {
-        document.fonts.load(`16px "${familyName}"`);
-      }
-      if (targetDoc && targetDoc.fonts && targetDoc.fonts.load) {
-        targetDoc.fonts.load(`16px "${familyName}"`);
-      }
-    } catch (_) {}
-  } catch (_err) {}
-}
-
-const GOOGLE_FONT_PRESET_URLS: Record<string, string> = {
-  inter: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap',
-  outfit: 'https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap',
-  poppins: 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap',
-  'plus jakarta sans': 'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&display=swap',
-  roboto: 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap',
-  'open sans': 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap',
-  montserrat: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap',
-  'space grotesk': 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&display=swap',
-  'fira code': 'https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap',
-  'jetbrains mono': 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap',
-  'google sans': 'https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap',
-};
-
-async function loadFontCSPFriendly(fontName: string, targetDoc: Document = document) {
-  if (!fontName) return;
-  try {
-    const cleanFont = fontName.trim();
-    if (cleanFont.length < 2) return;
-
-    const applyFontToDoc = (doc: Document, stack: string) => {
-      if (!doc) return;
-      const docRoot = doc.documentElement;
-      if (docRoot) {
-        docRoot.style.setProperty('--ds-font-family', stack);
-        docRoot.style.setProperty('--mantine-font-family', stack);
-        docRoot.style.setProperty('--font-sans', stack);
-      }
-      if (doc.body) {
-        doc.body.style.fontFamily = stack;
-      }
-    };
-
-    // 1. Direct stylesheet or font URL (http:// or https://)
-    if (cleanFont.startsWith('http://') || cleanFont.startsWith('https://')) {
-      let extractedName = 'CustomFont';
-      const match = cleanFont.match(/family=([^&:]+)/);
-      if (match && match[1]) {
-        extractedName = decodeURIComponent(match[1]).replace(/\+/g, ' ').replace(/['"]/g, '').trim();
-      } else {
-        const urlParts = cleanFont.split('/');
-        const fileName = urlParts[urlParts.length - 1].split('?')[0].split('#')[0];
-        if (fileName) {
-          extractedName = fileName.replace(/\.(otf|ttf|woff2?|css)$/i, '').replace(/['"]/g, '').trim();
-        }
-      }
-
-      const fontStack = `"${extractedName}", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
-      applyFontToDoc(document, fontStack);
-      if (targetDoc && targetDoc !== document) {
-        applyFontToDoc(targetDoc, fontStack);
-      }
-
-      fetchAndInjectFontCSS(cleanFont, extractedName, targetDoc).catch(() => {});
-      return;
-    }
-
-    // 2. System UI or sans-serif
-    if (cleanFont.toLowerCase() === 'system-ui' || cleanFont.toLowerCase() === 'sans-serif') {
-      const fontStack = 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-      applyFontToDoc(document, fontStack);
-      if (targetDoc && targetDoc !== document) {
-        applyFontToDoc(targetDoc, fontStack);
-      }
-      return;
-    }
-
-    // 3. Clean font family name
-    const cleanName = cleanFont.replace(/^['"]|['"]$/g, '');
-    const lowerName = cleanName.toLowerCase();
-
-    // Fastpath for JetBrains Mono
-    if (lowerName === 'jetbrains mono' || lowerName === 'jetbrainsmono nerd font') {
-      const jbStack = "'JetBrains Mono', 'JetBrainsMono Nerd Font', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace";
-      applyFontToDoc(document, jbStack);
-      if (targetDoc && targetDoc !== document) {
-        applyFontToDoc(targetDoc, jbStack);
-      }
-      return;
-    }
-
-    const formattedFont = cleanName
-      .split(/\s+/)
-      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-      .join(' ');
-
-    const fontStack = `"${formattedFont}", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif`;
-    applyFontToDoc(document, fontStack);
-    if (targetDoc && targetDoc !== document) {
-      applyFontToDoc(targetDoc, fontStack);
-    }
-
-    const builtInFonts = [
-      'system-ui', 'sans-serif', 'serif', 'monospace',
-      'arial', 'helvetica', 'times new roman', 'courier new', 'verdana',
-      'georgia', 'tahoma', 'trebuchet ms', 'impact', 'consolas', 'menlo', 'monaco'
-    ];
-
-    if (!builtInFonts.includes(lowerName)) {
-      const googleFontUrl = GOOGLE_FONT_PRESET_URLS[lowerName] ||
-        `https://fonts.googleapis.com/css2?family=${encodeURIComponent(formattedFont).replace(/%20/g, '+')}:wght@400;600&display=swap`;
-      fetchAndInjectFontCSS(googleFontUrl, formattedFont, targetDoc).catch(() => {});
-    }
-  } catch (_err) {}
-}
-
-(window as any).qunixLoadFont = loadFontCSPFriendly;
+// Delegated to high-performance, HTTPS-safe fontManager with persistent IndexedDB caching
+const loadFontCSPFriendly = loadFont;
+(window as any).qunixLoadFont = loadFont;
 
 const isAuthRoute = (p: string) =>
   p.startsWith('/auth') ||
@@ -2102,6 +1868,34 @@ const QunixThemeLoader: React.FC = () => {
       settings.dashboard_layout || settings.dashboardLayout || 'default',
     );
     root.setAttribute(
+      'data-server-mobile-layout',
+      settings.server_grid_mobile_layout || settings.serverGridMobileLayout || 'compact',
+    );
+    root.setAttribute(
+      'data-server-grid-style',
+      settings.server_grid_style || settings.serverGridStyle || 'default',
+    );
+    root.setAttribute(
+      'data-server-list-style',
+      settings.server_list_style || settings.serverListStyle || 'default',
+    );
+    root.setAttribute(
+      'data-skeleton-loader',
+      (settings.enable_skeleton_loader !== false) ? 'true' : 'false',
+    );
+    root.setAttribute(
+      'data-flat-design',
+      (settings.enable_flat_design !== undefined ? settings.enable_flat_design : true) ? 'true' : 'false',
+    );
+    root.setAttribute(
+      'data-card-style',
+      settings.global_card_style || settings.globalCardStyle || (settings.enable_flat_design !== false ? 'none' : 'subtle-fade'),
+    );
+    root.setAttribute(
+      'data-disable-console-resize',
+      (settings.disable_console_auto_resize || settings.disableConsoleAutoResize) ? 'true' : 'false',
+    );
+    root.setAttribute(
       'data-card-animation',
       settings.card_animation || settings.cardAnimation || 'slide-up',
     );
@@ -2113,6 +1907,13 @@ const QunixThemeLoader: React.FC = () => {
       'data-dock-position',
       'sidebar',
     );
+    root.setAttribute('data-button-style', settings.button_style || settings.buttonStyle || 'filled');
+    root.setAttribute('data-input-style', settings.input_style || settings.inputStyle || 'outline');
+    root.setAttribute('data-switch-style', settings.switch_style || settings.switchStyle || 'pill');
+    root.setAttribute('data-icon-style', settings.icon_style || settings.iconStyle || 'default');
+    root.setAttribute('data-component-overlay', settings.component_overlay_style || settings.componentOverlayStyle || 'fade');
+    root.setAttribute('data-clean-titles', (settings.clean_title_headers !== false) ? 'true' : 'false');
+    root.setAttribute('data-console-style', settings.console_style || settings.consoleStyle || 'default');
     const userPrivacy = localStorage.getItem('qunix_user_privacy_mode');
     const isPrivacy = userPrivacy !== null ? userPrivacy === 'true' : false;
     root.setAttribute('data-privacy-blur', isPrivacy ? 'true' : 'false');
@@ -2183,7 +1984,7 @@ const QunixThemeLoader: React.FC = () => {
     );
     const buttonColor = getThemeVal(
       settings.button_color || settings.buttonColor,
-      settings.light_button_color || settings.lightButtonColor || '#2563eb',
+      settings.light_button_color || settings.lightButtonColor || '#6c5ce7',
     );
     const serverActionBg = getThemeVal(
       settings.server_action_bg ||
@@ -2206,11 +2007,11 @@ const QunixThemeLoader: React.FC = () => {
     );
     const sidebarActiveColor = getThemeVal(
       settings.sidebar_active_color || settings.sidebarActiveColor,
-      settings.light_sidebar_active_color || settings.lightSidebarActiveColor || '#2563eb',
+      settings.light_sidebar_active_color || settings.lightSidebarActiveColor || '#6c5ce7',
     );
     const sidebarActiveBg = getThemeVal(
       settings.sidebar_active_bg || settings.sidebarActiveBg,
-      settings.light_sidebar_active_bg || settings.lightSidebarActiveBg || 'rgba(37, 99, 235, 0.08)',
+      settings.light_sidebar_active_bg || settings.lightSidebarActiveBg || 'rgba(108, 92, 231, 0.08)',
     );
     const backgroundImage = getThemeValOpt(
       settings.background_image || settings.backgroundImage,
@@ -2419,7 +2220,9 @@ const QunixThemeLoader: React.FC = () => {
     root.style.setProperty('--ds-mini-card-bg', miniCardBgColor);
     root.style.setProperty('--ds-quick-actions-bg', quickActionsBg);
     root.style.setProperty('--ds-quick-actions-text', quickActionsText);
-    root.style.setProperty('--ds-quick-actions-border', quickActionsBorder);
+    const dialogAccentColor = settings.dialog_accent_color || settings.dialogAccentColor || buttonColor;
+    root.style.setProperty('--ds-dialog-accent-color', dialogAccentColor);
+    root.style.setProperty('--ds-button-color', buttonColor);
     root.style.setProperty('--ds-primary-color', buttonColor);
     root.style.setProperty('--ds-sidebar-bg', sidebarColor);
     root.style.setProperty('--ds-sidebar-active-color', sidebarActiveColor);
@@ -2715,42 +2518,19 @@ const QunixThemeLoader: React.FC = () => {
               s.uuid?.toLowerCase() === uuidShort.toLowerCase()
           );
         if (server && server.egg) {
-          const customBannerUrl =
-            eggBanners[server.egg.uuid] ||
-            (server.egg.uuid && eggBanners[server.egg.uuid.toLowerCase()]) ||
-            eggBanners[server.egg.name] ||
-            (server.egg.name && eggBanners[server.egg.name.toLowerCase()]) ||
-            (server.egg.id && eggBanners[server.egg.id]) ||
-            (server.nest?.uuid && eggBanners[server.nest.uuid]) ||
-            (server.nest?.uuid && eggBanners[server.nest.uuid.toLowerCase()]) ||
-            (server.nest?.name && eggBanners[server.nest.name]) ||
-            (server.egg?.nestUuid && eggBanners[server.egg.nestUuid]) ||
-            (server.egg?.nest_uuid && eggBanners[server.egg.nest_uuid]);
-
-          const eggName = (server.egg.name || '').toLowerCase();
-          const nestName = (server.nest?.name || '').toLowerCase();
-          const mcKeywords = [
-            'minecraft',
-            'paper',
-            'spigot',
-            'vanilla',
-            'purpur',
-            'forge',
-            'fabric',
-            'bedrock',
-            'bungeecord',
-            'velocity',
-            'mohist',
-            'sponge',
-            'leaves',
-            'folia',
-          ];
-          const isMinecraft = mcKeywords.some((k) => eggName.includes(k) || nestName.includes(k));
-          const bannerUrl = customBannerUrl || (isMinecraft ? 'https://xgamingserver.com/img/game-images/minecraft-hero.webp' : null);
+          const eggImageUrl = getEggImageUrl(server, settings);
+          const bannerUrl = getBannerUrl(server, settings) || eggImageUrl;
           const cardEl = aEl.querySelector('.mantine-Card-root, .qunix-list-row');
           if (cardEl) {
+            // Ensure any previously injected egg avatar is removed so banner remains on card, not on icon/title
+            const nameContainer = cardEl.querySelector('span.text-xl.font-medium');
+            if (nameContainer) {
+              const existingImg = nameContainer.querySelector('.qunix-server-egg-icon');
+              if (existingImg) existingImg.remove();
+            }
+
             const isListRow = cardEl.classList.contains('qunix-list-row');
-            const gridBannerStyle = settings.grid_banner_style || settings.gridBannerStyle || 'cover';
+            const gridBannerStyle = settings.grid_banner_style || settings.gridBannerStyle || 'right';
             const listBannerStyle = settings.list_banner_style || settings.listBannerStyle || 'right';
 
             const activeStyle = isListRow ? listBannerStyle : gridBannerStyle;
@@ -2767,11 +2547,11 @@ const QunixThemeLoader: React.FC = () => {
               );
               if (activeStyle === 'right') {
                 cardEl.classList.add('has-banner-right');
-              } else if (activeStyle === 'fade-left') {
+              } else if (activeStyle === 'fade-left' || activeStyle === 'left') {
                 cardEl.classList.add('has-banner-left');
-              } else if (activeStyle === 'fade-up') {
+              } else if (activeStyle === 'fade-up' || activeStyle === 'up') {
                 cardEl.classList.add('has-banner-up');
-              } else if (activeStyle === 'fade-down') {
+              } else if (activeStyle === 'fade-down' || activeStyle === 'down') {
                 cardEl.classList.add('has-banner-down');
               } else if (activeStyle === 'fade-half') {
                 cardEl.classList.add('has-banner-fade-half');
@@ -3321,6 +3101,7 @@ const QunixThemeLoader: React.FC = () => {
       <QunixGlobalThemeEnhancer />
       {isAuthPage && <AuthLanguageSelector />}
       {!isAuthPage && <NotificationCenter />}
+      <QunixTelemetryModal />
     </>
   );
 };
@@ -3661,6 +3442,14 @@ class QunixThemeExtension extends Extension {
           s.dashboard_layout || s.dashboardLayout || 'default',
         );
         root.setAttribute(
+          'data-card-style',
+          s.global_card_style || s.globalCardStyle || (s.enable_flat_design !== false ? 'none' : 'subtle-fade'),
+        );
+        root.setAttribute(
+          'data-disable-console-resize',
+          (s.disable_console_auto_resize || s.disableConsoleAutoResize) ? 'true' : 'false',
+        );
+        root.setAttribute(
           'data-card-animation',
           s.card_animation || s.cardAnimation || 'slide-up',
         );
@@ -3672,6 +3461,13 @@ class QunixThemeExtension extends Extension {
           'data-dock-position',
           'sidebar',
         );
+        root.setAttribute('data-button-style', s.button_style || s.buttonStyle || 'filled');
+        root.setAttribute('data-input-style', s.input_style || s.inputStyle || 'outline');
+        root.setAttribute('data-switch-style', s.switch_style || s.switchStyle || 'pill');
+        root.setAttribute('data-icon-style', s.icon_style || s.iconStyle || 'default');
+        root.setAttribute('data-component-overlay', s.component_overlay_style || s.componentOverlayStyle || 'fade');
+        root.setAttribute('data-clean-titles', (s.clean_title_headers !== false) ? 'true' : 'false');
+        root.setAttribute('data-console-style', s.console_style || s.consoleStyle || 'default');
       }
     } catch (_) { }
 
@@ -3684,65 +3480,72 @@ class QunixThemeExtension extends Extension {
     }, 0);
 
     Spinner.replaceBaseComponent((props: any) => {
-      const colorScheme = useComputedColorScheme();
       const s = (window as any).qunixThemeSettings;
-      const spinnerType = s?.spinner_type || s?.spinnerType || 'ClipLoader';
-      const isDark = colorScheme === 'dark';
-
-      const defaultColor = isDark ? '#fff' : '#000';
-      const color = s?.spinner_color || s?.spinnerColor || defaultColor;
-
-      const defaultProp = 'default';
-      let SpinnerComponent = (Spinners as any)[spinnerType] || (Spinners as any)[defaultProp]?.[spinnerType];
-      if (!SpinnerComponent) {
-        SpinnerComponent = Spinners.ClipLoader || (Spinners as any)[defaultProp]?.ClipLoader;
-      }
-
-      const sizeProps: any = {};
-      if (['BarLoader', 'FadeLoader', 'ScaleLoader'].includes(spinnerType)) {
-        if (props.size) {
-          if (spinnerType === 'BarLoader') {
-            sizeProps.height = 4;
-            sizeProps.width = props.size;
-          } else if (spinnerType === 'FadeLoader') {
-            sizeProps.height = props.size / 3;
-            sizeProps.width = props.size / 6;
-          } else if (spinnerType === 'ScaleLoader') {
-            sizeProps.height = props.size;
-            sizeProps.width = props.size / 8;
-          }
-        }
-      } else {
-        sizeProps.size = props.size;
-      }
-
+      const color = s?.spinner_color || s?.spinnerColor || 'blue';
+      const size = props.size ?? 28;
+      const type = (s?.spinner_type || 'oval') as any; // mantine: oval | bars | dots
+      const mantineType = ['oval', 'bars', 'dots'].includes(type) ? type : 'oval';
       return (
-        <SpinnerComponent
-          {...sizeProps}
-          color={color}
-          aria-label='Loading Spinner'
-          data-testid='loader'
-        />
+        <Loader color={color} size={size} type={mantineType} aria-label='Loading Spinner' data-testid='loader' />
       );
     });
 
-    Spinner.Centered.replaceBaseComponent((props: any) => (
-      <div className={`flex items-center justify-center py-6 ${props.className || ''}`}>
-        <Spinner size={props.size} />
-      </div>
-    ));
+    Spinner.Centered.replaceBaseComponent((props: any) => {
+      const s = (window as any).qunixThemeSettings;
+      const enableSkeleton = s?.enable_skeleton_loader !== false;
+      const isDashboard = typeof window !== 'undefined' && (
+        window.location.pathname === '/' ||
+        window.location.pathname.startsWith('/dashboard') ||
+        window.location.pathname.startsWith('/servers')
+      );
+      if (enableSkeleton && isDashboard) {
+        return (
+          <Box p='md' w='100%' className={props.className || ''}>
+            <QunixServerCardSkeleton count={4} />
+          </Box>
+        );
+      }
+      if (enableSkeleton) {
+        return (
+          <Stack gap='sm' p='md' w='100%' className={props.className || ''}>
+            <Skeleton height={20} radius='sm' width='60%' />
+            <Skeleton height={80} radius='md' />
+            <Skeleton height={80} radius='md' />
+          </Stack>
+        );
+      }
+      const spinnerType = (s?.spinner_type === 'bars' || s?.spinner_type === 'dots') ? s.spinner_type : 'oval';
+      return (
+        <Center py='lg' className={props.className || ''}>
+          <Loader color={s?.spinner_color || 'blue'} size={props.size ?? 28} type={spinnerType as any} />
+        </Center>
+      );
+    });
 
-    Spinner.Suspense.replaceBaseComponent((props: any) => (
-      <React.Suspense
-        fallback={
-          <div className={`flex items-center justify-center ${props.className || ''}`}>
-            <Spinner />
-          </div>
-        }
-      >
-        {props.children}
-      </React.Suspense>
-    ));
+    Spinner.Suspense.replaceBaseComponent((props: any) => {
+      const s = (window as any).qunixThemeSettings;
+      const enableSkeleton = s?.enable_skeleton_loader !== false;
+      const spinnerType = (s?.spinner_type === 'bars' || s?.spinner_type === 'dots') ? s.spinner_type : 'oval';
+      return (
+        <React.Suspense
+          fallback={
+            enableSkeleton ? (
+              <Stack gap='xs' p='md' className={props.className || ''}>
+                <Skeleton height={16} radius='sm' />
+                <Skeleton height={16} width='85%' radius='sm' />
+                <Skeleton height={120} radius='md' />
+              </Stack>
+            ) : (
+              <Center py='xl' className={props.className || ''}>
+                <Loader color={s?.spinner_color || 'blue'} size={28} type={spinnerType as any} />
+              </Center>
+            )
+          }
+        >
+          {props.children}
+        </React.Suspense>
+      );
+    });
 
     Alert.addRenderInterceptor((element, props) => {
       if (props.className && props.className.includes('mx-6')) {
@@ -3809,9 +3612,9 @@ class QunixThemeExtension extends Extension {
       const coloredBorder = s?.toast_colored_border !== false && s?.toastColoredBorder !== false;
       const backgroundTint = s?.toast_background_tint !== false && s?.toastBackgroundTint !== false;
 
-      if (toastStyle === 'blur') {
+      if (toastStyle === 'glass' || toastStyle === 'blur') {
         return (
-          <CustomToast
+          <GlassToast
             color={props.color}
             onClose={props.onClose}
             showTimer={showTimer}
@@ -3820,7 +3623,7 @@ class QunixThemeExtension extends Extension {
             backgroundTint={backgroundTint}
           >
             {props.children}
-          </CustomToast>
+          </GlassToast>
         );
       } else {
         return (
@@ -3849,6 +3652,47 @@ class QunixThemeExtension extends Extension {
     });
 
     Sidebar.Footer.replaceBaseComponent(QunixSidebarFooter);
+
+    ctx.extensionRegistry.enterRoutes((routes) => {
+      routes.addServerRoute({
+        name: () => 'Console',
+        icon: faTerminal,
+        path: '/console',
+        element: LazyServerConsole,
+        exact: true,
+        permission: null,
+      });
+
+      routes.addServerRouteInterceptor((items) => {
+        const s = (window as any).qunixThemeSettings;
+        const enableDashboard = s?.enable_server_dashboard !== false && s?.enableServerDashboard !== false;
+
+        if (enableDashboard) {
+          const rootRoute = items.find((r) => r.path === '/');
+          if (rootRoute) {
+            rootRoute.name = () => 'Dashboard';
+            rootRoute.icon = faGauge;
+            rootRoute.element = LazyServerDashboard;
+            rootRoute.exact = true;
+          }
+
+          const consoleRoute = items.find((r) => r.path === '/console');
+          if (consoleRoute) {
+            consoleRoute.name = () => 'Console';
+            consoleRoute.icon = faTerminal;
+            consoleRoute.element = LazyServerConsole;
+            consoleRoute.exact = true;
+          }
+
+          const rootIdx = items.findIndex((r) => r.path === '/');
+          const consoleIdx = items.findIndex((r) => r.path === '/console');
+          if (rootIdx !== -1 && consoleIdx !== -1 && consoleIdx !== rootIdx + 1) {
+            const [extracted] = items.splice(consoleIdx, 1);
+            items.splice(rootIdx + 1, 0, extracted);
+          }
+        }
+      });
+    });
 
     ctx.extensionRegistry.pages.dashboard.account.accountContainers.appendComponent(QunixPrivacyContainer);
 
@@ -4388,8 +4232,7 @@ class QunixThemeExtension extends Extension {
     ctx.extensionRegistry.pages.server.console.terminalHeaderRightComponents.appendComponent(ConsoleButtons);
 
     const logoStyle =
-      'color: #6c5ce7; font-weight: 900; font-size: 11px; font-family: monospace; line-height: 1.3; ' +
-      'text-shadow: 0 0 12px #8542f060;';
+      'color: #6c5ce7; font-weight: 900; font-size: 11px; font-family: monospace; line-height: 1.3;';
     const subStyle = 'color: #a29bfe; font-size: 11px; font-family: monospace; line-height: 1.5;';
     const dimStyle = 'color: #555577; font-size: 10px; font-family: monospace;';
 
@@ -4418,6 +4261,8 @@ class QunixThemeExtension extends Extension {
         window.dispatchEvent(new CustomEvent('qunix-settings-loaded', { detail: s }));
 
         const root = document.documentElement;
+        root.setAttribute('data-dialog-design', s.dialog_design || s.dialogDesign || 'stark');
+        root.setAttribute('data-card-border', s.card_border || s.cardBorder || 'subtle');
         const termFont = s.terminal_font_family || s.terminalFontFamily || 'JetBrainsMono Nerd Font';
         const fontMap: Record<string, string> = {
           'Consolas': "'Consolas', monospace",
@@ -4451,6 +4296,8 @@ class QunixThemeExtension extends Extension {
       .catch(() => {
         const cached = (window as any).qunixThemeSettings;
         if (cached) {
+          document.documentElement.setAttribute('data-dialog-design', cached.dialog_design || cached.dialogDesign || 'stark');
+          document.documentElement.setAttribute('data-card-border', cached.card_border || cached.cardBorder || 'subtle');
           window.dispatchEvent(new CustomEvent('qunix-settings-loaded', { detail: cached }));
         }
       });

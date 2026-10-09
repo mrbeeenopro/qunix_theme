@@ -14,7 +14,7 @@ html[data-mantine-color-scheme="light"] {
   padding: 16px !important;
   margin-left: 0 !important;
   margin-right: 0 !important;
-  position: relative !important;
+  position: relative;
   overflow: hidden !important;
   transition: all 0.3s ease !important;
 
@@ -55,7 +55,7 @@ html.has-server-banner #console-infobar {
   box-shadow:
     var(--ds-shadow-border),
     0 10px 15px -3px rgba(0, 0, 0, 0.3) !important;
-  position: relative !important;
+  position: relative;
   overflow: hidden !important;
   margin-left: 0 !important;
   margin-right: 0 !important;
@@ -206,27 +206,365 @@ html.has-server-banner #console-infobar text {
   height: 12px !important;
 }
 
-/* Responsive server banner adjustments for mobile/tablet */
-@media (max-width: 768px) {
-  html.has-server-banner #console-infobar {
+/* Responsive sticky toolbar ONLY for default console style without banner */
+@media (max-width: 1024px) {
+  html:not(.has-server-banner):not([data-console-style="custom"]):not([data-console-style="mini"]):not(.qunix-console-compact) #console-infobar {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 40 !important;
+    border-radius: 0 !important;
+    min-height: auto !important;
+    margin-top: 0 !important;
+    margin-bottom: 16px !important;
+    margin-left: -1rem !important;
+    margin-right: -1rem !important;
+    padding: 8px 16px !important;
+    background-color: transparent !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+    transition: background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                backdrop-filter 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                -webkit-backdrop-filter 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                padding 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                border-bottom 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  /* When scrolled down: ENABLE strong blur effect and bar background, otherwise hide it */
+  #console-infobar.qunix-infobar-stuck,
+  html:not(.has-server-banner):not([data-console-style="custom"]):not([data-console-style="mini"]):not(.qunix-console-compact) #console-infobar.qunix-infobar-stuck {
+    background-color: rgba(18, 18, 22, 0.72) !important;
+    backdrop-filter: blur(28px) saturate(220%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(220%) !important;
+    border-bottom: 1px solid var(--ds-border-color, rgba(255, 255, 255, 0.08)) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35) !important;
+    padding-left: 48px !important;
+    padding-right: 48px !important;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+    min-height: 44px !important;
+    height: 44px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  html[data-mantine-color-scheme="light"] #console-infobar.qunix-infobar-stuck,
+  html[data-mantine-color-scheme="light"]:not(.has-server-banner):not([data-console-style="custom"]):not([data-console-style="mini"]):not(.qunix-console-compact) #console-infobar.qunix-infobar-stuck {
+    background-color: rgba(255, 255, 255, 0.72) !important;
+    backdrop-filter: blur(28px) saturate(220%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(220%) !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  /* Unstuck infobar at top: Power actions centered on mobile */
+  html:not(.has-server-banner):not([data-console-style="custom"]):not([data-console-style="mini"]):not(.qunix-console-compact) #console-infobar:not(.qunix-infobar-stuck) > div {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    gap: 8px !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  html:not(.has-server-banner):not([data-console-style="custom"]):not([data-console-style="mini"]):not(.qunix-console-compact) #console-infobar:not(.qunix-infobar-stuck) .shrink-0 {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+  html:not(.has-server-banner):not([data-console-style="custom"]):not([data-console-style="mini"]):not(.qunix-console-compact) #console-infobar:not(.qunix-infobar-stuck) .shrink-0 > div,
+  html:not(.has-server-banner):not([data-console-style="custom"]):not([data-console-style="mini"]):not(.qunix-console-compact) #console-infobar:not(.qunix-infobar-stuck) [class*="w-full md:w-fit"],
+  html:not(.has-server-banner):not([data-console-style="custom"]):not([data-console-style="mini"]):not(.qunix-console-compact) #console-infobar:not(.qunix-infobar-stuck) [class*="gap-2"] {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 auto !important;
+    gap: 8px !important;
+  }
+
+  html:not(.has-server-banner):not([data-console-style="custom"]):not([data-console-style="mini"]):not(.qunix-console-compact) #console-infobar:not(.qunix-infobar-stuck) button {
+    height: 38px !important;
+    border-radius: 8px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  /* Auto-resize buttons when scrolled down: mathematically centered on screen */
+  #console-infobar.qunix-infobar-stuck > div,
+  html:not(.has-server-banner):not([data-console-style="custom"]):not([data-console-style="mini"]):not(.qunix-console-compact) #console-infobar.qunix-infobar-stuck > div {
+    min-height: 32px !important;
+    height: 32px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  #console-infobar.qunix-infobar-stuck .shrink-0,
+  html:not(.has-server-banner):not([data-console-style="custom"]):not([data-console-style="mini"]):not(.qunix-console-compact) #console-infobar.qunix-infobar-stuck .shrink-0 {
+    width: auto !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin: 0 auto !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  #console-infobar.qunix-infobar-stuck .shrink-0 > div,
+  #console-infobar.qunix-infobar-stuck [class*="w-full md:w-fit"],
+  #console-infobar.qunix-infobar-stuck [class*="gap-2"],
+  html:not(.has-server-banner):not([data-console-style="custom"]):not([data-console-style="mini"]):not(.qunix-console-compact) #console-infobar.qunix-infobar-stuck [class*="gap-2"] {
+    gap: 8px !important;
+    width: auto !important;
+    max-width: fit-content !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  #console-infobar.qunix-infobar-stuck button,
+  html:not(.has-server-banner):not([data-console-style="custom"]):not([data-console-style="mini"]):not(.qunix-console-compact) #console-infobar.qunix-infobar-stuck button {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 76px !important;
+    max-width: 88px !important;
+    height: 32px !important;
+    font-size: 13px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    border-radius: 6px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  @media (max-width: 360px) {
+    #console-infobar.qunix-infobar-stuck,
+    html:not(.has-server-banner):not([data-console-style="custom"]):not([data-console-style="mini"]):not(.qunix-console-compact) #console-infobar.qunix-infobar-stuck {
+      padding-left: 44px !important;
+      padding-right: 44px !important;
+    }
+
+    #console-infobar.qunix-infobar-stuck button,
+    html:not(.has-server-banner):not([data-console-style="custom"]):not([data-console-style="mini"]):not(.qunix-console-compact) #console-infobar.qunix-infobar-stuck button {
+      min-width: 66px !important;
+      font-size: 12px !important;
+      padding-left: 6px !important;
+      padding-right: 6px !important;
+    }
+  }
+
+  /* Default mobile toggle button: keep default Calagopus placement & style */
+  .qunix-mobile-toggle-card {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  /* ONLY when scrolled down in console: move menu button to top bar & dissolve background into glassblur header */
+  html.qunix-infobar-stuck .qunix-mobile-toggle-card,
+  html.qunix-infobar-stuck .mantine-Card-root.qunix-mobile-toggle-card {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    margin-top: 0 !important;
+    margin-left: 0 !important;
+    height: 44px !important;
+    width: 48px !important;
+    min-width: 48px !important;
+    max-width: 48px !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    background-color: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 50 !important;
+  }
+
+  html.qunix-infobar-stuck .qunix-mobile-toggle-card .mantine-ActionIcon-root {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 36px !important;
+    height: 36px !important;
+    margin: auto !important;
+    background: transparent !important;
+  }
+
+  /* Custom / Mini / Banner layouts: DO NOT apply pin/sticky, preserve card banner in layout */
+  html.has-server-banner #console-infobar,
+  html[data-console-style="custom"] #console-infobar,
+  html[data-console-style="mini"] #console-infobar {
+    position: relative !important;
+    top: auto !important;
+    z-index: 10 !important;
     min-height: auto !important;
   }
 
-  html.has-server-banner #console-infobar>div {
+  /* Banner active on mobile / small screens: stacked flex layout preventing overflow and overlapping */
+  html.has-server-banner #console-infobar {
+    display: flex !important;
     flex-direction: column !important;
-    align-items: flex-start !important;
-    justify-content: flex-start !important;
+    justify-content: flex-end !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  html.has-server-banner #console-infobar > div {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: stretch !important;
     min-height: auto !important;
-    gap: 16px !important;
     padding: 16px !important;
+    gap: 10px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  html.has-server-banner #console-infobar > div > div:first-child {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-right: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 1 auto !important;
   }
 
   html.has-server-banner #console-infobar h1,
   html.has-server-banner #console-infobar .mantine-Title-root {
-    max-width: calc(100% - 160px) !important;
+    max-width: calc(100% - 130px) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    font-size: 1.25rem !important;
+    line-height: 1.75rem !important;
+    margin-bottom: 6px !important;
   }
 
-  html.has-server-banner #console-infobar .qunix-banner-stats {
-    margin-top: 8px !important;
+  /* Stats overlay inside banner on mobile: clean 2-column grid avoiding vertical overflow */
+  html.has-server-banner .qunix-banner-stats {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 6px 12px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-top: 4px !important;
+    margin-bottom: 4px !important;
+    padding: 8px 12px !important;
+    box-sizing: border-box !important;
+    background-color: rgba(0, 0, 0, 0.55) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border-radius: 12px !important;
+  }
+
+  @media (min-width: 640px) {
+    html.has-server-banner .qunix-banner-stats {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+  }
+
+  html.has-server-banner .qunix-banner-stat-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    font-size: 11px !important;
+    min-width: 0 !important;
+  }
+
+  html.has-server-banner .qunix-banner-stat-item svg {
+    flex-shrink: 0 !important;
+  }
+
+  html.has-server-banner .qunix-banner-stat-item span {
+    min-width: 0 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  /* Power action buttons container at the bottom */
+  html.has-server-banner #console-infobar .shrink-0 {
+    width: 100% !important;
+    margin-top: 4px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  html.has-server-banner #console-infobar .shrink-0 > div,
+  html.has-server-banner #console-infobar .shrink-0 form,
+  html.has-server-banner #console-infobar [class*="w-full md:w-fit"] {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+
+  html.has-server-banner #console-infobar button {
+    flex: 1 1 0 !important;
+    max-width: 130px !important;
+    height: 36px !important;
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    font-size: 13px !important;
+  }
+
+  /* Allocation pill on mobile */
+  html.has-server-banner .qunix-banner-allocation-pill {
+    top: 14px !important;
+    right: 14px !important;
+    padding: 4px 10px !important;
+    font-size: 11px !important;
+    max-width: 130px !important;
+  }
+
+  html.has-server-banner .qunix-banner-allocation-pill .allocation-text {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  /* Custom without banner on mobile */
+  html:not(.has-server-banner)[data-console-style="custom"] #console-infobar > div,
+  html:not(.has-server-banner)[data-console-style="mini"] #console-infobar > div {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 10px !important;
+    padding: 12px 16px !important;
+    min-height: auto !important;
+  }
+
+  html:not(.has-server-banner)[data-console-style="custom"] #console-infobar .shrink-0,
+  html:not(.has-server-banner)[data-console-style="mini"] #console-infobar .shrink-0 {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: flex-end !important;
   }
 }
+

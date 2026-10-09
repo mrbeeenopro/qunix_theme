@@ -10,6 +10,9 @@ import AppIcon from '@/elements/AppIcon.tsx';
 import QuickActionsTrigger from '@/elements/quickActions/QuickActionsTrigger.tsx';
 import ServerStatusIndicator from '@/elements/ServerStatusIndicator.tsx';
 import Sidebar from '@/elements/navigation/Sidebar.tsx';
+import Title from '@/elements/typography/Title.tsx';
+import Text from '@/elements/typography/Text.tsx';
+import { useRelativePageStore } from '@/stores/relativePage.ts';
 import QunixHorizontalNavbar from './QunixHorizontalNavbar.tsx';
 
 export type SidebarProps = {
@@ -51,6 +54,13 @@ function extractServerStatus(header: React.ReactNode): React.ReactNode {
 export const QunixSidebar: React.FC<SidebarProps> = ({ children, header, footer }) => {
   const { pathname } = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pageHeader = useRelativePageStore((state) => state.pageHeader);
+  const setHasMobileNavbar = useRelativePageStore((state) => state.setHasMobileNavbar);
+
+  useEffect(() => {
+    setHasMobileNavbar(true);
+    return () => setHasMobileNavbar(false);
+  }, []);
 
   const [dashboardLayout, setDashboardLayout] = useState<string>(() => {
     return (
@@ -92,14 +102,91 @@ export const QunixSidebar: React.FC<SidebarProps> = ({ children, header, footer 
   const isHorizontal = dashboardLayout === 'horizontal';
   const serverStatus = extractServerStatus(header);
 
+  const [sidebarWidth, setSidebarWidth] = useState<number>(() => {
+    try {
+      const local = localStorage.getItem('qunix_sidebar_width');
+      if (local) return parseInt(local, 10);
+    } catch (_) {}
+    const s = (window as any).qunixThemeSettings;
+    return s?.sidebar_width !== undefined ? s.sidebar_width : 256;
+  });
+  const [isResizingSidebar, setIsResizingSidebar] = useState(false);
+
+  useEffect(() => {
+    if (sidebarWidth) {
+      document.documentElement.style.setProperty('--ds-sidebar-width', `${sidebarWidth}px`);
+    }
+  }, [sidebarWidth]);
+
+  const handleSidebarResizeStart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsResizingSidebar(true);
+    const startX = e.clientX;
+    const startWidth = sidebarWidth;
+
+    const onMouseMove = (moveEvent: MouseEvent) => {
+      const delta = moveEvent.clientX - startX;
+      const newWidth = Math.max(180, Math.min(450, Math.round(startWidth + delta)));
+      setSidebarWidth(newWidth);
+      document.documentElement.style.setProperty('--ds-sidebar-width', `${newWidth}px`);
+      try {
+        localStorage.setItem('qunix_sidebar_width', String(newWidth));
+      } catch (_) {}
+      if ((window as any).qunixThemeSettings) {
+        (window as any).qunixThemeSettings.sidebar_width = newWidth;
+      }
+    };
+
+    const onMouseUp = () => {
+      setIsResizingSidebar(false);
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
+      window.dispatchEvent(new Event('resize'));
+    };
+
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
+  };
+
+  const handleSidebarResetWidth = () => {
+    const defaultWidth = 256;
+    setSidebarWidth(defaultWidth);
+    document.documentElement.style.setProperty('--ds-sidebar-width', `${defaultWidth}px`);
+    try {
+      localStorage.removeItem('qunix_sidebar_width');
+    } catch (_) {}
+    if ((window as any).qunixThemeSettings) {
+      (window as any).qunixThemeSettings.sidebar_width = defaultWidth;
+    }
+    window.dispatchEvent(new Event('resize'));
+  };
+
   return (
     <>
-      {/* Mobile Sidebar Toggle Button */}
-      <Card className='lg:hidden! sticky! top-5 z-50 flex-row! justify-end -ml-1 my-4 w-16 rounded-l-none!' p='xs'>
-        <ActionIcon onClick={() => setIsMobileMenuOpen(true)} variant='subtle'>
+      {/* Mobile Sidebar Toggle Button & Header */}
+      <Card
+        className='lg:hidden! sticky! top-5 z-50 flex-row! items-center justify-end -ml-1 mt-5 h-12 w-16 rounded-l-none! qunix-mobile-toggle-card'
+        p='xs'
+      >
+        <ActionIcon onClick={() => setIsMobileMenuOpen(true)} variant='subtle' aria-label='Open Navigation Menu'>
           <FontAwesomeIcon size='lg' icon={faBars} />
         </ActionIcon>
       </Card>
+
+      <div className='lg:hidden -mt-12 mb-4 ml-20 mr-4 h-12 flex flex-col justify-center min-w-0 pointer-events-none'>
+        {pageHeader && (
+          <>
+            <Title order={3} lineClamp={1}>
+              {pageHeader.title}
+            </Title>
+            {pageHeader.subtitle && (
+              <Text size='xs' c='dimmed' truncate>
+                {pageHeader.subtitle}
+              </Text>
+            )}
+          </>
+        )}
+      </div>
 
       {/* Mobile Drawer (Always standard vertical drawer) */}
       <Drawer
@@ -125,7 +212,7 @@ export const QunixSidebar: React.FC<SidebarProps> = ({ children, header, footer 
 
       {/* Desktop Navigation */}
       <Card
-        className='my-2 ml-2 top-2 sticky! hidden! lg:block! h-[calc(100vh-16px)] w-64! overflow-hidden transition-[width] duration-200 ease-in-out'
+        className='my-2 ml-2 top-2 sticky! hidden! lg:block! h-[calc(100vh-16px)] overflow-hidden transition-[width] duration-150 ease-in-out relative group/sidebar'
         p='sm'
         id='sidebar-desktop'
       >
@@ -165,6 +252,18 @@ export const QunixSidebar: React.FC<SidebarProps> = ({ children, header, footer 
             </>
           )}
         </div>
+
+        {/* Interactive Desktop Sidebar Horizontal Resize Handle */}
+        {!isHorizontal && (
+          <div
+            onMouseDown={handleSidebarResizeStart}
+            onDoubleClick={handleSidebarResetWidth}
+            title='Drag to resize sidebar width • Double-click to reset (256px)'
+            className='absolute top-0 right-0 w-2.5 h-full cursor-col-resize z-40 flex items-center justify-center select-none hover:bg-indigo-500/15 transition-colors group'
+          >
+            <div className={`w-0.5 h-8 rounded-full ${isResizingSidebar ? 'bg-indigo-400' : 'bg-white/10 group-hover:bg-white/30'} transition-colors`} />
+          </div>
+        )}
       </Card>
     </>
   );

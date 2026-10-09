@@ -34,9 +34,9 @@
 }
 #qunix-settings-page button[role="tab"][data-active="true"],
 #qunix-settings-page button[role="tab"][data-active] {
-  background-color: rgba(108, 92, 231, 0.12) !important;
-  border: 1px solid #6c5ce7 !important;
-  color: #a29bfe !important;
+  background-color: color-mix(in srgb, var(--admin-accent, #6c5ce7) 14%, transparent) !important;
+  border: 1px solid var(--admin-accent, #6c5ce7) !important;
+  color: color-mix(in srgb, var(--admin-accent, #6c5ce7) 80%, white) !important;
 }
 
 #qunix-settings-page .mantine-ScrollArea-viewport {

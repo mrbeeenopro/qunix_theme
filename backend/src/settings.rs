@@ -127,6 +127,8 @@ pub struct QunixThemeSettingsData {
     pub spinner_type: compact_str::CompactString,
     pub spinner_color: compact_str::CompactString,
     pub console_style: compact_str::CompactString,
+    pub disable_console_auto_resize: bool,
+    pub custom_dashboard_layout: compact_str::CompactString,
     pub enable_layout_toggle: bool,
     pub list_layout_chart: compact_str::CompactString,
     pub card_hover_animation: compact_str::CompactString,
@@ -135,6 +137,14 @@ pub struct QunixThemeSettingsData {
     pub grid_banner_style: compact_str::CompactString,
     pub list_banner_style: compact_str::CompactString,
     pub welcome_subtitle: compact_str::CompactString,
+    pub component_overlay_style: compact_str::CompactString,
+    pub button_style: compact_str::CompactString,
+    pub input_style: compact_str::CompactString,
+    pub switch_style: compact_str::CompactString,
+    pub icon_style: compact_str::CompactString,
+    pub clean_title_headers: bool,
+    pub dashboard_quick_links: compact_str::CompactString,
+    pub enable_dashboard_quick_links: bool,
     pub sidebar_style: compact_str::CompactString,
     #[serde(default)]
     pub sidebar_icons:
@@ -229,6 +239,18 @@ pub struct QunixThemeSettingsData {
     pub embed_image: Option<compact_str::CompactString>,
     #[serde(default, deserialize_with = "deserialize_optional_string")]
     pub embed_site_name: Option<compact_str::CompactString>,
+    pub enable_server_dashboard: bool,
+    pub enable_skeleton_loader: bool,
+    pub enable_flat_design: bool,
+    pub server_grid_mobile_layout: compact_str::CompactString,
+    pub server_grid_style: compact_str::CompactString,
+    pub server_list_style: compact_str::CompactString,
+    pub global_card_style: compact_str::CompactString,
+    pub dialog_design: compact_str::CompactString,
+    pub dialog_accent_color: Option<compact_str::CompactString>,
+    pub card_border: compact_str::CompactString,
+    pub enable_telemetry: bool,
+    pub telemetry_prompt_dismissed: bool,
 }
 
 impl Default for QunixThemeSettingsData {
@@ -239,6 +261,16 @@ impl Default for QunixThemeSettingsData {
             embed_color: None,
             embed_image: None,
             embed_site_name: None,
+            enable_server_dashboard: true,
+            enable_skeleton_loader: true,
+            enable_flat_design: true,
+            server_grid_mobile_layout: "compact".into(),
+            server_grid_style: "default".into(),
+            server_list_style: "default".into(),
+            global_card_style: "subtle-fade".into(),
+            dialog_design: "stark".into(),
+            dialog_accent_color: None,
+            card_border: "subtle".into(),
             background_color: "#070708".into(),
             text_color: "#e2e8f0".into(),
             focus_color: "#070708".into(),
@@ -342,9 +374,11 @@ impl Default for QunixThemeSettingsData {
             sidebar_radius: 6,
             sidebar_active_radius: 6,
             page_title_icon: true,
-            spinner_type: "ClipLoader".into(),
+            spinner_type: "oval".into(),
             spinner_color: "#6c5ce7".into(),
             console_style: "default".into(),
+            disable_console_auto_resize: false,
+            custom_dashboard_layout: "".into(),
             enable_layout_toggle: true,
             list_layout_chart: "cpu".into(),
             card_hover_animation: "shift".into(),
@@ -353,6 +387,14 @@ impl Default for QunixThemeSettingsData {
             grid_banner_style: "cover".into(),
             list_banner_style: "right".into(),
             welcome_subtitle: "".into(),
+            component_overlay_style: "fade".into(),
+            button_style: "filled".into(),
+            input_style: "outline".into(),
+            switch_style: "pill".into(),
+            icon_style: "default".into(),
+            clean_title_headers: true,
+            dashboard_quick_links: "".into(),
+            enable_dashboard_quick_links: true,
             sidebar_style: "full".into(),
             sidebar_icons: std::collections::HashMap::new(),
             sidebar_global_pack: "default".into(),
@@ -420,7 +462,7 @@ impl Default for QunixThemeSettingsData {
             login_background_image: None,
             login_background_color: None,
             login_support_link: "".into(),
-            enable_preloader: true,
+            enable_preloader: false,
             preloader_delay: 1500,
             preloader_style: "bar".into(),
             preloader_color: "#7aa2f7".into(),
@@ -429,6 +471,8 @@ impl Default for QunixThemeSettingsData {
             preloader_bg_color: Some("#121217".into()),
             preloader_bg_image: None,
             preloader_logo: None,
+            enable_telemetry: true,
+            telemetry_prompt_dismissed: false,
         }
     }
 }
@@ -778,7 +822,29 @@ impl SettingsSerializeExt for QunixThemeSettingsData {
             .write_raw_setting("spinner_type", self.spinner_type.clone())
             .write_raw_setting("spinner_color", self.spinner_color.clone())
             .write_raw_setting("console_style", self.console_style.clone())
+            .write_raw_setting(
+                "disable_console_auto_resize",
+                self.disable_console_auto_resize.to_string(),
+            )
+            .write_raw_setting(
+                "custom_dashboard_layout",
+                self.custom_dashboard_layout.clone(),
+            )
             .write_raw_setting("dashboard_layout", self.dashboard_layout.clone())
+            .write_raw_setting(
+                "component_overlay_style",
+                self.component_overlay_style.clone(),
+            )
+            .write_raw_setting("button_style", self.button_style.clone())
+            .write_raw_setting("input_style", self.input_style.clone())
+            .write_raw_setting("switch_style", self.switch_style.clone())
+            .write_raw_setting("icon_style", self.icon_style.clone())
+            .write_raw_setting("clean_title_headers", self.clean_title_headers.to_string())
+            .write_raw_setting("dashboard_quick_links", self.dashboard_quick_links.clone())
+            .write_raw_setting(
+                "enable_dashboard_quick_links",
+                self.enable_dashboard_quick_links.to_string(),
+            )
             .write_raw_setting("dock_position", self.dock_position.clone())
             .write_raw_setting("login_layout", self.login_layout.clone())
             .write_raw_setting("login_logo_position", self.login_logo_position.clone())
@@ -867,7 +933,34 @@ impl SettingsSerializeExt for QunixThemeSettingsData {
             .write_serde_setting("egg_banners", &self.egg_banners)
             .map_err(|e| anyhow::anyhow!("Failed to serialize egg_banners: {}", e))?
             .write_serde_setting("sidebar_icons", &self.sidebar_icons)
-            .map_err(|e| anyhow::anyhow!("Failed to serialize sidebar_icons: {}", e))?;
+            .map_err(|e| anyhow::anyhow!("Failed to serialize sidebar_icons: {}", e))?
+            .write_raw_setting(
+                "enable_server_dashboard",
+                self.enable_server_dashboard.to_string(),
+            )
+            .write_raw_setting(
+                "enable_skeleton_loader",
+                self.enable_skeleton_loader.to_string(),
+            )
+            .write_raw_setting("enable_flat_design", self.enable_flat_design.to_string())
+            .write_raw_setting(
+                "server_grid_mobile_layout",
+                self.server_grid_mobile_layout.clone(),
+            )
+            .write_raw_setting("server_grid_style", self.server_grid_style.clone())
+            .write_raw_setting("server_list_style", self.server_list_style.clone())
+            .write_raw_setting("global_card_style", self.global_card_style.clone())
+            .write_raw_setting("dialog_design", self.dialog_design.clone())
+            .write_raw_setting(
+                "dialog_accent_color",
+                self.dialog_accent_color.clone().unwrap_or_default(),
+            )
+            .write_raw_setting("card_border", self.card_border.clone())
+            .write_raw_setting("enable_telemetry", self.enable_telemetry.to_string())
+            .write_raw_setting(
+                "telemetry_prompt_dismissed",
+                self.telemetry_prompt_dismissed.to_string(),
+            );
 
         Ok(serializer)
     }
@@ -1389,6 +1482,13 @@ impl SettingsDeserializeExt for QunixThemeSettingsDataDeserializer {
             console_style: deserializer
                 .take_raw_setting("console_style")
                 .unwrap_or(default.console_style),
+            disable_console_auto_resize: deserializer
+                .take_raw_setting("disable_console_auto_resize")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.disable_console_auto_resize),
+            custom_dashboard_layout: deserializer
+                .take_raw_setting("custom_dashboard_layout")
+                .unwrap_or(default.custom_dashboard_layout),
             enable_layout_toggle: deserializer
                 .take_raw_setting("enable_layout_toggle")
                 .and_then(|s| s.parse().ok())
@@ -1414,6 +1514,32 @@ impl SettingsDeserializeExt for QunixThemeSettingsDataDeserializer {
             welcome_subtitle: deserializer
                 .take_raw_setting("welcome_subtitle")
                 .unwrap_or(default.welcome_subtitle),
+            component_overlay_style: deserializer
+                .take_raw_setting("component_overlay_style")
+                .unwrap_or(default.component_overlay_style),
+            button_style: deserializer
+                .take_raw_setting("button_style")
+                .unwrap_or(default.button_style),
+            input_style: deserializer
+                .take_raw_setting("input_style")
+                .unwrap_or(default.input_style),
+            switch_style: deserializer
+                .take_raw_setting("switch_style")
+                .unwrap_or(default.switch_style),
+            icon_style: deserializer
+                .take_raw_setting("icon_style")
+                .unwrap_or(default.icon_style),
+            clean_title_headers: deserializer
+                .take_raw_setting("clean_title_headers")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.clean_title_headers),
+            dashboard_quick_links: deserializer
+                .take_raw_setting("dashboard_quick_links")
+                .unwrap_or(default.dashboard_quick_links),
+            enable_dashboard_quick_links: deserializer
+                .take_raw_setting("enable_dashboard_quick_links")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.enable_dashboard_quick_links),
             sidebar_style: deserializer
                 .take_raw_setting("sidebar_style")
                 .unwrap_or(default.sidebar_style),
@@ -1475,6 +1601,45 @@ impl SettingsDeserializeExt for QunixThemeSettingsDataDeserializer {
             embed_color: deserializer.take_raw_setting("embed_color"),
             embed_image: deserializer.take_raw_setting("embed_image"),
             embed_site_name: deserializer.take_raw_setting("embed_site_name"),
+            enable_server_dashboard: deserializer
+                .take_raw_setting("enable_server_dashboard")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.enable_server_dashboard),
+            enable_skeleton_loader: deserializer
+                .take_raw_setting("enable_skeleton_loader")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.enable_skeleton_loader),
+            enable_flat_design: deserializer
+                .take_raw_setting("enable_flat_design")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.enable_flat_design),
+            server_grid_mobile_layout: deserializer
+                .take_raw_setting("server_grid_mobile_layout")
+                .unwrap_or(default.server_grid_mobile_layout),
+            server_grid_style: deserializer
+                .take_raw_setting("server_grid_style")
+                .unwrap_or(default.server_grid_style),
+            server_list_style: deserializer
+                .take_raw_setting("server_list_style")
+                .unwrap_or(default.server_list_style),
+            global_card_style: deserializer
+                .take_raw_setting("global_card_style")
+                .unwrap_or(default.global_card_style),
+            dialog_design: deserializer
+                .take_raw_setting("dialog_design")
+                .unwrap_or(default.dialog_design),
+            dialog_accent_color: deserializer.take_raw_setting("dialog_accent_color"),
+            card_border: deserializer
+                .take_raw_setting("card_border")
+                .unwrap_or(default.card_border),
+            enable_telemetry: deserializer
+                .take_raw_setting("enable_telemetry")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.enable_telemetry),
+            telemetry_prompt_dismissed: deserializer
+                .take_raw_setting("telemetry_prompt_dismissed")
+                .and_then(|s| s.parse().ok())
+                .unwrap_or(default.telemetry_prompt_dismissed),
         }))
     }
 }

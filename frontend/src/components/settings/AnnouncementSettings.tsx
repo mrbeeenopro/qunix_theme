@@ -3,7 +3,7 @@ import { Stack, Group, TextInput, NumberInput, Switch, Select, Divider } from '@
 import { UseFormReturnType } from '@mantine/form';
 import { z } from 'zod';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBullhorn, faLink, faBell } from '@fortawesome/free-solid-svg-icons';
+import { faBullhorn, faLink, faBell, faCheckCircle, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { qunixThemeSettingsSchema } from '../../lib/schemas.ts';
 import { ColorField } from './ColorField.tsx';
 
@@ -12,6 +12,19 @@ interface AnnouncementSettingsProps {
 }
 
 export function AnnouncementSettings({ form }: AnnouncementSettingsProps) {
+
+  React.useEffect(() => {
+    (window as any).qunixThemeSettings = {
+      ...((window as any).qunixThemeSettings || {}),
+      ...form.values,
+    };
+  }, [
+    form.values.toast_style,
+    form.values.toast_radius,
+    form.values.toast_timer,
+    form.values.toast_colored_border,
+    form.values.toast_background_tint,
+  ]);
   return (
     <>
       <Stack gap="md">
@@ -164,20 +177,109 @@ export function AnnouncementSettings({ form }: AnnouncementSettingsProps) {
           </span>
 
           <Stack gap='sm'>
-            <Select
-              label='Toast Style'
-              comboboxProps={{ withinPortal: true, zIndex: 10000 }}
-              data={[
-                { value: 'qunix', label: 'System Qunix Theme' },
-                { value: 'blur', label: 'Blur (Glassmorphism)' },
-              ]}
-              {...form.getInputProps('toast_style')}
-              styles={{
-                input: { background: '#141418', border: '1px solid #27272a', color: '#e4e4e7' },
-                dropdown: { background: '#141418', border: '1px solid #27272a' },
-                option: { color: '#e4e4e7' },
-              }}
-            />
+            <div>
+              <span
+                style={{
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  display: 'block',
+                  color: '#e4e4e7',
+                  marginBottom: '6px',
+                }}
+              >
+                Flash Message Style
+              </span>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                {/* 1. Default Style */}
+                <div
+                  onClick={() => form.setFieldValue('toast_style', 'qunix')}
+                  style={{
+                    background: (form.values.toast_style || 'qunix') === 'qunix' ? 'rgba(56, 189, 248, 0.08)' : '#0d1117',
+                    border: (form.values.toast_style || 'qunix') === 'qunix' ? '2px solid #38bdf8' : '1px solid #21262d',
+                    borderRadius: '8px',
+                    padding: '10px',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  <div
+                    style={{
+                      background: '#161b22',
+                      borderRadius: '6px',
+                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      padding: '10px 12px',
+                      position: 'relative',
+                      overflow: 'hidden',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '10px',
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faCheckCircle} style={{ color: '#22c55e', fontSize: '15px', flexShrink: 0 }} />
+                    <span style={{ fontSize: '11px', color: '#f0f6fc', fontWeight: 500 }}>
+                      Styling settings updated successfully.
+                    </span>
+                    <div style={{ position: 'absolute', bottom: 0, left: 0, width: '45%', height: '3px', background: '#22c55e' }} />
+                  </div>
+                  <span style={{ display: 'block', textAlign: 'center', marginTop: '6px', fontSize: '11px', fontWeight: 600, color: (form.values.toast_style || 'qunix') === 'qunix' ? '#38bdf8' : '#8b949e' }}>
+                    Default
+                  </span>
+                </div>
+
+                {/* 2. Glass Style (Image 5) */}
+                <div
+                  onClick={() => form.setFieldValue('toast_style', 'glass')}
+                  style={{
+                    background: (form.values.toast_style === 'glass' || form.values.toast_style === 'blur') ? 'rgba(56, 189, 248, 0.08)' : '#0d1117',
+                    border: (form.values.toast_style === 'glass' || form.values.toast_style === 'blur') ? '2px solid #38bdf8' : '1px solid #21262d',
+                    borderRadius: '8px',
+                    padding: '10px',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  <div
+                    style={{
+                      background: 'rgba(22, 27, 34, 0.75)',
+                      backdropFilter: 'blur(10px)',
+                      borderRadius: '6px',
+                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      padding: '10px 12px',
+                      position: 'relative',
+                      overflow: 'hidden',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '10px',
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: '26px',
+                        height: '26px',
+                        borderRadius: '6px',
+                        background: '#22c55e',
+                        color: '#ffffff',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '12px',
+                        flexShrink: 0,
+                        zIndex: 1,
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faCheck} />
+                    </div>
+                    <span style={{ fontSize: '11px', color: '#f0f6fc', fontWeight: 500, zIndex: 1 }}>
+                      Styling settings updated successfully.
+                    </span>
+                    <div style={{ position: 'absolute', bottom: 0, left: 0, width: '45%', height: '3px', background: '#22c55e' }} />
+                  </div>
+                  <span style={{ display: 'block', textAlign: 'center', marginTop: '6px', fontSize: '11px', fontWeight: 600, color: (form.values.toast_style === 'glass' || form.values.toast_style === 'blur') ? '#38bdf8' : '#8b949e' }}>
+                    Glass
+                  </span>
+                </div>
+              </div>
+            </div>
 
             <NumberInput
               label='Toast Radius (px)'
@@ -207,7 +309,14 @@ export function AnnouncementSettings({ form }: AnnouncementSettingsProps) {
             <Switch
               label='Background Tint'
               checked={form.values.toast_background_tint}
-              onChange={(event) => form.setFieldValue('toast_background_tint', event.currentTarget.checked)}
+              onChange={(event) => {
+                form.setFieldValue('toast_background_tint', event.currentTarget.checked);
+                (window as any).qunixThemeSettings = {
+                  ...((window as any).qunixThemeSettings || {}),
+                  ...form.values,
+                  toast_background_tint: event.currentTarget.checked,
+                };
+              }}
               styles={{
                 label: { color: '#e4e4e7', fontSize: '11px' },
               }}

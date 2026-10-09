@@ -1,12 +1,39 @@
 /* xterm */
-.mantine-Card-root .xterm,
+.mantine-Card-root .terminal,
+.mantine-Card-root .xterm {
+  background-color: var(--ds-terminal-bg, #0a0a0f) !important;
+}
+
 .xterm-viewport,
 .xterm-screen,
 .xterm-rows,
-.xterm-container {
-  contain: content !important;
-  transform: translateZ(0) !important;
-  background-color: var(--ds-terminal-bg) !important;
+.xterm-scrollable-element {
+  background-color: transparent !important;
+}
+
+/* Ensure Terminal Card fills and terminal flex container never collapses */
+.qunix-console-terminal-wrapper {
+  display: flex !important;
+  flex-direction: column !important;
+  position: relative !important;
+  width: 100% !important;
+}
+
+.qunix-console-terminal-wrapper > .mantine-Card-root,
+.mantine-Card-root:has(.terminal) {
+  flex: 1 1 auto !important;
+  height: 100% !important;
+  min-height: 380px !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.qunix-console-terminal-wrapper > .mantine-Card-root > div.flex-1,
+.mantine-Card-root:has(.terminal) > div.flex-1 {
+  flex: 1 1 0% !important;
+  min-height: 220px !important;
+  position: relative !important;
+  overflow: hidden !important;
 }
 
 .xterm,
@@ -186,7 +213,7 @@ pre,
   background: var(--ds-announcement-cta-bg, #6c5ce7) !important;
   border-color: var(--ds-announcement-cta-bg, #6c5ce7) !important;
   color: #ffffff !important;
-  box-shadow: 0 2px 8px rgba(108, 92, 231, 0.3) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
 }
 
 /* Light mode overrides for filter tabs */

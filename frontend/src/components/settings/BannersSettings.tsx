@@ -58,11 +58,11 @@ export const BANNER_PRESETS: BannerPreset[] = [
     tags: ['rust', 'survival', 'pvp', 'fps'],
   },
   {
-    id: 'cyber-neon',
-    title: 'Cyber Gaming Dark',
+    id: 'dark-circuit',
+    title: 'Dark Circuit',
     category: 'general',
-    url: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1200&auto=format&fit=crop&q=80',
-    tags: ['cyber', 'neon', 'general', 'tech', 'dark'],
+    url: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&auto=format&fit=crop&q=80',
+    tags: ['tech', 'circuit', 'general', 'dark'],
   },
   {
     id: 'space-nebula',

@@ -89,7 +89,7 @@ html[data-mantine-color-scheme="light"] .qunix-custom-toast-container .qunix-cus
   left: 0;
   height: 3px;
   background: var(--toast-accent);
-  animation: qunix-toast-timer-anim 7.5s linear forwards;
+  animation: qunix-toast-timer-anim 5s linear forwards;
   border-bottom-left-radius: var(--toast-radius, 8px) !important;
   border-bottom-right-radius: var(--toast-radius, 8px) !important;
 }
@@ -157,7 +157,7 @@ html[data-mantine-color-scheme="light"] .qunix-custom-toast-container .qunix-cus
   left: 0;
   height: 3px;
   background: var(--toast-accent);
-  animation: qunix-toast-timer-anim 7.5s linear forwards;
+  animation: qunix-toast-timer-anim 5s linear forwards;
   border-bottom-left-radius: var(--toast-radius, 8px) !important;
   border-bottom-right-radius: var(--toast-radius, 8px) !important;
 }
@@ -169,4 +169,93 @@ html[data-mantine-color-scheme="light"] .qunix-custom-toast-container .qunix-cus
   to {
     width: 0%;
   }
+}
+
+/* Glassmorphism Toast Style (Image 5) */
+.qunix-glass-toast-container {
+  position: relative;
+  background: rgba(14, 20, 31, 0.78) !important;
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-radius: var(--toast-radius, 10px) !important;
+  overflow: hidden;
+  box-shadow: 0 16px 40px -4px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  padding: 14px 18px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  color: #ffffff;
+}
+
+.qunix-glass-toast-container::after {
+  display: none;
+}
+
+.qunix-glass-toast-container.has-colored-border {
+  border-color: color-mix(in srgb, var(--toast-accent) 60%, rgba(255, 255, 255, 0.15)) !important;
+}
+
+.qunix-glass-toast-container.has-bg-tint {
+  background: color-mix(in srgb, var(--toast-accent) 12%, rgba(14, 20, 31, 0.78)) !important;
+}
+
+.qunix-glass-toast-content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.qunix-glass-toast-icon-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--toast-accent, #22c55e);
+  color: #ffffff;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  box-shadow: none;
+}
+
+.qunix-glass-toast-icon {
+  font-size: 16px;
+}
+
+.qunix-glass-toast-message {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  flex-grow: 1;
+  color: #f1f5f9;
+}
+
+.qunix-glass-toast-close {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.qunix-glass-toast-close:hover {
+  color: #ffffff;
+}
+
+.qunix-glass-toast-timer-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: var(--toast-accent, #22c55e);
+  animation: qunix-toast-timer-anim 5s linear forwards;
+  border-bottom-left-radius: var(--toast-radius, 10px) !important;
+  border-bottom-right-radius: var(--toast-radius, 10px) !important;
 }

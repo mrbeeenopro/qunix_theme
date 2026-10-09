@@ -1,9 +1,9 @@
 import React from 'react';
-import { Group, Button, FileButton } from '@mantine/core';
+import { Group, Button, FileButton, Switch } from '@mantine/core';
 import { UseFormReturnType } from '@mantine/form';
 import { z } from 'zod';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDatabase, faDownload, faUpload, faRotateLeft } from '@fortawesome/free-solid-svg-icons';
+import { faDatabase, faDownload, faUpload, faRotateLeft, faChartLine } from '@fortawesome/free-solid-svg-icons';
 import { qunixThemeSettingsSchema } from '../../lib/schemas.ts';
 import { useExtTranslations } from '../../translations.ts';
 
@@ -15,12 +15,14 @@ interface AdvancedSettingsProps {
 }
 
 export function AdvancedSettings({
-  form: _form,
+  form,
   handleExportFile,
   handleImportFile,
   handleReset,
 }: AdvancedSettingsProps) {
   const { t: tExt } = useExtTranslations();
+  const themeAccent = form.values.button_color || form.values.focus_color || '#6c5ce7';
+  const accentTextColor = `color-mix(in srgb, ${themeAccent} 80%, white)`;
 
   return (
     <>
@@ -31,7 +33,7 @@ export function AdvancedSettings({
             fontSize: '11px',
             fontWeight: 'bold',
             display: 'block',
-            color: '#a29bfe',
+            color: accentTextColor,
             marginBottom: '8px',
           }}
         >
@@ -41,11 +43,15 @@ export function AdvancedSettings({
         <Group gap='sm'>
           <Button
             onClick={handleExportFile}
-            variant='light'
-            color='indigo'
             size='xs'
             leftSection={<FontAwesomeIcon icon={faDownload} />}
-            styles={{ root: { fontSize: '11px', height: '32px' } }}
+            style={{
+              fontSize: '11px',
+              height: '32px',
+              background: `color-mix(in srgb, ${themeAccent} 15%, transparent)`,
+              color: accentTextColor,
+              border: `1px solid color-mix(in srgb, ${themeAccent} 35%, transparent)`,
+            }}
           >
             {tExt('admin.advanced.exportButton', {})}
           </Button>
@@ -54,17 +60,53 @@ export function AdvancedSettings({
             {(props) => (
               <Button
                 {...props}
-                variant='light'
-                color='violet'
                 size='xs'
                 leftSection={<FontAwesomeIcon icon={faUpload} />}
-                styles={{ root: { fontSize: '11px', height: '32px' } }}
+                style={{
+                  fontSize: '11px',
+                  height: '32px',
+                  background: `color-mix(in srgb, ${themeAccent} 15%, transparent)`,
+                  color: accentTextColor,
+                  border: `1px solid color-mix(in srgb, ${themeAccent} 35%, transparent)`,
+                }}
               >
                 {tExt('admin.advanced.importButton', {})}
               </Button>
             )}
           </FileButton>
         </Group>
+      </div>
+
+      {/* Anonymous Telemetry */}
+      <div style={{ borderTop: '1px solid #111114', paddingTop: '16px', marginTop: '16px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+          <div>
+            <span
+              style={{
+                fontSize: '11px',
+                fontWeight: 'bold',
+                display: 'block',
+                color: accentTextColor,
+                marginBottom: '4px',
+              }}
+            >
+              <FontAwesomeIcon icon={faChartLine} style={{ marginRight: '6px' }} />
+              {tExt('admin.advanced.telemetryTitle', { defaultValue: 'Anonymous Extension Telemetry' })}
+            </span>
+            <span style={{ fontSize: '11px', color: '#888899', display: 'block', maxWidth: '480px', lineHeight: 1.4 }}>
+              {tExt('admin.advanced.telemetryDescription', {
+                defaultValue:
+                  'Allow anonymous telemetry reporting (panel version, container type, and theme version) to help improve compatibility and resolve issues. No personal or sensitive data is collected.',
+              })}
+            </span>
+          </div>
+          <Switch
+            checked={form.values.enable_telemetry !== false}
+            onChange={(event) => form.setFieldValue('enable_telemetry', event.currentTarget.checked)}
+            color={themeAccent}
+            size='sm'
+          />
+        </div>
       </div>
 
       {/* Reset Settings */}

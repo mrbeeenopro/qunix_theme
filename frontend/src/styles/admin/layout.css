@@ -119,7 +119,7 @@ html body.qunix-settings-active .mantine-AppShell-root {
 
 @keyframes qunix-pulse {
   0%, 100% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 8px rgba(162, 155, 254, 0.6)); }
+  50% { transform: scale(1.08); opacity: 1; }
 }
 
 @keyframes qunix-fade-in {

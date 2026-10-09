@@ -657,7 +657,7 @@ export function ColorField({ value, onChange, onBlur, label, description, error,
                 background: colorStr || 'transparent',
                 border: '2px solid rgba(255,255,255,0.12)',
                 flexShrink: 0,
-                boxShadow: colorStr ? `0 0 8px ${colorStr}60` : 'none',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
               }}
             />
             <input

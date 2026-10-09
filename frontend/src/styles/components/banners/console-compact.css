@@ -67,8 +67,8 @@ html.qunix-console-compact #console-infobar + .grid {
   display: grid !important;
   grid-template-columns: minmax(0, 1fr) 340px !important;
   gap: 16px !important;
-  align-items: stretch !important;
-  min-height: calc(100vh - 160px) !important;
+  align-items: stretch;
+  min-height: min(680px, calc(100vh - 160px)) !important;
 }
 
 html.qunix-console-compact #console-infobar + .grid > *:nth-child(1) {
@@ -80,20 +80,44 @@ html.qunix-console-compact #console-infobar + .grid > *:nth-child(1) {
   flex-direction: column !important;
 }
 
-html.qunix-console-compact #console-infobar + .grid > *:nth-child(1) > * {
+html.qunix-console-compact #console-infobar + .grid > *:nth-child(1) .mantine-Card-root {
   height: 100% !important;
-  min-height: calc(100vh - 220px) !important;
+  min-height: min(560px, calc(100vh - 220px)) !important;
   flex: 1 1 auto !important;
   display: flex !important;
   flex-direction: column !important;
 }
 
-html.qunix-console-compact #console-infobar + .grid > *:nth-child(1) .terminal-container,
-html.qunix-console-compact #console-infobar + .grid > *:nth-child(1) .xterm,
-html.qunix-console-compact #console-infobar + .grid > *:nth-child(1) .xterm-viewport,
+/* When disable-console-resize is enabled, stop forcing full screen stretching */
+html[data-disable-console-resize="true"] #console-infobar + .grid,
+html.qunix-console-compact[data-disable-console-resize="true"] #console-infobar + .grid {
+  align-items: start !important;
+  min-height: auto !important;
+}
+
+html[data-disable-console-resize="true"] #console-infobar + .grid > *:nth-child(1),
+html.qunix-console-compact[data-disable-console-resize="true"] #console-infobar + .grid > *:nth-child(1) {
+  height: auto !important;
+}
+
+html[data-disable-console-resize="true"] #console-infobar + .grid > *:nth-child(1) .mantine-Card-root,
+html.qunix-console-compact[data-disable-console-resize="true"] #console-infobar + .grid > *:nth-child(1) .mantine-Card-root,
+html[data-disable-console-resize="true"] .qunix-console-terminal-wrapper,
+html[data-disable-console-resize="true"] .qunix-console-terminal-wrapper > .mantine-Card-root {
+  height: 500px !important;
+  min-height: 400px !important;
+  max-height: 600px !important;
+  flex: none !important;
+}
+
 html.qunix-console-compact #console-infobar + .grid > *:nth-child(1) .mantine-Paper-root {
   flex: 1 1 auto !important;
   height: 100% !important;
+}
+
+html.qunix-console-compact #console-infobar + .grid > *:nth-child(1) .xterm-viewport,
+html.qunix-console-compact .xterm-viewport {
+  background-color: transparent !important;
 }
 
 html.qunix-console-compact #console-infobar + .grid > *:nth-child(2) {

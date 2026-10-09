@@ -40,7 +40,7 @@ import {
   faFolder,
   faLink,
   faDatabase,
-  faShareNodes,
+  faLayerGroup,
 } from '@fortawesome/free-solid-svg-icons';
 import { useForm } from '@mantine/form';
 import { zodResolver } from 'mantine-form-zod-resolver';
@@ -58,93 +58,11 @@ import { SidebarSettings } from './components/settings/SidebarSettings';
 import { BannersSettings } from './components/settings/BannersSettings';
 import { AnnouncementSettings } from './components/settings/AnnouncementSettings';
 import { AdvancedSettings } from './components/settings/AdvancedSettings';
+import { sendTelemetryPing } from './lib/telemetry.ts';
 import { hslToHex } from './components/settings/colorUtils';
 import { LoginLayoutSettings } from './components/settings/LoginLayoutSettings';
-import { EmbedSettings } from './components/settings/EmbedSettings';
+import { QunixCustomLayoutBuilder } from './components/settings/QunixCustomLayoutBuilder';
 import { useExtTranslations } from './translations.ts';
-
-const HOVER_STYLES = [
-  {
-    value: 'none',
-    label: 'Default',
-    description: 'Use the standard panel hover style without overrides.',
-    svg: (
-      <svg width='80' height='60' viewBox='0 0 80 60' fill='none' xmlns='http://www.w3.org/2000/svg'>
-        <rect width='80' height='60' rx='6' fill='#1e1631' stroke='rgba(255,255,255,0.06)' strokeWidth='1.5' />
-        <rect x='5' y='5' width='20' height='50' rx='3' fill='#161025' />
-        <rect x='8' y='10' width='14' height='6' rx='2' fill='rgba(255,255,255,0.2)' />
-        <rect x='8' y='20' width='14' height='6' rx='2' fill='rgba(255,255,255,0.4)' />
-        <rect x='8' y='30' width='14' height='6' rx='2' fill='rgba(255,255,255,0.2)' />
-      </svg>
-    ),
-  },
-  {
-    value: 'style-1',
-    label: 'Right Indicator',
-    description: 'Subtle gradient background with a vertical indicator line on the right edge.',
-    svg: (
-      <svg width='80' height='60' viewBox='0 0 80 60' fill='none' xmlns='http://www.w3.org/2000/svg'>
-        <rect width='80' height='60' rx='6' fill='#1e1631' stroke='rgba(255,255,255,0.06)' strokeWidth='1.5' />
-        <rect x='5' y='5' width='20' height='50' rx='3' fill='#161025' />
-        <rect x='8' y='10' width='14' height='6' rx='2' fill='rgba(255,255,255,0.2)' />
-        <rect x='8' y='20' width='14' height='6' rx='2' fill='url(#style1-grad-admin)' />
-        <line x1='22' y1='20' x2='22' y2='26' stroke='#6c5ce7' strokeWidth='1.5' strokeLinecap='round' />
-        <rect x='8' y='30' width='14' height='6' rx='2' fill='rgba(255,255,255,0.2)' />
-
-        <defs>
-          <linearGradient id='style1-grad-admin' x1='8' y1='20' x2='22' y2='20' gradientUnits='userSpaceOnUse'>
-            <stop stopColor='rgba(108, 92, 231, 0.15)' />
-            <stop offset='1' stopColor='rgba(108, 92, 231, 0.02)' />
-          </linearGradient>
-        </defs>
-      </svg>
-    ),
-  },
-  {
-    value: 'style-2',
-    label: 'Left Pill Indicator',
-    description: 'Rounded card style with a vertical left indicator pill.',
-    svg: (
-      <svg width='80' height='60' viewBox='0 0 80 60' fill='none' xmlns='http://www.w3.org/2000/svg'>
-        <rect width='80' height='60' rx='6' fill='#1e1631' stroke='rgba(255,255,255,0.06)' strokeWidth='1.5' />
-        <rect x='5' y='5' width='20' height='50' rx='3' fill='#161025' />
-        <rect x='8' y='10' width='14' height='6' rx='2' fill='rgba(255,255,255,0.2)' />
-        <rect x='8' y='20' width='14' height='6' rx='3' fill='rgba(255,255,255,0.05)' />
-        <line x1='6.5' y1='21.5' x2='6.5' y2='24.5' stroke='#6c5ce7' strokeWidth='1.5' strokeLinecap='round' />
-        <rect x='10' y='20' width='10' height='6' rx='1' fill='#6c5ce7' fillOpacity='0.8' />
-        <rect x='8' y='30' width='14' height='6' rx='2' fill='rgba(255,255,255,0.2)' />
-      </svg>
-    ),
-  },
-  {
-    value: 'style-3',
-    label: 'Floating Inset Pill',
-    description: 'Floating rounded card with side margins, no vertical indicators.',
-    svg: (
-      <svg width='80' height='60' viewBox='0 0 80 60' fill='none' xmlns='http://www.w3.org/2000/svg'>
-        <rect width='80' height='60' rx='6' fill='#1e1631' stroke='rgba(255,255,255,0.06)' strokeWidth='1.5' />
-        <rect x='5' y='5' width='20' height='50' rx='3' fill='#161025' />
-        <rect x='8' y='10' width='14' height='6' rx='2' fill='rgba(255,255,255,0.2)' />
-        <rect x='9' y='20' width='12' height='6' rx='3' fill='#6c5ce7' fillOpacity='0.9' />
-        <rect x='8' y='30' width='14' height='6' rx='2' fill='rgba(255,255,255,0.2)' />
-      </svg>
-    ),
-  },
-  {
-    value: 'style-4',
-    label: 'Flat Full-width',
-    description: 'Square blocks that expand completely to the edges of the sidebar.',
-    svg: (
-      <svg width='80' height='60' viewBox='0 0 80 60' fill='none' xmlns='http://www.w3.org/2000/svg'>
-        <rect width='80' height='60' rx='6' fill='#1e1631' stroke='rgba(255,255,255,0.06)' strokeWidth='1.5' />
-        <rect x='5' y='5' width='20' height='50' rx='3' fill='#161025' />
-        <rect x='8' y='10' width='14' height='6' rx='2' fill='rgba(255,255,255,0.2)' />
-        <rect x='5' y='20' width='20' height='6' fill='#6c5ce7' fillOpacity='0.8' />
-        <rect x='8' y='30' width='14' height='6' rx='2' fill='rgba(255,255,255,0.2)' />
-      </svg>
-    ),
-  },
-];
 
 export default function AdminSettingsPage() {
   const { addToast } = useToast();
@@ -157,6 +75,7 @@ export default function AdminSettingsPage() {
   const navigate = useNavigate();
 
   const getTabFromPath = (pathname: string) => {
+    if (pathname.includes('/dashboard-layout') || pathname.includes('/custom-layout')) return 'dashboard-layout';
     if (pathname.includes('/advanced')) return 'advanced';
     if (pathname.includes('/layout')) return 'layout';
     if (pathname.includes('/stylings')) return 'stylings';
@@ -164,11 +83,65 @@ export default function AdminSettingsPage() {
     if (pathname.includes('/banners')) return 'banners';
     if (pathname.includes('/announcement')) return 'announcement';
     if (pathname.includes('/login-layout')) return 'login-layout';
-    if (pathname.includes('/embed')) return 'embed';
     return 'colors';
   };
 
   const [activeTab, setActiveTab] = useState<string>(() => getTabFromPath(location.pathname));
+
+  const tabs = [
+    // Layout
+    { id: 'layout', icon: faCogs, title: tExt('admin.tabs.layout.title', { defaultValue: 'General Layout' }) },
+    { id: 'dashboard-layout', icon: faLayerGroup, title: tExt('admin.tabs.dashboardLayout.title', { defaultValue: 'Dashboard & Console' }) },
+    { id: 'sidebar', icon: faColumns, title: tExt('admin.tabs.sidebar.title', { defaultValue: 'Sidebar Navigation' }) },
+    { id: 'login-layout', icon: faWindowMaximize, title: tExt('admin.tabs.loginLayout.title', { defaultValue: 'Login Page' }) },
+    // Styles
+    { id: 'colors', icon: faPalette, title: tExt('admin.tabs.colors.title', { defaultValue: 'Theme Colors' }) },
+    { id: 'stylings', icon: faSliders, title: tExt('admin.tabs.stylings.title', { defaultValue: 'Component Stylings' }) },
+    { id: 'banners', icon: faImage, title: tExt('admin.tabs.banners.title', { defaultValue: 'Banners & Artwork' }) },
+    { id: 'announcement', icon: faBullhorn, title: tExt('admin.tabs.announcement.title', { defaultValue: 'Announcements & Toasts' }) },
+    // System
+    { id: 'advanced', icon: faDatabase, title: tExt('admin.tabs.advanced.title', { defaultValue: 'Backup & Maintenance' }) },
+  ];
+
+  const currentTabTitle =
+    tabs.find(
+      (t) => t.id === activeTab || (t.id === 'dashboard-layout' && activeTab === 'custom-layout')
+    )?.title || 'Settings';
+
+  const [adminSidebarWidth, setAdminSidebarWidth] = useState<number>(() => {
+    try {
+      const saved = localStorage.getItem('qunix_admin_sidebar_width');
+      return saved ? Math.max(300, Math.min(850, parseInt(saved, 10))) : 380;
+    } catch (_) {
+      return 380;
+    }
+  });
+  const [isAdminSidebarResizing, setIsAdminSidebarResizing] = useState(false);
+
+  const handleAdminSidebarResizeStart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsAdminSidebarResizing(true);
+    const startX = e.clientX;
+    const initialWidth = adminSidebarWidth;
+
+    const onMouseMove = (moveEvent: MouseEvent) => {
+      const delta = moveEvent.clientX - startX;
+      const nextWidth = Math.max(300, Math.min(850, Math.round(initialWidth + delta)));
+      setAdminSidebarWidth(nextWidth);
+      try {
+        localStorage.setItem('qunix_admin_sidebar_width', String(nextWidth));
+      } catch (_) {}
+    };
+
+    const onMouseUp = () => {
+      setIsAdminSidebarResizing(false);
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
+    };
+
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
+  };
 
   useEffect(() => {
     setActiveTab(getTabFromPath(location.pathname));
@@ -342,15 +315,17 @@ export default function AdminSettingsPage() {
     sidebar_radius: 6,
     sidebar_active_radius: 6,
     page_title_icon: true,
-    spinner_type: 'ClipLoader',
+    spinner_type: 'oval',
     spinner_color: '#6c5ce7',
     console_style: 'default',
+    disable_console_auto_resize: false,
+    custom_dashboard_layout: '',
     enable_layout_toggle: true,
     list_layout_chart: 'cpu',
     card_hover_animation: 'shift',
     card_animation: 'slide-up',
     listing_animation: 'inherit',
-    grid_banner_style: 'cover',
+    grid_banner_style: 'right',
     list_banner_style: 'right',
     welcome_subtitle: '',
     sidebar_style: 'full',
@@ -374,7 +349,7 @@ export default function AdminSettingsPage() {
     login_background_image: '',
     login_background_color: '',
     login_support_link: '',
-    enable_preloader: true,
+    enable_preloader: false,
     preloader_delay: 1500,
     preloader_style: 'bar',
     preloader_color: '#7aa2f7',
@@ -383,6 +358,25 @@ export default function AdminSettingsPage() {
     preloader_bg_image: '',
     preloader_logo: '',
     privacy_blur: false,
+    enable_server_dashboard: true,
+    enable_skeleton_loader: true,
+    enable_flat_design: true,
+    server_grid_mobile_layout: 'compact',
+    server_grid_style: 'default',
+    global_card_style: 'subtle-fade',
+    component_overlay_style: 'fade',
+    button_style: 'filled',
+    input_style: 'outline',
+    switch_style: 'pill',
+    icon_style: 'default',
+    clean_title_headers: true,
+    dashboard_quick_links: '',
+    enable_dashboard_quick_links: true,
+    dialog_design: 'stark',
+    dialog_accent_color: '',
+    card_border: 'subtle',
+    enable_telemetry: true,
+    telemetry_prompt_dismissed: false,
   };
 
   const initialValues = { ...rawInitialValues };
@@ -396,6 +390,23 @@ export default function AdminSettingsPage() {
     initialValues,
     validate: zodResolver(qunixThemeSettingsSchema),
   });
+
+  // Real-time synchronization of form values to global qunixThemeSettings and root attributes
+  useEffect(() => {
+    (window as any).qunixThemeSettings = {
+      ...((window as any).qunixThemeSettings || {}),
+      ...form.values,
+    };
+    const root = document.documentElement;
+    if (root) {
+      root.setAttribute('data-dialog-design', form.values.dialog_design || 'stark');
+      root.setAttribute('data-card-border', form.values.card_border || 'subtle');
+      const dialogAccent = form.values.dialog_accent_color || form.values.button_color || '#6c5ce7';
+      root.style.setProperty('--ds-dialog-accent-color', dialogAccent);
+      root.style.setProperty('--ds-button-color', form.values.button_color || '#6c5ce7');
+      root.style.setProperty('--ds-primary-color', form.values.button_color || '#6c5ce7');
+    }
+  }, [form.values]);
 
   // Force-hide Calagopus layout and style full screen
   useEffect(() => {
@@ -756,15 +767,17 @@ export default function AdminSettingsPage() {
               : s.pageTitleIcon !== undefined
                 ? s.pageTitleIcon
                 : true,
-          spinner_type: s.spinner_type || s.spinnerType || 'ClipLoader',
+          spinner_type: s.spinner_type || s.spinnerType || 'oval',
           spinner_color: hslToHex(s.spinner_color || s.spinnerColor || '#6c5ce7'),
           console_style: s.console_style || s.consoleStyle || 'default',
+          disable_console_auto_resize: s.disable_console_auto_resize !== undefined ? s.disable_console_auto_resize : (localS.disable_console_auto_resize ?? false),
+          custom_dashboard_layout: s.custom_dashboard_layout || s.customDashboardLayout || '',
           enable_layout_toggle: s.enable_layout_toggle !== undefined ? s.enable_layout_toggle : s.enableLayoutToggle !== undefined ? s.enableLayoutToggle : true,
           list_layout_chart: s.list_layout_chart || s.listLayoutChart || 'cpu',
           card_hover_animation: s.card_hover_animation || s.cardHoverAnimation || 'shift',
           card_animation: s.card_animation || s.cardAnimation || 'slide-up',
           listing_animation: s.listing_animation || s.listingAnimation || 'inherit',
-          grid_banner_style: s.grid_banner_style || s.gridBannerStyle || 'cover',
+          grid_banner_style: s.grid_banner_style || s.gridBannerStyle || 'right',
           list_banner_style: s.list_banner_style || s.listBannerStyle || 'right',
           welcome_subtitle: s.welcome_subtitle || s.welcomeSubtitle || '',
           sidebar_style: s.sidebar_style || s.sidebarStyle || 'full',
@@ -788,7 +801,7 @@ export default function AdminSettingsPage() {
           embed_color: s.embed_color ? hslToHex(s.embed_color) : '#6c5ce7',
           embed_image: s.embed_image || '',
           embed_site_name: s.embed_site_name || '',
-          enable_preloader: s.enable_preloader !== undefined ? s.enable_preloader : (localS.enable_preloader !== undefined ? localS.enable_preloader : true),
+          enable_preloader: s.enable_preloader !== undefined ? s.enable_preloader : (localS.enable_preloader !== undefined ? localS.enable_preloader : false),
           preloader_delay: s.preloader_delay !== undefined ? s.preloader_delay : (localS.preloader_delay !== undefined ? localS.preloader_delay : 1500),
           preloader_style: s.preloader_style || localS.preloader_style || 'bar',
           preloader_color: s.preloader_color || localS.preloader_color || '#7aa2f7',
@@ -797,6 +810,23 @@ export default function AdminSettingsPage() {
           preloader_bg_image: s.preloader_bg_image || s.preloaderBgImage || localS.preloader_bg_image || '',
           preloader_logo: s.preloader_logo || s.preloaderLogo || localS.preloader_logo || '',
           privacy_blur: s.privacy_blur !== undefined ? s.privacy_blur : (localS.privacy_blur !== undefined ? localS.privacy_blur : false),
+          enable_server_dashboard: s.enable_server_dashboard !== undefined ? s.enable_server_dashboard : true,
+          enable_skeleton_loader: s.enable_skeleton_loader !== undefined ? s.enable_skeleton_loader : true,
+          enable_flat_design: s.enable_flat_design !== undefined ? s.enable_flat_design : true,
+          server_grid_mobile_layout: s.server_grid_mobile_layout || s.serverGridMobileLayout || 'compact',
+          server_grid_style: s.server_grid_style || s.serverGridStyle || 'default',
+          server_list_style: s.server_list_style || s.serverListStyle || 'default',
+          global_card_style: s.global_card_style || s.globalCardStyle || localS.global_card_style || (s.enable_flat_design !== false ? 'none' : 'subtle-fade'),
+          component_overlay_style: s.component_overlay_style || s.componentOverlayStyle || localS.component_overlay_style || 'fade',
+          button_style: s.button_style || s.buttonStyle || localS.button_style || 'filled',
+          input_style: s.input_style || s.inputStyle || localS.input_style || 'outline',
+          switch_style: s.switch_style || s.switchStyle || localS.switch_style || 'pill',
+          icon_style: s.icon_style || s.iconStyle || localS.icon_style || 'default',
+          clean_title_headers: s.clean_title_headers !== undefined ? s.clean_title_headers : (localS.clean_title_headers !== undefined ? localS.clean_title_headers : true),
+          dashboard_quick_links: s.dashboard_quick_links || s.dashboardQuickLinks || localS.dashboard_quick_links || '',
+          enable_dashboard_quick_links: s.enable_dashboard_quick_links !== undefined ? s.enable_dashboard_quick_links : (localS.enable_dashboard_quick_links !== undefined ? localS.enable_dashboard_quick_links : true),
+          enable_telemetry: s.enable_telemetry !== undefined ? s.enable_telemetry : true,
+          telemetry_prompt_dismissed: s.telemetry_prompt_dismissed !== undefined ? s.telemetry_prompt_dismissed : false,
         });
       })
       .catch((err) => addToast(httpErrorToHuman(err), 'error'))
@@ -871,19 +901,31 @@ export default function AdminSettingsPage() {
       const root = iframeDoc.documentElement;
       if (!root) return;
       root.setAttribute('data-sidebar-hover-style', s.sidebar_hover_style || 'style-1');
+      root.setAttribute('data-button-style', s.button_style || 'filled');
+      root.setAttribute('data-input-style', s.input_style || 'outline');
+      root.setAttribute('data-switch-style', s.switch_style || 'pill');
+      root.setAttribute('data-icon-style', s.icon_style || 'default');
+      root.setAttribute('data-component-overlay', s.component_overlay_style || 'fade');
+      root.setAttribute('data-clean-titles', s.clean_title_headers !== false ? 'true' : 'false');
+      root.setAttribute('data-console-style', s.console_style || 'default');
+      root.setAttribute('data-dialog-design', s.dialog_design || 'stark');
+      root.setAttribute('data-card-border', s.card_border || 'subtle');
+      const dialogAccent = s.dialog_accent_color || buttonColor || '#6c5ce7';
+      root.style.setProperty('--ds-dialog-accent-color', dialogAccent);
+      if (buttonColor) {
+        root.style.setProperty('--ds-button-color', buttonColor);
+        root.style.setProperty('--ds-primary-color', buttonColor);
+      }
 
       if (iframeDoc.defaultView) {
         (iframeDoc.defaultView as any).qunixThemeSettings = {
           ...((iframeDoc.defaultView as any).qunixThemeSettings || {}),
-          toast_style: s.toast_style,
-          toast_timer: s.toast_timer,
-          toast_radius: s.toast_radius,
-          toast_colored_border: s.toast_colored_border,
-          toast_background_tint: s.toast_background_tint,
-          page_title_icon: s.page_title_icon,
-          sidebar_style: s.sidebar_style,
-          sidebar_icons: s.sidebar_icons,
+          ...s,
+          console_style: s.console_style || 'default',
         };
+        try {
+          iframeDoc.defaultView.dispatchEvent(new CustomEvent('qunix-theme-settings-changed', { detail: (iframeDoc.defaultView as any).qunixThemeSettings }));
+        } catch (_) {}
       }
 
       if (backgroundColor) root.style.setProperty('--ds-background', backgroundColor);
@@ -947,6 +989,50 @@ export default function AdminSettingsPage() {
       root.setAttribute('data-dashboard-layout', s.dashboard_layout || 'default');
       root.setAttribute('data-card-animation', s.card_animation || 'slide-up');
       root.setAttribute('data-listing-animation', s.listing_animation || 'inherit');
+      root.setAttribute('data-flat-design', (s.enable_flat_design !== false) ? 'true' : 'false');
+      root.setAttribute('data-skeleton-loader', (s.enable_skeleton_loader !== false) ? 'true' : 'false');
+      root.setAttribute('data-server-grid-style', s.server_grid_style || 'default');
+      root.setAttribute('data-server-list-style', s.server_list_style || 'default');
+      root.setAttribute('data-server-mobile-layout', s.server_grid_mobile_layout || 'compact');
+      const cardStyle = s.global_card_style || (s.enable_flat_design !== false ? 'none' : 'subtle-fade');
+      root.setAttribute('data-card-style', cardStyle);
+      const disableConsoleResize = s.disable_console_auto_resize ? 'true' : 'false';
+      root.setAttribute('data-disable-console-resize', disableConsoleResize);
+      try {
+        const topRoot = document.documentElement;
+        if (topRoot) {
+          topRoot.setAttribute('data-card-style', cardStyle);
+          topRoot.setAttribute('data-disable-console-resize', disableConsoleResize);
+          topRoot.setAttribute('data-server-grid-style', s.server_grid_style || 'default');
+          topRoot.setAttribute('data-server-list-style', s.server_list_style || 'default');
+          topRoot.setAttribute('data-server-mobile-layout', s.server_grid_mobile_layout || 'compact');
+          topRoot.setAttribute('data-component-overlay', s.component_overlay_style || 'fade');
+          topRoot.setAttribute('data-console-style', s.console_style || 'default');
+          topRoot.setAttribute('data-dialog-design', s.dialog_design || 'stark');
+          topRoot.setAttribute('data-card-border', s.card_border || 'subtle');
+          topRoot.style.setProperty('--ds-dialog-accent-color', dialogAccent);
+          if (buttonColor) {
+            topRoot.style.setProperty('--ds-button-color', buttonColor);
+            topRoot.style.setProperty('--ds-primary-color', buttonColor);
+          }
+        }
+        const previewEl = document.getElementById('qunix-preview-container');
+        if (previewEl) {
+          previewEl.setAttribute('data-server-grid-style', s.server_grid_style || 'default');
+          previewEl.setAttribute('data-server-list-style', s.server_list_style || 'default');
+          previewEl.setAttribute('data-component-overlay', s.component_overlay_style || 'fade');
+          previewEl.setAttribute('data-console-style', s.console_style || 'default');
+          previewEl.setAttribute('data-dialog-design', s.dialog_design || 'stark');
+          previewEl.setAttribute('data-card-border', s.card_border || 'subtle');
+        }
+        (window as any).qunixThemeSettings = {
+          ...((window as any).qunixThemeSettings || {}),
+          ...s,
+          console_style: s.console_style || 'default',
+        };
+        window.dispatchEvent(new CustomEvent('qunix-settings-loaded', { detail: (window as any).qunixThemeSettings }));
+        window.dispatchEvent(new CustomEvent('qunix-theme-settings-changed', { detail: (window as any).qunixThemeSettings }));
+      } catch (_) {}
       const hoverAnimation = s.card_hover_animation || 'shift';
       root.classList.remove('qunix-hover-shift', 'qunix-hover-scale', 'qunix-hover-glow', 'qunix-hover-none');
       root.classList.add(`qunix-hover-${hoverAnimation}`);
@@ -1033,8 +1119,12 @@ export default function AdminSettingsPage() {
       }
 
       if (iframeWindow) {
-        (iframeWindow as any).qunixThemeSettings = s;
+        (iframeWindow as any).qunixThemeSettings = {
+          ...((iframeWindow as any).qunixThemeSettings || {}),
+          ...s,
+        };
         iframeWindow.dispatchEvent(new CustomEvent('qunix-settings-loaded', { detail: s }));
+        iframeWindow.dispatchEvent(new CustomEvent('qunix-theme-settings-changed', { detail: s }));
       }
     };
 
@@ -1080,11 +1170,11 @@ export default function AdminSettingsPage() {
         styleTag.textContent = `
           @keyframes qunix-highlight-pulse {
             0%, 100% {
-              box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.45), 0 0 25px rgba(108, 92, 231, 0.6);
+              box-shadow: 0 0 0 2px rgba(108, 92, 231, 0.4);
               border-color: #6c5ce7;
             }
             50% {
-              box-shadow: 0 0 0 7px rgba(108, 92, 231, 0.2), 0 0 40px rgba(108, 92, 231, 0.9);
+              box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.2);
               border-color: #a29bfe;
             }
           }
@@ -1214,6 +1304,9 @@ export default function AdminSettingsPage() {
           try {
             (window as any).qunixLoadFont?.(payload.font_family);
           } catch (_) {}
+        }
+        if (payload.enable_telemetry !== false) {
+          sendTelemetryPing();
         }
       })
       .catch((err) => {
@@ -1378,6 +1471,18 @@ export default function AdminSettingsPage() {
       login_support_position: 'above-form',
       login_banner_image: '',
       login_support_link: '',
+      enable_server_dashboard: true,
+      enable_skeleton_loader: true,
+      enable_flat_design: true,
+      server_grid_mobile_layout: 'compact',
+      server_grid_style: 'default',
+      server_list_style: 'default',
+      global_card_style: 'subtle-fade',
+      console_style: 'default',
+      disable_console_auto_resize: false,
+      custom_dashboard_layout: '',
+      enable_telemetry: true,
+      telemetry_prompt_dismissed: false,
     };
 
     const defaultSettings = { ...rawDefaultSettings };
@@ -1439,6 +1544,8 @@ export default function AdminSettingsPage() {
     }
   };
 
+  const adminAccent = form.values.button_color || form.values.focus_color || '#6c5ce7';
+
   return (
     <div
       id='qunix-settings-page'
@@ -1449,24 +1556,26 @@ export default function AdminSettingsPage() {
         background: '#000000',
         color: '#e2e8f0',
         fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        ['--admin-accent' as any]: adminAccent,
       }}
     >
-      {/* 1. Left Toolbar Bar */}
+      {/* 1. Left Toolbar Bar (Categorized by Layout, Styles, Config, System) */}
       <div
         style={{
           position: 'relative',
           width: '64px',
           height: '100%',
           maxHeight: '100dvh',
-          overflow: 'hidden',
+          overflowY: 'auto',
+          overflowX: 'hidden',
           flexShrink: 0,
           background: '#040405',
           borderRight: '1px solid #111114',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          justifyContent: 'center',
           padding: '16px 0',
+          gap: '12px',
           boxSizing: 'border-box',
         }}
       >
@@ -1475,8 +1584,6 @@ export default function AdminSettingsPage() {
           onClick={() => navigate('/admin')}
           title='Go Back'
           style={{
-            position: 'absolute',
-            top: '16px',
             width: '40px',
             height: '40px',
             background: 'rgba(239, 68, 68, 0.15)',
@@ -1488,6 +1595,7 @@ export default function AdminSettingsPage() {
             alignItems: 'center',
             justifyContent: 'center',
             transition: 'all 0.2s',
+            flexShrink: 0,
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.background = '#ef4444';
@@ -1501,197 +1609,239 @@ export default function AdminSettingsPage() {
           <FontAwesomeIcon icon={faArrowLeft} />
         </button>
 
-        {/* Middle: Tab Switcher Icons */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          {[
-            { id: 'colors', icon: faPalette, title: tExt('admin.tabs.colors.title', {}) },
-            { id: 'layout', icon: faCogs, title: tExt('admin.tabs.layout.title', {}) },
-            { id: 'sidebar', icon: faColumns, title: tExt('admin.tabs.sidebar.title', {}) },
-            { id: 'stylings', icon: faSliders, title: tExt('admin.tabs.stylings.title', {}) },
-            { id: 'banners', icon: faImage, title: tExt('admin.tabs.banners.title', {}) },
-            { id: 'announcement', icon: faBullhorn, title: tExt('admin.tabs.announcement.title', {}) },
-            { id: 'login-layout', icon: faWindowMaximize, title: tExt('admin.tabs.loginLayout.title', {}) },
-            // ponytail: Social Meta Tags & Discord Embeds tab hidden temporarily per user request; will be restored with toggle in future update
-            // { id: 'embed', icon: faShareNodes, title: tExt('admin.tabs.embed.title', {}) },
-            { id: 'advanced', icon: faDatabase, title: tExt('admin.tabs.advanced.title', {}) },
-          ].map((tab) => {
-            const isSelected = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => handleTabChange(tab.id)}
-                title={tab.title}
-                style={{
-                  width: '40px',
-                  height: '40px',
-                  background: isSelected ? 'rgba(108, 92, 231, 0.15)' : 'transparent',
-                  border: isSelected ? '1px solid #6c5ce7' : '1px solid transparent',
-                  borderRadius: '8px',
-                  color: isSelected ? '#a29bfe' : '#71717a',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  transition: 'all 0.2s',
-                }}
-                onMouseEnter={(e) => {
-                  if (!isSelected) e.currentTarget.style.color = '#a29bfe';
-                }}
-                onMouseLeave={(e) => {
-                  if (!isSelected) e.currentTarget.style.color = '#71717a';
-                }}
-              >
-                <FontAwesomeIcon icon={tab.icon} />
-              </button>
-            );
-          })}
-        </div>
+        <div style={{ width: '32px', height: '1px', background: 'rgba(255, 255, 255, 0.08)', margin: '2px 0' }} />
+
+        {tabs.map((tab) => {
+          const isSelected = activeTab === tab.id || (tab.id === 'dashboard-layout' && activeTab === 'custom-layout');
+          return (
+            <button
+              key={tab.id}
+              onClick={() => handleTabChange(tab.id)}
+              title={tab.title}
+              style={{
+                width: '40px',
+                height: '40px',
+                background: isSelected ? `color-mix(in srgb, ${adminAccent} 16%, transparent)` : 'transparent',
+                border: isSelected ? `1px solid ${adminAccent}` : '1px solid transparent',
+                borderRadius: '8px',
+                color: isSelected ? `color-mix(in srgb, ${adminAccent} 80%, white)` : '#71717a',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.15s ease',
+              }}
+              onMouseEnter={(e) => {
+                if (!isSelected) e.currentTarget.style.color = `color-mix(in srgb, ${adminAccent} 80%, white)`;
+              }}
+              onMouseLeave={(e) => {
+                if (!isSelected) e.currentTarget.style.color = '#71717a';
+              }}
+            >
+              <FontAwesomeIcon icon={tab.icon} />
+            </button>
+          );
+        })}
       </div>
 
-      {/* 2. Middle Form Pane */}
-      <div
-        style={{
-          width: '380px',
-          height: '100%',
-          maxHeight: '100dvh',
-          overflow: 'hidden',
-          flexShrink: 0,
-          background: '#070708',
-          borderRight: '1px solid #111114',
-          display: 'flex',
-          flexDirection: 'column',
-          boxSizing: 'border-box',
-        }}
-      >
-        {/* Title pane */}
-        <div style={{ padding: '20px 24px 16px 24px', borderBottom: '1px solid #111114' }}>
-          <h2 style={{ fontSize: '16px', fontWeight: 'bold', margin: 0 }}>{tExt('admin.title', {})}</h2>
-        </div>
-
-        {initialLoading ? (
+      {activeTab === 'dashboard-layout' || activeTab === 'custom-layout' ? (
+        <QunixCustomLayoutBuilder
+          form={form}
+          onSave={doSave}
+          onBack={() => handleTabChange('layout')}
+          sidebarWidth={adminSidebarWidth}
+          isResizing={isAdminSidebarResizing}
+          onResizeStart={handleAdminSidebarResizeStart}
+          onResetWidth={() => {
+            setAdminSidebarWidth(380);
+            try { localStorage.removeItem('qunix_admin_sidebar_width'); } catch (_) {}
+          }}
+        />
+      ) : (
+        <>
+          {/* 2. Middle Form Pane (Resizable) */}
           <div
             style={{
-              flex: 1,
+              width: `${adminSidebarWidth}px`,
+              minWidth: '300px',
+              maxWidth: '850px',
+              height: '100%',
+              maxHeight: '100dvh',
+              overflow: 'hidden',
+              flexShrink: 0,
+              background: '#070708',
+              borderRight: '1px solid #111114',
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '32px',
-              gap: '16px',
-              animation: 'qunix-fade-in 0.3s ease-out',
+              boxSizing: 'border-box',
+              position: 'relative',
+            }}
+          >
+            {/* Title pane with Category Badge & Width Indicator */}
+            <div
+              style={{
+                padding: '16px 20px',
+                borderBottom: '1px solid #111114',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: '12px',
+              }}
+            >
+              <div>
+                <h2 style={{ fontSize: '15px', fontWeight: 'bold', margin: 0, color: '#f8fafc' }}>
+                  {currentTabTitle}
+                </h2>
+              </div>
+            </div>
+
+            {initialLoading ? (
+              <div
+                style={{
+                  flex: 1,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '32px',
+                  gap: '16px',
+                  animation: 'qunix-fade-in 0.3s ease-out',
+                }}
+              >
+                <div
+                  style={{
+                    position: 'relative',
+                    width: '52px',
+                    height: '52px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <div
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      borderRadius: '50%',
+                      border: '2.5px solid rgba(108, 92, 231, 0.15)',
+                      borderTopColor: '#6c5ce7',
+                      animation: 'qunix-spin 0.8s linear infinite',
+                    }}
+                  />
+                  <div
+                    style={{
+                      position: 'absolute',
+                      inset: '7px',
+                      borderRadius: '50%',
+                      border: '2px solid rgba(162, 155, 254, 0.15)',
+                      borderBottomColor: '#a29bfe',
+                      animation: 'qunix-spin-reverse 1.2s linear infinite',
+                    }}
+                  />
+                  <FontAwesomeIcon
+                    icon={faCogs}
+                    style={{
+                      fontSize: '16px',
+                      color: '#a29bfe',
+                      animation: 'qunix-pulse 1.6s ease-in-out infinite',
+                    }}
+                  />
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                  <div style={{ fontSize: '13px', fontWeight: 600, color: '#e2e8f0', letterSpacing: '0.3px' }}>
+                    {tExt('admin.loading', {})}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <ScrollArea style={{ flex: 1, padding: '24px' }} type='auto'>
+                <form onSubmit={(e) => e.preventDefault()}>
+                  <Stack gap='md' style={{ paddingBottom: '32px' }}>
+                    {activeTab === 'colors' && <ColorsSettings form={form} />}
+                    {activeTab === 'layout' && <LayoutSettings form={form} onNavigateTab={(tab) => handleTabChange(tab)} />}
+                    {activeTab === 'stylings' && <StylingsSettings form={form} />}
+                    {activeTab === 'sidebar' && <SidebarSettings form={form} extensions={extensions} />}
+                    {activeTab === 'banners' && <BannersSettings form={form} nests={nests} />}
+                    {activeTab === 'announcement' && <AnnouncementSettings form={form} />}
+                    {activeTab === 'login-layout' && <LoginLayoutSettings form={form} />}
+                    {activeTab === 'advanced' && (
+                      <AdvancedSettings
+                        form={form}
+                        handleExportFile={handleExportFile}
+                        handleImportFile={handleImportFile}
+                        handleReset={handleReset}
+                      />
+                    )}
+                  </Stack>
+                </form>
+              </ScrollArea>
+            )}
+
+            {/* Horizontal Resize Drag Handle for Settings Sidebar */}
+            <div
+              onMouseDown={handleAdminSidebarResizeStart}
+              onDoubleClick={() => {
+                setAdminSidebarWidth(380);
+                try { localStorage.removeItem('qunix_admin_sidebar_width'); } catch (_) {}
+              }}
+              title="Drag to resize settings sidebar • Double-click to reset (380px)"
+              style={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                width: '6px',
+                height: '100%',
+                cursor: 'col-resize',
+                zIndex: 30,
+                background: isAdminSidebarResizing ? '#6c5ce7' : 'transparent',
+                transition: 'background 0.15s ease',
+              }}
+              className="hover:bg-indigo-500/30"
+            />
+          </div>
+
+          {/* 3. Live Preview Iframe */}
+          <div
+            id='qunix-preview-container'
+            style={{
+              flex: 1,
+              padding: '24px',
+              display: 'flex',
+              flexDirection: 'column',
+              boxSizing: 'border-box',
+              background: '#000000',
+              pointerEvents: isAdminSidebarResizing ? 'none' : 'auto',
             }}
           >
             <div
               style={{
-                position: 'relative',
-                width: '52px',
-                height: '52px',
+                padding: '12px 20px',
+                background: '#040405',
+                border: '1px solid #111114',
+                borderBottom: 'none',
+                borderTopLeftRadius: '12px',
+                borderTopRightRadius: '12px',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center',
+                justifyContent: 'space-between',
+                boxSizing: 'border-box',
               }}
-            >
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: 0,
-                  borderRadius: '50%',
-                  border: '2.5px solid rgba(108, 92, 231, 0.15)',
-                  borderTopColor: '#6c5ce7',
-                  animation: 'qunix-spin 0.8s linear infinite',
-                }}
-              />
-              <div
-                style={{
-                  position: 'absolute',
-                  inset: '7px',
-                  borderRadius: '50%',
-                  border: '2px solid rgba(162, 155, 254, 0.15)',
-                  borderBottomColor: '#a29bfe',
-                  animation: 'qunix-spin-reverse 1.2s linear infinite',
-                }}
-              />
-              <FontAwesomeIcon
-                icon={faCogs}
-                style={{
-                  fontSize: '16px',
-                  color: '#a29bfe',
-                  animation: 'qunix-pulse 1.6s ease-in-out infinite',
-                }}
-              />
-            </div>
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '13px', fontWeight: 600, color: '#e2e8f0', letterSpacing: '0.3px' }}>
-                {tExt('admin.loading', {})}
-              </div>
-            </div>
+            />
+            <iframe
+              ref={iframeRef}
+              src='/'
+              style={{
+                flex: 1,
+                border: '1px solid #111114',
+                borderBottomLeftRadius: '12px',
+                borderBottomRightRadius: '12px',
+                background: 'var(--ds-background, #1a1b26)',
+                boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.2)',
+              }}
+            />
           </div>
-        ) : (
-          <ScrollArea style={{ flex: 1, padding: '24px' }} type='auto'>
-            <form onSubmit={(e) => e.preventDefault()}>
-              <Stack gap='md' style={{ paddingBottom: '32px' }}>
-                {activeTab === 'colors' && <ColorsSettings form={form} />}
-                {activeTab === 'layout' && <LayoutSettings form={form} />}
-                {activeTab === 'stylings' && <StylingsSettings form={form} />}
-                {activeTab === 'sidebar' && <SidebarSettings form={form} extensions={extensions} />}
-                {activeTab === 'banners' && <BannersSettings form={form} nests={nests} />}
-                {activeTab === 'announcement' && <AnnouncementSettings form={form} />}
-                {activeTab === 'login-layout' && <LoginLayoutSettings form={form} />}
-                {activeTab === 'embed' && <EmbedSettings form={form} />}
-                {activeTab === 'advanced' && (
-                  <AdvancedSettings
-                    form={form}
-                    handleExportFile={handleExportFile}
-                    handleImportFile={handleImportFile}
-                    handleReset={handleReset}
-                  />
-                )}
-              </Stack>
-            </form>
-          </ScrollArea>
-        )}
-
-      </div>
-
-      {/* 3. Live Preview Iframe */}
-      <div
-        id='qunix-preview-container'
-        style={{
-          flex: 1,
-          padding: '24px',
-          display: 'flex',
-          flexDirection: 'column',
-          boxSizing: 'border-box',
-          background: '#000000',
-        }}
-      >
-        <div
-          style={{
-            padding: '12px 20px',
-            background: '#040405',
-            border: '1px solid #111114',
-            borderBottom: 'none',
-            borderTopLeftRadius: '12px',
-            borderTopRightRadius: '12px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            boxSizing: 'border-box',
-          }}
-        />
-        <iframe
-          ref={iframeRef}
-          src='/'
-          style={{
-            flex: 1,
-            border: '1px solid #111114',
-            borderBottomLeftRadius: '12px',
-            borderBottomRightRadius: '12px',
-            background: 'var(--ds-background, #1a1b26)',
-            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.2)',
-          }}
-        />
-      </div>
+        </>
+      )}
 
       {/* Floating Unsaved Changes Warning Banner */}
       {form.isDirty() && (

@@ -86,7 +86,6 @@ export const PreloaderCanvasDemo: React.FC<PreloaderCanvasDemoProps> = ({
   useEffect(() => {
     const src = logoUrl && logoUrl.trim() ? logoUrl.trim() : '/icon.svg';
     const img = new Image();
-    img.crossOrigin = 'anonymous';
     img.src = src;
     img.onload = () => {
       logoImgRef.current = img;
@@ -105,7 +104,6 @@ export const PreloaderCanvasDemo: React.FC<PreloaderCanvasDemoProps> = ({
   useEffect(() => {
     if (bgImage && bgImage.trim()) {
       const img = new Image();
-      img.crossOrigin = 'anonymous';
       img.src = bgImage.trim();
       img.onload = () => {
         bgImgRef.current = img;
@@ -181,31 +179,8 @@ export const PreloaderCanvasDemo: React.FC<PreloaderCanvasDemoProps> = ({
         ctx.restore();
       }
 
-      // Radial Ambient Glow
       const cx = width / 2;
       const cy = height / 2 - 10;
-      const radGlow = ctx.createRadialGradient(cx, cy, 5, cx, cy, width * 0.45);
-      radGlow.addColorStop(0, `${activeColor}22`);
-      radGlow.addColorStop(0.6, 'rgba(108, 92, 231, 0.08)');
-      radGlow.addColorStop(1, 'transparent');
-      ctx.fillStyle = radGlow;
-      ctx.fillRect(0, 0, width, height);
-
-      // Ambient Drifting Dust Particles
-      ctx.save();
-      particles.forEach((p) => {
-        p.y -= p.v;
-        if (p.y < 0) p.y = 1;
-        const px = p.x * width;
-        const py = p.y * height;
-        const pulse = p.a * (0.6 + 0.4 * Math.sin(time * 2 + p.x * 10));
-        ctx.fillStyle = activeColor;
-        ctx.globalAlpha = pulse;
-        ctx.beginPath();
-        ctx.arc(px, py, p.s, 0, Math.PI * 2);
-        ctx.fill();
-      });
-      ctx.restore();
 
       // 2. Draw Center Logo & App Name
       const logoImg = logoImgRef.current;
@@ -380,7 +355,7 @@ export const PreloaderCanvasDemo: React.FC<PreloaderCanvasDemoProps> = ({
                   alignItems: 'center',
                   gap: '10px',
                   transition: 'all 0.15s ease',
-                  boxShadow: isSelected ? '0 0 12px rgba(108, 92, 231, 0.2)' : 'none',
+                  boxShadow: 'none',
                 }}
               >
                 <div

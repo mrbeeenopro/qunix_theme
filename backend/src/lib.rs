@@ -22,12 +22,12 @@ impl Extension for ExtensionStruct {
   ██║▄▄ ██║██║   ██║██║╚██╗██║██║ ██╔██╗ \n\
   ╚██████╔╝╚██████╔╝██║ ╚████║██║██╔╝ ██╗\n\
    ╚══▀▀═╝  ╚═════╝ ╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝\n\
-   Theme  v1.4.7  —  Calagopus Panel\n\
+   Theme  v1.5.0  —  Calagopus Panel\n\
   \x1b[38;2;162;155;254m© 2026 Mrbeenopro · mrbeenopro.com · github.com/mrbeenopro/qunix_theme\x1b[0m\n\
   \x1b[38;2;46;213;115m🔑 [DEV API KEY]: {}\x1b[0m\n",
             dev_key
         );
-        tracing::info!("QUNIX_THEME v1.4.7 Loaded - Dev API Key: {}", dev_key);
+        tracing::info!("QUNIX_THEME v1.5.0 Loaded - Dev API Key: {}", dev_key);
     }
 
     async fn settings_deserializer(

@@ -36,7 +36,7 @@ export function qunixPreloaderPlugin(): Plugin {
     .qunix-build-blur-overlay {
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 50% 35%, rgba(108, 92, 231, 0.22), transparent 70%), rgba(7, 7, 8, 0.75);
+      background: rgba(7, 7, 8, 0.85);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
     }
@@ -68,7 +68,7 @@ export function qunixPreloaderPlugin(): Plugin {
       font-weight: 700;
       letter-spacing: -0.5px;
       color: #ffffff;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      text-shadow: none;
     }
     .qunix-build-subtitle {
       margin-top: 14px;
@@ -77,7 +77,7 @@ export function qunixPreloaderPlugin(): Plugin {
       letter-spacing: 2px;
       color: #a9b1d6;
       text-transform: uppercase;
-      text-shadow: 0 0 10px rgba(122, 162, 247, 0.4);
+      text-shadow: none;
     }
     @keyframes qunix-pulse {
       0%, 100% { transform: scale(1.03); opacity: 1; }
@@ -343,7 +343,7 @@ export function qunixPreloaderPlugin(): Plugin {
           try {
             var raw = localStorage.getItem('qunix_theme_settings');
             var s = raw ? JSON.parse(raw) : {};
-            if (s.enable_preloader === false) {
+            if (s.enable_preloader !== true) {
               var css = document.getElementById('qunix-build-preloader-css');
               if (css) css.remove();
               var shell = document.getElementById('qunix-preloader-shell');
