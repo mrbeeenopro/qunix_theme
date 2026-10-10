@@ -180,50 +180,11 @@ export function getCustomEggBanner(server: any, settings?: any): string | null {
 
 export function getEggImageUrl(server: any, settings?: any): string | null {
   if (!server) return null;
-
-  // 1. Priority: User custom configured banner/image in theme settings
-  const custom = getCustomEggBanner(server, settings);
-  if (custom) return custom;
-
-  // 2. Curated game/software icons based on egg name, nest name, or server name
-  const eggName = (server.egg?.name || '').toLowerCase();
-  const nestName = (server.nest?.name || '').toLowerCase();
-  const serverName = (server.name || '').toLowerCase();
-  const combined = `${eggName} ${nestName} ${serverName}`;
-
-  for (const [keyword, iconUrl] of Object.entries(GAME_EGG_ICONS)) {
-    if (combined.includes(keyword)) {
-      return iconUrl;
-    }
-  }
-
-  return null;
+  return getCustomEggBanner(server, settings);
 }
 
 export function getBannerUrl(server: any, settings?: any): string | null {
   if (!server) return null;
-
-  // 1. Priority: User custom configured banner/image in theme settings
-  const custom = getCustomEggBanner(server, settings);
-  if (custom) return custom;
-
-  // 2. Curated hero banners for background card effects
-  const eggName = (server.egg?.name || '').toLowerCase();
-  const nestName = (server.nest?.name || '').toLowerCase();
-  const serverName = (server.name || '').toLowerCase();
-  const combined = `${eggName} ${nestName} ${serverName}`;
-
-  for (const [keyword, bannerUrl] of Object.entries(GAME_HERO_BANNERS)) {
-    if (combined.includes(keyword)) {
-      return bannerUrl;
-    }
-  }
-
-  // 3. Fallback to egg icon avatar so custom egg images or curated icons are used as background banners
-  const eggIcon = getEggImageUrl(server, settings);
-  if (eggIcon) {
-    return eggIcon;
-  }
-
-  return null;
+  return getCustomEggBanner(server, settings);
 }
+

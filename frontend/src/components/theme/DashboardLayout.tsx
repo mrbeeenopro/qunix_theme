@@ -166,36 +166,7 @@ export function transformDashboardElements(
     }
 
     if (childEl.props && childEl.props.children && typeof childEl.props.children !== 'function') {
-      let kids = childEl.props.children;
-      if (Array.isArray(kids)) {
-        const hasServerItems = kids.some(
-          (c: any) =>
-            c?.type === ServerItem ||
-            c?.type?.name === 'ServerItem' ||
-            c?.props?.server ||
-            (typeof c?.type === 'object' && c?.type?.type === ServerItem)
-        );
-        if (hasServerItems) {
-          let orderArr: string[] = [];
-          try {
-            const saved = getUserDashboardItem('server_order', userUuid);
-            if (saved) orderArr = JSON.parse(saved);
-          } catch (_) { }
-          if (orderArr.length > 0) {
-            kids = [...kids].sort((a: any, b: any) => {
-              const uuidA = a?.props?.server?.uuid;
-              const uuidB = b?.props?.server?.uuid;
-              if (!uuidA || !uuidB) return 0;
-              const idxA = orderArr.indexOf(uuidA);
-              const idxB = orderArr.indexOf(uuidB);
-              if (idxA === -1 && idxB === -1) return 0;
-              if (idxA === -1) return 1;
-              if (idxB === -1) return -1;
-              return idxA - idxB;
-            });
-          }
-        }
-      }
+      const kids = childEl.props.children;
       return React.cloneElement(child, {
         children: transformDashboardElements(kids, activeLayout, isGrouped, userUuid),
       } as any);
@@ -348,61 +319,6 @@ export const QunixServerItemWrapper: React.FC<any> = (props) => {
     }
   });
 
-  const handleDragStart = (e: React.DragEvent) => {
-    if (!props.server?.uuid) return;
-    e.dataTransfer.setData('text/qunix-server-uuid', props.server.uuid);
-    e.dataTransfer.effectAllowed = 'move';
-  };
-
-  const handleDragOver = (e: React.DragEvent) => {
-    if (e.dataTransfer.types.includes('text/qunix-server-uuid')) {
-      e.preventDefault();
-      if (cardRef.current) {
-        cardRef.current.style.outline = '2px dashed #6c5ce7';
-        cardRef.current.style.borderRadius = '12px';
-      }
-    }
-  };
-
-  const handleDragLeave = () => {
-    if (cardRef.current) {
-      cardRef.current.style.outline = 'none';
-    }
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    if (cardRef.current) {
-      cardRef.current.style.outline = 'none';
-    }
-    const draggedUuid = e.dataTransfer.getData('text/qunix-server-uuid');
-    const targetUuid = props.server?.uuid;
-    if (!draggedUuid || !targetUuid || draggedUuid === targetUuid) return;
-
-    let currentOrder: string[] = [];
-    try {
-      const saved = getUserDashboardItem('server_order', user?.uuid);
-      if (saved) currentOrder = JSON.parse(saved);
-    } catch (_) { }
-
-    const mapKeys = Array.from((window as any).qunixRenderedServersMap?.keys() || []) as string[];
-    mapKeys.forEach((k) => {
-      if (!currentOrder.includes(k)) currentOrder.push(k);
-    });
-
-    if (!currentOrder.includes(draggedUuid)) currentOrder.push(draggedUuid);
-    if (!currentOrder.includes(targetUuid)) currentOrder.push(targetUuid);
-
-    const fromIdx = currentOrder.indexOf(draggedUuid);
-    const toIdx = currentOrder.indexOf(targetUuid);
-    if (fromIdx !== -1 && toIdx !== -1) {
-      currentOrder.splice(fromIdx, 1);
-      currentOrder.splice(toIdx, 0, draggedUuid);
-      setUserDashboardItem('server_order', JSON.stringify(currentOrder), user?.uuid);
-      window.dispatchEvent(new CustomEvent('qunix-server-order-changed'));
-    }
-  };
-
   const cardContent = isList ? (
     <QunixServerListRow
       server={props.server}
@@ -443,15 +359,9 @@ export const QunixServerItemWrapper: React.FC<any> = (props) => {
   return (
     <div
       ref={cardRef}
-      draggable={true}
-      onDragStart={handleDragStart}
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-      onDrop={handleDrop}
       className={`qunix-server-card-outer h-full min-w-0 ${isList ? 'w-full' : ''}`}
       data-server-grid-style={gridStyle}
       data-grid-style={gridStyle}
-      style={{ cursor: 'grab', transition: 'outline 0.15s ease' }}
     >
       {cardContent}
     </div>

@@ -832,26 +832,7 @@ export const ServerBannerComponent: React.FC = () => {
         (egg?.nest_uuid && eggBanners[egg.nest_uuid]) ||
         null;
 
-      const eggName = (egg?.name || '').toLowerCase();
-      const nestName = (nest?.name || '').toLowerCase();
-      const mcKeywords = [
-        'minecraft',
-        'paper',
-        'spigot',
-        'vanilla',
-        'purpur',
-        'forge',
-        'fabric',
-        'bedrock',
-        'bungeecord',
-        'velocity',
-        'mohist',
-        'sponge',
-        'leaves',
-        'folia',
-      ];
-      const isMinecraft = mcKeywords.some((k) => eggName.includes(k) || nestName.includes(k));
-      const bannerUrl = customBannerUrl || (isMinecraft ? 'https://xgamingserver.com/img/game-images/minecraft-hero.webp' : null);
+      const bannerUrl = customBannerUrl || null;
       if (bannerUrl) {
         root.style.setProperty('--ds-server-banner-image', `url("${bannerUrl}")`);
         root.classList.add('has-server-banner');

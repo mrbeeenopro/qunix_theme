@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPlay,
@@ -66,6 +66,7 @@ export const QunixServerGridCard: React.FC<QunixServerGridCardProps> = ({
   const { user } = useAuth();
   const { addToast } = useToast();
   const { handleBulkPowerAction, bulkActionLoading } = useBulkPowerActions();
+  const navigate = useNavigate();
 
   const [openModal, setOpenModal] = useState<'kill' | null>(null);
   const [copied, setCopied] = useState(false);
@@ -335,26 +336,37 @@ export const QunixServerGridCard: React.FC<QunixServerGridCardProps> = ({
             'default';
 
           return (
-            <Card
-              className={`qunix-server-grid-card qunix-card-flat qunix-grid-style-${resolvedGridStyle} qunix-server-status-${state} ${isSelected ? 'is-selected' : ''} ${bannerClasses.join(' ')}`}
-              style={{
-                ...bannerStyles,
-                position: 'relative',
-                overflow: 'hidden',
-              }}
-              data-grid-style={resolvedGridStyle}
-              data-component-overlay={resolvedOverlayStyle}
-              onClick={onClick}
-              onContextMenu={(e) => {
-                if (showContextMenu !== false) {
+            <NavLink
+              to={destination}
+              className='qunix-server-grid-card-link block min-w-0 h-full no-underline text-inherit'
+              onClick={(e) => {
+                if (sKeyPressedRef?.current) {
                   e.preventDefault();
-                  openMenu(e.clientX, e.clientY);
+                }
+                if (onClick) {
+                  onClick(e);
                 }
               }}
-              withBorder
-              radius='md'
-              p={0}
             >
+              <Card
+                className={`qunix-server-grid-card qunix-card-flat qunix-grid-style-${resolvedGridStyle} qunix-server-status-${state} ${isSelected ? 'is-selected' : ''} ${bannerClasses.join(' ')} cursor-pointer`}
+                style={{
+                  ...bannerStyles,
+                  position: 'relative',
+                  overflow: 'hidden',
+                }}
+                data-grid-style={resolvedGridStyle}
+                data-component-overlay={resolvedOverlayStyle}
+                onContextMenu={(e) => {
+                  if (showContextMenu !== false) {
+                    e.preventDefault();
+                    openMenu(e.clientX, e.clientY);
+                  }
+                }}
+                withBorder
+                radius='md'
+                p={0}
+              >
               {/* Mantine Banner Overlay with Selected Component Overlay Effect */}
               {resolvedBannerUrl && resolvedActiveStyle !== 'disabled' && (
                 <Box
@@ -399,16 +411,18 @@ export const QunixServerGridCard: React.FC<QunixServerGridCardProps> = ({
             <div className='flex items-center gap-3 min-w-0 flex-1'>
               {/* Optional Selection Checkbox */}
               {showSelection && onSelectionChange && (
-                <input
-                  type='checkbox'
-                  checked={isSelected}
-                  onChange={(e) => {
-                    e.stopPropagation();
-                    onSelectionChange(e.target.checked);
-                  }}
-                  className='qunix-checkbox-flat shrink-0 mr-0.5'
-                  aria-label='Select server'
-                />
+                <div onClick={(e) => e.stopPropagation()} className='shrink-0 mr-0.5 flex items-center'>
+                  <input
+                    type='checkbox'
+                    checked={isSelected}
+                    onChange={(e) => {
+                      e.stopPropagation();
+                      onSelectionChange(e.target.checked);
+                    }}
+                    className='qunix-checkbox-flat'
+                    aria-label='Select server'
+                  />
+                </div>
               )}
 
               {/* Server Icon with Status Indicator dot */}
@@ -421,15 +435,12 @@ export const QunixServerGridCard: React.FC<QunixServerGridCardProps> = ({
               </div>
 
               <div className='flex flex-col min-w-0 flex-1'>
-                <NavLink
-                  to={destination}
-                  className='text-base font-bold text-neutral-100 hover:text-blue-400 transition-colors no-underline truncate block leading-tight'
-                >
+                <span className='text-base font-bold text-neutral-100 hover:text-blue-400 transition-colors truncate block leading-tight'>
                   {server.name}
-                </NavLink>
+                </span>
                 <div className='flex items-center gap-1.5 text-xs text-neutral-400 mt-1'>
                   {server.egg?.name && (
-                    <span className='qunix-flat-badge-subtle text-[10px] uppercase font-mono truncate max-w-[130px]'>
+                    <span className='qunix-flat-badge-subtle text-[10px] uppercase font-mono truncate'>
                       {server.egg.name}
                     </span>
                   )}
@@ -444,13 +455,19 @@ export const QunixServerGridCard: React.FC<QunixServerGridCardProps> = ({
 
             {/* Quick Actions (Console Shortcut + Context Menu) */}
             <div className='flex items-center gap-1 shrink-0' onClick={(e) => e.stopPropagation()}>
-              <NavLink
-                to={`/server/${server.uuidShort || server.uuid.slice(0, 8)}/console`}
-                className='p-1.5 text-neutral-400 hover:text-blue-400 hover:bg-neutral-800/80 rounded transition-colors'
+              <button
+                type='button'
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  navigate(`/server/${server.uuidShort || server.uuid.slice(0, 8)}/console`);
+                }}
+                className='p-1.5 text-neutral-400 hover:text-blue-400 hover:bg-neutral-800/80 rounded transition-colors cursor-pointer bg-transparent border-0'
                 title='Open Console'
+                aria-label='Open Console'
               >
                 <FontAwesomeIcon icon={faTerminal} className='text-xs' />
-              </NavLink>
+              </button>
 
               {showContextMenu && (
                 <button
@@ -553,13 +570,10 @@ export const QunixServerGridCard: React.FC<QunixServerGridCardProps> = ({
               />
             </div>
 
-            <NavLink
-              to={destination}
-              className='text-neutral-400 hover:text-blue-400 flex items-center gap-1 font-medium transition-colors no-underline text-[11px]'
-            >
+            <span className='text-neutral-400 group-hover:text-blue-400 flex items-center gap-1 font-medium transition-colors text-[11px]'>
               <span>Manage</span>
               <FontAwesomeIcon icon={faChevronRight} className='text-[9px]' />
-            </NavLink>
+            </span>
           </div>
         </div>
 
@@ -574,12 +588,9 @@ export const QunixServerGridCard: React.FC<QunixServerGridCardProps> = ({
                   style={{ width: '6px', height: '6px' }}
                 />
               </div>
-              <NavLink
-                to={destination}
-                className='text-sm font-bold text-neutral-100 truncate no-underline'
-              >
+              <span className='text-sm font-bold text-neutral-100 truncate'>
                 {server.name}
-              </NavLink>
+              </span>
             </div>
             <span className='qunix-flat-badge text-[10px] uppercase font-bold shrink-0'>
               {state}
@@ -623,17 +634,15 @@ export const QunixServerGridCard: React.FC<QunixServerGridCardProps> = ({
                   <FontAwesomeIcon icon={faEllipsisVertical} className='text-xs' />
                 </button>
               )}
-              <NavLink
-                to={destination}
-                className='text-blue-400 font-medium text-xs flex items-center gap-1 no-underline'
-              >
+              <span className='text-blue-400 font-medium text-xs flex items-center gap-1'>
                 <span>Manage</span>
                 <FontAwesomeIcon icon={faChevronRight} className='text-[10px]' />
-              </NavLink>
+              </span>
             </div>
           </div>
         </div>
       </Card>
+    </NavLink>
     );
   }}
 </ContextMenu>
